@@ -13,6 +13,7 @@ import Tournaments from './pages/Tournaments';
 import TournamentDetails from './pages/TournamentDetails';
 import News from './pages/News';
 import NotFound from './pages/NotFound';
+import TarkovStats from './components/TarkovStats';
 import { GameDataProvider } from './context/GameDataContext';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
               <Route path="/matches/:id" element={<MatchDetails />} />
               <Route path="/tournaments" element={<Tournaments />} />
               <Route path="/tournaments/:id" element={<TournamentDetails />} />
+              <Route path="/tarkov" element={<TarkovStats />} />
               <Route path="/news" element={<News />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
