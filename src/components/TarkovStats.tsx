@@ -43,7 +43,7 @@ type SortField = 'player' | 'team' | 'totalKills' | 'totalDeaths' | 'kd' | 'kpr'
 type SortDirection = 'asc' | 'desc';
 type ViewMode = 'table' | 'cards' | 'charts';
 
-const TarkovStats: React.FC = () => {
+const Players: React.FC = () => {
   const [players, setPlayers] = useState<TarkovPlayer[]>([]);
   const [matchRecords, setMatchRecords] = useState<MatchRecord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ const TarkovStats: React.FC = () => {
       setError(null);
       
       // Try to load CSV file
-      const csvResponse = await fetch('/LCL SEEDING CUP GROUP A STATISTICS - SCOREBOARDS.csv');
+      const csvResponse = await fetch('/Ratings.csv');
       if (!csvResponse.ok) {
         throw new Error(`Failed to fetch CSV file: ${csvResponse.status}`);
       }
@@ -78,7 +78,7 @@ const TarkovStats: React.FC = () => {
       setPlayers(aggregatedPlayers);
       
     } catch (err) {
-      setError('Failed to load Tarkov statistics');
+      setError('Failed to load player statistics');
       console.error('Error loading data:', err);
     } finally {
       setLoading(false);
@@ -228,7 +228,7 @@ const TarkovStats: React.FC = () => {
     if (sortField === 'player' || sortField === 'team') {
       return direction * a[sortField].localeCompare(b[sortField]);
     }
-    return direction * (b[sortField] - a[sortField]);
+    return direction * (a[sortField] - b[sortField]);
   });
 
   const handleSort = (field: SortField) => {
@@ -293,7 +293,7 @@ const TarkovStats: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">LCL Seeding Cup Group A Statistics</h1>
+        <h1 className="text-3xl font-bold">Players</h1>
         <div className="flex space-x-4">
           <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md cursor-pointer transition flex items-center">
             <Upload className="h-4 w-4 mr-2" />
@@ -657,4 +657,4 @@ const TarkovStats: React.FC = () => {
   );
 };
 
-export default TarkovStats; 
+export default Players; 
