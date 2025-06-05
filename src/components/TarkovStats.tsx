@@ -254,11 +254,11 @@ const Players: React.FC = () => {
   };
 
   const getRatingBadge = (rating: number) => {
-    if (rating >= 1.2) return 'bg-green-600';
-    if (rating >= 1.0) return 'bg-blue-600';
-    if (rating >= 0.8) return 'bg-yellow-600';
-    if (rating >= 0.6) return 'bg-orange-600';
-    return 'bg-red-600';
+    if (rating >= 1.2) return 'bg-gradient-to-r from-green-600 to-green-500';
+    if (rating >= 1.0) return 'bg-gradient-to-r from-blue-600 to-blue-500';
+    if (rating >= 0.8) return 'bg-gradient-to-r from-yellow-600 to-yellow-500';
+    if (rating >= 0.6) return 'bg-gradient-to-r from-orange-600 to-orange-500';
+    return 'bg-gradient-to-r from-red-600 to-red-500';
   };
 
   if (loading) {
@@ -291,60 +291,42 @@ const Players: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Players</h1>
-        <div className="flex space-x-4">
-          <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md cursor-pointer transition flex items-center">
-            <Upload className="h-4 w-4 mr-2" />
-            Upload CSV
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleFileUpload}
-              className="hidden"
-            />
-          </label>
-          <button
-            onClick={exportToJSON}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition flex items-center"
-          >
-            <Download className="h-4 w-4 mr-2" />
-            Export Data
-          </button>
-        </div>
+        <h1 className="text-3xl font-bold text-white">Players</h1>
       </div>
 
       {/* Statistics Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">Total Players</h3>
-          <p className="text-3xl font-bold text-white">{players.length}</p>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
+          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Players</h3>
+          <p className="text-2xl font-bold text-white">{players.length}</p>
         </div>
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">Total Teams</h3>
-          <p className="text-3xl font-bold text-white">{uniqueTeams.length}</p>
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
+          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Teams</h3>
+          <p className="text-2xl font-bold text-white">{uniqueTeams.length}</p>
         </div>
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">Total Matches</h3>
-          <p className="text-3xl font-bold text-white">{new Set(matchRecords.map(r => r.gameId)).size}</p>
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
+          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Matches</h3>
+          <p className="text-2xl font-bold text-white">{new Set(matchRecords.map(r => r.gameId)).size}</p>
         </div>
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">Average Rating</h3>
-          <p className="text-3xl font-bold text-white">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
+          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Avg Rating</h3>
+          <p className="text-2xl font-bold text-white">
             {players.length > 0 ? (players.reduce((sum, p) => sum + p.rating, 0) / players.length).toFixed(2) : '0.00'}
           </p>
         </div>
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">Top K/D</h3>
-          <p className="text-3xl font-bold text-white">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
+          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Top K/D</h3>
+          <p className="text-2xl font-bold text-white">
             {players.length > 0 ? Math.max(...players.map(p => p.kd)).toFixed(2) : '0.00'}
           </p>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="bg-gray-800 rounded-lg p-4 mb-8">
+      <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 mb-8 border border-gray-700/50 shadow-2xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Search */}
           <div className="relative">
@@ -353,9 +335,9 @@ const Players: React.FC = () => {
               placeholder="Search players or teams..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-700 text-white pl-10 pr-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-700/50 text-white pl-10 pr-4 py-3 rounded-xl border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
             />
-            <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
           </div>
           
           {/* Team filter */}
@@ -364,7 +346,7 @@ const Players: React.FC = () => {
             <select
               value={filterTeam}
               onChange={(e) => setFilterTeam(e.target.value)}
-              className="w-full bg-gray-700 text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-700/50 text-white px-3 py-3 rounded-xl border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
             >
               <option value="">All Teams</option>
               {uniqueTeams.map(team => (
@@ -377,19 +359,19 @@ const Players: React.FC = () => {
           <div className="flex space-x-2">
             <button
               onClick={() => setViewMode('table')}
-              className={`px-3 py-2 rounded-md transition ${viewMode === 'table' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+              className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'table' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
             >
               Table
             </button>
             <button
               onClick={() => setViewMode('cards')}
-              className={`px-3 py-2 rounded-md transition ${viewMode === 'cards' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+              className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'cards' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
             >
               Cards
             </button>
             <button
               onClick={() => setViewMode('charts')}
-              className={`px-3 py-2 rounded-md transition ${viewMode === 'charts' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+              className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'charts' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
             >
               Charts
             </button>
@@ -397,7 +379,7 @@ const Players: React.FC = () => {
 
           {/* Results count */}
           <div className="flex items-center justify-end">
-            <span className="text-gray-400">
+            <span className="text-gray-400 text-sm font-medium">
               Showing {sortedPlayers.length} of {players.length} players
             </span>
           </div>
@@ -406,78 +388,78 @@ const Players: React.FC = () => {
 
       {/* Table View */}
       {viewMode === 'table' && (
-        <div className="bg-gray-800 rounded-lg overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-700">
+            <table className="w-full">
               <thead>
-                <tr className="bg-gray-900">
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                <tr className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border-b border-gray-700/50">
+                  <th className="px-4 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center space-x-1 hover:text-white transition-colors"
                       onClick={() => handleSort('player')}
                     >
                       <span>Player</span>
                       <SortIcon field="player" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center space-x-1 hover:text-white transition-colors"
                       onClick={() => handleSort('team')}
                     >
                       <span>Team</span>
                       <SortIcon field="team" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                       onClick={() => handleSort('totalKills')}
                     >
                       <span>Kills</span>
                       <SortIcon field="totalKills" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                       onClick={() => handleSort('totalDeaths')}
                     >
                       <span>Deaths</span>
                       <SortIcon field="totalDeaths" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Games</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 tracking-widest">Games</th>
+                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                       onClick={() => handleSort('kd')}
                     >
                       <span>K/D</span>
                       <SortIcon field="kd" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                       onClick={() => handleSort('kpr')}
                     >
                       <span>KPR</span>
                       <SortIcon field="kpr" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                       onClick={() => handleSort('winRate')}
                     >
-                      <span>Win Rate</span>
+                      <span>Win %</span>
                       <SortIcon field="winRate" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-4 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                     <button 
-                      className="flex items-center space-x-1 hover:text-white"
+                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                       onClick={() => handleSort('rating')}
                     >
                       <span>Rating</span>
@@ -486,43 +468,47 @@ const Players: React.FC = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-700">
-                {sortedPlayers.map((player, index) => (
-                  <tr key={`${player.player}-${index}`} className="hover:bg-gray-700 transition">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className={`w-3 h-3 rounded-full mr-3 ${getRatingBadge(player.rating)}`}></div>
-                        <span className="font-medium text-white">{player.player}</span>
+              <tbody>
+                                  {sortedPlayers.map((player, index) => (
+                    <tr key={`${player.player}-${index}`} className="border-b border-gray-700/30 hover:bg-gray-700/20 transition-all duration-300">
+                    <td className="px-4 py-4">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-2 h-2 rounded-full ${getRatingBadge(player.rating)}`}></div>
+                        <span className="font-medium text-white text-sm truncate max-w-32">{player.player}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-gray-300 font-medium">{player.team}</span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 font-mono">
-                      {player.totalKills}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 font-mono">
-                      {player.totalDeaths}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 font-mono">
-                      {player.gamesPlayed}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap font-mono">
-                      <span className={player.kd >= 1.5 ? 'text-green-500' : player.kd >= 1.0 ? 'text-yellow-500' : 'text-red-500'}>
-                        {player.kd.toFixed(2)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 font-mono">
-                      {player.kpr.toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 font-mono">
-                      {player.winRate.toFixed(1)}%
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap font-mono">
-                      <span className={`font-bold ${getRatingColor(player.rating)}`}>
-                        {player.rating.toFixed(2)}
-                      </span>
-                    </td>
+                                          <td className="px-3 py-4">
+                        <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-medium bg-gray-700/50 text-gray-300 border border-gray-600/50">
+                          {player.team}
+                        </span>
+                      </td>
+                                          <td className="px-3 py-4 text-center">
+                                                <span className="font-mono text-sm text-gray-200">{player.totalKills}</span>
+                      </td>
+                      <td className="px-3 py-4 text-center">
+                        <span className="font-mono text-sm text-gray-200">{player.totalDeaths}</span>
+                      </td>
+                      <td className="px-3 py-4 text-center">
+                        <span className="font-mono text-sm text-gray-300">{player.gamesPlayed}</span>
+                      </td>
+                      <td className="px-3 py-4 text-center">
+                        <span className={`font-mono text-sm font-medium ${player.kd >= 1.5 ? 'text-green-400' : player.kd >= 1.0 ? 'text-yellow-400' : 'text-red-400'}`}>
+                          {player.kd.toFixed(2)}
+                        </span>
+                      </td>
+                      <td className="px-3 py-4 text-center">
+                        <span className="font-mono text-sm text-gray-200">{player.kpr.toFixed(2)}</span>
+                      </td>
+                      <td className="px-3 py-4 text-center">
+                        <span className="font-mono text-sm text-gray-200">{player.winRate.toFixed(1)}%</span>
+                      </td>
+                                          <td className="px-4 py-4 text-center">
+                        <div className="flex items-center justify-center">
+                          <span className={`font-mono text-sm font-bold px-3 py-1.5 rounded-xl ${getRatingBadge(player.rating)} text-white shadow-lg`}>
+                            {player.rating.toFixed(2)}
+                          </span>
+                        </div>
+                      </td>
                   </tr>
                 ))}
               </tbody>
@@ -649,10 +635,11 @@ const Players: React.FC = () => {
       )}
 
       {sortedPlayers.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-xl text-gray-400">No players found. Try adjusting your filters.</p>
+        <div className="text-center py-16">
+          <p className="text-xl text-gray-400 font-medium">No players found. Try adjusting your filters.</p>
         </div>
       )}
+      </div>
     </div>
   );
 };
