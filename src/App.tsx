@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import Players from './pages/Players';
 import PlayerDetails from './pages/PlayerDetails';
 import Teams from './pages/Teams';
 import TeamDetails from './pages/TeamDetails';
@@ -25,7 +24,7 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/players" element={<Players />} />
+              <Route path="/players" element={<TarkovStats />} />
               <Route path="/players/:id" element={<PlayerDetails />} />
               <Route path="/teams" element={<Teams />} />
               <Route path="/teams/:id" element={<TeamDetails />} />
@@ -33,7 +32,6 @@ function App() {
               <Route path="/matches/:id" element={<MatchDetails />} />
               <Route path="/tournaments" element={<Tournaments />} />
               <Route path="/tournaments/:id" element={<TournamentDetails />} />
-              <Route path="/tarkov" element={<TarkovStats />} />
               <Route path="/news" element={<News />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

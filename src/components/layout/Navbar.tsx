@@ -26,7 +26,6 @@ const Navbar: React.FC = () => {
               <Link to="/tournaments" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tournaments</Link>
               <Link to="/teams" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</Link>
               <Link to="/players" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Players</Link>
-              <Link to="/tarkov" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tarkov Stats</Link>
               <Link to="/news" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">News</Link>
             </div>
           </div>
@@ -80,13 +79,6 @@ const Navbar: React.FC = () => {
               onClick={() => setIsOpen(false)}
             >
               Players
-            </Link>
-            <Link 
-              to="/tarkov" 
-              className="text-gray-300 hover:bg-lighter hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              onClick={() => setIsOpen(false)}
-            >
-              Tarkov Stats
             </Link>
             <Link 
               to="/news" 
