@@ -20,7 +20,7 @@ function App() {
     <Router>
       <GameDataProvider>
         <div className="min-h-screen bg-dark text-gray-100 flex flex-col">
-          <Navbar />
+          {/* <Navbar /> */}
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -36,7 +36,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </GameDataProvider>
     </Router>
