@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Match, Team } from '../../types';
 import { useGameData } from '../../context/GameDataContext';
 import { formatDate } from '../../utils/helpers';
-import { Calendar, MapPin, TrendingUp } from 'lucide-react';
+import { Clock, MapPin, ExternalLink, Play } from 'lucide-react';
 
 interface MatchCardProps {
   match: Match;
@@ -22,156 +22,175 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
 
   const statusConfig = {
     live: {
-      color: 'bg-red-500',
-      text: 'LIVE',
-      textColor: 'text-red-400',
-      borderColor: 'border-red-500/30',
-      bgGlow: 'shadow-red-500/10'
+      indicator: (
+        <div className="flex items-center space-x-2">
+          <div className="relative">
+            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div className="absolute inset-0 w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+          </div>
+          <span className="text-red-400 font-semibold text-sm">LIVE</span>
+        </div>
+      ),
+      borderColor: 'border-red-500/20',
+      bgClass: 'from-red-950/20 to-red-900/10'
     },
     upcoming: {
-      color: 'bg-blue-500',
-      text: 'UPCOMING',
-      textColor: 'text-blue-400',
-      borderColor: 'border-blue-500/30',
-      bgGlow: 'shadow-blue-500/10'
+      indicator: (
+        <div className="flex items-center space-x-2">
+          <Clock className="w-3.5 h-3.5 text-blue-400" />
+          <span className="text-blue-400 font-semibold text-sm">UPCOMING</span>
+        </div>
+      ),
+      borderColor: 'border-blue-500/20',
+      bgClass: 'from-blue-950/20 to-blue-900/10'
     },
     completed: {
-      color: 'bg-green-500',
-      text: 'COMPLETED',
-      textColor: 'text-green-400',
-      borderColor: 'border-green-500/30',
-      bgGlow: 'shadow-green-500/10'
+      indicator: (
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+          <span className="text-emerald-400 font-semibold text-sm">COMPLETED</span>
+        </div>
+      ),
+      borderColor: 'border-emerald-500/20',
+      bgClass: 'from-emerald-950/20 to-emerald-900/10'
     }
   };
 
   const currentStatus = isLive ? statusConfig.live : isUpcoming ? statusConfig.upcoming : statusConfig.completed;
 
   return (
-    <div className={`bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl ${currentStatus.bgGlow} border ${currentStatus.borderColor} backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 group`}>
-      {/* Enhanced header with gradient and better status indicator */}
-      <div className="relative bg-gradient-to-r from-gray-700 via-gray-700 to-gray-600 px-6 py-4">
+    <div className={`group relative bg-gradient-to-br ${currentStatus.bgClass} backdrop-blur-xl border ${currentStatus.borderColor} rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-black/20 cursor-pointer ${isLive ? 'animate-pulse-subtle animate-ambient-glow' : ''}`}>
+      {/* Live match lighting effects */}
+      {isLive && (
+        <>
+          {/* Animated lighting sweep */}
+          <div 
+            className="absolute inset-0 opacity-30 animate-lighting-sweep bg-300%"
+            style={{
+              background: 'linear-gradient(90deg, transparent 0%, rgba(239, 68, 68, 0.15) 30%, rgba(239, 68, 68, 0.3) 50%, rgba(239, 68, 68, 0.15) 70%, transparent 100%)',
+            }}
+          ></div>
+          
+          {/* Ambient glow overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent animate-pulse-glow rounded-3xl"></div>
+          
+          {/* Subtle animated border glow */}
+          <div className="absolute inset-0 rounded-3xl border border-red-500/30 animate-pulse" style={{ 
+            boxShadow: '0 0 20px rgba(239, 68, 68, 0.1), inset 0 0 20px rgba(239, 68, 68, 0.05)' 
+          }}></div>
+        </>
+      )}
+      
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+      </div>
+      
+      {/* Header */}
+      <div className="relative px-8 py-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 border-b border-white/5">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className={`${currentStatus.color} w-3 h-3 rounded-full animate-pulse shadow-lg`}></div>
-            <span className={`text-sm font-bold uppercase tracking-wider ${currentStatus.textColor}`}>
-              {currentStatus.text}
-            </span>
-            {isLive && (
-              <div className="flex items-center space-x-1">
-                <div className="w-2 h-2 bg-red-400 rounded-full animate-ping"></div>
-                <span className="text-xs text-red-300 font-medium">ON AIR</span>
-              </div>
-            )}
-          </div>
-          <div className="flex items-center space-x-2 text-gray-300">
-            <Calendar className="w-4 h-4" />
+          {currentStatus.indicator}
+          <div className="flex items-center space-x-3 text-slate-400">
+            <Clock className="w-4 h-4" />
             <span className="text-sm font-medium">{formatDate(match.date)}</span>
           </div>
         </div>
-        {/* Gradient overlay for depth */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent"></div>
       </div>
 
-      {/* Team information with enhanced design */}
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
+      {/* Main content */}
+      <div className="relative p-8">
+        <div className="flex items-center justify-between mb-8">
           {/* Team One */}
-          <div className="flex items-center space-x-4 flex-1">
-            <Link to={`/teams/${teamOne.id}`} className="group/team">
-              <div className="relative">
+          <div className="flex items-center space-x-6 flex-1">
+            <Link to={`/teams/${teamOne.id}`} className="group/team relative">
+              <div className="relative overflow-hidden rounded-2xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
                 <img 
                   src={teamOne.logo} 
                   alt={teamOne.name} 
-                  className="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-gray-600 group-hover/team:border-blue-400 transition-all duration-300"
+                  className="w-20 h-20 object-cover"
                 />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent to-white/10 opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
               </div>
             </Link>
-            <div className="space-y-1">
+            <div className="space-y-2">
               <Link 
                 to={`/teams/${teamOne.id}`} 
-                className="font-bold text-white hover:text-blue-400 transition-colors duration-300 text-lg"
+                className="block text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300"
               >
                 {teamOne.name}
               </Link>
-              <p className="text-sm text-gray-400 font-medium">{teamOne.tag}</p>
-              <div className="flex items-center space-x-1">
-                <TrendingUp className="w-3 h-3 text-gray-500" />
-                <span className="text-xs text-gray-500">{teamOne.region}</span>
-              </div>
+              <p className="text-slate-400 font-medium text-sm uppercase tracking-wider">{teamOne.tag}</p>
+              <p className="text-slate-500 text-xs">{teamOne.region}</p>
             </div>
           </div>
           
-          {/* Enhanced Score Display */}
-          <div className="flex items-center space-x-6 mx-8">
+          {/* Score */}
+          <div className="flex items-center space-x-8 mx-12">
             <div className="text-center">
-              <div className={`text-3xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-green-400' : 'text-gray-300'}`}>
+              <div className={`text-4xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
                 {match.teamOneScore}
               </div>
             </div>
             
-            <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-px bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600"></div>
-              <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">VS</span>
-              <div className="w-12 h-px bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600"></div>
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
+              <span className="text-xs text-slate-500 font-bold my-2 tracking-[0.2em]">VS</span>
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
             </div>
             
             <div className="text-center">
-              <div className={`text-3xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-green-400' : 'text-gray-300'}`}>
+              <div className={`text-4xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
                 {match.teamTwoScore}
               </div>
             </div>
           </div>
           
           {/* Team Two */}
-          <div className="flex items-center justify-end space-x-4 flex-1">
-            <div className="space-y-1 text-right">
+          <div className="flex items-center justify-end space-x-6 flex-1">
+            <div className="space-y-2 text-right">
               <Link 
                 to={`/teams/${teamTwo.id}`} 
-                className="font-bold text-white hover:text-blue-400 transition-colors duration-300 text-lg"
+                className="block text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300"
               >
                 {teamTwo.name}
               </Link>
-              <p className="text-sm text-gray-400 font-medium">{teamTwo.tag}</p>
-                             <div className="flex items-center justify-end space-x-1">
-                 <span className="text-xs text-gray-500">{teamTwo.region}</span>
-                 <TrendingUp className="w-3 h-3 text-gray-500" />
-               </div>
+              <p className="text-slate-400 font-medium text-sm uppercase tracking-wider">{teamTwo.tag}</p>
+              <p className="text-slate-500 text-xs">{teamTwo.region}</p>
             </div>
-            <Link to={`/teams/${teamTwo.id}`} className="group/team">
-              <div className="relative">
+            <Link to={`/teams/${teamTwo.id}`} className="group/team relative">
+              <div className="relative overflow-hidden rounded-2xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
                 <img 
                   src={teamTwo.logo} 
                   alt={teamTwo.name} 
-                  className="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-gray-600 group-hover/team:border-blue-400 transition-all duration-300"
+                  className="w-20 h-20 object-cover"
                 />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent to-white/10 opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
               </div>
             </Link>
           </div>
         </div>
         
-        {/* Enhanced Map information */}
+        {/* Maps */}
         {variant === 'full' && match.maps.length > 0 && (
-          <div className="mt-6 pt-6 border-t border-gray-700/50">
-            <div className="flex items-center space-x-2 mb-4">
-              <MapPin className="w-4 h-4 text-gray-400" />
-              <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Maps Played</h4>
+          <div className="mb-8 p-6 bg-slate-800/30 rounded-2xl border border-slate-700/50">
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-8 h-8 bg-slate-700/50 rounded-lg flex items-center justify-center">
+                <MapPin className="w-4 h-4 text-slate-400" />
+              </div>
+              <h4 className="text-slate-300 font-semibold">Maps Played</h4>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {match.maps.map((map, index) => (
-                <div key={index} className="bg-gray-700/30 rounded-xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-colors duration-300">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-200 font-medium text-sm">{map.name}</span>
-                    <div className="flex items-center space-x-2">
-                      <span className={`text-lg font-bold ${map.teamOneScore > map.teamTwoScore ? 'text-green-400' : 'text-gray-400'}`}>
-                        {map.teamOneScore}
-                      </span>
-                      <span className="text-gray-500 text-sm">-</span>
-                      <span className={`text-lg font-bold ${map.teamTwoScore > map.teamOneScore ? 'text-green-400' : 'text-gray-400'}`}>
-                        {map.teamTwoScore}
-                      </span>
-                    </div>
+                <div key={index} className="flex justify-between items-center p-4 bg-slate-700/20 rounded-xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 hover:scale-[1.02]">
+                  <span className="text-slate-200 font-medium">{map.name}</span>
+                  <div className="flex items-center space-x-3">
+                    <span className={`text-lg font-bold ${map.teamOneScore > map.teamTwoScore ? 'text-emerald-400' : 'text-slate-400'}`}>
+                      {map.teamOneScore}
+                    </span>
+                    <span className="text-slate-500">–</span>
+                    <span className={`text-lg font-bold ${map.teamTwoScore > map.teamOneScore ? 'text-emerald-400' : 'text-slate-400'}`}>
+                      {map.teamTwoScore}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -179,19 +198,35 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           </div>
         )}
         
-        {/* Enhanced action button */}
-        <div className="mt-6">
-          <Link 
-            to={`/matches/${match.id}`} 
-            className={`block w-full text-center py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-[1.02] ${
-              isLive 
-                ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-lg shadow-red-500/25' 
-                : 'bg-gradient-to-r from-gray-600 to-gray-500 hover:from-gray-500 hover:to-gray-400 text-white shadow-lg'
-            }`}
-          >
-            {isLive ? '🔴 Watch Live' : 'View Details'}
-          </Link>
-        </div>
+        {/* Modern action button */}
+        <Link 
+          to={`/matches/${match.id}`} 
+          className={`group/button relative block w-full overflow-hidden rounded-2xl transition-all duration-300 transform hover:scale-[1.02] ${
+            isLive 
+              ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 shadow-lg shadow-red-500/20 hover:shadow-red-500/30' 
+              : 'bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 shadow-lg shadow-black/20'
+          }`}
+        >
+          <div className="relative px-8 py-5">
+            <div className="flex items-center justify-center space-x-3">
+              {isLive ? (
+                <>
+                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                    <Play className="w-3 h-3 text-white fill-current" />
+                  </div>
+                  <span className="text-white font-semibold">Watch Live</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-white font-semibold">View Details</span>
+                  <ExternalLink className="w-4 h-4 text-white/80 group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5 transition-transform duration-300" />
+                </>
+              )}
+            </div>
+          </div>
+          {/* Subtle hover effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover/button:translate-x-[100%] transition-transform duration-700"></div>
+        </Link>
       </div>
     </div>
   );
