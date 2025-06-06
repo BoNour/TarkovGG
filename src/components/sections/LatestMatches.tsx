@@ -34,13 +34,13 @@ const LatestMatches: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="py-24" style={{ backgroundColor: '#1a1b1b' }}>
+      <div className="py-16" style={{ backgroundColor: '#1a1b1b' }}>
         <div className="container mx-auto px-4">
           <div className="animate-pulse">
             <div className="h-8 w-48 rounded mb-8 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-48 rounded-3xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
+                <div key={i} className="h-64 rounded-2xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
               ))}
             </div>
           </div>
@@ -50,84 +50,81 @@ const LatestMatches: React.FC = () => {
   }
 
   return (
-    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
+    <section className="py-16 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
       {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.01]">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
       </div>
       
-      <div className="container mx-auto px-4 relative">
-        {/* Modern section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-4 mb-8">
+      <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
+        {/* Compact section header */}
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-12">
+          <div className="flex items-center space-x-4 mb-6 lg:mb-0">
             <div className="relative">
-              <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center">
-                <Activity className="w-7 h-7 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
+                <Activity className="w-6 h-6 text-white" />
               </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                <Zap className="w-2.5 h-2.5 text-white" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                <Zap className="w-2 h-2 text-white" />
               </div>
             </div>
-            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
-              Latest Matches
-            </h2>
-            {liveMatchCount > 0 && (
-              <div className="flex items-center space-x-2 px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-full animate-pulse">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
-                <span className="text-red-400 text-sm font-bold">{liveMatchCount} LIVE</span>
-              </div>
-            )}
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
+                Latest Matches
+              </h2>
+              {liveMatchCount > 0 && (
+                <div className="flex items-center space-x-2 mt-2">
+                  <div className="flex items-center space-x-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full animate-pulse">
+                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping"></div>
+                    <span className="text-red-400 text-xs font-bold">{liveMatchCount} LIVE</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <p className="text-xl text-gray-300 font-medium max-w-3xl mx-auto leading-relaxed mb-10">
-            Stay updated with the most recent competitive matches and live events from the professional scene
-          </p>
           
-          {/* Modern call to action */}
+          {/* Compact call to action */}
           <Link 
             to="/matches" 
-            className="group relative inline-flex items-center space-x-4 overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+            className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
           >
-            <span className="relative z-10">Explore All Matches</span>
-            <div className="relative z-10 w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
-            </div>
-            {/* Shimmer effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <span>View All</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
           </Link>
         </div>
         
-        {/* Modern matches grid */}
-        <div className="grid grid-cols-1 gap-10 max-w-5xl mx-auto">
+        {/* Horizontal matches grid - improved for better space utilization */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
           {latestMatches.map((match, index) => (
             <div key={match.id} className="relative">
               {/* Live match indicator */}
               {match.status === 'live' && (
-                <div className="absolute -top-2 left-6 z-10">
-                  <div className="flex items-center space-x-2 px-4 py-2 bg-red-500 text-white text-sm font-bold rounded-full shadow-lg animate-pulse">
-                    <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
-                    <span>LIVE NOW</span>
+                <div className="absolute -top-2 left-4 z-10">
+                  <div className="flex items-center space-x-1 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
+                    <span>LIVE</span>
                   </div>
                 </div>
               )}
-              <MatchCard match={match} variant="full" />
+              <MatchCard match={match} variant="compact" />
             </div>
           ))}
         </div>
         
-        {/* Modern no matches state */}
+        {/* Compact no matches state */}
         {latestMatches.length === 0 && (
-          <div className="text-center py-20">
-            <div className="max-w-lg mx-auto">
-              <div className="w-28 h-28 mx-auto mb-8 rounded-full flex items-center justify-center border" 
+          <div className="text-center py-12">
+            <div className="max-w-md mx-auto">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center border" 
                    style={{ 
                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
                      borderColor: 'rgba(255, 255, 255, 0.1)'
                    }}>
-                <Activity className="w-14 h-14 text-gray-400" />
+                <Activity className="w-10 h-10 text-gray-400" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-200 mb-4">No recent matches</h3>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Check back soon for upcoming matches and live events from the competitive scene
+              <h3 className="text-xl font-bold text-gray-200 mb-3">No recent matches</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Check back soon for upcoming matches and live events
               </p>
             </div>
           </div>

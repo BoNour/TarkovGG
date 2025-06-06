@@ -41,15 +41,12 @@ const FeaturedTournaments: React.FC = () => {
   if (isLoading) {
     return (
       <div className="py-24" style={{ backgroundColor: '#1a1b1b' }}>
-        <div className="container mx-auto px-6">
-          <div className="animate-pulse space-y-8">
-            <div className="flex justify-between items-center">
-              <div className="h-10 w-64 rounded-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
-              <div className="h-6 w-40 rounded-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="container mx-auto px-4">
+          <div className="animate-pulse">
+            <div className="h-8 w-48 rounded mb-8 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-96 rounded-2xl backdrop-blur-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
+                <div key={i} className="h-64 rounded-2xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
               ))}
             </div>
           </div>
@@ -105,7 +102,7 @@ const FeaturedTournaments: React.FC = () => {
         </div>
         
         {/* Tournament Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredTournaments.map((tournament, index) => (
             <div 
               key={tournament.id}
@@ -115,29 +112,6 @@ const FeaturedTournaments: React.FC = () => {
               <TournamentCard tournament={tournament} />
             </div>
           ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="mt-20 text-center">
-          <div className="inline-flex flex-col items-center space-y-4 p-8 backdrop-blur-sm border rounded-2xl"
-               style={{ 
-                 background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(236, 72, 153, 0.08) 50%, rgba(168, 85, 247, 0.08) 100%)',
-                 borderColor: 'rgba(168, 85, 247, 0.15)'
-               }}>
-            <div className="p-3 rounded-full" style={{ backgroundColor: 'rgba(168, 85, 247, 0.15)' }}>
-              <Calendar className="w-8 h-8 text-purple-400" />
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold text-white">Join the Competition</h3>
-              <p className="text-gray-300">Register now for upcoming tournaments and climb the leaderboards.</p>
-            </div>
-            <Link 
-              to="/tournaments" 
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-semibold text-white hover:scale-105 transition-transform duration-300"
-            >
-              Register Now
-            </Link>
-          </div>
         </div>
       </div>
     </section>

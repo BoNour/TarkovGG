@@ -21,7 +21,7 @@ function App() {
       <GameDataProvider>
         <div className="min-h-screen bg-dark text-gray-100 flex flex-col">
           <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow pt-16">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/players" element={<TarkovStats />} />

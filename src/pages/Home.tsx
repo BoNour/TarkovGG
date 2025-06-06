@@ -165,7 +165,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Content sections with modern spacing */}
-      <div className="space-y-32" style={{ backgroundColor: '#1a1b1b' }}>
+      <div className="space-y-16" style={{ backgroundColor: '#1a1b1b' }}>
         {/* Live Matches Section */}
         <section id="live-matches" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/3 to-transparent"></div>

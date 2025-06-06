@@ -98,71 +98,71 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
       </div>
 
       {/* Main content */}
-      <div className="relative p-8">
-        <div className="flex items-center justify-between mb-8">
+      <div className="relative p-6">
+        <div className="flex items-center justify-between mb-6">
           {/* Team One */}
-          <div className="flex items-center space-x-6 flex-1">
-            <Link to={`/teams/${teamOne.id}`} className="group/team relative">
-              <div className="relative overflow-hidden rounded-2xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
+          <div className="flex items-center space-x-4 flex-1 min-w-0 max-w-[40%]">
+            <Link to={`/teams/${teamOne.id}`} className="group/team relative flex-shrink-0">
+              <div className="relative overflow-hidden rounded-xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
                 <img 
                   src={teamOne.logo} 
                   alt={teamOne.name} 
-                  className="w-20 h-20 object-cover"
+                  className="w-14 h-14 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
               </div>
             </Link>
-            <div className="space-y-2">
+            <div className="space-y-1 min-w-0 flex-1">
               <Link 
                 to={`/teams/${teamOne.id}`} 
-                className="block text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300"
+                className="block text-base font-bold text-white hover:text-blue-400 transition-colors duration-300 leading-tight"
               >
                 {teamOne.name}
               </Link>
-              <p className="text-slate-400 font-medium text-sm uppercase tracking-wider">{teamOne.tag}</p>
+              <p className="text-slate-400 font-medium text-xs uppercase tracking-wider">{teamOne.tag}</p>
               <p className="text-slate-500 text-xs">{teamOne.region}</p>
             </div>
           </div>
           
           {/* Score */}
-          <div className="flex items-center space-x-8 mx-12">
+          <div className="flex items-center space-x-4 mx-6 flex-shrink-0">
             <div className="text-center">
-              <div className={`text-4xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
+              <div className={`text-2xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
                 {match.teamOneScore}
               </div>
             </div>
             
             <div className="flex flex-col items-center">
-              <div className="w-16 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
-              <span className="text-xs text-slate-500 font-bold my-2 tracking-[0.2em]">VS</span>
-              <div className="w-16 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
+              <span className="text-xs text-slate-500 font-bold my-1 tracking-[0.2em]">VS</span>
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
             </div>
             
             <div className="text-center">
-              <div className={`text-4xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
+              <div className={`text-2xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
                 {match.teamTwoScore}
               </div>
             </div>
           </div>
           
           {/* Team Two */}
-          <div className="flex items-center justify-end space-x-6 flex-1">
-            <div className="space-y-2 text-right">
+          <div className="flex items-center justify-end space-x-4 flex-1 min-w-0 max-w-[40%]">
+            <div className="space-y-1 text-right min-w-0 flex-1">
               <Link 
                 to={`/teams/${teamTwo.id}`} 
-                className="block text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300"
+                className="block text-base font-bold text-white hover:text-blue-400 transition-colors duration-300 leading-tight"
               >
                 {teamTwo.name}
               </Link>
-              <p className="text-slate-400 font-medium text-sm uppercase tracking-wider">{teamTwo.tag}</p>
+              <p className="text-slate-400 font-medium text-xs uppercase tracking-wider">{teamTwo.tag}</p>
               <p className="text-slate-500 text-xs">{teamTwo.region}</p>
             </div>
-            <Link to={`/teams/${teamTwo.id}`} className="group/team relative">
-              <div className="relative overflow-hidden rounded-2xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
+            <Link to={`/teams/${teamTwo.id}`} className="group/team relative flex-shrink-0">
+              <div className="relative overflow-hidden rounded-xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
                 <img 
                   src={teamTwo.logo} 
                   alt={teamTwo.name} 
-                  className="w-20 h-20 object-cover"
+                  className="w-14 h-14 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
               </div>
