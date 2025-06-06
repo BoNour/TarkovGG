@@ -34,13 +34,13 @@ const LatestMatches: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="py-24">
+      <div className="py-24" style={{ backgroundColor: '#1a1b1b' }}>
         <div className="container mx-auto px-4">
           <div className="animate-pulse">
-            <div className="h-8 w-48 bg-slate-700 rounded mb-8 mx-auto"></div>
+            <div className="h-8 w-48 rounded mb-8 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
             <div className="grid grid-cols-1 gap-6">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-48 bg-slate-700/30 rounded-3xl"></div>
+                <div key={i} className="h-48 rounded-3xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
               ))}
             </div>
           </div>
@@ -50,9 +50,9 @@ const LatestMatches: React.FC = () => {
   }
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
       {/* Background texture */}
-      <div className="absolute inset-0 opacity-[0.02]">
+      <div className="absolute inset-0 opacity-[0.01]">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
       </div>
       
@@ -68,7 +68,7 @@ const LatestMatches: React.FC = () => {
                 <Zap className="w-2.5 h-2.5 text-white" />
               </div>
             </div>
-            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
               Latest Matches
             </h2>
             {liveMatchCount > 0 && (
@@ -78,7 +78,7 @@ const LatestMatches: React.FC = () => {
               </div>
             )}
           </div>
-          <p className="text-xl text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-xl text-gray-300 font-medium max-w-3xl mx-auto leading-relaxed mb-10">
             Stay updated with the most recent competitive matches and live events from the professional scene
           </p>
           
@@ -118,11 +118,15 @@ const LatestMatches: React.FC = () => {
         {latestMatches.length === 0 && (
           <div className="text-center py-20">
             <div className="max-w-lg mx-auto">
-              <div className="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-slate-700/30 to-slate-800/30 rounded-full flex items-center justify-center border border-slate-600/30">
-                <Activity className="w-14 h-14 text-slate-500" />
+              <div className="w-28 h-28 mx-auto mb-8 rounded-full flex items-center justify-center border" 
+                   style={{ 
+                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                     borderColor: 'rgba(255, 255, 255, 0.1)'
+                   }}>
+                <Activity className="w-14 h-14 text-gray-400" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-300 mb-4">No recent matches</h3>
-              <p className="text-slate-400 text-lg leading-relaxed">
+              <h3 className="text-2xl font-bold text-gray-200 mb-4">No recent matches</h3>
+              <p className="text-gray-300 text-lg leading-relaxed">
                 Check back soon for upcoming matches and live events from the competitive scene
               </p>
             </div>
