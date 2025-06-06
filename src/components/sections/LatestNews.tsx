@@ -47,25 +47,14 @@ const LatestNews: React.FC = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/3 to-transparent"></div>
       
-      <div className="container mx-auto px-4 relative">
-        {/* Modern section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-4 mb-8">
-            <div className="relative">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
-                <Newspaper className="w-7 h-7 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                <Star className="w-2.5 h-2.5 text-white" />
-              </div>
-            </div>
+      <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
+        {/* Section header */}
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
+          <div className="space-y-4">
             <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
               Latest News
             </h2>
           </div>
-          <p className="text-xl text-gray-300 font-medium max-w-3xl mx-auto leading-relaxed mb-10">
-            Stay informed with the latest updates, announcements, and stories from the gaming world
-          </p>
           
           {/* Modern call to action */}
           <Link 

@@ -31,8 +31,8 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           <span className="text-red-400 font-semibold text-sm">LIVE</span>
         </div>
       ),
-      borderColor: 'border-red-500/20',
-      bgClass: 'from-red-950/20 to-red-900/10'
+      cardStyle: 'from-red-950/20 via-red-900/10 to-transparent border-red-500/20',
+      bgOverlay: 'bg-gradient-to-br from-red-500/5 to-transparent'
     },
     upcoming: {
       indicator: (
@@ -41,8 +41,8 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           <span className="text-blue-400 font-semibold text-sm">UPCOMING</span>
         </div>
       ),
-      borderColor: 'border-blue-500/20',
-      bgClass: 'from-blue-950/20 to-blue-900/10'
+      cardStyle: 'from-blue-950/20 via-blue-900/10 to-transparent border-blue-500/20',
+      bgOverlay: 'bg-gradient-to-br from-blue-500/5 to-transparent'
     },
     completed: {
       indicator: (
@@ -51,46 +51,29 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           <span className="text-emerald-400 font-semibold text-sm">COMPLETED</span>
         </div>
       ),
-      borderColor: 'border-emerald-500/20',
-      bgClass: 'from-emerald-950/20 to-emerald-900/10'
+      cardStyle: 'from-emerald-950/20 via-emerald-900/10 to-transparent border-emerald-500/20',
+      bgOverlay: 'bg-gradient-to-br from-emerald-500/5 to-transparent'
     }
   };
 
   const currentStatus = isLive ? statusConfig.live : isUpcoming ? statusConfig.upcoming : statusConfig.completed;
 
   return (
-    <div className={`group relative bg-gradient-to-br ${currentStatus.bgClass} backdrop-blur-xl border ${currentStatus.borderColor} rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-black/20 cursor-pointer ${isLive ? 'animate-pulse-subtle animate-ambient-glow' : ''}`}>
-      {/* Live match lighting effects */}
+    <div className={`group relative bg-gradient-to-br ${currentStatus.cardStyle} backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer ${isLive ? 'animate-pulse-subtle' : ''}`}
+         style={{ 
+           backgroundColor: 'rgba(255, 255, 255, 0.03)'
+         }}>
+      
+      {/* Live match effects */}
       {isLive && (
-        <>
-          {/* Animated lighting sweep */}
-          <div 
-            className="absolute inset-0 opacity-30 animate-lighting-sweep bg-300%"
-            style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(239, 68, 68, 0.15) 30%, rgba(239, 68, 68, 0.3) 50%, rgba(239, 68, 68, 0.15) 70%, transparent 100%)',
-            }}
-          ></div>
-          
-          {/* Ambient glow overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent animate-pulse-glow rounded-3xl"></div>
-          
-          {/* Subtle animated border glow */}
-          <div className="absolute inset-0 rounded-3xl border border-red-500/30 animate-pulse" style={{ 
-            boxShadow: '0 0 20px rgba(239, 68, 68, 0.1), inset 0 0 20px rgba(239, 68, 68, 0.05)' 
-          }}></div>
-        </>
+        <div className={`absolute inset-0 ${currentStatus.bgOverlay} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}></div>
       )}
       
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-      </div>
-      
       {/* Header */}
-      <div className="relative px-8 py-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 border-b border-white/5">
+      <div className="relative px-6 py-4 border-b" style={{ borderBottomColor: 'rgba(255, 255, 255, 0.1)' }}>
         <div className="flex justify-between items-center">
           {currentStatus.indicator}
-          <div className="flex items-center space-x-3 text-slate-400">
+          <div className="flex items-center space-x-3 text-gray-400">
             <Clock className="w-4 h-4" />
             <span className="text-sm font-medium">{formatDate(match.date)}</span>
           </div>
@@ -103,7 +86,14 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           {/* Team One */}
           <div className="flex items-center space-x-4 flex-1 min-w-0 max-w-[40%]">
             <Link to={`/teams/${teamOne.id}`} className="group/team relative flex-shrink-0">
-              <div className="relative overflow-hidden rounded-xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
+              <div className="relative overflow-hidden rounded-xl border-2 transition-all duration-300 transform group-hover/team:scale-110" 
+                   style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                   }}>
                 <img 
                   src={teamOne.logo} 
                   alt={teamOne.name} 
@@ -119,27 +109,27 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
               >
                 {teamOne.name}
               </Link>
-              <p className="text-slate-400 font-medium text-xs uppercase tracking-wider">{teamOne.tag}</p>
-              <p className="text-slate-500 text-xs">{teamOne.region}</p>
+              <p className="text-gray-400 font-medium text-xs uppercase tracking-wider">{teamOne.tag}</p>
+              <p className="text-gray-500 text-xs">{teamOne.region}</p>
             </div>
           </div>
           
           {/* Score */}
           <div className="flex items-center space-x-4 mx-6 flex-shrink-0">
             <div className="text-center">
-              <div className={`text-2xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
+              <div className={`text-2xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-gray-300'} transition-colors duration-300 transform group-hover:scale-110`}>
                 {match.teamOneScore}
               </div>
             </div>
             
             <div className="flex flex-col items-center">
-              <div className="w-8 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
-              <span className="text-xs text-slate-500 font-bold my-1 tracking-[0.2em]">VS</span>
-              <div className="w-8 h-px bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent"></div>
+              <span className="text-xs text-gray-500 font-bold my-1 tracking-[0.2em]">VS</span>
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent"></div>
             </div>
             
             <div className="text-center">
-              <div className={`text-2xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-slate-300'} transition-colors duration-300 transform group-hover:scale-110`}>
+              <div className={`text-2xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-gray-300'} transition-colors duration-300 transform group-hover:scale-110`}>
                 {match.teamTwoScore}
               </div>
             </div>
@@ -154,11 +144,18 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
               >
                 {teamTwo.name}
               </Link>
-              <p className="text-slate-400 font-medium text-xs uppercase tracking-wider">{teamTwo.tag}</p>
-              <p className="text-slate-500 text-xs">{teamTwo.region}</p>
+              <p className="text-gray-400 font-medium text-xs uppercase tracking-wider">{teamTwo.tag}</p>
+              <p className="text-gray-500 text-xs">{teamTwo.region}</p>
             </div>
             <Link to={`/teams/${teamTwo.id}`} className="group/team relative flex-shrink-0">
-              <div className="relative overflow-hidden rounded-xl border-2 border-slate-600/50 group-hover/team:border-blue-400/60 transition-all duration-300 transform group-hover/team:scale-110">
+              <div className="relative overflow-hidden rounded-xl border-2 transition-all duration-300 transform group-hover/team:scale-110"
+                   style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                   }}>
                 <img 
                   src={teamTwo.logo} 
                   alt={teamTwo.name} 
@@ -172,23 +169,42 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
         
         {/* Maps */}
         {variant === 'full' && match.maps.length > 0 && (
-          <div className="mb-8 p-6 bg-slate-800/30 rounded-2xl border border-slate-700/50">
+          <div className="mb-8 p-6 rounded-2xl border" 
+               style={{ 
+                 backgroundColor: 'rgba(255, 255, 255, 0.03)', 
+                 borderColor: 'rgba(255, 255, 255, 0.1)' 
+               }}>
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-8 h-8 bg-slate-700/50 rounded-lg flex items-center justify-center">
-                <MapPin className="w-4 h-4 text-slate-400" />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center border"
+                   style={{ 
+                     backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+                     borderColor: 'rgba(255, 255, 255, 0.1)' 
+                   }}>
+                <MapPin className="w-4 h-4 text-gray-400" />
               </div>
-              <h4 className="text-slate-300 font-semibold">Maps Played</h4>
+              <h4 className="text-gray-300 font-semibold">Maps Played</h4>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {match.maps.map((map, index) => (
-                <div key={index} className="flex justify-between items-center p-4 bg-slate-700/20 rounded-xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 hover:scale-[1.02]">
-                  <span className="text-slate-200 font-medium">{map.name}</span>
+                <div key={index} 
+                     className="flex justify-between items-center p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02]"
+                     style={{ 
+                       backgroundColor: 'rgba(255, 255, 255, 0.02)', 
+                       borderColor: 'rgba(255, 255, 255, 0.1)' 
+                     }}
+                     onMouseEnter={(e) => {
+                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                     }}
+                     onMouseLeave={(e) => {
+                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                     }}>
+                  <span className="text-gray-200 font-medium">{map.name}</span>
                   <div className="flex items-center space-x-3">
-                    <span className={`text-lg font-bold ${map.teamOneScore > map.teamTwoScore ? 'text-emerald-400' : 'text-slate-400'}`}>
+                    <span className={`text-lg font-bold ${map.teamOneScore > map.teamTwoScore ? 'text-emerald-400' : 'text-gray-400'}`}>
                       {map.teamOneScore}
                     </span>
-                    <span className="text-slate-500">–</span>
-                    <span className={`text-lg font-bold ${map.teamTwoScore > map.teamOneScore ? 'text-emerald-400' : 'text-slate-400'}`}>
+                    <span className="text-gray-500">–</span>
+                    <span className={`text-lg font-bold ${map.teamTwoScore > map.teamOneScore ? 'text-emerald-400' : 'text-gray-400'}`}>
                       {map.teamTwoScore}
                     </span>
                   </div>
@@ -203,8 +219,8 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           to={`/matches/${match.id}`} 
           className={`group/button relative block w-full overflow-hidden rounded-2xl transition-all duration-300 transform hover:scale-[1.02] ${
             isLive 
-              ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 shadow-lg shadow-red-500/20 hover:shadow-red-500/30' 
-              : 'bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 shadow-lg shadow-black/20'
+              ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 shadow-lg shadow-red-500/25 hover:shadow-red-500/40' 
+              : 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 shadow-lg shadow-black/20'
           }`}
         >
           <div className="relative px-8 py-5">

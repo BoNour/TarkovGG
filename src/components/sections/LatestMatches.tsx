@@ -57,30 +57,13 @@ const LatestMatches: React.FC = () => {
       </div>
       
       <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
-        {/* Compact section header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-12">
-          <div className="flex items-center space-x-4 mb-6 lg:mb-0">
-            <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
-                <Activity className="w-6 h-6 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                <Zap className="w-2 h-2 text-white" />
-              </div>
-            </div>
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
-                Latest Matches
-              </h2>
-              {liveMatchCount > 0 && (
-                <div className="flex items-center space-x-2 mt-2">
-                  <div className="flex items-center space-x-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full animate-pulse">
-                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping"></div>
-                    <span className="text-red-400 text-xs font-bold">{liveMatchCount} LIVE</span>
-                  </div>
-                </div>
-              )}
-            </div>
+        {/* Section header */}
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
+          <div className="space-y-4">
+            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
+              Latest Matches
+            </h2>
+
           </div>
           
           {/* Compact call to action */}
@@ -97,15 +80,7 @@ const LatestMatches: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
           {latestMatches.map((match, index) => (
             <div key={match.id} className="relative">
-              {/* Live match indicator */}
-              {match.status === 'live' && (
-                <div className="absolute -top-2 left-4 z-10">
-                  <div className="flex items-center space-x-1 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
-                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
-                    <span>LIVE</span>
-                  </div>
-                </div>
-              )}
+
               <MatchCard match={match} variant="compact" />
             </div>
           ))}

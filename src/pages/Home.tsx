@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
       {/* Modern News Ticker */}
       {news.length > 0 && (
-        <div className="relative backdrop-blur-sm border-b" style={{ backgroundColor: 'rgba(26, 27, 27, 0.9)', borderBottomColor: 'rgba(255, 255, 255, 0.1)' }}>
+        <div className="relative backdrop-blur-sm border-b" style={{ backgroundColor: 'rgba(64, 64, 64, 0.9)', borderBottomColor: 'rgba(255, 255, 255, 0.1)' }}>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10"></div>
           <div className="relative overflow-hidden h-12">
             <div 
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
       )}
 
       {/* Modern Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-150px)] flex items-start justify-center overflow-hidden pt-20">
         {/* Background with overlay */}
         <div 
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-105"
@@ -70,14 +70,10 @@ const Home: React.FC = () => {
         </div>
 
         {/* Main content */}
-        <div className="container mx-auto px-6 py-20 relative z-30">
+        <div className="container mx-auto px-6 py-20 relative z-30 h-full flex flex-col">
           <div className="text-center space-y-8 max-w-5xl mx-auto">
             {/* Main headline */}
             <div className="space-y-4 animate-fade-in-up">
-              <div className="inline-flex items-center space-x-2 px-4 py-2 backdrop-blur-sm rounded-full border mb-6" style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.12)' }}>
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-gray-300">Live Gaming Hub</span>
-              </div>
               
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-none">
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
@@ -89,70 +85,43 @@ const Home: React.FC = () => {
               </h1>
             </div>
 
-            {/* Subtitle */}
-            <div className="animate-fade-in-up delay-300">
-              <p className="text-xl md:text-2xl text-gray-200 font-light max-w-3xl mx-auto leading-relaxed">
-                Experience the ultimate competitive gaming platform with real-time stats, 
-                tournaments, and community features.
-              </p>
-            </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 animate-fade-in-up delay-500">
-              <Link 
-                to="/players" 
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 min-w-[200px]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
-                <span className="relative flex items-center justify-center space-x-2">
-                  <span>View Stats</span>
-                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
-              </Link>
 
-              <Link 
-                to="/tournaments" 
-                className="group px-8 py-4 backdrop-blur-sm border rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:border-white/30 min-w-[200px]"
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-                }}
-              >
-                <span className="flex items-center justify-center space-x-2">
-                  <span>Tournaments</span>
-                  <svg className="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </span>
-              </Link>
-            </div>
+          </div>
+          
+          {/* CTA Buttons - positioned at bottom right */}
+          <div className="absolute bottom-8 right-8 flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
+            <Link 
+              to="/players" 
+              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 min-w-[200px]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+              <span className="relative flex items-center justify-center space-x-2">
+                <span>View Stats</span>
+                <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
+            </Link>
 
-            {/* Stats preview */}
-            <div className="grid grid-cols-3 gap-8 pt-16 animate-fade-in-up delay-700">
-              <div className="text-center space-y-2">
-                <div className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                  50K+
-                </div>
-                <div className="text-gray-300 text-sm font-medium">Active Players</div>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                  1.2M+
-                </div>
-                <div className="text-gray-300 text-sm font-medium">Matches Played</div>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">
-                  24/7
-                </div>
-                <div className="text-gray-300 text-sm font-medium">Live Coverage</div>
-              </div>
-            </div>
+            <Link 
+              to="/tournaments" 
+              className="group px-8 py-4 backdrop-blur-sm border rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:border-white/30 min-w-[200px]"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+              }}
+            >
+              <span className="flex items-center justify-center space-x-2">
+                <span>Tournaments</span>
+                <svg className="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+            </Link>
           </div>
         </div>
 

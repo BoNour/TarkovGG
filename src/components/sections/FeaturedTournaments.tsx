@@ -60,27 +60,13 @@ const FeaturedTournaments: React.FC = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/3 to-transparent"></div>
       
-      <div className="container mx-auto px-6 relative">
+      <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
           <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-purple-500/15 rounded-xl backdrop-blur-sm border border-purple-500/25">
-                <Trophy className="w-6 h-6 text-purple-400" />
-              </div>
-              <span className="text-sm font-medium text-purple-400 uppercase tracking-wider">
-                Tournaments
-              </span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
-              Featured
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400">
-                Tournaments
-              </span>
+            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
+              Featured Tournaments
             </h2>
-            <p className="text-gray-300 text-lg max-w-2xl">
-              Compete in the most prestigious tournaments and showcase your skills on the global stage.
-            </p>
           </div>
           
           <Link 
