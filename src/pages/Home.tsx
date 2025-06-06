@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     <div>
       {/* Sliding News Banner */}
       {news.length > 0 && (
-        <div className="bg-[#1a1a1a] border-b border-[#333333]">
+        <div className="bg-gray-800 border-b border-gray-700">
           <div className="relative overflow-hidden h-10">
             <div 
               className="absolute whitespace-nowrap flex animate-news-ticker"
@@ -47,38 +47,89 @@ const Home: React.FC = () => {
       )}
 
       {/* Hero Section */}
-      <section className="relative bg-[#1a1a1a] text-white">
+      <section className="relative bg-gray-800 text-white h-[600px] overflow-hidden">
         <div 
-          className="absolute inset-0 z-0 opacity-30 bg-center bg-cover"
+          className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{ 
-            backgroundImage: "url('https://placehold.co/1920x1080/1a1a1a/333333?text=Esports+Background')" 
+            backgroundImage: "url('/BACKGROUND.png')" 
           }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1a1a1a]/70 to-[#1a1a1a]"></div>
-        <div className="container mx-auto px-4 py-48 relative z-10">
-          <div className="flex items-center justify-center">
-            <div className="h-32"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-transparent to-black/90"></div>
+        
+        {/* Smooth single gradient transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-gray-800 via-gray-800/95 via-gray-800/75 via-gray-800/45 via-gray-800/20 to-transparent z-20"></div>
+        
+        {/* Animated background elements */}
+        <div className="absolute inset-0 z-5">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute top-2/3 left-1/3 w-48 h-48 bg-red-500/10 rounded-full blur-xl animate-pulse delay-500"></div>
+        </div>
+
+        <div className="container mx-auto px-4 py-8 relative z-10 h-full flex">
+          {/* Bottom Right Content */}
+          <div className="flex items-end justify-end w-full pb-40 pr-8">
+            <div className="text-right space-y-6 animate-fade-in-up">
+              {/* Main Title */}
+              <div className="space-y-2">
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-wider leading-none">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white animate-text-shimmer">
+                    HOME OF
+                  </span>
+                </h1>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-wider leading-none">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-blue-600 animate-text-shimmer delay-300">
+                    TARKOV
+                  </span>
+                </h1>
+              </div>
+              
+              {/* Subtitle */}
+
+              {/* Action Button */}
+              <div className="animate-fade-in-up delay-700">
+                <Link 
+                  to="/players" 
+                  className="group relative inline-flex items-center justify-center px-10 py-4 text-lg font-bold text-white bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 rounded-xl shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></span>
+                  <span className="relative flex items-center space-x-2">
+                    <span>CHECK STATS</span>
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
+                </Link>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="flex justify-end space-x-4 mt-8 animate-fade-in-up delay-1000">
+                <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                <div className="w-8 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
+                <div className="w-4 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Live Matches Section */}
-      <div id="live-matches" className="bg-[#1a1a1a]">
+      <div id="live-matches" className="bg-gray-800">
         <LatestMatches />
       </div>
       
       {/* Featured Tournaments Section */}
-      <div id="tournaments" className="bg-[#242424]">
+      <div id="tournaments" className="bg-gray-800">
         <FeaturedTournaments />
       </div>
       
       {/* Top Players Section */}
-      <div className="bg-[#1a1a1a]">
+      <div className="bg-gray-800">
         <TopPlayers />
       </div>
       
       {/* Latest News Section */}
-      <div className="bg-[#242424]">
+      <div className="bg-gray-800">
         <LatestNews />
       </div>
     </div>
