@@ -105,12 +105,12 @@ const News: React.FC = () => {
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Search className="h-6 w-6 text-gray-400" />
               </div>
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full pl-12 pr-4 py-4 rounded-2xl border backdrop-blur-sm text-white text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50"
+                             <input
+                 type="text"
+                 placeholder="Search articles..."
+                 value={searchTerm}
+                 onChange={(e) => setSearchTerm(e.target.value)}
+                 className="block w-full pl-12 pr-4 py-4 rounded-2xl border text-white text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50"
                 style={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.03)', 
                   borderColor: 'rgba(255, 255, 255, 0.15)' 
