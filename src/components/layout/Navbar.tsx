@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trophy, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +19,11 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center group">
-              <Trophy className="h-8 w-8 text-red-500 transition-transform duration-300 group-hover:scale-110" />
-              <span className="ml-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-gray-200">EsportsHQ</span>
+              <img 
+                src="/OurLogo.svg" 
+                alt="Logo" 
+                className="h-12 w-auto transition-transform duration-300 group-hover:scale-110" 
+              />
             </Link>
           </div>
           <div className="hidden md:flex md:justify-center md:flex-1">

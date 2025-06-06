@@ -1,56 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import LatestMatches from '../components/sections/LatestMatches';
 import FeaturedTournaments from '../components/sections/FeaturedTournaments';
 import TopPlayers from '../components/sections/TopPlayers';
 import LatestNews from '../components/sections/LatestNews';
-import { useGameData } from '../context/GameDataContext';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const { news } = useGameData();
-  const [newsItems, setNewsItems] = useState<typeof news>([]);
-
-  useEffect(() => {
-    if (news.length === 0) return;
-    setNewsItems([...news, ...news]);
-  }, [news]);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
-      {/* Modern News Ticker */}
-      {news.length > 0 && (
-        <div className="relative backdrop-blur-sm border-b" style={{ backgroundColor: 'rgba(64, 64, 64, 0.9)', borderBottomColor: 'rgba(255, 255, 255, 0.1)' }}>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10"></div>
-          <div className="relative overflow-hidden h-12">
-            <div 
-              className="absolute whitespace-nowrap flex items-center animate-news-ticker"
-              style={{
-                animationDuration: `${newsItems.length * 12}s`,
-                animationTimingFunction: 'linear',
-                animationIterationCount: 'infinite'
-              }}
-            >
-              {newsItems.map((item, index) => (
-                <Link
-                  key={`${item.id}-${index}`}
-                  to={`/news/${item.id}`}
-                  className="inline-flex items-center justify-between px-8 h-12 min-w-[500px] group hover:bg-white/5 transition-all duration-300"
-                >
-                  <span className="text-sm font-medium text-gray-200 group-hover:text-white transition-colors">
-                    {item.title}
-                  </span>
-                  <span className="text-xs text-gray-400 ml-6 font-mono">
-                    {new Date(item.date).toLocaleDateString()}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+
 
       {/* Modern Hero Section */}
-      <section className="relative min-h-[calc(100vh-150px)] flex items-start justify-center overflow-hidden pt-20">
+      <section className="relative min-h-[calc(100vh-200px)] flex items-start justify-center overflow-hidden pt-20">
         {/* Background with overlay */}
         <div 
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-105"
@@ -79,7 +41,7 @@ const Home: React.FC = () => {
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
                   HOME OF
                 </span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 mt-2">
+                <span className="block text-white mt-2">
                   TARKOV
                 </span>
               </h1>
@@ -89,40 +51,47 @@ const Home: React.FC = () => {
 
           </div>
           
-          {/* CTA Buttons - positioned at bottom right */}
-          <div className="absolute bottom-8 right-8 flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
-            <Link 
-              to="/players" 
-              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 min-w-[200px]"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
-              <span className="relative flex items-center justify-center space-x-2">
-                <span>View Stats</span>
-                <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-            </Link>
+        </div>
 
-            <Link 
-              to="/tournaments" 
-              className="group px-8 py-4 backdrop-blur-sm border rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:border-white/30 min-w-[200px]"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-              }}
-            >
-              <span className="flex items-center justify-center space-x-2">
-                <span>Tournaments</span>
-                <svg className="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </span>
-            </Link>
-          </div>
+        {/* CTA Buttons - positioned at bottom right of background image */}
+        <div className="absolute bottom-8 right-8 z-30 flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
+        <Link 
+          to="/players" 
+          className="group px-8 py-4 backdrop-blur-sm border rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:border-white/30 min-w-[200px]"
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+          }}
+        >
+          <span className="flex items-center justify-center space-x-2">
+            <span>View Stats</span>
+            <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+        </Link>
+
+        <Link 
+          to="/tournaments" 
+          className="group px-8 py-4 backdrop-blur-sm border rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:border-white/30 min-w-[200px]"
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+          }}
+        >
+          <span className="flex items-center justify-center space-x-2">
+            <span>Tournaments</span>
+            <svg className="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+        </Link>
         </div>
 
         {/* Scroll indicator */}

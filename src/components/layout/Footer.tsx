@@ -1,5 +1,4 @@
 import React from 'react';
-import { Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
@@ -9,8 +8,11 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center">
-              <Trophy className="h-8 w-8 text-red-500" />
-              <span className="ml-2 text-xl font-bold text-white">EsportsHQ</span>
+              <img 
+                src="/OurLogo.svg" 
+                alt="Logo" 
+                className="h-10 w-auto" 
+              />
             </Link>
             <p className="mt-2 text-sm text-gray-300">
               Your ultimate destination for esports statistics, player profiles, and tournament coverage.
@@ -37,12 +39,10 @@ const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className="mt-8 border-t pt-8 flex flex-col md:flex-row justify-between" style={{ borderTopColor: 'rgba(255, 255, 255, 0.1)' }}>
-          <p className="text-base text-gray-300">&copy; 2025 EsportsHQ. All rights reserved.</p>
+        <div className="mt-8 pt-8 flex flex-col md:flex-row justify-between">
+          <p className="text-base text-gray-300">&copy; 2025 Tarkov.gg | All rights reserved.</p>
           <div className="mt-4 md:mt-0 flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-gray-300 transition-colors duration-300">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-gray-300 transition-colors duration-300">Terms of Service</a>
-            <a href="#" className="text-gray-400 hover:text-gray-300 transition-colors duration-300">Cookie Policy</a>
+
           </div>
         </div>
       </div>

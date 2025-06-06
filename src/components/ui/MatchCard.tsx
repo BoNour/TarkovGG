@@ -59,9 +59,20 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
   const currentStatus = isLive ? statusConfig.live : isUpcoming ? statusConfig.upcoming : statusConfig.completed;
 
   return (
-    <div className={`group relative bg-gradient-to-br ${currentStatus.cardStyle} backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer ${isLive ? 'animate-pulse-subtle' : ''}`}
+    <div className={`group relative bg-gradient-to-br ${currentStatus.cardStyle} backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.05] hover:shadow-2xl hover:shadow-blue-500/20 cursor-pointer`}
          style={{ 
-           backgroundColor: 'rgba(255, 255, 255, 0.03)'
+           backgroundColor: 'rgba(255, 255, 255, 0.03)',
+           animation: isLive ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none'
+         }}
+         onMouseEnter={(e) => {
+           e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+           e.currentTarget.style.borderColor = isLive ? 'rgba(239, 68, 68, 0.6)' : 'rgba(59, 130, 246, 0.4)';
+           e.currentTarget.style.animation = 'none'; // Stop pulse animation on hover
+         }}
+         onMouseLeave={(e) => {
+           e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+           e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+           e.currentTarget.style.animation = isLive ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none';
          }}>
       
       {/* Live match effects */}
@@ -86,20 +97,22 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           {/* Team One */}
           <div className="flex items-center space-x-4 flex-1 min-w-0 max-w-[40%]">
             <Link to={`/teams/${teamOne.id}`} className="group/team relative flex-shrink-0">
-              <div className="relative overflow-hidden rounded-xl border-2 transition-all duration-300 transform group-hover/team:scale-110" 
+              <div className="relative overflow-hidden rounded-xl border-2 transition-all duration-300 transform group-hover/team:scale-125 group-hover/team:rotate-3 group-hover/team:shadow-lg group-hover/team:shadow-blue-500/30" 
                    style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
                    onMouseEnter={(e) => {
-                     e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)';
+                     e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.8)';
+                     e.currentTarget.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.4)';
                    }}
                    onMouseLeave={(e) => {
                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                     e.currentTarget.style.boxShadow = 'none';
                    }}>
                 <img 
                   src={teamOne.logo} 
                   alt={teamOne.name} 
-                  className="w-14 h-14 object-cover"
+                  className="w-14 h-14 object-cover transition-all duration-300 group-hover/team:brightness-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
               </div>
             </Link>
             <div className="space-y-1 min-w-0 flex-1">
@@ -117,19 +130,67 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
           {/* Score */}
           <div className="flex items-center space-x-4 mx-6 flex-shrink-0">
             <div className="text-center">
-              <div className={`text-2xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-gray-300'} transition-colors duration-300 transform group-hover:scale-110`}>
+              <div className={`text-2xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-emerald-400' : 'text-gray-300'} transition-all duration-300 transform group-hover:scale-125 group-hover:drop-shadow-lg`}
+                   style={{
+                     filter: 'none'
+                   }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.color = '#00FF7F'; // Pure saturated green
+                     e.currentTarget.style.filter = 'saturate(5) brightness(1.5) contrast(1.8) drop-shadow(0 0 8px #00FF7F)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.color = '';
+                     e.currentTarget.style.filter = 'none';
+                   }}>
                 {match.teamOneScore}
               </div>
             </div>
             
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent"></div>
-              <span className="text-xs text-gray-500 font-bold my-1 tracking-[0.2em]">VS</span>
-              <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent"></div>
+            <div className="flex flex-col items-center transition-all duration-300 group-hover:scale-110">
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent transition-colors duration-300"
+                   style={{ background: 'linear-gradient(to right, transparent, rgb(107, 114, 128), transparent)' }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.background = 'linear-gradient(to right, transparent, #0080FF, transparent)';
+                     e.currentTarget.style.filter = 'saturate(4) brightness(1.4) drop-shadow(0 0 4px #0080FF)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.background = 'linear-gradient(to right, transparent, rgb(107, 114, 128), transparent)';
+                     e.currentTarget.style.filter = 'none';
+                   }}></div>
+              <span className="text-xs text-gray-500 font-bold my-1 tracking-[0.2em] transition-colors duration-300"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#0080FF'; // Pure saturated blue
+                      e.currentTarget.style.filter = 'saturate(4) brightness(1.4) drop-shadow(0 0 4px #0080FF)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '';
+                      e.currentTarget.style.filter = 'none';
+                    }}>VS</span>
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent transition-colors duration-300"
+                   style={{ background: 'linear-gradient(to right, transparent, rgb(107, 114, 128), transparent)' }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.background = 'linear-gradient(to right, transparent, #0080FF, transparent)';
+                     e.currentTarget.style.filter = 'saturate(4) brightness(1.4) drop-shadow(0 0 4px #0080FF)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.background = 'linear-gradient(to right, transparent, rgb(107, 114, 128), transparent)';
+                     e.currentTarget.style.filter = 'none';
+                   }}></div>
             </div>
             
             <div className="text-center">
-              <div className={`text-2xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-gray-300'} transition-colors duration-300 transform group-hover:scale-110`}>
+              <div className={`text-2xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-emerald-400' : 'text-gray-300'} transition-all duration-300 transform group-hover:scale-125 group-hover:drop-shadow-lg`}
+                   style={{
+                     filter: 'none'
+                   }}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.color = '#00FF7F'; // Pure saturated green
+                     e.currentTarget.style.filter = 'saturate(5) brightness(1.5) contrast(1.8) drop-shadow(0 0 8px #00FF7F)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.color = '';
+                     e.currentTarget.style.filter = 'none';
+                   }}>
                 {match.teamTwoScore}
               </div>
             </div>
@@ -148,20 +209,22 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
               <p className="text-gray-500 text-xs">{teamTwo.region}</p>
             </div>
             <Link to={`/teams/${teamTwo.id}`} className="group/team relative flex-shrink-0">
-              <div className="relative overflow-hidden rounded-xl border-2 transition-all duration-300 transform group-hover/team:scale-110"
+              <div className="relative overflow-hidden rounded-xl border-2 transition-all duration-300 transform group-hover/team:scale-125 group-hover/team:-rotate-3 group-hover/team:shadow-lg group-hover/team:shadow-blue-500/30"
                    style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
                    onMouseEnter={(e) => {
-                     e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)';
+                     e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.8)';
+                     e.currentTarget.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.4)';
                    }}
                    onMouseLeave={(e) => {
                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                     e.currentTarget.style.boxShadow = 'none';
                    }}>
                 <img 
                   src={teamTwo.logo} 
                   alt={teamTwo.name} 
-                  className="w-14 h-14 object-cover"
+                  className="w-14 h-14 object-cover transition-all duration-300 group-hover/team:brightness-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 to-transparent opacity-0 group-hover/team:opacity-100 transition-opacity duration-300"></div>
               </div>
             </Link>
           </div>
