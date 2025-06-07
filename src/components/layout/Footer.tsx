@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
               <img 
                 src="/OurLogo.svg" 
                 alt="Tarkov.gg Logo" 
-                className="h-8 w-auto transition-transform duration-300 group-hover:scale-110" 
+                className="h-[100px] w-auto transition-transform duration-300 group-hover:scale-100" 
               />
             </Link>
             <p className="mt-2 text-sm text-gray-300">

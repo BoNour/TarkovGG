@@ -263,385 +263,321 @@ const Matches: React.FC = () => {
         <section className="relative pb-32">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/3 to-transparent"></div>
           <div className="relative">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Three Match Status Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+              
+              {/* Section Header */}
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                  Match <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Dashboard</span>
+                </h2>
+                <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                  Real-time updates on all competitive matches across different stages
+                </p>
+              </div>
+
+              {/* Full-width 3-column layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
                 
-                {/* Live Matches Card - Exact Recreation */}
-                <div className="w-full max-w-md mx-auto rounded-3xl overflow-hidden"
-                     style={{ backgroundColor: 'rgba(45, 45, 50, 0.95)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                {/* LIVE MATCHES SECTION */}
+                <div className="bg-gradient-to-br from-red-900/20 via-red-800/10 to-red-900/20 rounded-3xl border border-red-500/30 backdrop-blur-sm overflow-hidden">
                   
-                  {/* Header with back arrow and + button */}
-                  <div className="flex items-center justify-between p-4">
-                    <div className="flex items-center space-x-3">
-                      <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </button>
-                      <h3 className="text-lg font-semibold text-white">Live</h3>
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-red-600/20 to-red-500/10 p-6 border-b border-red-500/20">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-red-500/20 rounded-2xl flex items-center justify-center border border-red-500/30">
+                          <div className="w-6 h-6 bg-red-500 rounded-full animate-pulse">
+                            <div className="w-3 h-3 bg-red-200 rounded-full m-1.5 animate-pulse"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-white">Live Matches</h3>
+                          <p className="text-red-300 text-sm font-medium">● {matches.filter(m => m.status === 'live').length} active now</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-3xl font-black text-red-400">{matches.filter(m => m.status === 'live').length}</div>
+                        <div className="text-xs text-red-300 uppercase tracking-wider">Ongoing</div>
+                      </div>
                     </div>
-                    <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                      </svg>
-                    </button>
                   </div>
 
-                  {/* Match List */}
-                  <div className="px-4 pb-4 space-y-2">
+                  {/* Content */}
+                  <div className="p-6 space-y-4 min-h-[400px]">
                     {matches.filter(m => m.status === 'live').length === 0 ? (
-                      <div className="text-center py-8">
-                        <p className="text-gray-400 text-sm">No live matches</p>
+                      <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                        <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center">
+                          <Activity className="w-8 h-8 text-red-400" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-gray-300 font-medium mb-1">No Live Matches</p>
+                          <p className="text-gray-500 text-sm">Check back soon for live action</p>
+                        </div>
                       </div>
                     ) : (
-                      matches.filter(m => m.status === 'live').slice(0, 5).map((match, index) => {
-                        const teamOne = teams.find(t => t.id === match.teamOneId);
-                        const teamTwo = teams.find(t => t.id === match.teamTwoId);
-                        const isHighlighted = index === 0;
-                        
-                        return (
-                          <div key={match.id} 
-                               className={`flex items-center justify-between p-3 rounded-xl transition-all duration-200 group ${
-                                 isHighlighted ? 'bg-white/10' : 'hover:bg-white/5'
-                               }`}>
-                            <div className="flex items-center space-x-3">
-                              <div className="w-4 h-4 rounded-full border-2 flex-shrink-0 bg-red-500 border-red-500 animate-pulse">
-                                <div className="w-2 h-2 bg-red-200 rounded-full m-0.5 animate-pulse"></div>
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-white font-medium text-sm truncate">
-                                  {teamOne?.name} vs {teamTwo?.name}
-                                </p>
-                                {isHighlighted && (
-                                  <p className="text-gray-400 text-xs mt-0.5 flex items-center space-x-2">
-                                    <span className="text-red-400">● LIVE</span>
-                                    <span>•</span>
-                                    <span>{new Date(match.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                            
-                            {/* Action buttons */}
-                            <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              {index === 1 && (
-                                <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z" />
-                                  </svg>
-                                </button>
-                              )}
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                              </button>
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                              </button>
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <div className="grid grid-cols-2 gap-0.5">
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
+                      <div className="space-y-4">
+                        {matches.filter(m => m.status === 'live').map((match, index) => {
+                          const teamOne = teams.find(t => t.id === match.teamOneId);
+                          const teamTwo = teams.find(t => t.id === match.teamTwoId);
+                          
+                          return (
+                            <div key={match.id} className="bg-black/20 border border-red-500/20 rounded-2xl p-5 hover:border-red-500/40 transition-all duration-300 group">
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                                  <span className="text-red-300 text-sm font-semibold uppercase tracking-wider">Live</span>
                                 </div>
-                              </button>
+                                <span className="text-gray-400 text-sm">
+                                  {new Date(match.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                              </div>
+                              
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <p className="text-white font-semibold text-lg">{teamOne?.name}</p>
+                                    <p className="text-gray-400 text-sm">{teamOne?.region}</p>
+                                  </div>
+                                  <div className="px-4 py-2 bg-red-500/20 rounded-lg border border-red-500/30">
+                                    <span className="text-red-300 font-bold text-lg">{match.teamOneScore}</span>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center justify-center">
+                                  <div className="text-gray-500 font-medium text-sm">VS</div>
+                                </div>
+                                
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <p className="text-white font-semibold text-lg">{teamTwo?.name}</p>
+                                    <p className="text-gray-400 text-sm">{teamTwo?.region}</p>
+                                  </div>
+                                  <div className="px-4 py-2 bg-red-500/20 rounded-lg border border-red-500/30">
+                                    <span className="text-red-300 font-bold text-lg">{match.teamTwoScore}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="mt-4 pt-4 border-t border-red-500/20">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-gray-400 text-sm">Match #{index + 1}</span>
+                                  <button className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 rounded-lg text-red-300 text-sm font-medium transition-all duration-300 group-hover:border-red-500/50">
+                                    Watch Live
+                                  </button>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-
-                  {/* Bottom progress section */}
-                  <div className="px-4 pb-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {/* Progress circle */}
-                        <div className="relative w-5 h-5">
-                          <svg className="w-5 h-5 transform -rotate-90" viewBox="0 0 20 20">
-                            <circle cx="10" cy="10" r="8" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
-                            <circle 
-                              cx="10" 
-                              cy="10" 
-                              r="8" 
-                              stroke="#ef4444" 
-                              strokeWidth="2" 
-                              fill="none"
-                              strokeDasharray={`${(matches.filter(m => m.status === 'live').length / matches.length) * 50.27} 50.27`}
-                              className="transition-all duration-300"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-gray-400 text-sm font-medium tracking-wider">LIVE</span>
+                          );
+                        })}
                       </div>
-                      <span className="text-white font-medium text-sm">
-                        {matches.filter(m => m.status === 'live').length}/{matches.length}
-                      </span>
-                      <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                        <div className="space-y-0.5">
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                        </div>
-                      </button>
-                    </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Upcoming Matches Card - Exact Recreation */}
-                <div className="w-full max-w-md mx-auto rounded-3xl overflow-hidden"
-                     style={{ backgroundColor: 'rgba(45, 45, 50, 0.95)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                {/* UPCOMING MATCHES SECTION */}
+                <div className="bg-gradient-to-br from-blue-900/20 via-blue-800/10 to-blue-900/20 rounded-3xl border border-blue-500/30 backdrop-blur-sm overflow-hidden">
                   
-                  {/* Header with back arrow and + button */}
-                  <div className="flex items-center justify-between p-4">
-                    <div className="flex items-center space-x-3">
-                      <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </button>
-                      <h3 className="text-lg font-semibold text-white">Upcoming</h3>
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-blue-600/20 to-blue-500/10 p-6 border-b border-blue-500/20">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center border border-blue-500/30">
+                          <Calendar className="w-6 h-6 text-blue-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-white">Upcoming Matches</h3>
+                          <p className="text-blue-300 text-sm font-medium">⏰ {matches.filter(m => m.status === 'upcoming').length} scheduled</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-3xl font-black text-blue-400">{matches.filter(m => m.status === 'upcoming').length}</div>
+                        <div className="text-xs text-blue-300 uppercase tracking-wider">Scheduled</div>
+                      </div>
                     </div>
-                    <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                      </svg>
-                    </button>
                   </div>
 
-                  {/* Match List */}
-                  <div className="px-4 pb-4 space-y-2">
+                  {/* Content */}
+                  <div className="p-6 space-y-4 min-h-[400px]">
                     {matches.filter(m => m.status === 'upcoming').length === 0 ? (
-                      <div className="text-center py-8">
-                        <p className="text-gray-400 text-sm">No upcoming matches</p>
+                      <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                        <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center">
+                          <Calendar className="w-8 h-8 text-blue-400" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-gray-300 font-medium mb-1">No Upcoming Matches</p>
+                          <p className="text-gray-500 text-sm">New matches will appear here</p>
+                        </div>
                       </div>
                     ) : (
-                      matches.filter(m => m.status === 'upcoming').slice(0, 5).map((match, index) => {
-                        const teamOne = teams.find(t => t.id === match.teamOneId);
-                        const teamTwo = teams.find(t => t.id === match.teamTwoId);
-                        const isHighlighted = index === 0;
-                        
-                        return (
-                          <div key={match.id} 
-                               className={`flex items-center justify-between p-3 rounded-xl transition-all duration-200 group ${
-                                 isHighlighted ? 'bg-white/10' : 'hover:bg-white/5'
-                               }`}>
-                            <div className="flex items-center space-x-3">
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${
-                                match.status === 'completed' ? 'bg-white border-white' : 'border-gray-400'
-                              }`}>
-                                {match.status === 'completed' && (
-                                  <div className="w-2 h-2 bg-gray-800 rounded-full m-0.5"></div>
-                                )}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-white font-medium text-sm truncate">
-                                  {teamOne?.name} vs {teamTwo?.name}
-                                </p>
-                                {isHighlighted && (
-                                  <p className="text-gray-400 text-xs mt-0.5">
-                                    {new Date(match.date).toLocaleDateString()} • {new Date(match.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                            
-                            {/* Action buttons */}
-                            <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              {index === 1 && (
-                                <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z" />
-                                  </svg>
-                                </button>
-                              )}
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                              </button>
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                              </button>
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <div className="grid grid-cols-2 gap-0.5">
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
+                      <div className="space-y-4">
+                        {matches.filter(m => m.status === 'upcoming').map((match, index) => {
+                          const teamOne = teams.find(t => t.id === match.teamOneId);
+                          const teamTwo = teams.find(t => t.id === match.teamTwoId);
+                          
+                          return (
+                            <div key={match.id} className="bg-black/20 border border-blue-500/20 rounded-2xl p-5 hover:border-blue-500/40 transition-all duration-300 group">
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                  <span className="text-blue-300 text-sm font-semibold uppercase tracking-wider">Upcoming</span>
                                 </div>
-                              </button>
+                                <span className="text-gray-400 text-sm">
+                                  {new Date(match.date).toLocaleDateString()}
+                                </span>
+                              </div>
+                              
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <p className="text-white font-semibold text-lg">{teamOne?.name}</p>
+                                    <p className="text-gray-400 text-sm">{teamOne?.region}</p>
+                                  </div>
+                                  <div className="px-3 py-1 bg-blue-500/20 rounded-lg border border-blue-500/30">
+                                    <span className="text-blue-300 text-sm font-medium">TBD</span>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center justify-center">
+                                  <div className="text-gray-500 font-medium text-sm">VS</div>
+                                </div>
+                                
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <p className="text-white font-semibold text-lg">{teamTwo?.name}</p>
+                                    <p className="text-gray-400 text-sm">{teamTwo?.region}</p>
+                                  </div>
+                                  <div className="px-3 py-1 bg-blue-500/20 rounded-lg border border-blue-500/30">
+                                    <span className="text-blue-300 text-sm font-medium">TBD</span>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="mt-4 pt-4 border-t border-blue-500/20">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-gray-400 text-sm">
+                                    {new Date(match.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                  </span>
+                                  <button className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg text-blue-300 text-sm font-medium transition-all duration-300 group-hover:border-blue-500/50">
+                                    Set Reminder
+                                  </button>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-
-                  {/* Bottom progress section */}
-                  <div className="px-4 pb-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {/* Progress circle */}
-                        <div className="relative w-5 h-5">
-                          <svg className="w-5 h-5 transform -rotate-90" viewBox="0 0 20 20">
-                            <circle cx="10" cy="10" r="8" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
-                            <circle 
-                              cx="10" 
-                              cy="10" 
-                              r="8" 
-                              stroke="white" 
-                              strokeWidth="2" 
-                              fill="none"
-                              strokeDasharray={`${(matches.filter(m => m.status === 'completed').length / matches.length) * 50.27} 50.27`}
-                              className="transition-all duration-300"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-gray-400 text-sm font-medium tracking-wider">COMPLETED</span>
+                          );
+                        })}
                       </div>
-                      <span className="text-white font-medium text-sm">
-                        {matches.filter(m => m.status === 'completed').length}/{matches.length}
-                      </span>
-                      <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                        <div className="space-y-0.5">
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                        </div>
-                      </button>
-                    </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Completed Matches Card - Exact Recreation */}
-                <div className="w-full max-w-md mx-auto rounded-3xl overflow-hidden"
-                     style={{ backgroundColor: 'rgba(45, 45, 50, 0.95)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                {/* COMPLETED MATCHES SECTION */}
+                <div className="bg-gradient-to-br from-emerald-900/20 via-emerald-800/10 to-emerald-900/20 rounded-3xl border border-emerald-500/30 backdrop-blur-sm overflow-hidden">
                   
-                  {/* Header with back arrow and + button */}
-                  <div className="flex items-center justify-between p-4">
-                    <div className="flex items-center space-x-3">
-                      <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </button>
-                      <h3 className="text-lg font-semibold text-white">Completed</h3>
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-emerald-600/20 to-emerald-500/10 p-6 border-b border-emerald-500/20">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center border border-emerald-500/30">
+                          <Sparkles className="w-6 h-6 text-emerald-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-white">Completed Matches</h3>
+                          <p className="text-emerald-300 text-sm font-medium">✓ {matches.filter(m => m.status === 'completed').length} finished</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-3xl font-black text-emerald-400">{matches.filter(m => m.status === 'completed').length}</div>
+                        <div className="text-xs text-emerald-300 uppercase tracking-wider">Results</div>
+                      </div>
                     </div>
-                    <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                      </svg>
-                    </button>
                   </div>
 
-                  {/* Match List */}
-                  <div className="px-4 pb-4 space-y-2">
+                  {/* Content */}
+                  <div className="p-6 space-y-4 min-h-[400px]">
                     {matches.filter(m => m.status === 'completed').length === 0 ? (
-                      <div className="text-center py-8">
-                        <p className="text-gray-400 text-sm">No completed matches</p>
+                      <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                        <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center">
+                          <Sparkles className="w-8 h-8 text-emerald-400" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-gray-300 font-medium mb-1">No Completed Matches</p>
+                          <p className="text-gray-500 text-sm">Results will appear here</p>
+                        </div>
                       </div>
                     ) : (
-                      matches.filter(m => m.status === 'completed').slice(0, 5).map((match, index) => {
-                        const teamOne = teams.find(t => t.id === match.teamOneId);
-                        const teamTwo = teams.find(t => t.id === match.teamTwoId);
-                        const isHighlighted = index === 0;
-                        
-                        return (
-                          <div key={match.id} 
-                               className={`flex items-center justify-between p-3 rounded-xl transition-all duration-200 group ${
-                                 isHighlighted ? 'bg-white/10' : 'hover:bg-white/5'
-                               }`}>
-                            <div className="flex items-center space-x-3">
-                              <div className="w-4 h-4 rounded-full border-2 flex-shrink-0 bg-emerald-500 border-emerald-500">
-                                <div className="w-2 h-2 bg-emerald-200 rounded-full m-0.5"></div>
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-white font-medium text-sm truncate">
-                                  {teamOne?.name} vs {teamTwo?.name}
-                                </p>
-                                {isHighlighted && (
-                                  <p className="text-gray-400 text-xs mt-0.5">
-                                    {new Date(match.date).toLocaleDateString()} • Score: {match.teamOneScore}-{match.teamTwoScore}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                            
-                            {/* Action buttons */}
-                            <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              {index === 1 && (
-                                <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z" />
-                                  </svg>
-                                </button>
-                              )}
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                              </button>
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                              </button>
-                              <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <div className="grid grid-cols-2 gap-0.5">
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
-                                  <div className="w-0.5 h-0.5 bg-white rounded-full"></div>
+                      <div className="space-y-4">
+                        {matches.filter(m => m.status === 'completed').map((match, index) => {
+                          const teamOne = teams.find(t => t.id === match.teamOneId);
+                          const teamTwo = teams.find(t => t.id === match.teamTwoId);
+                          const winner = match.teamOneScore > match.teamTwoScore ? teamOne : teamTwo;
+                          
+                          return (
+                            <div key={match.id} className="bg-black/20 border border-emerald-500/20 rounded-2xl p-5 hover:border-emerald-500/40 transition-all duration-300 group">
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                                  <span className="text-emerald-300 text-sm font-semibold uppercase tracking-wider">Completed</span>
                                 </div>
-                              </button>
+                                <span className="text-gray-400 text-sm">
+                                  {new Date(match.date).toLocaleDateString()}
+                                </span>
+                              </div>
+                              
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <p className={`font-semibold text-lg ${winner?.id === teamOne?.id ? 'text-emerald-300' : 'text-white'}`}>
+                                      {teamOne?.name}
+                                      {winner?.id === teamOne?.id && <span className="ml-2 text-yellow-400">👑</span>}
+                                    </p>
+                                    <p className="text-gray-400 text-sm">{teamOne?.region}</p>
+                                  </div>
+                                  <div className={`px-4 py-2 rounded-lg border ${
+                                    winner?.id === teamOne?.id 
+                                      ? 'bg-emerald-500/30 border-emerald-500/50 text-emerald-200' 
+                                      : 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300'
+                                  }`}>
+                                    <span className="font-bold text-lg">{match.teamOneScore}</span>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center justify-center">
+                                  <div className="text-gray-500 font-medium text-sm">FINAL</div>
+                                </div>
+                                
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <p className={`font-semibold text-lg ${winner?.id === teamTwo?.id ? 'text-emerald-300' : 'text-white'}`}>
+                                      {teamTwo?.name}
+                                      {winner?.id === teamTwo?.id && <span className="ml-2 text-yellow-400">👑</span>}
+                                    </p>
+                                    <p className="text-gray-400 text-sm">{teamTwo?.region}</p>
+                                  </div>
+                                  <div className={`px-4 py-2 rounded-lg border ${
+                                    winner?.id === teamTwo?.id 
+                                      ? 'bg-emerald-500/30 border-emerald-500/50 text-emerald-200' 
+                                      : 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300'
+                                  }`}>
+                                    <span className="font-bold text-lg">{match.teamTwoScore}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="mt-4 pt-4 border-t border-emerald-500/20">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-gray-400 text-sm">
+                                    Winner: <span className="text-emerald-300 font-medium">{winner?.name}</span>
+                                  </span>
+                                  <button className="px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-lg text-emerald-300 text-sm font-medium transition-all duration-300 group-hover:border-emerald-500/50">
+                                    View Details
+                                  </button>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-
-                  {/* Bottom progress section */}
-                  <div className="px-4 pb-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {/* Progress circle */}
-                        <div className="relative w-5 h-5">
-                          <svg className="w-5 h-5 transform -rotate-90" viewBox="0 0 20 20">
-                            <circle cx="10" cy="10" r="8" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
-                            <circle 
-                              cx="10" 
-                              cy="10" 
-                              r="8" 
-                              stroke="#10b981" 
-                              strokeWidth="2" 
-                              fill="none"
-                              strokeDasharray={`${(matches.filter(m => m.status === 'completed').length / matches.length) * 50.27} 50.27`}
-                              className="transition-all duration-300"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-gray-400 text-sm font-medium tracking-wider">COMPLETED</span>
+                          );
+                        })}
                       </div>
-                      <span className="text-white font-medium text-sm">
-                        {matches.filter(m => m.status === 'completed').length}/{matches.length}
-                      </span>
-                      <button className="w-6 h-6 bg-white/10 rounded flex items-center justify-center hover:bg-white/20 transition-colors">
-                        <div className="space-y-0.5">
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                          <div className="w-1 h-1 bg-white rounded-full"></div>
-                        </div>
-                      </button>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

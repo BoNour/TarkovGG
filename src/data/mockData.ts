@@ -210,6 +210,114 @@ export const mockTeams: Team[] = [
         { tournamentId: '2', placement: 3 }
       ]
     }
+  },
+  {
+    id: '5',
+    name: 'TSM',
+    tag: 'TSM',
+    logo: 'https://placehold.co/200x200/9b59b6/ffffff?text=TSM',
+    region: 'NA',
+    players: [],
+    stats: {
+      wins: 14,
+      losses: 11,
+      winRate: 0.56,
+      roundsWon: 140,
+      roundsLost: 135,
+      tournamentPlacements: [
+        { tournamentId: '1', placement: 4 }
+      ]
+    }
+  },
+  {
+    id: '6',
+    name: 'G2 Esports',
+    tag: 'G2',
+    logo: 'https://placehold.co/200x200/1abc9c/ffffff?text=G2',
+    region: 'EU',
+    players: [],
+    stats: {
+      wins: 22,
+      losses: 3,
+      winRate: 0.88,
+      roundsWon: 220,
+      roundsLost: 80,
+      tournamentPlacements: [
+        { tournamentId: '2', placement: 1 }
+      ]
+    }
+  },
+  {
+    id: '7',
+    name: 'DWG KIA',
+    tag: 'DK',
+    logo: 'https://placehold.co/200x200/f39c12/ffffff?text=DK',
+    region: 'APAC',
+    players: [],
+    stats: {
+      wins: 19,
+      losses: 6,
+      winRate: 0.76,
+      roundsWon: 190,
+      roundsLost: 110,
+      tournamentPlacements: [
+        { tournamentId: '3', placement: 2 }
+      ]
+    }
+  },
+  {
+    id: '8',
+    name: 'LOUD',
+    tag: 'LOUD',
+    logo: 'https://placehold.co/200x200/e74c3c/ffffff?text=LOUD',
+    region: 'LATAM',
+    players: [],
+    stats: {
+      wins: 17,
+      losses: 8,
+      winRate: 0.68,
+      roundsWon: 170,
+      roundsLost: 120,
+      tournamentPlacements: [
+        { tournamentId: '1', placement: 3 }
+      ]
+    }
+  },
+  {
+    id: '9',
+    name: 'NaVi',
+    tag: 'NAVI',
+    logo: 'https://placehold.co/200x200/f1c40f/ffffff?text=NAVI',
+    region: 'EU',
+    players: [],
+    stats: {
+      wins: 21,
+      losses: 4,
+      winRate: 0.84,
+      roundsWon: 210,
+      roundsLost: 90,
+      tournamentPlacements: [
+        { tournamentId: '2', placement: 2 }
+      ]
+    }
+  },
+  {
+    id: '10',
+    name: 'Spacestation Gaming',
+    tag: 'SSG',
+    logo: 'https://placehold.co/200x200/95a5a6/ffffff?text=SSG',
+    region: 'NA',
+    players: [],
+    stats: {
+      wins: 13,
+      losses: 12,
+      winRate: 0.52,
+      roundsWon: 130,
+      roundsLost: 140,
+      tournamentPlacements: [
+        { tournamentId: '3', placement: 4 }
+      ]
+    }
   }
 ];
 
@@ -267,6 +375,212 @@ export const mockMatches: Match[] = [
     status: MatchStatus.LIVE,
     maps: [
       { name: 'Border', teamOneScore: 4, teamTwoScore: 3 }
+    ]
+  },
+  {
+    id: '5',
+    tournamentId: '1',
+    teamOneId: '6',
+    teamTwoId: '9',
+    teamOneScore: 1,
+    teamTwoScore: 1,
+    date: '2025-05-20T20:00:00Z',
+    status: MatchStatus.LIVE,
+    maps: [
+      { name: 'Consulate', teamOneScore: 7, teamTwoScore: 5 },
+      { name: 'Skyscraper', teamOneScore: 5, teamTwoScore: 7 },
+      { name: 'Theme Park', teamOneScore: 3, teamTwoScore: 2 }
+    ]
+  },
+  {
+    id: '6',
+    tournamentId: '2',
+    teamOneId: '5',
+    teamTwoId: '10',
+    teamOneScore: 0,
+    teamTwoScore: 1,
+    date: '2025-05-20T21:15:00Z',
+    status: MatchStatus.LIVE,
+    maps: [
+      { name: 'Chalet', teamOneScore: 6, teamTwoScore: 7 },
+      { name: 'Villa', teamOneScore: 2, teamTwoScore: 4 }
+    ]
+  },
+  {
+    id: '7',
+    tournamentId: '1',
+    teamOneId: '7',
+    teamTwoId: '8',
+    teamOneScore: 1,
+    teamTwoScore: 0,
+    date: '2025-05-20T22:30:00Z',
+    status: MatchStatus.LIVE,
+    maps: [
+      { name: 'Oregon', teamOneScore: 7, teamTwoScore: 4 },
+      { name: 'Clubhouse', teamOneScore: 5, teamTwoScore: 6 }
+    ]
+  },
+  {
+    id: '8',
+    tournamentId: '3',
+    teamOneId: '1',
+    teamTwoId: '6',
+    teamOneScore: 0,
+    teamTwoScore: 0,
+    date: '2025-05-20T16:45:00Z',
+    status: MatchStatus.LIVE,
+    maps: [
+      { name: 'Border', teamOneScore: 6, teamTwoScore: 6 }
+    ]
+  },
+  {
+    id: '9',
+    tournamentId: '2',
+    teamOneId: '4',
+    teamTwoId: '9',
+    teamOneScore: 2,
+    teamTwoScore: 1,
+    date: '2025-05-20T23:00:00Z',
+    status: MatchStatus.LIVE,
+    maps: [
+      { name: 'Kafe', teamOneScore: 7, teamTwoScore: 3 },
+      { name: 'Bank', teamOneScore: 4, teamTwoScore: 7 },
+      { name: 'Coastline', teamOneScore: 6, teamTwoScore: 4 }
+    ]
+  },
+  {
+    id: '10',
+    tournamentId: '2',
+    teamOneId: '2',
+    teamTwoId: '7',
+    teamOneScore: 0,
+    teamTwoScore: 0,
+    date: '2025-06-02T19:00:00Z',
+    status: MatchStatus.UPCOMING,
+    maps: []
+  },
+  {
+    id: '11',
+    tournamentId: '3',
+    teamOneId: '5',
+    teamTwoId: '8',
+    teamOneScore: 0,
+    teamTwoScore: 0,
+    date: '2025-06-03T20:30:00Z',
+    status: MatchStatus.UPCOMING,
+    maps: []
+  },
+  {
+    id: '12',
+    tournamentId: '1',
+    teamOneId: '6',
+    teamTwoId: '10',
+    teamOneScore: 0,
+    teamTwoScore: 0,
+    date: '2025-06-04T17:15:00Z',
+    status: MatchStatus.UPCOMING,
+    maps: []
+  },
+  {
+    id: '13',
+    tournamentId: '2',
+    teamOneId: '1',
+    teamTwoId: '9',
+    teamOneScore: 0,
+    teamTwoScore: 0,
+    date: '2025-06-05T21:45:00Z',
+    status: MatchStatus.UPCOMING,
+    maps: []
+  },
+  {
+    id: '14',
+    tournamentId: '3',
+    teamOneId: '3',
+    teamTwoId: '7',
+    teamOneScore: 0,
+    teamTwoScore: 0,
+    date: '2025-06-06T18:30:00Z',
+    status: MatchStatus.UPCOMING,
+    maps: []
+  },
+  {
+    id: '15',
+    tournamentId: '1',
+    teamOneId: '9',
+    teamTwoId: '10',
+    teamOneScore: 3,
+    teamTwoScore: 1,
+    date: '2025-05-16T16:00:00Z',
+    status: MatchStatus.COMPLETED,
+    maps: [
+      { name: 'Consulate', teamOneScore: 7, teamTwoScore: 2 },
+      { name: 'Chalet', teamOneScore: 4, teamTwoScore: 7 },
+      { name: 'Theme Park', teamOneScore: 7, teamTwoScore: 5 },
+      { name: 'Villa', teamOneScore: 7, teamTwoScore: 4 }
+    ]
+  },
+  {
+    id: '16',
+    tournamentId: '2',
+    teamOneId: '6',
+    teamTwoId: '8',
+    teamOneScore: 3,
+    teamTwoScore: 0,
+    date: '2025-05-15T19:30:00Z',
+    status: MatchStatus.COMPLETED,
+    maps: [
+      { name: 'Oregon', teamOneScore: 7, teamTwoScore: 3 },
+      { name: 'Clubhouse', teamOneScore: 7, teamTwoScore: 5 },
+      { name: 'Bank', teamOneScore: 7, teamTwoScore: 2 }
+    ]
+  },
+  {
+    id: '17',
+    tournamentId: '1',
+    teamOneId: '5',
+    teamTwoId: '7',
+    teamOneScore: 1,
+    teamTwoScore: 3,
+    date: '2025-05-14T14:45:00Z',
+    status: MatchStatus.COMPLETED,
+    maps: [
+      { name: 'Kafe', teamOneScore: 5, teamTwoScore: 7 },
+      { name: 'Coastline', teamOneScore: 7, teamTwoScore: 4 },
+      { name: 'Border', teamOneScore: 3, teamTwoScore: 7 },
+      { name: 'Skyscraper', teamOneScore: 6, teamTwoScore: 7 }
+    ]
+  },
+  {
+    id: '18',
+    tournamentId: '3',
+    teamOneId: '2',
+    teamTwoId: '4',
+    teamOneScore: 3,
+    teamTwoScore: 2,
+    date: '2025-05-13T20:15:00Z',
+    status: MatchStatus.COMPLETED,
+    maps: [
+      { name: 'Villa', teamOneScore: 7, teamTwoScore: 5 },
+      { name: 'Chalet', teamOneScore: 4, teamTwoScore: 7 },
+      { name: 'Oregon', teamOneScore: 6, teamTwoScore: 7 },
+      { name: 'Consulate', teamOneScore: 7, teamTwoScore: 3 },
+      { name: 'Theme Park', teamOneScore: 7, teamTwoScore: 5 }
+    ]
+  },
+  {
+    id: '19',
+    tournamentId: '2',
+    teamOneId: '3',
+    teamTwoId: '1',
+    teamOneScore: 3,
+    teamTwoScore: 1,
+    date: '2025-05-12T17:00:00Z',
+    status: MatchStatus.COMPLETED,
+    maps: [
+      { name: 'Bank', teamOneScore: 7, teamTwoScore: 4 },
+      { name: 'Clubhouse', teamOneScore: 5, teamTwoScore: 7 },
+      { name: 'Kafe', teamOneScore: 7, teamTwoScore: 6 },
+      { name: 'Border', teamOneScore: 7, teamTwoScore: 3 }
     ]
   }
 ];
