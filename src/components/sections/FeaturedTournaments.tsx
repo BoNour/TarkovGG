@@ -40,7 +40,7 @@ const FeaturedTournaments: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="py-24" style={{ backgroundColor: '#1a1b1b' }}>
+      <div className="py-16" style={{ backgroundColor: '#1a1b1b' }}>
         <div className="container mx-auto px-4">
           <div className="animate-pulse">
             <div className="h-8 w-48 rounded mb-8 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
@@ -56,9 +56,11 @@ const FeaturedTournaments: React.FC = () => {
   }
 
   return (
-    <section className="py-24 relative" style={{ backgroundColor: '#1a1b1b' }}>
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/3 to-transparent"></div>
+    <section className="py-16 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-[0.01]">
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+      </div>
       
       <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
         {/* Section Header */}
@@ -69,36 +71,43 @@ const FeaturedTournaments: React.FC = () => {
             </h2>
           </div>
           
+          {/* Compact call to action */}
           <Link 
             to="/tournaments" 
-            className="group flex items-center space-x-2 px-6 py-3 backdrop-blur-sm border rounded-xl text-white font-medium transition-all duration-300"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-            }}
+            className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
           >
-            <span>View All Tournaments</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+            <span>View All</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
           </Link>
         </div>
         
-        {/* Tournament Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Tournament Cards Grid - improved for better space utilization */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
           {featuredTournaments.map((tournament, index) => (
-            <div 
-              key={tournament.id}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
+            <div key={tournament.id} className="relative">
               <TournamentCard tournament={tournament} />
             </div>
           ))}
         </div>
+        
+        {/* Compact no tournaments state */}
+        {featuredTournaments.length === 0 && (
+          <div className="text-center py-12">
+            <div className="max-w-md mx-auto">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center border" 
+                   style={{ 
+                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                     borderColor: 'rgba(255, 255, 255, 0.1)'
+                   }}>
+                <Trophy className="w-10 h-10 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-200 mb-3">No featured tournaments</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Check back soon for upcoming tournaments and events
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

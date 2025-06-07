@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
               />
             </Link>
             <p className="mt-2 text-sm text-gray-300">
-              Your ultimate destination for esports statistics, player profiles, and tournament coverage.
+              The destination for Tarkov Arena esports statistics, and tournament coverage.
             </p>
           </div>
           <div>
