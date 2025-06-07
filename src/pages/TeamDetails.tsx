@@ -3,17 +3,20 @@ import { useParams, Link } from 'react-router-dom';
 import { useGameData } from '../context/GameDataContext';
 import PlayerCard from '../components/ui/PlayerCard';
 import MatchCard from '../components/ui/MatchCard';
-import { ArrowLeft, Users, Activity, Trophy, TrendingUp, Target, Award } from 'lucide-react';
+import { ArrowLeft, Users, Activity, Trophy, TrendingUp, Target, Award, UserMinus, Calendar } from 'lucide-react';
 
 const TeamDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { teams, players, matches, tournaments, isLoading } = useGameData();
+  const { teams, players, matches, tournaments, exPlayers, isLoading } = useGameData();
   
   // Find the team
   const team = teams.find(t => t.id === id);
   
   // Get team players
   const teamPlayers = players.filter(p => team?.players.includes(p.id));
+  
+  // Get team ex-players
+  const teamExPlayers = exPlayers.filter(p => team?.exPlayers?.includes(p.id));
   
   // Get team matches (limit to recent 5 for the sidebar)
   const teamMatches = matches.filter(match => 
@@ -91,10 +94,10 @@ const TeamDetails: React.FC = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
       {/* Header Section */}
-      <section className="relative py-8">
+      <section className="relative py-2">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           {/* Back button */}
-          <div className="mb-6">
+          <div className="mb-4">
             <Link 
               to="/teams" 
               className="inline-flex items-center text-gray-400 hover:text-white transition-colors"
@@ -105,23 +108,19 @@ const TeamDetails: React.FC = () => {
           </div>
           
           {/* Team header */}
-          <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl mb-8">
-            <div className="relative h-32 bg-gradient-to-r from-gray-900/50 to-gray-700/50">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
-            </div>
-            
-            <div className="relative px-8 py-6">
-              <div className="flex flex-col md:flex-row items-start md:items-end">
-                <div className="relative -mt-16 mb-4 md:mb-0 md:mr-6">
+          <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl mb-4">
+            <div className="px-8 py-4">
+              <div className="flex flex-col md:flex-row items-start md:items-center">
+                <div className="mb-3 md:mb-0 md:mr-6">
                   <img 
                     src={team.logo} 
                     alt={team.name} 
-                    className="w-20 h-20 rounded-full border-4 border-gray-600/50 shadow-xl"
+                    className="w-14 h-14 rounded-full border-4 border-gray-600/50 shadow-xl"
                   />
                 </div>
                 <div className="flex-grow">
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h1 className="text-3xl md:text-4xl font-black text-white">{team.name}</h1>
+                  <div className="flex flex-wrap items-center gap-3 mb-1">
+                    <h1 className="text-2xl md:text-3xl font-black text-white">{team.name}</h1>
                     <span className="bg-gray-700/50 px-3 py-1 rounded-lg text-sm font-medium text-gray-300 border border-gray-600/30">
                       {team.tag}
                     </span>
@@ -133,44 +132,44 @@ const TeamDetails: React.FC = () => {
           </div>
           
           {/* Stats overview */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
-              <div className="flex items-center mb-3">
-                <TrendingUp className="w-6 h-6 text-blue-400 mr-3" />
-                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest">Win Rate</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
+              <div className="flex items-center mb-2">
+                <TrendingUp className="w-5 h-5 text-blue-400 mr-2" />
+                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Win Rate</h3>
               </div>
-              <p className={`text-3xl font-bold ${getWinRateColor(team.stats.winRate)}`}>
+              <p className={`text-2xl font-bold ${getWinRateColor(team.stats.winRate)}`}>
                 {(team.stats.winRate * 100).toFixed(1)}%
               </p>
             </div>
             
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
-              <div className="flex items-center mb-3">
-                <Target className="w-6 h-6 text-green-400 mr-3" />
-                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest">Match Record</h3>
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
+              <div className="flex items-center mb-2">
+                <Target className="w-5 h-5 text-green-400 mr-2" />
+                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Match Record</h3>
               </div>
-              <p className="text-3xl font-bold text-white">
+              <p className="text-2xl font-bold text-white">
                 {team.stats.wins}-{team.stats.losses}
               </p>
-              <p className="text-sm text-gray-400 mt-1">Wins-Losses</p>
+              <p className="text-xs text-gray-400 mt-1">Wins-Losses</p>
             </div>
             
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
-              <div className="flex items-center mb-3">
-                <Award className="w-6 h-6 text-purple-400 mr-3" />
-                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest">Round Diff</h3>
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
+              <div className="flex items-center mb-2">
+                <Award className="w-5 h-5 text-purple-400 mr-2" />
+                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Round Diff</h3>
               </div>
-              <p className={`text-3xl font-bold ${team.stats.roundsWon > team.stats.roundsLost ? 'text-green-400' : 'text-red-400'}`}>
+              <p className={`text-2xl font-bold ${team.stats.roundsWon > team.stats.roundsLost ? 'text-green-400' : 'text-red-400'}`}>
                 {team.stats.roundsWon > team.stats.roundsLost ? '+' : ''}{team.stats.roundsWon - team.stats.roundsLost}
               </p>
-              <p className="text-sm text-gray-400 mt-1">{team.stats.roundsWon}-{team.stats.roundsLost}</p>
+              <p className="text-xs text-gray-400 mt-1">{team.stats.roundsWon}-{team.stats.roundsLost}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Content - Two Column Layout */}
-      <section className="relative pb-16">
+      <section className="relative pb-6">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/3 to-transparent"></div>
         <div className="relative">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -180,22 +179,22 @@ const TeamDetails: React.FC = () => {
               <div className="lg:col-span-2">
                 <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl">
                   {/* Header */}
-                  <div className="bg-gradient-to-r from-blue-600/10 to-blue-500/5 p-6 border-b border-blue-500/15">
+                  <div className="bg-gradient-to-r from-blue-600/10 to-blue-500/5 p-3 border-b border-blue-500/15">
                     <div className="flex items-center">
-                      <div className="w-12 h-12 bg-blue-500/15 rounded-2xl flex items-center justify-center border border-blue-500/20 mr-4">
-                        <Users className="w-6 h-6 text-blue-300" />
+                      <div className="w-10 h-10 bg-blue-500/15 rounded-2xl flex items-center justify-center border border-blue-500/20 mr-3">
+                        <Users className="w-5 h-5 text-blue-300" />
                       </div>
                       <div>
-                        <h2 className="text-2xl font-bold text-white">Team Roster</h2>
-                        <p className="text-blue-200 text-sm font-medium">{teamPlayers.length} active players</p>
+                        <h2 className="text-xl font-bold text-white">Team Roster</h2>
+                        <p className="text-blue-200 text-xs font-medium">{teamPlayers.length} active players</p>
                       </div>
                     </div>
                   </div>
                   
                   {/* Content */}
-                  <div className="p-4">
+                  <div className="p-3">
                     {teamPlayers.length > 0 ? (
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         {teamPlayers.map(player => {
                           const ratingColor = player.stats.rating > 1.1 
                             ? 'text-green-400' 
@@ -204,21 +203,22 @@ const TeamDetails: React.FC = () => {
                               : 'text-yellow-400';
                           
                           return (
-                            <div key={player.id} className="bg-black/15 border border-blue-500/15 rounded-xl p-3 hover:border-blue-500/25 hover:bg-black/20 transition-all duration-300 group">
+                            <div key={player.id} className="bg-black/15 border border-blue-500/15 rounded-lg p-2.5 hover:border-blue-500/25 hover:bg-black/20 transition-all duration-300 group">
                               <div className="flex items-center space-x-3">
                                 <img
                                   src={player.image}
                                   alt={player.nickname}
-                                  className="w-12 h-12 rounded-full object-cover border-2 border-gray-600/50 group-hover:border-blue-500/50 transition-colors"
+                                  className="w-10 h-10 rounded-full object-cover border-2 border-gray-600/50 group-hover:border-blue-500/50 transition-colors"
                                 />
                                 <div className="flex-1 min-w-0">
                                   <Link 
                                     to={`/players/${player.id}`}
-                                    className="text-white font-semibold hover:text-blue-400 transition-colors truncate block"
+                                    className="text-white font-medium hover:text-blue-400 transition-colors truncate block text-sm"
                                   >
                                     {player.nickname}
                                   </Link>
-                                  <p className="text-gray-400 text-sm truncate">{player.realName}</p>
+                                  <p className="text-gray-400 text-xs truncate">{player.realName}</p>
+                                  <p className="text-blue-300 text-xs font-medium">{player.role}</p>
                                 </div>
                                 <div className="text-right flex-shrink-0">
                                   <div className={`text-sm font-bold ${ratingColor}`}>
@@ -228,18 +228,18 @@ const TeamDetails: React.FC = () => {
                                 </div>
                               </div>
                               
-                              <div className="mt-3 grid grid-cols-3 gap-3 text-center">
+                              <div className="mt-2 grid grid-cols-3 gap-2 text-center">
                                 <div>
                                   <div className="text-xs text-gray-400">K/D</div>
-                                  <div className="text-sm font-medium text-white">{player.stats.kdRatio.toFixed(1)}</div>
+                                  <div className="text-xs font-medium text-white">{player.stats.kdRatio.toFixed(1)}</div>
                                 </div>
                                 <div>
                                   <div className="text-xs text-gray-400">KOST</div>
-                                  <div className="text-sm font-medium text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
+                                  <div className="text-xs font-medium text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
                                 </div>
                                 <div>
                                   <div className="text-xs text-gray-400">SRV</div>
-                                  <div className="text-sm font-medium text-white">{(player.stats.srv * 100).toFixed(0)}%</div>
+                                  <div className="text-xs font-medium text-white">{(player.stats.srv * 100).toFixed(0)}%</div>
                                 </div>
                               </div>
                             </div>
@@ -426,6 +426,135 @@ const TeamDetails: React.FC = () => {
                     <div className="text-center">
                       <p className="text-gray-300 font-medium mb-1">No Tournament Results</p>
                       <p className="text-gray-500 text-sm">This team hasn't participated in any tournaments yet</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ex-Players Section - Full Width Below */}
+      <section className="relative pb-16">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/3 to-transparent"></div>
+        <div className="relative">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-orange-600/10 to-orange-500/5 p-6 border-b border-orange-500/15">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-orange-500/15 rounded-2xl flex items-center justify-center border border-orange-500/20 mr-4">
+                    <UserMinus className="w-6 h-6 text-orange-300" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">Ex-Players</h2>
+                    <p className="text-orange-200 text-sm font-medium">Former team members and their tenure</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div className="p-6">
+                {teamExPlayers && teamExPlayers.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {teamExPlayers.map(player => {
+                      const joinDate = new Date(player.joinDate);
+                      const leaveDate = new Date(player.leaveDate);
+                      const daysDiff = Math.floor((leaveDate.getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24));
+                      const monthsDiff = Math.floor(daysDiff / 30);
+                      
+                      const ratingColor = player.stats.rating > 1.1 
+                        ? 'text-green-400' 
+                        : player.stats.rating < 0.9 
+                          ? 'text-red-400' 
+                          : 'text-yellow-400';
+                      
+                      return (
+                        <div key={player.id} className="bg-black/15 border border-orange-500/15 rounded-xl p-5 hover:border-orange-500/25 hover:bg-black/20 transition-all duration-300 group">
+                          <div className="flex items-start space-x-4">
+                            <img
+                              src={player.image}
+                              alt={player.nickname}
+                              className="w-16 h-16 rounded-full object-cover border-2 border-gray-600/50 group-hover:border-orange-500/50 transition-colors"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-2">
+                                <div>
+                                  <h3 className="text-white font-semibold text-lg">{player.nickname}</h3>
+                                  <p className="text-gray-400 text-sm">{player.realName}</p>
+                                  <p className="text-orange-300 text-sm font-medium">{player.role}</p>
+                                </div>
+                                <div className="text-right">
+                                  <div className={`text-lg font-bold ${ratingColor}`}>
+                                    {player.stats.rating.toFixed(2)}
+                                  </div>
+                                  <div className="text-xs text-gray-400">Rating</div>
+                                </div>
+                              </div>
+                              
+                              <div className="grid grid-cols-3 gap-3 text-center mb-4">
+                                <div>
+                                  <div className="text-xs text-gray-400">K/D</div>
+                                  <div className="text-sm font-medium text-white">{player.stats.kdRatio.toFixed(1)}</div>
+                                </div>
+                                <div>
+                                  <div className="text-xs text-gray-400">KOST</div>
+                                  <div className="text-sm font-medium text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
+                                </div>
+                                <div>
+                                  <div className="text-xs text-gray-400">SRV</div>
+                                  <div className="text-sm font-medium text-white">{(player.stats.srv * 100).toFixed(0)}%</div>
+                                </div>
+                              </div>
+                              
+                              <div className="border-t border-orange-500/15 pt-3">
+                                <div className="flex items-center justify-between text-sm">
+                                  <div className="flex items-center text-gray-400">
+                                    <Calendar className="w-4 h-4 mr-1" />
+                                    <span>Joined: {joinDate.toLocaleDateString()}</span>
+                                  </div>
+                                  <div className="flex items-center text-gray-400">
+                                    <Calendar className="w-4 h-4 mr-1" />
+                                    <span>Left: {leaveDate.toLocaleDateString()}</span>
+                                  </div>
+                                </div>
+                                <div className="mt-2 text-center">
+                                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-500/15 text-orange-300 border border-orange-500/20">
+                                    {monthsDiff > 0 ? `${monthsDiff} months` : `${daysDiff} days`} with team
+                                  </span>
+                                </div>
+                              </div>
+                              
+                              {player.socialMedia?.twitter && (
+                                <div className="mt-3 pt-3 border-t border-orange-500/15">
+                                  <a 
+                                    href={player.socialMedia.twitter}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center text-orange-300 hover:text-orange-200 transition-colors text-sm"
+                                  >
+                                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                    </svg>
+                                    Follow on Twitter
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                    <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center">
+                      <UserMinus className="w-8 h-8 text-orange-300" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-300 font-medium mb-1">No Ex-Players</p>
+                      <p className="text-gray-500 text-sm">This team has no former players on record</p>
                     </div>
                   </div>
                 )}

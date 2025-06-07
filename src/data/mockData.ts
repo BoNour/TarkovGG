@@ -1,4 +1,4 @@
-import { Player, Team, Match, Tournament, News, MatchStatus, TournamentType, TournamentFormat } from '../types';
+import { Player, Team, Match, Tournament, News, MatchStatus, TournamentType, TournamentFormat, ExPlayer } from '../types';
 
 // Mock Players
 export const mockPlayers: Player[] = [
@@ -130,6 +130,127 @@ export const mockPlayers: Player[] = [
       attack: 60,
       defense: 40
     }
+  },
+  // Additional FURIA Esports players (total 5)
+  {
+    id: '7',
+    nickname: 'khalil',
+    realName: 'Khalil Schmidt',
+    nationality: 'BR',
+    teamId: '2',
+    role: 'IGL',
+    image: 'https://i.pravatar.cc/150?img=7',
+    stats: {
+      rating: 1.18,
+      kdRatio: 1.3,
+      entryRatio: '28-21',
+      kost: 0.75,
+      kpr: 0.88,
+      srv: 0.42,
+      plants: 2,
+      headshots: 3,
+      attack: 58,
+      defense: 42
+    },
+    socialMedia: {
+      twitter: 'https://twitter.com/khalil'
+    }
+  },
+  {
+    id: '8',
+    nickname: 'murizzz',
+    realName: 'Murilo Tebet',
+    nationality: 'BR',
+    teamId: '2',
+    role: 'Sentinel',
+    image: 'https://i.pravatar.cc/150?img=8',
+    stats: {
+      rating: 1.12,
+      kdRatio: 1.1,
+      entryRatio: '24-22',
+      kost: 0.72,
+      kpr: 0.79,
+      srv: 0.38,
+      plants: 1,
+      headshots: 2,
+      attack: 45,
+      defense: 55
+    }
+  },
+  {
+    id: '9',
+    nickname: 'dgzin',
+    realName: 'Douglas Silva',
+    nationality: 'BR',
+    teamId: '2',
+    role: 'Duelist',
+    image: 'https://i.pravatar.cc/150?img=9',
+    stats: {
+      rating: 1.26,
+      kdRatio: 1.7,
+      entryRatio: '32-19',
+      kost: 0.68,
+      kpr: 1.02,
+      srv: 0.44,
+      plants: 0,
+      headshots: 4,
+      attack: 78,
+      defense: 22
+    },
+    socialMedia: {
+      twitter: 'https://twitter.com/dgzin'
+    }
+  }
+];
+
+// Mock Ex-Players
+export const mockExPlayers: ExPlayer[] = [
+  {
+    id: 'ex1',
+    nickname: 'qck',
+    realName: 'Alexandre Fonseca',
+    nationality: 'BR',
+    role: 'Duelist',
+    image: 'https://i.pravatar.cc/150?img=20',
+    joinDate: '2023-01-15',
+    leaveDate: '2024-08-20',
+    stats: {
+      rating: 1.08,
+      kdRatio: 1.2,
+      entryRatio: '26-22',
+      kost: 0.69,
+      kpr: 0.85,
+      srv: 0.35,
+      plants: 0,
+      headshots: 3,
+      attack: 72,
+      defense: 28
+    },
+    socialMedia: {
+      twitter: 'https://twitter.com/qck'
+    }
+  },
+  {
+    id: 'ex2',
+    nickname: 'Mazin',
+    realName: 'Igor Oliveira',
+    nationality: 'BR',
+    role: 'Controller',
+    image: 'https://i.pravatar.cc/150?img=21',
+    joinDate: '2022-06-10',
+    leaveDate: '2024-03-15',
+    stats: {
+      rating: 0.98,
+      kdRatio: 0.95,
+      entryRatio: '20-21',
+      kost: 0.64,
+      kpr: 0.74,
+      srv: 0.41,
+      plants: 3,
+      headshots: 1,
+      attack: 38,
+      defense: 62
+    }
   }
 ];
 
@@ -160,7 +281,8 @@ export const mockTeams: Team[] = [
     tag: 'FURIA',
     logo: 'https://placehold.co/200x200/2c3e50/ffffff?text=FURIA',
     region: 'LATAM',
-    players: ['2', '3'],
+    players: ['2', '3', '7', '8', '9'], // All 5 active players
+    exPlayers: ['ex1', 'ex2'], // 2 ex-players
     stats: {
       wins: 20,
       losses: 5,

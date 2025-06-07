@@ -28,6 +28,23 @@ export interface Player {
   };
 }
 
+export interface ExPlayer {
+  id: string;
+  nickname: string;
+  realName: string;
+  nationality: string;
+  role: string;
+  image: string;
+  stats: PlayerStats;
+  joinDate: string;
+  leaveDate: string;
+  socialMedia?: {
+    twitter?: string;
+    twitch?: string;
+    instagram?: string;
+  };
+}
+
 // Team types
 export interface TeamStats {
   wins: number;
@@ -48,6 +65,7 @@ export interface Team {
   logo: string;
   region: string;
   players: string[]; // Array of player IDs
+  exPlayers?: string[]; // Array of ex-player IDs
   stats: TeamStats;
 }
 

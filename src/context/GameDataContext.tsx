@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Player, Team, Match, Tournament, News } from '../types';
+import { Player, Team, Match, Tournament, News, ExPlayer } from '../types';
 import { 
   mockPlayers, 
   mockTeams, 
   mockMatches, 
   mockTournaments, 
-  mockNews 
+  mockNews,
+  mockExPlayers 
 } from '../data/mockData';
 
 interface GameDataContextType {
@@ -14,6 +15,7 @@ interface GameDataContextType {
   matches: Match[];
   tournaments: Tournament[];
   news: News[];
+  exPlayers: ExPlayer[];
   isLoading: boolean;
   error: string | null;
 }
@@ -38,6 +40,7 @@ export const GameDataProvider = ({ children }: GameDataProviderProps) => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
   const [news, setNews] = useState<News[]>([]);
+  const [exPlayers, setExPlayers] = useState<ExPlayer[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,6 +54,7 @@ export const GameDataProvider = ({ children }: GameDataProviderProps) => {
         setMatches(mockMatches);
         setTournaments(mockTournaments);
         setNews(mockNews);
+        setExPlayers(mockExPlayers);
         setIsLoading(false);
       } catch (error) {
         setError('Failed to fetch data');
@@ -70,6 +74,7 @@ export const GameDataProvider = ({ children }: GameDataProviderProps) => {
         matches,
         tournaments,
         news,
+        exPlayers,
         isLoading,
         error
       }}
