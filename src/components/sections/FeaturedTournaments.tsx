@@ -58,134 +58,122 @@ const FeaturedTournaments: React.FC = () => {
 
   return (
     <>
-      {/* Custom CSS for animations */}
+      {/* Clean 2025 CSS */}
       <style>{`
-        @keyframes slideInUp {
-          0% {
+        @keyframes fadeInUp {
+          from {
             opacity: 0;
-            transform: perspective(1000px) translateY(60px) rotateX(10deg) scale(0.95);
+            transform: translateY(32px);
           }
-          100% {
+          to {
             opacity: 1;
-            transform: perspective(1000px) translateY(0px) rotateX(0deg) scale(1);
+            transform: translateY(0);
           }
         }
         
-        .animate-slideInUp {
-          animation: slideInUp 1s ease-out forwards;
-          animation-fill-mode: both;
+        .tournament-card {
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        .perspective-1000 {
-          perspective: 1000px;
+        .tournament-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3);
         }
         
-        .transform-gpu {
-          transform: translateZ(0);
-          will-change: transform;
+        .card-number {
+          transition: all 0.3s ease-out;
+          font-variant-numeric: tabular-nums;
+        }
+        
+        .glass-effect {
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .text-gradient {
+          background: linear-gradient(135deg, #ffffff 0%, #a8a8a8 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
       `}</style>
 
-      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
-        {/* Ambient background effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/[0.03] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/[0.03] rounded-full blur-3xl"></div>
+      <section className="py-16 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
+        {/* Background texture */}
+        <div className="absolute inset-0 opacity-[0.01]">
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)',
+            backgroundSize: '32px 32px'
+          }}></div>
         </div>
         
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-[0.015]">
-          <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '64px 64px' }}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          {/* Section Header - Enhanced */}
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/[0.05] backdrop-blur-sm rounded-full border border-white/10 mb-8">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-gray-300 tracking-wider">FEATURED EVENTS</span>
+        <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
+          {/* Section header - matching LatestMatches style */}
+          <div className="mb-16">
+            <div className="space-y-4">
+              <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
+                Tournaments
+              </h2>
+              <p className="text-lg text-gray-400 max-w-xl">
+                The most competitive events happening right now
+              </p>
             </div>
-            
-            <h2 className="text-6xl lg:text-7xl font-black bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-6 leading-tight">
-              Tournaments
-            </h2>
-            
-            <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-              Discover the most exciting competitive events happening now
-            </p>
-            
-            {/* Call to action button - moved to header */}
-            <Link 
-              to="/tournaments" 
-              className="group inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40"
-            >
-              <span>Explore All Tournaments</span>
-              <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
           </div>
           
-          {/* Tournament Cards - Improved vertical layout */}
-          <div className="space-y-12 max-w-5xl mx-auto">
+          {/* Clean tournament list */}
+          <div className="space-y-8 max-w-4xl mx-auto">
             {featuredTournaments.map((tournament, index) => (
               <div 
-                key={tournament.id} 
-                className="relative group perspective-1000"
+                key={tournament.id}
+                className="group relative"
                 style={{
-                  animationDelay: `${index * 200}ms`
+                  animation: `fadeInUp 0.6s ease-out ${index * 150}ms both`
                 }}
                 onMouseEnter={() => setHoveredTournamentId(tournament.id)}
                 onMouseLeave={() => setHoveredTournamentId(null)}
               >
-                {/* Card number indicator - moved further left */}
-                <div className="absolute -left-20 top-8 text-6xl font-black text-white/[0.02] select-none transition-all duration-700 group-hover:text-white/[0.06] group-hover:scale-105">
+                {/* Minimal card number */}
+                <div className="absolute -left-16 top-6 card-number text-5xl font-black text-white/[0.03] group-hover:text-white/[0.08]">
                   {String(index + 1).padStart(2, '0')}
                 </div>
                 
-                {/* Main card with subtle 3D tilt effect */}
+                {/* Main card */}
                 <div 
-                  className="transform-gpu transition-all duration-700 ease-out animate-slideInUp"
+                  className="tournament-card glass-effect rounded-3xl overflow-hidden"
                   style={{
-                    transform: hoveredTournamentId === tournament.id
-                      ? 'perspective(1000px) rotateX(-1deg) rotateY(1deg) translateY(-4px) scale(1.01)'
-                      : hoveredTournamentId && hoveredTournamentId !== tournament.id
-                      ? 'perspective(1000px) rotateX(0.5deg) scale(0.99) translateY(2px)'
-                      : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)',
                     filter: hoveredTournamentId && hoveredTournamentId !== tournament.id 
-                      ? 'blur(0.5px) brightness(0.85)' 
-                      : 'blur(0px) brightness(1)',
-                    transformStyle: 'preserve-3d'
+                      ? 'blur(1px) brightness(0.8)' 
+                      : 'none'
                   }}
                 >
                   <TournamentCard tournament={tournament} variant="full" />
-                  
-                  {/* Subtle glow effect on hover - more gentle colors */}
-                  <div 
-                    className="absolute -inset-1 bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-blue-400/10 rounded-3xl blur-xl opacity-0 transition-opacity duration-700 -z-10"
-                    style={{
-                      opacity: hoveredTournamentId === tournament.id ? 1 : 0
-                    }}
-                  ></div>
                 </div>
               </div>
             ))}
           </div>
           
-          {/* Enhanced no tournaments state */}
+          {/* Clean empty state */}
           {featuredTournaments.length === 0 && (
-            <div className="text-center py-24">
-              <div className="max-w-lg mx-auto">
-                <div className="w-24 h-24 mx-auto mb-8 rounded-2xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm">
-                  <Trophy className="w-12 h-12 text-gray-400" />
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-4">No tournaments yet</h3>
-                <p className="text-gray-300 leading-relaxed text-lg">
-                  We're preparing some amazing tournaments for you. Check back soon for exciting competitive events.
-                </p>
+            <div className="text-center py-20">
+              <div className="w-16 h-16 mx-auto mb-6 glass-effect rounded-2xl flex items-center justify-center">
+                <Trophy className="w-8 h-8 text-gray-400" />
               </div>
+              <h3 className="text-xl font-semibold text-white mb-2">No tournaments available</h3>
+              <p className="text-gray-400">Check back soon for upcoming events</p>
             </div>
           )}
+
+          {/* View All button positioned at bottom right */}
+          <div className="flex justify-end mt-8">
+            <Link 
+              to="/tournaments" 
+              className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -12,7 +12,7 @@ const Home: React.FC = () => {
 
 
       {/* Modern Hero Section */}
-      <section className="relative min-h-[calc(100vh-500px)] flex items-start justify-center overflow-hidden pt-20">
+      <section className="relative min-h-[calc(100vh-400px)] flex items-start justify-center overflow-hidden pt-20 pb-20">
         {/* Background with overlay */}
         <div 
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-105"
@@ -21,8 +21,8 @@ const Home: React.FC = () => {
           }}
         ></div>
         
-        {/* Modern gradient overlay */}
-        <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(135deg, rgba(26, 27, 27, 0.95) 0%, rgba(26, 27, 27, 0.85) 50%, rgba(26, 27, 27, 0.95) 100%)' }}></div>
+        {/* Modern gradient overlay with perfect fade */}
+        <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(180deg, rgba(26, 27, 27, 0.6) 0%, rgba(26, 27, 27, 0.75) 40%, rgba(26, 27, 27, 0.9) 70%, rgba(26, 27, 27, 1) 85%)' }}></div>
         
         {/* Animated background orbs */}
         <div className="absolute inset-0 z-20">
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* CTA Buttons - positioned at bottom right of background image */}
-        <div className="absolute bottom-8 right-8 z-30 flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
+        <div className="absolute bottom-8 right-8 z-50 flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
         <Link 
           to="/players" 
           className="group px-8 py-4 backdrop-blur-sm border rounded-2xl font-semibold text-white text-lg transition-all duration-300 hover:border-white/30 min-w-[200px]"
@@ -94,16 +94,14 @@ const Home: React.FC = () => {
         </Link>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 animate-bounce">
-          <div className="w-6 h-10 border-2 rounded-full p-1" style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}>
-            <div className="w-1 h-3 rounded-full mx-auto animate-pulse" style={{ backgroundColor: 'rgba(255, 255, 255, 0.4)' }}></div>
-          </div>
-        </div>
+
+        
+        {/* Additional fade overlay at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 z-40" style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(26, 27, 27, 1) 100%)' }}></div>
       </section>
 
-      {/* Content sections with modern spacing */}
-      <div className="space-y-16" style={{ backgroundColor: '#1a1b1b' }}>
+      {/* Content sections with seamless connection */}
+      <div className="space-y-0" style={{ backgroundColor: '#1a1b1b' }}>
         {/* Live Matches Section */}
         <section id="live-matches" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/3 to-transparent"></div>

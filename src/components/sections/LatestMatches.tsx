@@ -59,22 +59,12 @@ const LatestMatches: React.FC = () => {
       
       <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
+        <div className="mb-16">
           <div className="space-y-4">
             <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
               Latest Matches
             </h2>
-
           </div>
-          
-          {/* Compact call to action */}
-          <Link 
-            to="/matches" 
-            className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
-          </Link>
         </div>
         
         {/* Horizontal matches grid - improved for better space utilization */}
@@ -114,6 +104,17 @@ const LatestMatches: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* View All button positioned at bottom right */}
+        <div className="flex justify-end mt-8">
+          <Link 
+            to="/matches" 
+            className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
+          >
+            <span>View All</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
+          </Link>
+        </div>
       </div>
     </section>
   );
