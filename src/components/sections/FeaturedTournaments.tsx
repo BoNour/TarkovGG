@@ -57,70 +57,138 @@ const FeaturedTournaments: React.FC = () => {
   }
 
   return (
-    <section className="py-16 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
-      {/* Background texture */}
-      <div className="absolute inset-0 opacity-[0.01]">
-        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
-      </div>
-      
-      <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
-          <div className="space-y-4">
-            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
-              Featured Tournaments
+    <>
+      {/* Custom CSS for animations */}
+      <style>{`
+        @keyframes slideInUp {
+          0% {
+            opacity: 0;
+            transform: perspective(1000px) translateY(60px) rotateX(10deg) scale(0.95);
+          }
+          100% {
+            opacity: 1;
+            transform: perspective(1000px) translateY(0px) rotateX(0deg) scale(1);
+          }
+        }
+        
+        .animate-slideInUp {
+          animation: slideInUp 1s ease-out forwards;
+          animation-fill-mode: both;
+        }
+        
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        
+        .transform-gpu {
+          transform: translateZ(0);
+          will-change: transform;
+        }
+      `}</style>
+
+      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
+        {/* Ambient background effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/[0.03] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/[0.03] rounded-full blur-3xl"></div>
+        </div>
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.015]">
+          <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '64px 64px' }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          {/* Section Header - Enhanced */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/[0.05] backdrop-blur-sm rounded-full border border-white/10 mb-8">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-gray-300 tracking-wider">FEATURED EVENTS</span>
+            </div>
+            
+            <h2 className="text-6xl lg:text-7xl font-black bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-6 leading-tight">
+              Tournaments
             </h2>
+            
+            <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+              Discover the most exciting competitive events happening now
+            </p>
+            
+            {/* Call to action button - moved to header */}
+            <Link 
+              to="/tournaments" 
+              className="group inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40"
+            >
+              <span>Explore All Tournaments</span>
+              <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
           </div>
           
-          {/* Compact call to action */}
-          <Link 
-            to="/tournaments" 
-            className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-500/25"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
-          </Link>
-        </div>
-        
-        {/* Tournament Cards Grid - improved for better space utilization */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
-          {featuredTournaments.map((tournament, index) => (
-            <div 
-              key={tournament.id} 
-              className="relative transition-transform duration-700 ease-in-out"
-              style={{
-                transform: hoveredTournamentId && hoveredTournamentId !== tournament.id 
-                  ? 'scale(0.96)' 
-                  : 'scale(1.0)'
-              }}
-              onMouseEnter={() => setHoveredTournamentId(tournament.id)}
-              onMouseLeave={() => setHoveredTournamentId(null)}
-            >
-              <TournamentCard tournament={tournament} />
-            </div>
-          ))}
-        </div>
-        
-        {/* Compact no tournaments state */}
-        {featuredTournaments.length === 0 && (
-          <div className="text-center py-12">
-            <div className="max-w-md mx-auto">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center border" 
-                   style={{ 
-                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                     borderColor: 'rgba(255, 255, 255, 0.1)'
-                   }}>
-                <Trophy className="w-10 h-10 text-gray-400" />
+          {/* Tournament Cards - Improved vertical layout */}
+          <div className="space-y-12 max-w-5xl mx-auto">
+            {featuredTournaments.map((tournament, index) => (
+              <div 
+                key={tournament.id} 
+                className="relative group perspective-1000"
+                style={{
+                  animationDelay: `${index * 200}ms`
+                }}
+                onMouseEnter={() => setHoveredTournamentId(tournament.id)}
+                onMouseLeave={() => setHoveredTournamentId(null)}
+              >
+                {/* Card number indicator - moved further left */}
+                <div className="absolute -left-20 top-8 text-6xl font-black text-white/[0.02] select-none transition-all duration-700 group-hover:text-white/[0.06] group-hover:scale-105">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+                
+                {/* Main card with subtle 3D tilt effect */}
+                <div 
+                  className="transform-gpu transition-all duration-700 ease-out animate-slideInUp"
+                  style={{
+                    transform: hoveredTournamentId === tournament.id
+                      ? 'perspective(1000px) rotateX(-1deg) rotateY(1deg) translateY(-4px) scale(1.01)'
+                      : hoveredTournamentId && hoveredTournamentId !== tournament.id
+                      ? 'perspective(1000px) rotateX(0.5deg) scale(0.99) translateY(2px)'
+                      : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)',
+                    filter: hoveredTournamentId && hoveredTournamentId !== tournament.id 
+                      ? 'blur(0.5px) brightness(0.85)' 
+                      : 'blur(0px) brightness(1)',
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <TournamentCard tournament={tournament} variant="full" />
+                  
+                  {/* Subtle glow effect on hover - more gentle colors */}
+                  <div 
+                    className="absolute -inset-1 bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-blue-400/10 rounded-3xl blur-xl opacity-0 transition-opacity duration-700 -z-10"
+                    style={{
+                      opacity: hoveredTournamentId === tournament.id ? 1 : 0
+                    }}
+                  ></div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-200 mb-3">No featured tournaments</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Check back soon for upcoming tournaments and events
-              </p>
-            </div>
+            ))}
           </div>
-        )}
-      </div>
-    </section>
+          
+          {/* Enhanced no tournaments state */}
+          {featuredTournaments.length === 0 && (
+            <div className="text-center py-24">
+              <div className="max-w-lg mx-auto">
+                <div className="w-24 h-24 mx-auto mb-8 rounded-2xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm">
+                  <Trophy className="w-12 h-12 text-gray-400" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-4">No tournaments yet</h3>
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  We're preparing some amazing tournaments for you. Check back soon for exciting competitive events.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 

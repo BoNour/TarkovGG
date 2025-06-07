@@ -12,7 +12,7 @@ const Home: React.FC = () => {
 
 
       {/* Modern Hero Section */}
-      <section className="relative min-h-[calc(100vh-200px)] flex items-start justify-center overflow-hidden pt-20">
+      <section className="relative min-h-[calc(100vh-500px)] flex items-start justify-center overflow-hidden pt-20">
         {/* Background with overlay */}
         <div 
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-105"
