@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Trophy, Calendar, MapPin } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
@@ -6,6 +6,7 @@ import TournamentCard from '../ui/TournamentCard';
 
 const FeaturedTournaments: React.FC = () => {
   const { tournaments, isLoading } = useGameData();
+  const [hoveredTournamentId, setHoveredTournamentId] = useState<string | null>(null);
   
   // Get ongoing and upcoming tournaments first
   const now = new Date();
@@ -84,7 +85,17 @@ const FeaturedTournaments: React.FC = () => {
         {/* Tournament Cards Grid - improved for better space utilization */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
           {featuredTournaments.map((tournament, index) => (
-            <div key={tournament.id} className="relative">
+            <div 
+              key={tournament.id} 
+              className="relative transition-transform duration-700 ease-in-out"
+              style={{
+                transform: hoveredTournamentId && hoveredTournamentId !== tournament.id 
+                  ? 'scale(0.96)' 
+                  : 'scale(1.0)'
+              }}
+              onMouseEnter={() => setHoveredTournamentId(tournament.id)}
+              onMouseLeave={() => setHoveredTournamentId(null)}
+            >
               <TournamentCard tournament={tournament} />
             </div>
           ))}

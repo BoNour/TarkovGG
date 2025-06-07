@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Activity, Zap } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
@@ -6,6 +6,7 @@ import MatchCard from '../ui/MatchCard';
 
 const LatestMatches: React.FC = () => {
   const { matches, isLoading } = useGameData();
+  const [hoveredMatchId, setHoveredMatchId] = useState<string | null>(null);
   
   // Enhanced sorting: Live matches first, then by date (most recent first)
   const sortedMatches = [...matches].sort((a, b) => {
@@ -79,8 +80,17 @@ const LatestMatches: React.FC = () => {
         {/* Horizontal matches grid - improved for better space utilization */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
           {latestMatches.map((match, index) => (
-            <div key={match.id} className="relative">
-
+            <div 
+              key={match.id} 
+              className="relative transition-transform duration-700 ease-in-out"
+              style={{
+                transform: hoveredMatchId && hoveredMatchId !== match.id 
+                  ? 'scale(0.96)' 
+                  : 'scale(1.0)'
+              }}
+              onMouseEnter={() => setHoveredMatchId(match.id)}
+              onMouseLeave={() => setHoveredMatchId(null)}
+            >
               <MatchCard match={match} variant="compact" />
             </div>
           ))}

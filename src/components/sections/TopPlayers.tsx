@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users, Award } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
@@ -6,6 +6,7 @@ import PlayerCard from '../ui/PlayerCard';
 
 const TopPlayers: React.FC = () => {
   const { players, isLoading } = useGameData();
+  const [hoveredPlayerId, setHoveredPlayerId] = useState<string | null>(null);
   
   // Sort players by rating (highest first)
   const sortedPlayers = [...players].sort((a, b) => b.stats.rating - a.stats.rating);
@@ -63,8 +64,14 @@ const TopPlayers: React.FC = () => {
           {topPlayers.map((player, index) => (
             <div 
               key={player.id} 
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 150}ms` }}
+              className="transition-transform duration-700 ease-in-out"
+              style={{
+                transform: hoveredPlayerId && hoveredPlayerId !== player.id 
+                  ? 'scale(0.96)' 
+                  : 'scale(1.0)'
+              }}
+              onMouseEnter={() => setHoveredPlayerId(player.id)}
+              onMouseLeave={() => setHoveredPlayerId(null)}
             >
               <PlayerCard player={player} variant="full" />
             </div>
