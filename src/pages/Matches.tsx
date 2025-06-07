@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useGameData } from '../context/GameDataContext';
 import MatchCard from '../components/ui/MatchCard';
-import { Search, Filter, Calendar, Users, Activity, RotateCcw, Sparkles } from 'lucide-react';
+import { ChartsGrid } from '../components/ui/Charts';
+import { Search, Filter, Calendar, Users, Activity, RotateCcw, Sparkles, BarChart3, List } from 'lucide-react';
 import { MatchStatus } from '../types';
 
 const Matches: React.FC = () => {
@@ -10,6 +11,7 @@ const Matches: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<MatchStatus | 'all'>('all');
   const [filterTeam, setFilterTeam] = useState('');
   const [hoveredMatchId, setHoveredMatchId] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'matches' | 'stats'>('matches');
   
   // Filter matches
   const filteredMatches = matches.filter(match => {
@@ -63,6 +65,10 @@ const Matches: React.FC = () => {
     setFilterTeam('');
   };
 
+  const toggleViewMode = () => {
+    setViewMode(viewMode === 'matches' ? 'stats' : 'matches');
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
@@ -83,198 +89,145 @@ const Matches: React.FC = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
-      {/* Hero Section */}
-      <section className="relative py-20">
-        {/* Animated background orbs */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse opacity-30"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-gradient-to-r from-purple-500/8 to-pink-500/8 rounded-full blur-2xl animate-pulse delay-1000 opacity-20"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/6 to-blue-500/6 rounded-full blur-3xl animate-pulse delay-500"></div>
-        </div>
-
-        {/* Main content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center space-y-12">
-            {/* Main headline */}
-            <div className="space-y-6 animate-fade-in-up">
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-none">
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
-                  MATCH
-                </span>
-                <span className="block text-white mt-4">
-                  CENTER
+            {/* Header Section with Title and Filters */}
+      <section className="relative py-12">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            
+            {/* Title - Top Left */}
+            <div className="flex-shrink-0 mb-4 lg:mb-0">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
+                  MATCH CENTER
                 </span>
               </h1>
-              <p className="text-2xl md:text-3xl text-gray-300 font-medium max-w-4xl mx-auto leading-relaxed">
-                Follow live matches, upcoming fixtures, and recent results from the competitive scene
-              </p>
             </div>
-
-            {/* Enhanced Match Statistics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              <div className="text-center space-y-3">
-                <div className="text-4xl md:text-5xl font-black text-red-400">{liveMatches}</div>
-                <div className="text-lg text-gray-300 font-semibold">Live Now</div>
-                <div className="text-sm text-gray-400">Active Matches</div>
+            
+            {/* Clean Inline Filters and View Toggle */}
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-6">
+              
+              {/* View Mode Toggle - Fixed Position */}
+              <div className="flex items-center bg-gray-800/50 rounded-xl p-2 border border-gray-600/50 order-first shadow-lg">
+                <button
+                  onClick={() => setViewMode('matches')}
+                  className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                    viewMode === 'matches' 
+                      ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30 shadow-lg shadow-blue-500/20' 
+                      : 'text-gray-400 hover:text-white hover:bg-gray-700/30'
+                  }`}
+                >
+                  <List className="w-5 h-5" />
+                  <span>Matches</span>
+                </button>
+                <button
+                  onClick={() => setViewMode('stats')}
+                  className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                    viewMode === 'stats' 
+                      ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-lg shadow-purple-500/20' 
+                      : 'text-gray-400 hover:text-white hover:bg-gray-700/30'
+                  }`}
+                >
+                  <BarChart3 className="w-5 h-5" />
+                  <span>Stats</span>
+                </button>
               </div>
-              <div className="text-center space-y-3">
-                <div className="text-4xl md:text-5xl font-black text-blue-400">{upcomingMatches}</div>
-                <div className="text-lg text-gray-300 font-semibold">Upcoming</div>
-                <div className="text-sm text-gray-400">Scheduled Soon</div>
-              </div>
-              <div className="text-center space-y-3">
-                <div className="text-4xl md:text-5xl font-black text-emerald-400">{completedMatches}</div>
-                <div className="text-lg text-gray-300 font-semibold">Completed</div>
-                <div className="text-sm text-gray-400">Finished Games</div>
-              </div>
-              <div className="text-center space-y-3">
-                <div className="text-4xl md:text-5xl font-black text-purple-400">{matches.length}</div>
-                <div className="text-lg text-gray-300 font-semibold">Total</div>
-                <div className="text-sm text-gray-400">All Matches</div>
-              </div>
-            </div>
-
-            {/* Additional Match Info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="backdrop-blur-sm border rounded-2xl p-6 text-center"
-                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
-                <div className="text-2xl font-bold text-yellow-400 mb-2">{teams.length}</div>
-                <div className="text-gray-300 font-medium">Active Teams</div>
-                <div className="text-sm text-gray-400 mt-1">Competing Today</div>
-              </div>
-              <div className="backdrop-blur-sm border rounded-2xl p-6 text-center"
-                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
-                <div className="text-2xl font-bold text-cyan-400 mb-2">
-                  {matches.filter(m => new Date(m.date).toDateString() === new Date().toDateString()).length}
-                </div>
-                <div className="text-gray-300 font-medium">Today's Matches</div>
-                <div className="text-sm text-gray-400 mt-1">Scheduled Today</div>
-              </div>
-              <div className="backdrop-blur-sm border rounded-2xl p-6 text-center"
-                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
-                <div className="text-2xl font-bold text-orange-400 mb-2">
-                  {matches.filter(m => new Date(m.date) > new Date()).length}
-                </div>
-                <div className="text-gray-300 font-medium">Future Matches</div>
-                <div className="text-sm text-gray-400 mt-1">Coming Soon</div>
+              
+              {/* Filters Container - Only visible in matches mode */}
+              <div className={`flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 transition-opacity duration-300 ${
+                viewMode === 'matches' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}>
+              
+                {/* Search - Only show in matches view */}
+                {viewMode === 'matches' && (
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search teams..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="bg-gray-800/50 border border-gray-600/50 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-gray-800/70 transition-all duration-300 placeholder:text-gray-500 text-sm w-48 shadow-lg"
+                    />
+                    <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  </div>
+                )}
+                
+                {/* Status Filter - Only show in matches view */}
+                {viewMode === 'matches' && (
+                  <div className="relative">
+                    <select
+                      value={filterStatus}
+                      onChange={(e) => setFilterStatus(e.target.value as MatchStatus | 'all')}
+                      className="appearance-none bg-gray-800/50 border border-gray-600/50 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-gray-800/70 transition-all duration-300 cursor-pointer text-sm shadow-lg"
+                      style={{ 
+                        colorScheme: 'dark'
+                      }}
+                    >
+                      <option value="all" style={{ backgroundColor: '#1a1b1b', color: 'white' }}>All Status</option>
+                      <option value={MatchStatus.LIVE} style={{ backgroundColor: '#1a1b1b', color: 'white' }}>🔴 Live</option>
+                      <option value={MatchStatus.UPCOMING} style={{ backgroundColor: '#1a1b1b', color: 'white' }}>🔵 Upcoming</option>
+                      <option value={MatchStatus.COMPLETED} style={{ backgroundColor: '#1a1b1b', color: 'white' }}>🟢 Completed</option>
+                    </select>
+                    <Activity className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                  </div>
+                )}
+                
+                {/* Team Filter - Only show in matches view */}
+                {viewMode === 'matches' && (
+                  <div className="relative">
+                    <select
+                      value={filterTeam}
+                      onChange={(e) => setFilterTeam(e.target.value)}
+                      className="appearance-none bg-gray-800/50 border border-gray-600/50 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-gray-800/70 transition-all duration-300 cursor-pointer text-sm shadow-lg"
+                      style={{ 
+                        colorScheme: 'dark'
+                      }}
+                    >
+                      <option value="" style={{ backgroundColor: '#1a1b1b', color: 'white' }}>All Teams</option>
+                      {teams.map(team => (
+                        <option key={team.id} value={team.id} style={{ backgroundColor: '#1a1b1b', color: 'white' }}>{team.name}</option>
+                      ))}
+                    </select>
+                    <Users className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                  </div>
+                )}
+                
+                {/* Clear Button - Only show in matches view with active filters */}
+                {viewMode === 'matches' && (searchTerm || filterStatus !== 'all' || filterTeam) && (
+                  <button
+                    onClick={clearFilters}
+                    className="flex items-center justify-center bg-gray-800/50 border border-gray-600/50 rounded-lg px-4 py-3 text-gray-400 hover:text-white hover:bg-gray-700/50 transition-all duration-300 shadow-lg"
+                    title="Clear filters"
+                  >
+                    <RotateCcw className="w-5 h-5" />
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Content sections with modern spacing */}
-      <div className="space-y-16" style={{ backgroundColor: '#1a1b1b' }}>
-
+      {/* Content sections with reduced spacing */}
+      <div className="space-y-8" style={{ backgroundColor: '#1a1b1b' }}>
         
-        {/* Filters Section */}
-        <section className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/3 to-transparent"></div>
-          <div className="relative">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Modern Filters */}
-              <div className="relative backdrop-blur-sm border rounded-2xl p-10"
-                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', borderColor: 'rgba(255, 255, 255, 0.15)' }}>
-                
-                <div className="flex items-center space-x-4 mb-8">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl flex items-center justify-center border border-blue-500/30">
-                    <Filter className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">Filter & Search</h3>
-                </div>
-                
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  {/* Modern Search */}
-                  <div className="space-y-3">
-                    <label className="block text-sm font-semibold text-gray-300 tracking-wide">Search Teams</label>
-                    <div className="relative group">
-                      <input
-                        type="text"
-                        placeholder="Enter team name..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full backdrop-blur-sm border text-white pl-14 pr-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 placeholder:text-gray-400"
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                      />
-                      <div className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-lg flex items-center justify-center"
-                           style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
-                        <Search className="w-4 h-4 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-300" />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Modern Status Filter */}
-                  <div className="space-y-3">
-                    <label className="block text-sm font-semibold text-gray-300 tracking-wide">Match Status</label>
-                    <div className="relative">
-                      <select
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value as MatchStatus | 'all')}
-                        className="w-full appearance-none backdrop-blur-sm border text-white px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 cursor-pointer"
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                      >
-                        <option value="all">All Statuses</option>
-                        <option value={MatchStatus.LIVE}>🔴 Live</option>
-                        <option value={MatchStatus.UPCOMING}>🔵 Upcoming</option>
-                        <option value={MatchStatus.COMPLETED}>🟢 Completed</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  {/* Modern Team Filter */}
-                  <div className="space-y-3">
-                    <label className="block text-sm font-semibold text-gray-300 tracking-wide">Specific Team</label>
-                    <div className="relative">
-                      <select
-                        value={filterTeam}
-                        onChange={(e) => setFilterTeam(e.target.value)}
-                        className="w-full appearance-none backdrop-blur-sm border text-white px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 cursor-pointer"
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                      >
-                        <option value="">All Teams</option>
-                        {teams.map(team => (
-                          <option key={team.id} value={team.id}>{team.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Modern Clear Filters Button */}
-                {(searchTerm || filterStatus !== 'all' || filterTeam) && (
-                  <div className="mt-8 flex justify-end">
-                    <button
-                      onClick={clearFilters}
-                      className="group relative overflow-hidden backdrop-blur-sm border text-gray-300 hover:text-white px-8 py-3 rounded-2xl font-medium transition-all duration-300"
-                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <RotateCcw className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
-                        <span>Clear Filters</span>
-                      </div>
-                    </button>
-                  </div>
-                )}
+        {viewMode === 'stats' ? (
+          /* Stats Section */
+          <section className="relative pb-16">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/3 to-transparent"></div>
+            <div className="relative">
+              <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+                <ChartsGrid matches={matches} teams={teams} />
               </div>
             </div>
-          </div>
-        </section>
-        
-        {/* Matches Section */}
-        <section className="relative pb-32">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/3 to-transparent"></div>
-          <div className="relative">
-            <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+          </section>
+        ) : (
+          /* Matches Section */
+          <section className="relative pb-16">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/3 to-transparent"></div>
+            <div className="relative">
+              <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
               
-              {/* Section Header */}
-              <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  Match <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Dashboard</span>
-                </h2>
-                <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                  Real-time updates on all competitive matches across different stages
-                </p>
-              </div>
+
 
               {/* Full-width 3-column layout */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
@@ -612,6 +565,7 @@ const Matches: React.FC = () => {
             </div>
           </div>
         </section>
+        )}
       </div>
     </div>
   );
