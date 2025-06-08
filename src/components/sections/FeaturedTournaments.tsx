@@ -115,9 +115,6 @@ const FeaturedTournaments: React.FC = () => {
               <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
                 Tournaments
               </h2>
-              <p className="text-lg text-gray-400 max-w-xl">
-                The most competitive events happening right now
-              </p>
             </div>
           </div>
           

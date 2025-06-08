@@ -42,16 +42,17 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
       {/* Main card */}
       <div className="relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 backdrop-blur-sm group-hover:shadow-cyan-500/15"
            style={{ 
-             backgroundColor: 'rgba(255, 255, 255, 0.03)'
+             backgroundColor: 'rgba(255, 255, 255, 0.03)',
+             backgroundImage: 'linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(147, 197, 253, 0.01) 50%, rgba(30, 64, 175, 0.02) 100%)'
            }}>
         
         {/* Image section with enhanced styling */}
         <div className="relative h-56 overflow-hidden">
-          {/* Dynamic gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10"></div>
+          {/* Dynamic gradient overlay with extended coverage and bidirectional effect */}
+          <div className="absolute -inset-4 bg-gradient-to-t from-black/80 via-black/5 via-black/5 to-black/30 z-10"></div>
           
           {/* PMC Image with better positioning */}
-          <div className="relative h-full" style={{ backgroundColor: '#1a1b1b' }}>
+          <div className="relative h-full" style={{ backgroundColor: '#161a1f' }}>
             <img 
               src={player.image} 
               alt={player.nickname} 
@@ -110,21 +111,21 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center group/stat">
                 <div className="flex items-center justify-center mb-2">
-                  <Target className="w-4 h-4 text-gray-400 group-hover/stat:text-cyan-300 transition-colors duration-300" />
+                  <Target className="w-4 h-4 text-cyan-400 group-hover/stat:text-cyan-300 transition-colors duration-300" />
                 </div>
                 <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">K/D</p>
                 <p className="text-lg font-bold text-white">{player.stats.kdRatio.toFixed(2)}</p>
               </div>
               <div className="text-center group/stat">
                 <div className="flex items-center justify-center mb-2">
-                  <Shield className="w-4 h-4 text-gray-400 group-hover/stat:text-purple-300 transition-colors duration-300" />
+                  <Shield className="w-4 h-4 text-purple-400 group-hover/stat:text-purple-300 transition-colors duration-300" />
                 </div>
                 <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">KOST</p>
                 <p className="text-lg font-bold text-white">{(player.stats.kost * 100).toFixed(0)}%</p>
               </div>
               <div className="text-center group/stat">
                 <div className="flex items-center justify-center mb-2">
-                  <Trophy className="w-4 h-4 text-gray-400 group-hover/stat:text-amber-300 transition-colors duration-300" />
+                  <Trophy className="w-4 h-4 text-amber-400 group-hover/stat:text-amber-300 transition-colors duration-300" />
                 </div>
                 <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">SRV</p>
                 <p className="text-lg font-bold text-white">{(player.stats.srv * 100).toFixed(0)}%</p>

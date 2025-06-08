@@ -40,7 +40,7 @@ const TopPlayers: React.FC = () => {
         {/* Section header */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
           <div className="space-y-4">
-            <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-black text-white leading-tight">
               Top Players
             </h2>
           </div>
