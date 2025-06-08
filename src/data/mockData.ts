@@ -1,4 +1,4 @@
-import { Player, Team, Match, Tournament, News, MatchStatus, TournamentType, TournamentFormat, ExPlayer } from '../types';
+import { Player, Team, Match, Tournament, News, MatchStatus, TournamentType, TournamentFormat, ExPlayer, TeamMapStats } from '../types';
 
 // Mock Players
 export const mockPlayers: Player[] = [
@@ -45,6 +45,10 @@ export const mockPlayers: Player[] = [
       headshots: 1,
       attack: 52,
       defense: 48
+    },
+    socialMedia: {
+      twitter: 'https://twitter.com/felipox',
+      twitch: 'https://twitch.tv/felipox'
     }
   },
   {
@@ -66,6 +70,10 @@ export const mockPlayers: Player[] = [
       headshots: 0,
       attack: 73,
       defense: 27
+    },
+    socialMedia: {
+      twitter: 'https://twitter.com/herdsz',
+      twitch: 'https://twitch.tv/herdsz'
     }
   },
   {
@@ -153,7 +161,8 @@ export const mockPlayers: Player[] = [
       defense: 42
     },
     socialMedia: {
-      twitter: 'https://twitter.com/khalil'
+      twitter: 'https://twitter.com/khalil',
+      twitch: 'https://twitch.tv/khalil'
     }
   },
   {
@@ -175,6 +184,9 @@ export const mockPlayers: Player[] = [
       headshots: 2,
       attack: 45,
       defense: 55
+    },
+    socialMedia: {
+      twitch: 'https://twitch.tv/murizzz'
     }
   },
   {
@@ -198,7 +210,8 @@ export const mockPlayers: Player[] = [
       defense: 22
     },
     socialMedia: {
-      twitter: 'https://twitter.com/dgzin'
+      twitter: 'https://twitter.com/dgzin',
+      twitch: 'https://twitch.tv/dgzin'
     }
   }
 ];
@@ -292,6 +305,48 @@ export const mockTeams: Team[] = [
       tournamentPlacements: [
         { tournamentId: '1', placement: 1 },
         { tournamentId: '3', placement: 1 }
+      ],
+      mapStats: [
+        {
+          mapName: 'Club House',
+          mapImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=250&fit=crop',
+          plays: 2,
+          wins: 1,
+          losses: 1,
+          winRate: 0.5
+        },
+        {
+          mapName: 'Skyscraper',
+          mapImage: 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?w=400&h=250&fit=crop',
+          plays: 2,
+          wins: 0,
+          losses: 2,
+          winRate: 0
+        },
+        {
+          mapName: 'Bank',
+          mapImage: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=400&h=250&fit=crop',
+          plays: 1,
+          wins: 1,
+          losses: 0,
+          winRate: 1.0
+        },
+        {
+          mapName: 'Chalet',
+          mapImage: 'https://images.unsplash.com/photo-1542401886-65d6c61db217?w=400&h=250&fit=crop',
+          plays: 1,
+          wins: 1,
+          losses: 0,
+          winRate: 1.0
+        },
+        {
+          mapName: 'Kafe',
+          mapImage: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=250&fit=crop',
+          plays: 1,
+          wins: 0,
+          losses: 1,
+          winRate: 0
+        }
       ]
     }
   },

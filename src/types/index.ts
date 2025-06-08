@@ -46,6 +46,15 @@ export interface ExPlayer {
 }
 
 // Team types
+export interface TeamMapStats {
+  mapName: string;
+  mapImage: string;
+  plays: number;
+  wins: number;
+  losses: number;
+  winRate: number;
+}
+
 export interface TeamStats {
   wins: number;
   losses: number;
@@ -56,6 +65,7 @@ export interface TeamStats {
     tournamentId: string;
     placement: number;
   }[];
+  mapStats?: TeamMapStats[];
 }
 
 export interface Team {
