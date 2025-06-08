@@ -12,12 +12,36 @@ const Home: React.FC = () => {
 
 
       {/* Modern Hero Section */}
-      <section className="relative min-h-[calc(100vh-400px)] flex items-start justify-center overflow-hidden pt-20 pb-20">
+      <section className="relative min-h-[calc(100vh-400px)] flex items-start justify-center overflow-hidden pt-20 pb-0">
         {/* Background with overlay */}
         <div 
-          className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-105"
+          className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-90"
           style={{ 
             backgroundImage: "url('/BACKGROUND.png')" 
+          }}
+        ></div>
+        
+        {/* Strong vignette overlay for smooth edges */}
+        <div 
+          className="absolute inset-0 z-5" 
+          style={{ 
+            background: 'radial-gradient(ellipse 120% 80% at center, transparent 30%, rgba(26, 27, 27, 0.6) 60%, rgba(26, 27, 27, 0.95) 85%, rgba(26, 27, 27, 1) 100%)' 
+          }}
+        ></div>
+        
+        {/* Strong left and right edge fade */}
+        <div 
+          className="absolute inset-0 z-6" 
+          style={{ 
+            background: 'linear-gradient(90deg, rgba(26, 27, 27, 1) 0%, rgba(26, 27, 27, 0.9) 5%, rgba(26, 27, 27, 0.6) 10%, transparent 20%, transparent 80%, rgba(26, 27, 27, 0.6) 90%, rgba(26, 27, 27, 0.9) 95%, rgba(26, 27, 27, 1) 100%)' 
+          }}
+        ></div>
+        
+        {/* Extra edge blur effect */}
+        <div 
+          className="absolute inset-0 z-7" 
+          style={{ 
+            background: 'linear-gradient(90deg, rgba(26, 27, 27, 1) 0%, rgba(26, 27, 27, 0.7) 3%, transparent 8%, transparent 92%, rgba(26, 27, 27, 0.7) 97%, rgba(26, 27, 27, 1) 100%)' 
           }}
         ></div>
         
@@ -32,7 +56,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Main content */}
-        <div className="container mx-auto px-6 py-20 relative z-30 h-full flex flex-col">
+        <div className="container mx-auto px-6 py-5 relative z-30 h-full flex flex-col">
           <div className="text-center space-y-8 max-w-5xl mx-auto">
             {/* Main headline */}
             <div className="space-y-4 animate-fade-in-up">
@@ -103,7 +127,7 @@ const Home: React.FC = () => {
       {/* Content sections with seamless connection */}
       <div className="space-y-0" style={{ backgroundColor: '#1a1b1b' }}>
         {/* Live Matches Section */}
-        <section id="live-matches" className="relative">
+        <section id="live-matches" className="relative -mt-0">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/3 to-transparent"></div>
           <div className="relative">
             <LatestMatches />

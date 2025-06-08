@@ -480,7 +480,7 @@ export const mockTeams: Team[] = [
   },
   {
     id: '10',
-    name: 'Spacestation Gaming',
+    name: 'Spacestation',
     tag: 'SSG',
     logo: 'https://placehold.co/200x200/95a5a6/ffffff?text=SSG',
     region: 'NA',

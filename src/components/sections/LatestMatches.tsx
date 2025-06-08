@@ -51,7 +51,7 @@ const LatestMatches: React.FC = () => {
   }
 
   return (
-    <section className="py-16 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
+    <section className="pb-16 pt-0 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
       {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.01]">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
@@ -59,7 +59,7 @@ const LatestMatches: React.FC = () => {
       
       <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
         {/* Section header */}
-        <div className="mb-16">
+        <div className="mb-6">
           <div className="space-y-4">
             <h2 className="text-5xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
               Latest Matches
