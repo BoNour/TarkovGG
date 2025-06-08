@@ -59,23 +59,35 @@ const TopPlayers: React.FC = () => {
           </Link>
         </div>
         
-        {/* Players grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-          {topPlayers.map((player, index) => (
-            <div 
-              key={player.id} 
-              className="transition-transform duration-700 ease-in-out"
-              style={{
-                transform: hoveredPlayerId && hoveredPlayerId !== player.id 
-                  ? 'scale(0.96)' 
-                  : 'scale(1.0)'
-              }}
-              onMouseEnter={() => setHoveredPlayerId(player.id)}
-              onMouseLeave={() => setHoveredPlayerId(null)}
-            >
-              <PlayerCard player={player} variant="full" />
-            </div>
-          ))}
+        {/* Players grid with enhanced layout */}
+        <div className="relative">
+          {/* Decorative background elements */}
+          <div className="absolute -inset-x-4 inset-y-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent rounded-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-radial from-cyan-500/8 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-radial from-purple-500/5 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+          
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {topPlayers.map((player, index) => (
+              <div 
+                key={player.id} 
+                className="transition-all duration-500 ease-out"
+                style={{
+                  transform: hoveredPlayerId && hoveredPlayerId !== player.id 
+                    ? 'scale(0.95) translateY(8px)' 
+                    : hoveredPlayerId === player.id
+                      ? 'scale(1.05) translateY(-8px)'
+                      : 'scale(1.0) translateY(0px)',
+                  opacity: hoveredPlayerId && hoveredPlayerId !== player.id ? 0.6 : 1.0,
+                  filter: hoveredPlayerId && hoveredPlayerId !== player.id ? 'brightness(0.7) blur(1px)' : 'brightness(1.0) blur(0px)',
+                  animationDelay: `${index * 100}ms`
+                }}
+                onMouseEnter={() => setHoveredPlayerId(player.id)}
+                onMouseLeave={() => setHoveredPlayerId(null)}
+              >
+                <PlayerCard player={player} variant="full" />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Modern no players state */}

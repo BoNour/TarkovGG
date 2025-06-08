@@ -9,7 +9,7 @@ export const mockPlayers: Player[] = [
     nationality: 'JP',
     teamId: '1',
     role: 'Entry Fragger',
-    image: 'https://i.pravatar.cc/150?img=1',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.01,
       kdRatio: 1.0,
@@ -33,7 +33,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Support',
-    image: 'https://i.pravatar.cc/150?img=2',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.24,
       kdRatio: 1.5,
@@ -58,7 +58,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Flex',
-    image: 'https://i.pravatar.cc/150?img=3',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.20,
       kdRatio: 1.6,
@@ -83,7 +83,7 @@ export const mockPlayers: Player[] = [
     nationality: 'JP',
     teamId: '1',
     role: 'Support',
-    image: 'https://i.pravatar.cc/150?img=4',
+    image: '/PMCsample.png',
     stats: {
       rating: 0.95,
       kdRatio: 0.9,
@@ -104,7 +104,7 @@ export const mockPlayers: Player[] = [
     nationality: 'JP',
     teamId: '1',
     role: 'IGL',
-    image: 'https://i.pravatar.cc/150?img=5',
+    image: '/PMCsample.png',
     stats: {
       rating: 0.94,
       kdRatio: 0.96,
@@ -125,7 +125,7 @@ export const mockPlayers: Player[] = [
     nationality: 'US',
     teamId: '3',
     role: 'Entry Fragger',
-    image: 'https://i.pravatar.cc/150?img=6',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.15,
       kdRatio: 1.2,
@@ -147,7 +147,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'IGL',
-    image: 'https://i.pravatar.cc/150?img=7',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.18,
       kdRatio: 1.3,
@@ -172,7 +172,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Sentinel',
-    image: 'https://i.pravatar.cc/150?img=8',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.12,
       kdRatio: 1.1,
@@ -196,7 +196,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Duelist',
-    image: 'https://i.pravatar.cc/150?img=9',
+    image: '/PMCsample.png',
     stats: {
       rating: 1.26,
       kdRatio: 1.7,
@@ -224,7 +224,7 @@ export const mockExPlayers: ExPlayer[] = [
     realName: 'Alexandre Fonseca',
     nationality: 'BR',
     role: 'Duelist',
-    image: 'https://i.pravatar.cc/150?img=20',
+    image: '/PMCsample.png',
     joinDate: '2023-01-15',
     leaveDate: '2024-08-20',
     stats: {
@@ -249,7 +249,7 @@ export const mockExPlayers: ExPlayer[] = [
     realName: 'Igor Oliveira',
     nationality: 'BR',
     role: 'Controller',
-    image: 'https://i.pravatar.cc/150?img=21',
+    image: '/PMCsample.png',
     joinDate: '2022-06-10',
     leaveDate: '2024-03-15',
     stats: {
