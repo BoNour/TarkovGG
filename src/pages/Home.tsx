@@ -9,13 +9,11 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
-
-
       {/* Modern Hero Section */}
-      <section className="relative min-h-[calc(100vh-400px)] flex items-start justify-center overflow-hidden pt-20 pb-0">
+      <section className="relative min-h-[calc(100vh-400px)] flex items-start justify-center overflow-hidden pt-0 pb-0">
         {/* Background with overlay */}
         <div 
-          className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat scale-90"
+          className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{ 
             backgroundImage: "url('/BACKGROUND.png')" 
           }}
@@ -56,7 +54,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Main content */}
-        <div className="container mx-auto px-6 py-5 relative z-30 h-full flex flex-col">
+        <div className="container mx-auto px-6 py-0 relative z-30 h-full flex flex-col">
           <div className="text-center space-y-8 max-w-5xl mx-auto">
             {/* Main headline */}
             <div className="space-y-4 animate-fade-in-up">
