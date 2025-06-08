@@ -55,13 +55,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className="w-full h-full object-contain transition-all duration-700 scale-90 group-hover:scale-105"
+              className="w-full h-full object-contain transition-all duration-700 translate-y-5 scale-90 group-hover:scale-110"
               style={{ 
                 filter: 'contrast(1.1) brightness(1.3)',
                 maxHeight: '100%',
                 maxWidth: '100%',
-                objectPosition: 'center 150%',
-                transform: 'translateY(20px)'
+                objectPosition: 'center 150%'
               }}
             />
           </div>
@@ -73,9 +72,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
                 <div className="relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
                   <img 
-                    src={team.logo} 
-                    alt={team.name} 
-                    className="relative w-12 h-12 rounded-full border-2 border-white/20 backdrop-blur-sm bg-black/30 p-0.5 transition-all duration-300 group-hover/team:border-cyan-400/40 group-hover/team:scale-110"
+                    src="/cov logo.png" 
+                    alt="COV Logo" 
+                    className="relative w-20 h-20 object-contain transition-all duration-300"
                   />
                 </div>
               </Link>
@@ -92,19 +91,21 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
             </div>
           </div>
 
-          {/* Player name overlay */}
-          <div className="absolute bottom-4 left-4 right-4 z-20">
-            <Link to={`/players/${player.id}`} className="block group/name">
-              <h3 className="text-2xl font-black text-white mb-1 transition-all duration-300 group-hover/name:text-cyan-300">
-                {player.nickname}
-              </h3>
-              <p className="text-sm text-gray-300/80 font-medium">{player.role}</p>
-            </Link>
-          </div>
+
         </div>
         
         {variant === 'full' && (
           <div className="p-6 space-y-6">
+            {/* Player name section */}
+            <div className="text-center">
+              <Link to={`/players/${player.id}`} className="block group/name">
+                <h3 className="text-2xl font-black text-white mb-1 transition-all duration-300 group-hover/name:text-cyan-300">
+                  {player.nickname}
+                </h3>
+                <p className="text-sm text-gray-300/80 font-medium">{player.role}</p>
+              </Link>
+            </div>
+            
             {/* Stats grid with modern design */}
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center group/stat">
