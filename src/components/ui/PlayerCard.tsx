@@ -40,10 +40,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
       <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/8 via-purple-500/6 to-blue-500/8 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
       
       {/* Main card */}
-      <div className="relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 border backdrop-blur-sm group-hover:shadow-cyan-500/15"
+      <div className="relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 backdrop-blur-sm group-hover:shadow-cyan-500/15"
            style={{ 
-             backgroundColor: 'rgba(255, 255, 255, 0.03)', 
-             borderColor: 'rgba(255, 255, 255, 0.1)' 
+             backgroundColor: 'rgba(255, 255, 255, 0.03)'
            }}>
         
         {/* Image section with enhanced styling */}
@@ -56,11 +55,13 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className="w-full h-full object-contain object-center transition-all duration-700 group-hover:scale-110"
+              className="w-full h-full object-contain transition-all duration-700 scale-90 group-hover:scale-105"
               style={{ 
-                filter: 'contrast(1.1) brightness(1.05)',
+                filter: 'contrast(1.1) brightness(1.3)',
                 maxHeight: '100%',
-                maxWidth: '100%'
+                maxWidth: '100%',
+                objectPosition: 'center 150%',
+                transform: 'translateY(20px)'
               }}
             />
           </div>
