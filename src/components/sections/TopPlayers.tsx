@@ -44,17 +44,12 @@ const TopPlayers: React.FC = () => {
             </h2>
           </div>
           
-          {/* Modern call to action */}
           <Link 
             to="/players" 
-            className="group relative inline-flex items-center space-x-4 overflow-hidden bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40"
+            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
           >
-            <span className="relative z-10">View All Players</span>
-            <div className="relative z-10 w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" />
-            </div>
-            {/* Shimmer effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <span>View All Players</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
         </div>
         

@@ -37,7 +37,7 @@ const LatestMatches: React.FC = () => {
           to="/matches" 
           className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
         >
-          <span>View All</span>
+          <span>View All Matches</span>
           <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
         </Link>
       </div>
