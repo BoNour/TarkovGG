@@ -39,7 +39,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
     <div className="relative">
       {/* Main card with clean box design */}
       <div 
-        className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu"
+        className="relative rounded-3xl overflow-hidden transition-all duration-500 backdrop-blur-sm transform-gpu"
         style={{ 
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
         }}
@@ -59,7 +59,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className={`w-full h-full object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-125' : 'translate-y-5 scale-90'}`}
+              className={`w-full h-full object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-[1.5]' : 'translate-y-5 scale-90'}`}
               style={{ 
                 filter: 'contrast(1) brightness(1.3)',
                 maxHeight: '100%',
