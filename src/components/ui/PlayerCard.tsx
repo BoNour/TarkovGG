@@ -7,9 +7,10 @@ import { Trophy, Target, Shield } from 'lucide-react';
 interface PlayerCardProps {
   player: Player;
   variant?: 'compact' | 'full';
+  isHovered?: boolean;
 }
 
-const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) => {
+const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', isHovered }) => {
   const { teams } = useGameData();
   
   const team = teams.find(t => t.id === player.teamId);
@@ -35,30 +36,39 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
   };
 
   return (
-    <div className="group relative">
-      {/* Main card */}
-      <div className="relative rounded-3xl overflow-hidden transition-all duration-500 backdrop-blur-sm">
+    <div className="relative">
+      {/* Main card with clean box design */}
+      <div 
+        className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm border transform-gpu"
+        style={{ 
+          borderColor: 'rgba(255, 255, 255, 0.08)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+          e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)';
+          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+        }}
+      >
         
         {/* Image section with enhanced styling */}
         <div className="relative h-56">
+          
           {/* PMC Image with better positioning */}
           <div className="relative h-full">
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className="w-full h-full object-contain transition-all duration-700 translate-y-5 scale-90 group-hover:translate-y-0"
+              className={`w-full h-full object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-125' : 'translate-y-5 scale-90'}`}
               style={{ 
                 filter: 'contrast(1) brightness(1.3)',
                 maxHeight: '100%',
                 maxWidth: '100%',
                 objectPosition: 'center top',
-                transformOrigin: 'center top'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(2.0)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(1.25rem) scale(0.9)';
+                transformOrigin: 'top center',
               }}
             />
           </div>
@@ -81,19 +91,23 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
 
           {/* Enhanced rating badge */}
           <div className="absolute top-4 right-4 z-20">
-            <div className={`px-4 py-2 rounded-xl border backdrop-blur-md font-bold text-sm ${getRatingBadgeColor(player.stats.rating)}`}>
-              <div className="flex items-center space-x-1">
-                <Trophy className="w-4 h-4" />
+            <div className={`px-3 py-1.5 rounded-xl border backdrop-blur-md font-bold text-sm ${getRatingBadgeColor(player.stats.rating)}`}>
+              <div className="flex items-center space-x-1.5">
+                <Trophy className="w-3.5 h-3.5" />
                 <span>{player.stats.rating.toFixed(2)}</span>
               </div>
             </div>
           </div>
-
-
         </div>
         
         {variant === 'full' && (
-          <div className="p-6 space-y-6">
+          <div 
+            className="p-6 space-y-6 border-t"
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.95) 0%, rgba(38, 39, 39, 0.98) 100%)',
+              borderTopColor: 'rgba(255, 255, 255, 0.06)'
+            }}
+          >
             {/* Player name section */}
             <div className="text-center">
               <Link to={`/players/${player.id}`} className="block group/name">
@@ -160,7 +174,13 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
         )}
         
         {variant === 'compact' && (
-          <div className="p-4">
+          <div 
+            className="p-4 border-t"
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.95) 0%, rgba(38, 39, 39, 0.98) 100%)',
+              borderTopColor: 'rgba(255, 255, 255, 0.06)'
+            }}
+          >
             <div className="flex justify-between items-center">
               <div>
                 <Link to={`/players/${player.id}`} className="text-lg font-bold text-white hover:text-cyan-300 transition-colors duration-300 block mb-1">
@@ -168,27 +188,27 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
                 </Link>
                 <p className="text-sm text-gray-400">{player.role}</p>
               </div>
-                              <Link 
-                  to={`/players/${player.id}`} 
-                  className="px-4 py-2 rounded-xl font-semibold text-xs transition-all duration-300 border"
-                  style={{ 
-                    backgroundColor: 'rgba(6, 182, 212, 0.08)', 
-                    color: '#06b6d4',
-                    borderColor: 'rgba(6, 182, 212, 0.2)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.15)';
-                    e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
-                    e.currentTarget.style.color = '#ffffff';
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
-                    e.currentTarget.style.color = '#06b6d4';
-                    e.currentTarget.style.transform = 'scale(1.0)';
-                  }}
-                >
+              <Link 
+                to={`/players/${player.id}`} 
+                className="px-4 py-2 rounded-xl font-semibold text-xs transition-all duration-300 border"
+                style={{ 
+                  backgroundColor: 'rgba(6, 182, 212, 0.08)', 
+                  color: '#06b6d4',
+                  borderColor: 'rgba(6, 182, 212, 0.2)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
+                  e.currentTarget.style.color = '#06b6d4';
+                  e.currentTarget.style.transform = 'scale(1.0)';
+                }}
+              >
                 Profile
               </Link>
             </div>

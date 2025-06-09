@@ -80,7 +80,7 @@ const TopPlayers: React.FC = () => {
                 onMouseEnter={() => setHoveredPlayerId(player.id)}
                 onMouseLeave={() => setHoveredPlayerId(null)}
               >
-                <PlayerCard player={player} variant="full" />
+                <PlayerCard player={player} variant="full" isHovered={hoveredPlayerId === player.id} />
               </div>
             ))}
           </div>

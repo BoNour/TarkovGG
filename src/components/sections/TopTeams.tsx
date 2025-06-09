@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Award, Trophy, TrendingUp, TrendingDown } from 'lucide-react';
+import { ArrowRight, Users, Award, Trophy, TrendingUp, TrendingDown, Target } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
 
 const TopTeams: React.FC = () => {
   const { teams, isLoading, players } = useGameData();
   const [hoveredTeamId, setHoveredTeamId] = useState<string | null>(null);
+  const [hoveredPlayerId, setHoveredPlayerId] = useState<string | null>(null);
   
   // Sort teams by win rate (highest first)
   const sortedTeams = [...teams].sort((a, b) => b.stats.winRate - a.stats.winRate);
@@ -119,88 +120,117 @@ const TopTeams: React.FC = () => {
                   
                   {/* Content container */}
                   <div className="relative h-full flex flex-col p-6 text-white">
-                    {/* Header */}
-                    <div className="text-center flex-shrink-0">
-                        <img 
-                            src={team.logo} 
-                            alt={team.name}
-                            className="w-24 h-24 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10"
-                        />
-                        <h3 className="text-2xl font-bold mt-4">
-                            {team.name}
-                        </h3>
-                        <p className="text-purple-400 font-mono text-sm mt-1 mb-6">{team.tag}</p>
-                    </div>
+                    <div className="flex-grow">
+                        {/* Header */}
+                        <div className="text-center flex-shrink-0">
+                            <img 
+                                src={team.logo} 
+                                alt={team.name}
+                                className="w-24 h-24 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10"
+                            />
+                            <h3 className="text-2xl font-bold mt-4">
+                                {team.name}
+                            </h3>
+                            <p className="text-purple-400 font-mono text-sm mt-1 mb-6">{team.tag}</p>
+                        </div>
 
-                    {/* Stats Grid */}
-                    <div className="grid grid-cols-2 gap-y-4 gap-x-2 mb-6 text-sm flex-grow">
-                      {/* Win Rate */}
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 flex-shrink-0 bg-cyan-500/10 rounded-lg flex items-center justify-center">
-                            <TrendingUp className="w-5 h-5 text-cyan-400" />
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-2 gap-y-4 gap-x-2 mb-6 text-sm">
+                          {/* Win Rate */}
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 flex-shrink-0 bg-cyan-500/10 rounded-lg flex items-center justify-center">
+                                <TrendingUp className="w-5 h-5 text-cyan-400" />
+                            </div>
+                            <div>
+                              <span className="text-gray-400">Win Rate</span>
+                              <p className="font-bold text-base text-white">{(team.stats.winRate * 100).toFixed(1)}%</p>
+                            </div>
+                          </div>
+                          {/* Round Win % */}
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 flex-shrink-0 bg-orange-500/10 rounded-lg flex items-center justify-center">
+                                <Target className="w-5 h-5 text-orange-400" />
+                            </div>
+                            <div>
+                              <span className="text-gray-400">Round Win %</span>
+                              <p className="font-bold text-base text-white">
+                                {team.stats.roundsPlayed > 0
+                                  ? ((team.stats.roundsWon / team.stats.roundsPlayed) * 100).toFixed(1)
+                                  : '0.0'}%
+                              </p>
+                            </div>
+                          </div>
+                          {/* Wins */}
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 flex-shrink-0 bg-green-500/10 rounded-lg flex items-center justify-center">
+                                <Trophy className="w-5 h-5 text-green-400" />
+                            </div>
+                            <div>
+                              <span className="text-gray-400">Wins</span>
+                              <p className="font-bold text-base text-white">{team.stats.wins}</p>
+                            </div>
+                          </div>
+                          {/* Losses */}
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 flex-shrink-0 bg-red-500/10 rounded-lg flex items-center justify-center">
+                                <TrendingDown className="w-5 h-5 text-red-400" />
+                            </div>
+                            <div>
+                              <span className="text-gray-400">Losses</span>
+                              <p className="font-bold text-base text-white">{team.stats.losses}</p>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <span className="text-gray-400">Win Rate</span>
-                          <p className="font-bold text-base text-white">{(team.stats.winRate * 100).toFixed(1)}%</p>
-                        </div>
-                      </div>
-                      {/* Top Placement */}
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 flex-shrink-0 bg-yellow-500/10 rounded-lg flex items-center justify-center">
-                            <Award className="w-5 h-5 text-yellow-400" />
-                        </div>
-                        <div>
-                          <span className="text-gray-400">Top Place</span>
-                          <p className="font-bold text-base text-white">
-                            #{team.stats.tournamentPlacements[0]?.placement || 'N/A'}
-                          </p>
-                        </div>
-                      </div>
-                      {/* Wins */}
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 flex-shrink-0 bg-green-500/10 rounded-lg flex items-center justify-center">
-                            <Trophy className="w-5 h-5 text-green-400" />
-                        </div>
-                        <div>
-                          <span className="text-gray-400">Wins</span>
-                          <p className="font-bold text-base text-white">{team.stats.wins}</p>
-                        </div>
-                      </div>
-                      {/* Losses */}
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 flex-shrink-0 bg-red-500/10 rounded-lg flex items-center justify-center">
-                            <TrendingDown className="w-5 h-5 text-red-400" />
-                        </div>
-                        <div>
-                          <span className="text-gray-400">Losses</span>
-                          <p className="font-bold text-base text-white">{team.stats.losses}</p>
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* Player Avatars */}
-                    <div className="flex justify-center items-center -space-x-3 mb-6">
-                      {team.players.slice(0, 5).map(playerId => {
-                        const player = players.find(p => p.id === playerId);
-                        return player ? (
-                          <img
-                            key={player.id}
-                            src={player.image}
-                            alt={player.nickname}
-                            className="w-10 h-10 rounded-full border-2 border-gray-800/60 object-cover transition-transform duration-300 hover:scale-110 hover:z-10"
-                            title={player.nickname}
-                          />
-                        ) : null;
-                      })}
+                        {/* Player Avatars */}
+                        {team.players.length > 0 && (
+                            <div className="relative h-24 mt-4">
+                                <div className="absolute inset-0 flex justify-center items-end">
+                                {team.players.slice(0, 5).map((playerId, index) => {
+                                    const player = players.find(p => p.id === playerId);
+                                    if (!player) return null;
+
+                                    const zIndex = 5 - index;
+                                    const numPlayers = team.players.slice(0, 5).length;
+                                    const right = (index * 35) + (40 - (numPlayers * 30)/2);
+                                    
+                                    return (
+                                    <div
+                                        key={player.id}
+                                        className="absolute transition-all duration-300 ease-out cursor-pointer"
+                                        style={{
+                                            right: `${right}px`,
+                                            zIndex: hoveredPlayerId === player.id ? zIndex + 20 : hoveredTeamId === team.id ? zIndex + 10 : zIndex,
+                                            transform: hoveredTeamId === team.id ? 'translateY(-10px)' : 'translateY(0)',
+                                        }}
+                                        title={player.nickname}
+                                        onMouseEnter={() => setHoveredPlayerId(player.id)}
+                                        onMouseLeave={() => setHoveredPlayerId(null)}
+                                    >
+                                        <img
+                                            src={player.image}
+                                            alt={player.nickname}
+                                            className="h-28 w-auto object-contain transition-all duration-300 ease-out"
+                                            style={{
+                                                transform: hoveredPlayerId === player.id ? 'scale(1.3)' : 'scale(1)',
+                                                filter: hoveredPlayerId === player.id ? 'brightness(1.1) contrast(1.1)' : 'brightness(1) contrast(1)',
+                                            }}
+                                        />
+                                    </div>
+                                    )
+                                })}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* View Details Button */}
-                    <div className="mt-auto flex-shrink-0">
+                    <div className="flex-shrink-0 mt-6">
                         <Link 
                         to={`/teams/${team.id}`}
                         className="block w-full text-center py-3 rounded-xl font-semibold transition-all duration-300 bg-purple-600/50 hover:bg-purple-600/80 text-white"
                         >
-                        View Full Profile
+                        View Team
                         </Link>
                     </div>
                   </div>
