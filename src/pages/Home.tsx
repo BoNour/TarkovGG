@@ -71,23 +71,26 @@ const Home: React.FC = () => {
                 </div>
                 
                 {/* Top Players Section - Now under News */}
-                <div className="relative overflow-hidden group rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(12px)',
-                     }}
-                >
-                  {/* Glare Effect */}
-                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                <div className="relative group">
+                  {/* Background container with effects */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden"
                        style={{
-                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                         backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                         backdropFilter: 'blur(12px)',
                        }}
-                  ></div>
+                  >
+                    {/* Glare Effect */}
+                    <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                         style={{
+                           maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                         }}
+                    ></div>
 
-                  {/* Multiple glass layers for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                    {/* Multiple glass layers for depth */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                  </div>
                   
-                  {/* Content container */}
+                  {/* Content container - no overflow restrictions */}
                   <div className="relative p-8">
                     <TopPlayers />
                   </div>

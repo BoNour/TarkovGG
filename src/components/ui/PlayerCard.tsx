@@ -36,10 +36,10 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
   };
 
   return (
-    <div className="relative">
-      {/* Main card with clean box design */}
+    <div className="relative" style={{ zIndex: isHovered ? 50 : 1 }}>
+      {/* Card background container with proper overflow handling */}
       <div 
-        className="relative rounded-3xl overflow-hidden transition-all duration-500 backdrop-blur-sm transform-gpu"
+        className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu"
         style={{ 
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
         }}
@@ -51,55 +51,50 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         }}
       >
         
-        {/* Image section with enhanced styling */}
-        <div className="relative h-56">
-          
-          {/* PMC Image with better positioning */}
-          <div className="relative h-full">
-            <img 
-              src={player.image} 
-              alt={player.nickname} 
-              className={`w-full h-full object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-[1.5]' : 'translate-y-5 scale-90'}`}
-              style={{ 
-                filter: 'contrast(1) brightness(1.3)',
-                maxHeight: '100%',
-                maxWidth: '100%',
-                objectPosition: 'center top',
-                transformOrigin: 'top center',
-              }}
-            />
-          </div>
-
-          {/* Team logo with modern styling */}
-          {team && (
-            <div className="absolute top-4 left-4 z-20">
-              <Link to={`/teams/${team.id}`} className="block group/team">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
-                  <img 
-                    src="/cov logo.png" 
-                    alt="COV Logo" 
-                    className="relative w-10 h-10 object-contain transition-all duration-300"
-                  />
-                </div>
-              </Link>
-            </div>
-          )}
-
-          {/* Enhanced rating badge */}
-          <div className="absolute top-4 right-4 z-20">
-            <div className={`px-3 py-1.5 rounded-xl border backdrop-blur-md font-bold text-sm ${getRatingBadgeColor(player.stats.rating)}`}>
-              <div className="flex items-center space-x-1.5">
-                <Trophy className="w-3.5 h-3.5" />
-                <span>{player.stats.rating.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
+        {/* Image area background - clipped for card shape */}
+        <div className="relative h-56 rounded-t-3xl overflow-hidden">
+          <div className="w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
         </div>
+        
+        {/* Player image - positioned absolutely to extend beyond card */}
+        <div className="absolute top-0 left-0 w-full h-56 flex items-center justify-center pointer-events-none">
+          <img 
+            src={player.image} 
+            alt={player.nickname} 
+            className={`object-contain transition-all duration-700 transform-gpu pointer-events-auto ${isHovered ? 'translate-y-0 scale-[1.5]' : 'translate-y-5 scale-90'}`}
+            style={{ 
+              filter: 'contrast(1) brightness(1.3)',
+              height: '120%',
+              width: 'auto',
+              maxWidth: '120%',
+              transformOrigin: 'center center',
+              zIndex: isHovered ? 100 : 5,
+              position: 'relative',
+            }}
+          />
+        </div>
+
+        {/* Team logo with modern styling */}
+        {team && (
+          <div className="absolute top-4 left-4 z-20">
+            <Link to={`/teams/${team.id}`} className="block group/team">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
+                <img 
+                  src="/cov logo.png" 
+                  alt="COV Logo" 
+                  className="relative w-10 h-10 object-contain transition-all duration-300"
+                />
+              </div>
+            </Link>
+          </div>
+        )}
+
+
         
         {variant === 'full' && (
           <div 
-            className="relative z-10 p-6 space-y-6 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md"
+            className="relative z-10 p-6 space-y-6 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md overflow-hidden"
             style={{ 
               background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
               borderColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.08)',
@@ -136,8 +131,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
                 <div className="flex items-center justify-center mb-2">
                   <Trophy className="w-4 h-4 text-amber-400 group-hover/stat:text-amber-300 transition-colors duration-300" />
                 </div>
-                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">SRV</p>
-                <p className="text-lg font-bold text-white">{(player.stats.srv * 100).toFixed(0)}%</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">RATING</p>
+                <p className="text-lg font-bold text-white">{player.stats.rating.toFixed(2)}</p>
               </div>
             </div>
             
@@ -173,7 +168,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         
         {variant === 'compact' && (
           <div 
-            className="relative z-10 p-4 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md"
+            className="relative z-10 p-4 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md overflow-hidden"
             style={{ 
               background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
               borderColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.08)',

@@ -89,8 +89,20 @@ const TournamentDetails: React.FC = () => {
                     {tournament.format.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                   </span>
                 </div>
-                <h1 className="text-3xl font-bold text-white mb-1">{tournament.name}</h1>
-                <p className="text-gray-300">{tournament.game}</p>
+                <h1 className="text-3xl font-bold text-white mb-3">{tournament.name}</h1>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-yellow-400 font-bold">💰</span>
+                    <span className="text-white font-bold text-lg">{tournament.prizePool}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-blue-400 font-bold">📅</span>
+                    <span className="text-gray-300 font-semibold">
+                      {new Date(tournament.startDate).toLocaleDateString()} - {new Date(tournament.endDate).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-gray-400">{tournament.location}</p>
               </div>
             </div>
           </div>

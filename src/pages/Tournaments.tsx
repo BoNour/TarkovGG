@@ -457,13 +457,23 @@ const Tournaments: React.FC = () => {
                                 </div>
                               </div>
                               <div>
-                                <h3 className="text-2xl font-black text-white mb-1 group-hover:text-blue-100 transition-colors">
+                                <h3 className="text-2xl font-black text-white mb-2 group-hover:text-blue-100 transition-colors">
                                   {tournament.name}
                                 </h3>
-                                <p className="text-gray-300 font-semibold flex items-center gap-2">
-                                  <Globe className="w-4 h-4" />
-                                  {tournament.game}
-                                </p>
+                                <div className="space-y-1">
+                                  <div className="flex items-center gap-2 text-gray-300">
+                                    <DollarSign className="w-4 h-4 text-yellow-400" />
+                                    <span className="font-bold text-white">{tournament.prizePool}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-gray-300">
+                                    <Calendar className="w-4 h-4 text-blue-400" />
+                                    <span className="font-semibold">{formatDate(tournament.startDate)}</span>
+                                  </div>
+                                  <p className="text-gray-400 text-sm flex items-center gap-2">
+                                    <Globe className="w-3 h-3" />
+                                    {tournament.location}
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             

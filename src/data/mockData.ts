@@ -708,7 +708,6 @@ export const mockTournaments: Tournament[] = [
   {
     id: '1',
     name: 'Esports R6 RELOAD',
-    game: 'r6',
     startDate: '2025-05-18',
     endDate: '2025-06-08',
     location: 'Online',
@@ -722,7 +721,6 @@ export const mockTournaments: Tournament[] = [
   {
     id: '2',
     name: 'Six Invitational',
-    game: 'Rainbow Six Siege',
     startDate: '2025-02-03',
     endDate: '2025-02-16',
     location: 'Boston, USA',
@@ -736,7 +734,6 @@ export const mockTournaments: Tournament[] = [
   {
     id: '3',
     name: 'Major Montreal',
-    game: 'Rainbow Six Siege',
     startDate: '2025-11-07',
     endDate: '2025-11-17',
     location: 'Montreal, Canada',
@@ -746,6 +743,32 @@ export const mockTournaments: Tournament[] = [
     teams: ['2', '3', '4'],
     matches: [],
     logo: 'https://placehold.co/200x200/27ae60/ffffff?text=Montreal'
+  },
+  {
+    id: '4',
+    name: 'BLAST Premier Spring',
+    startDate: '2025-01-15',
+    endDate: '2025-01-26',
+    location: 'Copenhagen, Denmark',
+    prizePool: '$1,250,000',
+    type: TournamentType.MAJOR,
+    format: TournamentFormat.SINGLE_ELIMINATION,
+    teams: ['1', '5', '6', '7', '8'],
+    matches: [],
+    logo: 'https://placehold.co/200x200/e67e22/ffffff?text=BLAST'
+  },
+  {
+    id: '5',
+    name: 'VCT Champions',
+    startDate: '2025-08-12',
+    endDate: '2025-08-25',
+    location: 'Los Angeles, USA',
+    prizePool: '$2,250,000',
+    type: TournamentType.MAJOR,
+    format: TournamentFormat.SWISS,
+    teams: ['3', '4', '6', '9', '10'],
+    matches: [],
+    logo: 'https://placehold.co/200x200/e74c3c/ffffff?text=VCT'
   }
 ];
 

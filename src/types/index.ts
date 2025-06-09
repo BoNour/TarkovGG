@@ -121,7 +121,6 @@ export enum TournamentFormat {
 export interface Tournament {
   id: string;
   name: string;
-  game: string;
   startDate: string;
   endDate: string;
   location: string;
@@ -144,9 +143,3 @@ export interface News {
   tags: string[];
 }
 
-// Game types
-export interface Game {
-  id: string;
-  name: string;
-  logo: string;
-}

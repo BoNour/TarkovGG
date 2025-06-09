@@ -413,7 +413,7 @@ const TeamDetails: React.FC = () => {
                                       >
                                         {result.tournament.name}
                                       </Link>
-                                      <p className="text-gray-400 text-sm">{result.tournament.game}</p>
+                                      <p className="text-gray-400 text-sm">{result.tournament.location}</p>
                                     </div>
                                   </>
                                 )}

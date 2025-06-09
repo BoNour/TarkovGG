@@ -84,24 +84,22 @@ const FeaturedTournaments: React.FC = () => {
 
               <div className="w-3/5 p-5 flex flex-col">
                 <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                        <h3 className="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">{tournament.name}</h3>
+                    <div className="flex justify-between items-start mb-3">
+                        <div className="flex-1">
+                            <h3 className="font-bold text-lg text-white group-hover:text-purple-300 transition-colors mb-2">{tournament.name}</h3>
+                            <div className="text-sm space-y-1">
+                                <div className="flex items-center space-x-2 text-gray-400">
+                                    <Trophy size={14} className="text-yellow-400" />
+                                    <span className="font-semibold text-white">{tournament.prizePool}</span>
+                                </div>
+                                <div className="flex items-center space-x-2 text-gray-400">
+                                    <Calendar size={14} className="text-blue-400" />
+                                    <span>{new Date(tournament.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                                </div>
+                            </div>
+                        </div>
                         <div className={`text-xs font-semibold px-2 py-1 rounded-full ${statusColor} flex-shrink-0 ml-2`}>
                             {status}
-                        </div>
-                    </div>
-                    <p className="text-sm text-gray-400">{tournament.game}</p>
-                </div>
-
-                <div className="flex justify-between items-end mt-4">
-                    <div className="text-sm space-y-2">
-                        <div className="flex items-center space-x-2 text-gray-400">
-                            <Trophy size={14} className="text-yellow-400" />
-                            <span className="font-semibold text-white">{tournament.prizePool}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-400">
-                            <Calendar size={14} className="text-blue-400" />
-                            <span>{new Date(tournament.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         </div>
                     </div>
                 </div>
