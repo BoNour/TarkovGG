@@ -148,7 +148,7 @@ const News: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedNews.map(item => (
               <div key={item.id} className="relative">
-                <NewsCard news={item} variant="full" />
+                <NewsCard news={item} variant="simple" />
               </div>
             ))}
           </div>

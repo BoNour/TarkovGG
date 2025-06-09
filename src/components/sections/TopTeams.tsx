@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Award } from 'lucide-react';
+import { ArrowRight, Users, Award, Trophy, TrendingUp, TrendingDown } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
 
 const TopTeams: React.FC = () => {
-  const { teams, isLoading } = useGameData();
+  const { teams, isLoading, players } = useGameData();
   const [hoveredTeamId, setHoveredTeamId] = useState<string | null>(null);
   
   // Sort teams by win rate (highest first)
@@ -61,7 +61,7 @@ const TopTeams: React.FC = () => {
             {topTeams.map((team, index) => (
               <div 
                 key={team.id} 
-                className="transition-all duration-500 ease-out"
+                className="transition-all duration-500 ease-out min-h-[28rem]"
                 style={{
                   transform: hoveredTeamId && hoveredTeamId !== team.id 
                     ? 'scale(0.98) translateY(4px)' 
@@ -83,6 +83,11 @@ const TopTeams: React.FC = () => {
                        boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
                      }}
                 >
+                  <img
+                    src={team.logo}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-[0.07] blur-2xl scale-125"
+                  />
                   {/* Glare Effect */}
                   <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                        style={{
@@ -113,80 +118,91 @@ const TopTeams: React.FC = () => {
                   <div className="absolute inset-0 rounded-3xl border border-white/10 group-hover:border-white/20 transition-all duration-300"></div>
                   
                   {/* Content container */}
-                  <div className="relative h-full transition-all duration-300">
-                  
-                  <div className="p-6 h-full flex flex-col">
-                    {/* Team Header */}
-                    <div className="flex items-start mb-6">
-                      <img 
-                        src={team.logo} 
-                        alt={team.name}
-                        className="w-16 h-16 object-cover"
-                      />
-                      <div className="ml-4 flex-1">
-                        <Link to={`/teams/${team.id}`}>
-                          <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300 mb-1">
+                  <div className="relative h-full flex flex-col p-6 text-white">
+                    {/* Header */}
+                    <div className="text-center flex-shrink-0">
+                        <img 
+                            src={team.logo} 
+                            alt={team.name}
+                            className="w-24 h-24 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10"
+                        />
+                        <h3 className="text-2xl font-bold mt-4">
                             {team.name}
-                          </h3>
-                        </Link>
-                        <p className="text-gray-400 text-sm font-mono">{team.tag}</p>
-                        <p className="text-gray-500 text-xs">{team.region}</p>
-                      </div>
+                        </h3>
+                        <p className="text-purple-400 font-mono text-sm mt-1 mb-6">{team.tag}</p>
                     </div>
-                    
-                    {/* Team Stats */}
-                    <div className="space-y-4 flex-1">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">Win Rate</span>
-                        <span className={`font-bold text-lg ${
-                          team.stats.winRate >= 0.7 ? 'text-green-400' :
-                          team.stats.winRate >= 0.5 ? 'text-yellow-400' :
-                          'text-red-400'
-                        }`}>
-                          {(team.stats.winRate * 100).toFixed(1)}%
-                        </span>
+
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-2 gap-y-4 gap-x-2 mb-6 text-sm flex-grow">
+                      {/* Win Rate */}
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 flex-shrink-0 bg-cyan-500/10 rounded-lg flex items-center justify-center">
+                            <TrendingUp className="w-5 h-5 text-cyan-400" />
+                        </div>
+                        <div>
+                          <span className="text-gray-400">Win Rate</span>
+                          <p className="font-bold text-base text-white">{(team.stats.winRate * 100).toFixed(1)}%</p>
+                        </div>
                       </div>
-                      
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">Wins</span>
-                        <span className="text-green-400 font-semibold">{team.stats.wins}</span>
+                      {/* Top Placement */}
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 flex-shrink-0 bg-yellow-500/10 rounded-lg flex items-center justify-center">
+                            <Award className="w-5 h-5 text-yellow-400" />
+                        </div>
+                        <div>
+                          <span className="text-gray-400">Top Place</span>
+                          <p className="font-bold text-base text-white">
+                            #{team.stats.tournamentPlacements[0]?.placement || 'N/A'}
+                          </p>
+                        </div>
                       </div>
-                      
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400 text-sm">Losses</span>
-                        <span className="text-red-400 font-semibold">{team.stats.losses}</span>
+                      {/* Wins */}
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 flex-shrink-0 bg-green-500/10 rounded-lg flex items-center justify-center">
+                            <Trophy className="w-5 h-5 text-green-400" />
+                        </div>
+                        <div>
+                          <span className="text-gray-400">Wins</span>
+                          <p className="font-bold text-base text-white">{team.stats.wins}</p>
+                        </div>
                       </div>
-                      
-                      {/* Win Rate Progress Bar */}
-                      <div className="mt-4">
-                        <div className="w-full bg-gray-700/50 rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full transition-all duration-700 ${
-                              team.stats.winRate >= 0.7 ? 'bg-gradient-to-r from-green-500 to-green-400' :
-                              team.stats.winRate >= 0.5 ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' :
-                              'bg-gradient-to-r from-red-500 to-red-400'
-                            }`}
-                            style={{ width: `${team.stats.winRate * 100}%` }}
-                          ></div>
+                      {/* Losses */}
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 flex-shrink-0 bg-red-500/10 rounded-lg flex items-center justify-center">
+                            <TrendingDown className="w-5 h-5 text-red-400" />
+                        </div>
+                        <div>
+                          <span className="text-gray-400">Losses</span>
+                          <p className="font-bold text-base text-white">{team.stats.losses}</p>
                         </div>
                       </div>
                     </div>
-                    
+
+                    {/* Player Avatars */}
+                    <div className="flex justify-center items-center -space-x-3 mb-6">
+                      {team.players.slice(0, 5).map(playerId => {
+                        const player = players.find(p => p.id === playerId);
+                        return player ? (
+                          <img
+                            key={player.id}
+                            src={player.image}
+                            alt={player.nickname}
+                            className="w-10 h-10 rounded-full border-2 border-gray-800/60 object-cover transition-transform duration-300 hover:scale-110 hover:z-10"
+                            title={player.nickname}
+                          />
+                        ) : null;
+                      })}
+                    </div>
+
                     {/* View Details Button */}
-                    <Link 
-                      to={`/teams/${team.id}`}
-                      className="mt-6 w-full text-center py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105"
-                      style={{ backgroundColor: 'rgba(147, 51, 234, 0.15)', color: '#a855f7' }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(147, 51, 234, 0.25)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(147, 51, 234, 0.15)';
-                      }}
-                    >
-                      View Details
-                    </Link>
-                  </div>
+                    <div className="mt-auto flex-shrink-0">
+                        <Link 
+                        to={`/teams/${team.id}`}
+                        className="block w-full text-center py-3 rounded-xl font-semibold transition-all duration-300 bg-purple-600/50 hover:bg-purple-600/80 text-white"
+                        >
+                        View Full Profile
+                        </Link>
+                    </div>
                   </div>
                 </div>
               </div>

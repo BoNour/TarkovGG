@@ -6,6 +6,7 @@ import NewsCard from '../ui/NewsCard';
 
 const LatestNews: React.FC = () => {
   const { news, isLoading } = useGameData();
+  const tagsToRemove = ['APAC', 'Stage 1', 'Tournament', 'R6 Siege', 'Season', 'Update', 'NAL', 'Warzone', 'Loadout', 'FFAR', 'FFAR 1'];
   
   // Sort news by date (most recent first)
   const sortedNews = [...news].sort((a, b) => 
@@ -95,7 +96,7 @@ const LatestNews: React.FC = () => {
               
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {featuredNews.tags.map((tag, index) => (
+                  {featuredNews.tags.filter(tag => !tagsToRemove.includes(tag)).map((tag, index) => (
                     <span key={index} className="text-xs px-3 py-1.5 rounded-full font-medium"
                           style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#10b981' }}>
                       {tag}
@@ -109,13 +110,9 @@ const LatestNews: React.FC = () => {
                   </h3>
                 </Link>
                 
-                <p className="text-gray-300 mb-6 line-clamp-3 leading-relaxed">
-                  {featuredNews.content}
-                </p>
-                
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mt-auto pt-4 border-white/10">
                   <p className="text-sm text-gray-400">
-                    By {featuredNews.author} • {new Date(featuredNews.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    By <span className="font-semibold">{featuredNews.author}</span> • {new Date(featuredNews.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </p>
                   
                   <Link 
@@ -156,7 +153,7 @@ const LatestNews: React.FC = () => {
                     
                     <div className="p-6 flex flex-col h-full">
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {article.tags.slice(0, 2).map((tag, index) => (
+                        {article.tags.filter(tag => !tagsToRemove.includes(tag)).slice(0, 2).map((tag, index) => (
                           <span key={index} className="text-xs px-2 py-1 rounded-full font-medium"
                                 style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#10b981' }}>
                             {tag}
@@ -165,21 +162,14 @@ const LatestNews: React.FC = () => {
                       </div>
                       
                       <Link to={`/news/${article.id}`} className="flex-grow">
-                        <h4 className="text-lg font-bold mb-3 text-white hover:text-green-400 transition-colors duration-300 line-clamp-2">
+                        <h4 className="text-lg font-bold mb-3 text-white hover:text-green-400 transition-colors duration-300 line-clamp-3">
                           {article.title}
                         </h4>
                       </Link>
                       
-                      <p className="text-gray-300 mb-4 line-clamp-2 text-sm leading-relaxed flex-grow">
-                        {article.content}
-                      </p>
-                      
-                      <div className="flex justify-between items-center mt-auto">
+                      <div className="flex justify-between items-center mt-auto pt-4 border-white/10">
                         <p className="text-xs text-gray-400">
-                          By {article.author}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          By <span className="font-semibold">{article.author}</span> • {new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </p>
                       </div>
                     </div>
