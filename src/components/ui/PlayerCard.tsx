@@ -36,34 +36,42 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
 
   return (
     <div className="group relative">
-      {/* Animated background glow */}
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/8 via-purple-500/6 to-blue-500/8 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-      
       {/* Main card */}
-      <div className="relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 backdrop-blur-sm group-hover:shadow-cyan-500/15"
-           style={{ 
-             backgroundColor: 'rgba(255, 255, 255, 0.03)',
-             backgroundImage: 'linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(147, 197, 253, 0.01) 50%, rgba(30, 64, 175, 0.02) 100%)'
-           }}>
+      <div className="relative rounded-3xl overflow-hidden transition-all duration-500 backdrop-blur-sm">
         
-        {/* Image section with enhanced styling */}
+                  {/* Image section with enhanced styling */}
         <div className="relative h-56 overflow-hidden">
-          {/* Dynamic gradient overlay with extended coverage and bidirectional effect */}
-          <div className="absolute -inset-4 bg-gradient-to-t from-black/80 via-black/5 via-black/5 to-black/30 z-10"></div>
-          
           {/* PMC Image with better positioning */}
-          <div className="relative h-full" style={{ backgroundColor: '#161a1f' }}>
+          <div className="relative h-full">
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className="w-full h-full object-contain transition-all duration-700 translate-y-5 scale-90 group-hover:scale-110"
+              className="w-full h-full object-contain transition-all duration-700 translate-y-5 scale-90 group-hover:translate-y-0"
               style={{ 
-                filter: 'contrast(1.1) brightness(1.3)',
+                filter: 'contrast(1) brightness(1.3)',
                 maxHeight: '100%',
                 maxWidth: '100%',
-                objectPosition: 'center 150%'
+                objectPosition: 'center top',
+                transformOrigin: 'center top'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(1.25rem) scale(0.9)';
               }}
             />
+            
+            {/* Smooth blur fade at bottom */}
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
+              style={{
+                maskImage: 'linear-gradient(to top, transparent 0%, transparent 60%, black 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, transparent 60%, black 100%)',
+                backdropFilter: 'blur(3px)',
+                WebkitBackdropFilter: 'blur(3px)'
+              }}
+            ></div>
           </div>
 
           {/* Team logo with modern styling */}
@@ -96,7 +104,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
         </div>
         
         {variant === 'full' && (
-          <div className="p-6 space-y-6">
+          <div className="p-6 space-y-6 group-hover:backdrop-blur-lg transition-all duration-700">
             {/* Player name section */}
             <div className="text-center">
               <Link to={`/players/${player.id}`} className="block group/name">
@@ -163,7 +171,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
         )}
         
         {variant === 'compact' && (
-          <div className="p-4">
+          <div className="p-4 group-hover:backdrop-blur-lg transition-all duration-700">
             <div className="flex justify-between items-center">
               <div>
                 <Link to={`/players/${player.id}`} className="text-lg font-bold text-white hover:text-cyan-300 transition-colors duration-300 block mb-1">
