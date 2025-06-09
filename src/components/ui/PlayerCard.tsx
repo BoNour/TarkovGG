@@ -36,7 +36,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
   };
 
   return (
-    <div className="relative" style={{ zIndex: isHovered ? 50 : 1 }}>
+    <div className="relative" style={{ zIndex: isHovered ? -1 : 1 }}>
       {/* Card background container with proper overflow handling */}
       <div 
         className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu"
@@ -54,22 +54,38 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         {/* Image area background - clipped for card shape */}
         <div className="relative h-56 rounded-t-3xl overflow-hidden">
           <div className="w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
+          
+          {/* Sharp image within card bounds */}
+          <div className="absolute inset-0 flex items-start justify-center">
+            <img 
+              src={player.image} 
+              alt={player.nickname} 
+              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-[1.2]' : 'translate-y-5 scale-90'}`}
+              style={{ 
+                filter: 'contrast(1) brightness(1.3)',
+                height: '120%',
+                width: 'auto',
+                maxWidth: '120%',
+                transformOrigin: 'center top',
+                zIndex: 10,
+              }}
+            />
+          </div>
         </div>
         
-        {/* Player image - positioned absolutely to extend beyond card */}
-        <div className="absolute top-0 left-0 w-full h-56 flex items-center justify-center pointer-events-none">
+        {/* Blurred overflow image - only visible outside card bounds */}
+        <div className="absolute top-0 left-0 w-full h-56 flex items-start justify-center pointer-events-none" style={{ zIndex: isHovered ? -10 : -1 }}>
           <img 
             src={player.image} 
-            alt={player.nickname} 
-            className={`object-contain transition-all duration-700 transform-gpu pointer-events-auto ${isHovered ? 'translate-y-0 scale-[1.5]' : 'translate-y-5 scale-90'}`}
+            alt="" 
+            className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-[1.2]' : 'translate-y-5 scale-90 opacity-0'}`}
             style={{ 
-              filter: 'contrast(1) brightness(1.3)',
+              filter: 'contrast(1) brightness(1.3) blur(3px)',
               height: '120%',
               width: 'auto',
               maxWidth: '120%',
-              transformOrigin: 'center center',
-              zIndex: isHovered ? 100 : 5,
-              position: 'relative',
+              transformOrigin: 'center top',
+              opacity: isHovered ? 0.8 : 0,
             }}
           />
         </div>
