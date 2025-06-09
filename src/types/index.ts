@@ -47,12 +47,12 @@ export interface ExPlayer {
 
 // Team types
 export interface TeamMapStats {
-  mapName: string;
-  mapImage: string;
-  plays: number;
-  wins: number;
-  losses: number;
-  winRate: number;
+  [mapName: string]: {
+    plays: number;
+    wins: number;
+    losses: number;
+    winRate: number;
+  };
 }
 
 export interface TeamStats {
@@ -60,12 +60,12 @@ export interface TeamStats {
   losses: number;
   winRate: number;
   roundsWon: number;
-  roundsLost: number;
+  roundsPlayed: number;
   tournamentPlacements: {
     tournamentId: string;
     placement: number;
   }[];
-  mapStats?: TeamMapStats[];
+  mapStats: TeamMapStats;
 }
 
 export interface Team {

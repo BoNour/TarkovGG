@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="border-t" style={{ backgroundColor: '#1a1b1b', borderTopColor: 'rgba(255, 255, 255, 0.1)' }}>
+    <footer 
+      className="relative z-50" 
+      style={{
+        backgroundColor: 'rgba(24, 24, 27, 0.7)',
+        backdropFilter: 'blur(24px)',
+        boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
@@ -17,6 +24,7 @@ const Footer: React.FC = () => {
             <p className="mt-2 text-sm text-gray-300">
               The destination for Tarkov Arena esports statistics, and tournament coverage.
             </p>
+            <p className="mt-8 text-sm text-gray-400">&copy; 2025 Tarkov.gg | All rights reserved.</p>
           </div>
           <div>
             <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">Navigation</h3>
@@ -37,12 +45,6 @@ const Footer: React.FC = () => {
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">YouTube</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Twitch</a></li>
             </ul>
-          </div>
-        </div>
-        <div className="mt-8 pt-8 flex flex-col md:flex-row justify-between">
-          <p className="text-base text-gray-300">&copy; 2025 Tarkov.gg | All rights reserved.</p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
-
           </div>
         </div>
       </div>

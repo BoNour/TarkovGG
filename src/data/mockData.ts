@@ -267,13 +267,22 @@ export const mockExPlayers: ExPlayer[] = [
   }
 ];
 
+const defaultMapStats: TeamMapStats = {
+  sawmill: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+  nakatomi_plaza: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+  black_site: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+  bowl: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+  equator: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+  air_pit: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+};
+
 // Mock Teams
 export const mockTeams: Team[] = [
   {
     id: '1',
     name: 'CAG Osaka',
     tag: 'CAG',
-    logo: 'https://placehold.co/200x200/e74c3c/ffffff?text=CAG',
+    logo: '/cov%20logo.png',
     region: 'APAC',
     players: ['1', '4', '5'],
     stats: {
@@ -281,18 +290,16 @@ export const mockTeams: Team[] = [
       losses: 10,
       winRate: 0.6,
       roundsWon: 150,
-      roundsLost: 120,
-      tournamentPlacements: [
-        { tournamentId: '1', placement: 3 },
-        { tournamentId: '2', placement: 2 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '2',
     name: 'FURIA Esports',
     tag: 'FURIA',
-    logo: 'https://placehold.co/200x200/2c3e50/ffffff?text=FURIA',
+    logo: '/cov%20logo.png',
     region: 'LATAM',
     players: ['2', '3', '7', '8', '9'], // All 5 active players
     exPlayers: ['ex1', 'ex2'], // 2 ex-players
@@ -301,60 +308,16 @@ export const mockTeams: Team[] = [
       losses: 5,
       winRate: 0.8,
       roundsWon: 200,
-      roundsLost: 100,
-      tournamentPlacements: [
-        { tournamentId: '1', placement: 1 },
-        { tournamentId: '3', placement: 1 }
-      ],
-      mapStats: [
-        {
-          mapName: 'Club House',
-          mapImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=250&fit=crop',
-          plays: 2,
-          wins: 1,
-          losses: 1,
-          winRate: 0.5
-        },
-        {
-          mapName: 'Skyscraper',
-          mapImage: 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?w=400&h=250&fit=crop',
-          plays: 2,
-          wins: 0,
-          losses: 2,
-          winRate: 0
-        },
-        {
-          mapName: 'Bank',
-          mapImage: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=400&h=250&fit=crop',
-          plays: 1,
-          wins: 1,
-          losses: 0,
-          winRate: 1.0
-        },
-        {
-          mapName: 'Chalet',
-          mapImage: 'https://images.unsplash.com/photo-1542401886-65d6c61db217?w=400&h=250&fit=crop',
-          plays: 1,
-          wins: 1,
-          losses: 0,
-          winRate: 1.0
-        },
-        {
-          mapName: 'Kafe',
-          mapImage: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=250&fit=crop',
-          plays: 1,
-          wins: 0,
-          losses: 1,
-          winRate: 0
-        }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '3',
     name: 'Team Liquid',
     tag: 'TL',
-    logo: 'https://placehold.co/200x200/3498db/ffffff?text=TL',
+    logo: '/cov%20logo.png',
     region: 'EU',
     players: ['6'],
     stats: {
@@ -362,18 +325,16 @@ export const mockTeams: Team[] = [
       losses: 7,
       winRate: 0.72,
       roundsWon: 180,
-      roundsLost: 110,
-      tournamentPlacements: [
-        { tournamentId: '2', placement: 1 },
-        { tournamentId: '3', placement: 2 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '4',
     name: 'FaZe Clan',
     tag: 'FaZe',
-    logo: 'https://placehold.co/200x200/e67e22/ffffff?text=FaZe',
+    logo: '/cov%20logo.png',
     region: 'NA',
     players: [],
     stats: {
@@ -381,18 +342,16 @@ export const mockTeams: Team[] = [
       losses: 9,
       winRate: 0.64,
       roundsWon: 160,
-      roundsLost: 130,
-      tournamentPlacements: [
-        { tournamentId: '1', placement: 2 },
-        { tournamentId: '2', placement: 3 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '5',
     name: 'TSM',
     tag: 'TSM',
-    logo: 'https://placehold.co/200x200/9b59b6/ffffff?text=TSM',
+    logo: '/cov%20logo.png',
     region: 'NA',
     players: [],
     stats: {
@@ -400,17 +359,16 @@ export const mockTeams: Team[] = [
       losses: 11,
       winRate: 0.56,
       roundsWon: 140,
-      roundsLost: 135,
-      tournamentPlacements: [
-        { tournamentId: '1', placement: 4 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '6',
     name: 'G2 Esports',
     tag: 'G2',
-    logo: 'https://placehold.co/200x200/1abc9c/ffffff?text=G2',
+    logo: '/cov%20logo.png',
     region: 'EU',
     players: [],
     stats: {
@@ -418,17 +376,16 @@ export const mockTeams: Team[] = [
       losses: 3,
       winRate: 0.88,
       roundsWon: 220,
-      roundsLost: 80,
-      tournamentPlacements: [
-        { tournamentId: '2', placement: 1 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '7',
     name: 'DWG KIA',
     tag: 'DK',
-    logo: 'https://placehold.co/200x200/f39c12/ffffff?text=DK',
+    logo: '/cov%20logo.png',
     region: 'APAC',
     players: [],
     stats: {
@@ -436,17 +393,16 @@ export const mockTeams: Team[] = [
       losses: 6,
       winRate: 0.76,
       roundsWon: 190,
-      roundsLost: 110,
-      tournamentPlacements: [
-        { tournamentId: '3', placement: 2 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '8',
     name: 'LOUD',
     tag: 'LOUD',
-    logo: 'https://placehold.co/200x200/e74c3c/ffffff?text=LOUD',
+    logo: '/cov%20logo.png',
     region: 'LATAM',
     players: [],
     stats: {
@@ -454,17 +410,16 @@ export const mockTeams: Team[] = [
       losses: 8,
       winRate: 0.68,
       roundsWon: 170,
-      roundsLost: 120,
-      tournamentPlacements: [
-        { tournamentId: '1', placement: 3 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '9',
     name: 'NaVi',
     tag: 'NAVI',
-    logo: 'https://placehold.co/200x200/f1c40f/ffffff?text=NAVI',
+    logo: '/cov%20logo.png',
     region: 'EU',
     players: [],
     stats: {
@@ -472,17 +427,16 @@ export const mockTeams: Team[] = [
       losses: 4,
       winRate: 0.84,
       roundsWon: 210,
-      roundsLost: 90,
-      tournamentPlacements: [
-        { tournamentId: '2', placement: 2 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
   },
   {
     id: '10',
     name: 'Spacestation',
     tag: 'SSG',
-    logo: 'https://placehold.co/200x200/95a5a6/ffffff?text=SSG',
+    logo: '/cov%20logo.png',
     region: 'NA',
     players: [],
     stats: {
@@ -490,12 +444,28 @@ export const mockTeams: Team[] = [
       losses: 12,
       winRate: 0.52,
       roundsWon: 130,
-      roundsLost: 140,
-      tournamentPlacements: [
-        { tournamentId: '3', placement: 4 }
-      ]
+      roundsPlayed: 500,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
     }
-  }
+  },
+  {
+    id: '32',
+    name: 'XSET',
+    tag: 'XSET',
+    logo: '/cov%20logo.png',
+    region: 'NA',
+    players: [],
+    stats: {
+      winRate: 0.5,
+      wins: 10,
+      losses: 10,
+      roundsWon: 200,
+      roundsPlayed: 400,
+      tournamentPlacements: [],
+      mapStats: defaultMapStats,
+    }
+  },
 ];
 
 // Mock Matches
