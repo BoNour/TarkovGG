@@ -69,7 +69,6 @@ const TopPlayers: React.FC = () => {
                       ? 'scale(1.05) translateY(-8px)'
                       : 'scale(1.0) translateY(0px)',
                   opacity: hoveredPlayerId && hoveredPlayerId !== player.id ? 0.6 : 1.0,
-                  filter: hoveredPlayerId && hoveredPlayerId !== player.id ? 'brightness(0.7) blur(1px)' : 'brightness(1.0) blur(0px)',
                   animationDelay: `${index * 100}ms`
                 }}
                 onMouseEnter={() => setHoveredPlayerId(player.id)}
