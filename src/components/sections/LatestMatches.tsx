@@ -1,37 +1,100 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Activity, Zap } from 'lucide-react';
+import { ArrowRight, Activity, Clock, ExternalLink } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
 import MatchCard from '../ui/MatchCard';
+import { Match, Team } from '../../types';
+import { formatDate } from '../../utils/helpers';
+
+const UpcomingMatchCard: React.FC<{ match: Match }> = ({ match }) => {
+  const { teams } = useGameData();
+  const teamOne = teams.find(t => t.id === match.teamOneId) as Team;
+  const teamTwo = teams.find(t => t.id === match.teamTwoId) as Team;
+
+  if (!teamOne || !teamTwo) {
+    return null; // or a loading/error state
+  }
+
+  return (
+    <div 
+      className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-5 shadow-lg"
+      style={{
+        background: 'linear-gradient(145deg, rgba(40, 42, 50, 0.8), rgba(30, 32, 40, 0.8))',
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+      }}
+    >
+      <div className="flex justify-between items-center text-xs text-gray-400 mb-4 pb-3 border-b border-gray-700/50">
+        <div className="flex items-center space-x-2 text-blue-400 font-bold">
+          <Clock size={14} />
+          <span>UPCOMING</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Clock size={14} />
+          <span>{formatDate(match.date)}</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center space-x-4 text-right">
+          <div className="flex flex-col items-end">
+            <span className="font-bold text-lg text-white">{teamOne.name}</span>
+            <span className="text-xs text-gray-400">{teamOne.region}</span>
+          </div>
+          <img src={teamOne.logo} alt={teamOne.name} className="w-14 h-14 rounded-full border-2 border-gray-600"/>
+        </div>
+
+        <div className="text-3xl font-black text-gray-400 mx-4">
+          0 
+          <span className="text-2xl font-bold text-gray-500 mx-2">VS</span> 
+          0
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <img src={teamTwo.logo} alt={teamTwo.name} className="w-14 h-14 rounded-full border-2 border-gray-600"/>
+          <div className="flex flex-col items-start">
+            <span className="font-bold text-lg text-white">{teamTwo.name}</span>
+            <span className="text-xs text-gray-400">{teamTwo.region}</span>
+          </div>
+        </div>
+      </div>
+
+      <Link 
+        to={`/matches/${match.id}`} 
+        className="block w-full text-center bg-gray-700/50 hover:bg-gray-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 group"
+      >
+        View Details <ExternalLink className="inline w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 transition-opacity" />
+      </Link>
+    </div>
+  );
+};
 
 const LatestMatches: React.FC = () => {
-  const { matches, isLoading } = useGameData();
+  const { matches, isLoading, teams } = useGameData();
   const [hoveredMatchId, setHoveredMatchId] = useState<string | null>(null);
   
-  // Enhanced sorting: Live matches first, then by date (most recent first)
-  const sortedMatches = [...matches].sort((a, b) => {
-    // Priority order: live > upcoming > completed
-    const statusPriority = {
-      'live': 0,
-      'upcoming': 1,
-      'completed': 2
-    };
-    
-    const aPriority = statusPriority[a.status] ?? 3;
-    const bPriority = statusPriority[b.status] ?? 3;
-    
-    // First sort by status priority
-    if (aPriority !== bPriority) {
-      return aPriority - bPriority;
-    }
-    
-    // Then sort by date (most recent first)
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
+  // Find the soonest upcoming match to feature.
+  const upcomingMatches = [...matches]
+    .filter(m => m.status === 'upcoming')
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); // Ascending date order for soonest
   
-  // Get the latest 3 matches (with live matches prioritized)
-  const latestMatches = sortedMatches.slice(0, 3);
-  const liveMatchCount = latestMatches.filter(match => match.status === 'live').length;
+  const featuredUpcomingMatch = upcomingMatches.length > 0 ? upcomingMatches[0] : null;
+
+  // Get other matches to display, prioritizing live matches, then completed.
+  const liveMatches = [...matches]
+    .filter(m => m.status === 'live')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Most recent first
+
+  const completedMatchesFromDataSource = [...matches]
+    .filter(m => m.status === 'completed')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Most recent first
+
+  // Create the final list of other matches, ensuring the featured one isn't included.
+  const otherMatches = [...liveMatches, ...completedMatchesFromDataSource]
+    .filter(m => !featuredUpcomingMatch || m.id !== featuredUpcomingMatch.id);
+  
+  // Determine how many other matches to show.
+  const remainingSlots = featuredUpcomingMatch ? 4 : 5;
+  const displayMatches = otherMatches.slice(0, remainingSlots);
 
   if (isLoading) {
     return (
@@ -51,13 +114,13 @@ const LatestMatches: React.FC = () => {
   }
 
   return (
-    <section className="pb-16 pt-0 relative overflow-hidden" style={{ backgroundColor: '#1a1b1b' }}>
+    <section className="relative overflow-hidden">
       {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.01]">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
       </div>
       
-      <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
+      <div className="relative">
         {/* Section header */}
         <div className="mb-6">
           <div className="space-y-4">
@@ -67,9 +130,13 @@ const LatestMatches: React.FC = () => {
           </div>
         </div>
         
-        {/* Horizontal matches grid - improved for better space utilization */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-none">
-          {latestMatches.map((match, index) => (
+        {/* Vertical matches list */}
+        <div className="space-y-4">
+          {featuredUpcomingMatch && (
+            <UpcomingMatchCard match={featuredUpcomingMatch} />
+          )}
+
+          {displayMatches.map((match) => (
             <div 
               key={match.id} 
               className="relative transition-transform duration-700 ease-in-out"
@@ -87,7 +154,7 @@ const LatestMatches: React.FC = () => {
         </div>
         
         {/* Compact no matches state */}
-        {latestMatches.length === 0 && (
+        {displayMatches.length === 0 && !featuredUpcomingMatch && (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
               <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center border" 

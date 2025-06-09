@@ -122,7 +122,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
               >
                 {teamOne.name}
               </Link>
-              <p className="text-gray-400 font-medium text-xs uppercase tracking-wider">{teamOne.tag}</p>
               <p className="text-gray-500 text-xs">{teamOne.region}</p>
             </div>
           </div>
@@ -205,7 +204,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, variant = 'full' }) => {
               >
                 {teamTwo.name}
               </Link>
-              <p className="text-gray-400 font-medium text-xs uppercase tracking-wider">{teamTwo.tag}</p>
               <p className="text-gray-500 text-xs">{teamTwo.region}</p>
             </div>
             <Link to={`/teams/${teamTwo.id}`} className="group/team relative flex-shrink-0">

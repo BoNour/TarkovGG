@@ -519,7 +519,7 @@ export const mockMatches: Match[] = [
     teamOneScore: 0,
     teamTwoScore: 0,
     date: '2025-05-20T19:30:00Z',
-    status: MatchStatus.LIVE,
+    status: MatchStatus.UPCOMING,
     maps: [
       { name: 'Border', teamOneScore: 4, teamTwoScore: 3 }
     ]
