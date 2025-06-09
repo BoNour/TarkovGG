@@ -39,8 +39,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
       {/* Main card */}
       <div className="relative rounded-3xl overflow-hidden transition-all duration-500 backdrop-blur-sm">
         
-                  {/* Image section with enhanced styling */}
-        <div className="relative h-56 overflow-hidden">
+        {/* Image section with enhanced styling */}
+        <div className="relative h-56">
           {/* PMC Image with better positioning */}
           <div className="relative h-full">
             <img 
@@ -55,23 +55,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
                 transformOrigin: 'center top'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1.1)';
+                e.currentTarget.style.transform = 'translateY(0) scale(2.0)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(1.25rem) scale(0.9)';
               }}
             />
-            
-            {/* Smooth blur fade at bottom */}
-            <div 
-              className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
-              style={{
-                maskImage: 'linear-gradient(to top, transparent 0%, transparent 60%, black 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, transparent 60%, black 100%)',
-                backdropFilter: 'blur(3px)',
-                WebkitBackdropFilter: 'blur(3px)'
-              }}
-            ></div>
           </div>
 
           {/* Team logo with modern styling */}
@@ -104,7 +93,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
         </div>
         
         {variant === 'full' && (
-          <div className="p-6 space-y-6 group-hover:backdrop-blur-lg transition-all duration-700">
+          <div className="p-6 space-y-6">
             {/* Player name section */}
             <div className="text-center">
               <Link to={`/players/${player.id}`} className="block group/name">
@@ -171,7 +160,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
         )}
         
         {variant === 'compact' && (
-          <div className="p-4 group-hover:backdrop-blur-lg transition-all duration-700">
+          <div className="p-4">
             <div className="flex justify-between items-center">
               <div>
                 <Link to={`/players/${player.id}`} className="text-lg font-bold text-white hover:text-cyan-300 transition-colors duration-300 block mb-1">
