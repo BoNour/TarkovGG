@@ -32,11 +32,10 @@ const TopPlayers: React.FC = () => {
   }
 
   return (
-    <section className="py-24 relative" style={{ backgroundColor: '#1a1b1b' }}>
+    <section className="relative">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/3 to-transparent"></div>
       
-      <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12 relative">
+      <div className="max-w-none mx-auto relative">
         {/* Section header */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
           <div className="space-y-4">
@@ -62,9 +61,6 @@ const TopPlayers: React.FC = () => {
         {/* Players grid with enhanced layout */}
         <div className="relative">
           {/* Decorative background elements */}
-          <div className="absolute -inset-x-4 inset-y-0 bg-gradient-to-r from-transparent via-cyan-500/3 to-transparent rounded-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-radial from-cyan-500/8 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-radial from-purple-500/5 to-transparent rounded-full blur-2xl pointer-events-none"></div>
           
           <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {topPlayers.map((player, index) => (

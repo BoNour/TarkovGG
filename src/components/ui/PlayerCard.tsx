@@ -72,7 +72,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact' }) 
                   <img 
                     src="/cov logo.png" 
                     alt="COV Logo" 
-                    className="relative w-20 h-20 object-contain transition-all duration-300"
+                    className="relative w-10 h-10 object-contain transition-all duration-300"
                   />
                 </div>
               </Link>

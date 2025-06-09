@@ -121,7 +121,7 @@ const TopTeams: React.FC = () => {
                       <img 
                         src={team.logo} 
                         alt={team.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-gray-600/50 group-hover:border-purple-500/50 transition-colors duration-300"
+                        className="w-16 h-16 object-cover"
                       />
                       <div className="ml-4 flex-1">
                         <Link to={`/teams/${team.id}`}>

@@ -71,13 +71,42 @@ const Home: React.FC = () => {
                 </div>
                 
                 {/* Top Players Section - Now under News */}
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8">
-                  <TopPlayers />
+                <div className="relative overflow-hidden group rounded-3xl"
+                     style={{
+                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                       backdropFilter: 'blur(12px)',
+                     }}
+                >
+                  {/* Glare Effect */}
+                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                       style={{
+                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                       }}
+                  ></div>
+
+                  {/* Multiple glass layers for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                  
+                  {/* Content container */}
+                  <div className="relative p-8">
+                    <TopPlayers />
+                  </div>
                 </div>
                 
                 {/* Top Teams Section - Now under Top Players */}
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8">
-                  <TopTeams />
+                <div className="relative overflow-hidden rounded-3xl"
+                     style={{
+                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                       backdropFilter: 'blur(24px)',
+                     }}
+                >
+                  {/* Multiple glass layers for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                  
+                  {/* Content container */}
+                  <div className="relative p-8">
+                    <TopTeams />
+                  </div>
                 </div>
               </div>
               
@@ -90,9 +119,27 @@ const Home: React.FC = () => {
                 </div>
                 
                 {/* Competitions Section */}
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6">
-                  <h3 className="text-3xl font-black text-white mb-6">Competitions</h3>
-                  <FeaturedTournaments />
+                <div className="relative overflow-hidden group rounded-3xl"
+                     style={{
+                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                       backdropFilter: 'blur(12px)',
+                     }}
+                >
+                  {/* Glare Effect */}
+                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                       style={{
+                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                       }}
+                  ></div>
+
+                  {/* Multiple glass layers for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                  
+                  {/* Content container */}
+                  <div className="relative p-6">
+                    <h3 className="text-3xl font-black text-white mb-6">Competitions</h3>
+                    <FeaturedTournaments />
+                  </div>
                 </div>
               </div>
               
