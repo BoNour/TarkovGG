@@ -39,18 +39,15 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
     <div className="relative">
       {/* Main card with clean box design */}
       <div 
-        className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm border transform-gpu"
+        className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu"
         style={{ 
-          borderColor: 'rgba(255, 255, 255, 0.08)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
-          e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)';
-          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
         }}
       >
         
@@ -102,10 +99,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         
         {variant === 'full' && (
           <div 
-            className="p-6 space-y-6 border-t"
+            className="relative z-10 p-6 space-y-6 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md"
             style={{ 
-              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.95) 0%, rgba(38, 39, 39, 0.98) 100%)',
-              borderTopColor: 'rgba(255, 255, 255, 0.06)'
+              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
+              borderColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+              borderTopColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.06)',
             }}
           >
             {/* Player name section */}
@@ -175,10 +173,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         
         {variant === 'compact' && (
           <div 
-            className="p-4 border-t"
+            className="relative z-10 p-4 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md"
             style={{ 
-              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.95) 0%, rgba(38, 39, 39, 0.98) 100%)',
-              borderTopColor: 'rgba(255, 255, 255, 0.06)'
+              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
+              borderColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+              borderTopColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.06)',
             }}
           >
             <div className="flex justify-between items-center">
