@@ -268,12 +268,12 @@ export const mockExPlayers: ExPlayer[] = [
 ];
 
 const defaultMapStats: TeamMapStats = {
-  sawmill: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
-  nakatomi_plaza: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
-  black_site: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
-  bowl: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
-  equator: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
-  air_pit: { wins: 0, losses: 0, roundsWon: 0, roundsPlayed: 0 },
+  sawmill: { wins: 0, losses: 0, winRate: 0, plays: 0 },
+  nakatomi_plaza: { wins: 0, losses: 0, winRate: 0, plays: 0 },
+  black_site: { wins: 0, losses: 0, winRate: 0, plays: 0 },
+  bowl: { wins: 0, losses: 0, winRate: 0, plays: 0 },
+  equator: { wins: 0, losses: 0, winRate: 0, plays: 0 },
+  air_pit: { wins: 0, losses: 0, winRate: 0, plays: 0 },
 };
 
 // Mock Teams
@@ -472,263 +472,234 @@ export const mockTeams: Team[] = [
 export const mockMatches: Match[] = [
   {
     id: '1',
-    tournamentId: '1',
     teamOneId: '1',
     teamTwoId: '2',
     teamOneScore: 0,
-    teamTwoScore: 3,
-    date: '2025-05-18T15:30:00Z',
-    status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Villa', teamOneScore: 5, teamTwoScore: 7 },
-      { name: 'Clubhouse', teamOneScore: 3, teamTwoScore: 7 },
-      { name: 'Oregon', teamOneScore: 4, teamTwoScore: 7 }
-    ]
+    teamTwoScore: 0,
+    status: MatchStatus.UPCOMING,
+    date: '2024-05-23T15:30:00Z',
+    tournamentId: '1',
+    maps: []
   },
   {
     id: '2',
-    tournamentId: '1',
-    teamOneId: '1',
-    teamTwoId: '4',
-    teamOneScore: 2,
-    teamTwoScore: 1,
-    date: '2025-05-17T14:00:00Z',
-    status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Kafe', teamOneScore: 7, teamTwoScore: 5 },
-      { name: 'Coastline', teamOneScore: 5, teamTwoScore: 7 },
-      { name: 'Bank', teamOneScore: 7, teamTwoScore: 6 }
-    ]
-  },
-  {
-    id: '3',
-    tournamentId: '2',
     teamOneId: '3',
     teamTwoId: '4',
     teamOneScore: 2,
+    teamTwoScore: 1,
+    status: MatchStatus.LIVE,
+    date: '2024-05-22T19:00:00Z',
+    tournamentId: '1',
+    maps: []
+  },
+  {
+    id: '3',
+    teamOneId: '5',
+    teamTwoId: '6',
+    teamOneScore: 1,
     teamTwoScore: 0,
-    date: '2025-06-01T18:00:00Z',
-    status: MatchStatus.UPCOMING,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-22T18:30:00Z',
+    tournamentId: '1',
     maps: []
   },
   {
     id: '4',
-    tournamentId: '1',
-    teamOneId: '2',
-    teamTwoId: '3',
+    teamOneId: '7',
+    teamTwoId: '8',
     teamOneScore: 0,
-    teamTwoScore: 0,
-    date: '2025-05-20T19:30:00Z',
-    status: MatchStatus.UPCOMING,
-    maps: [
-      { name: 'Border', teamOneScore: 4, teamTwoScore: 3 }
-    ]
+    teamTwoScore: 1,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-22T17:15:00Z',
+    tournamentId: '1',
+    maps: []
   },
   {
     id: '5',
-    tournamentId: '1',
-    teamOneId: '6',
-    teamTwoId: '9',
+    teamOneId: '9',
+    teamTwoId: '10',
     teamOneScore: 1,
     teamTwoScore: 1,
-    date: '2025-05-20T20:00:00Z',
     status: MatchStatus.LIVE,
-    maps: [
-      { name: 'Consulate', teamOneScore: 7, teamTwoScore: 5 },
-      { name: 'Skyscraper', teamOneScore: 5, teamTwoScore: 7 },
-      { name: 'Theme Park', teamOneScore: 3, teamTwoScore: 2 }
-    ]
+    date: '2024-05-22T16:00:00Z',
+    tournamentId: '1',
+    maps: []
   },
   {
     id: '6',
-    tournamentId: '2',
-    teamOneId: '5',
-    teamTwoId: '10',
+    teamOneId: '1',
+    teamTwoId: '9',
     teamOneScore: 0,
-    teamTwoScore: 1,
-    date: '2025-05-20T21:15:00Z',
-    status: MatchStatus.LIVE,
-    maps: [
-      { name: 'Chalet', teamOneScore: 6, teamTwoScore: 7 },
-      { name: 'Villa', teamOneScore: 2, teamTwoScore: 4 }
-    ]
+    teamTwoScore: 0,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-21T16:00:00Z',
+    tournamentId: '2',
+    maps: []
   },
   {
     id: '7',
+    teamOneId: '1',
+    teamTwoId: '2',
+    teamOneScore: 0,
+    teamTwoScore: 3,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-18T11:30:00Z',
     tournamentId: '1',
-    teamOneId: '7',
-    teamTwoId: '8',
-    teamOneScore: 1,
-    teamTwoScore: 0,
-    date: '2025-05-20T22:30:00Z',
-    status: MatchStatus.LIVE,
-    maps: [
-      { name: 'Oregon', teamOneScore: 7, teamTwoScore: 4 },
-      { name: 'Clubhouse', teamOneScore: 5, teamTwoScore: 6 }
-    ]
+    maps: []
   },
   {
     id: '8',
-    tournamentId: '3',
     teamOneId: '1',
-    teamTwoId: '6',
-    teamOneScore: 0,
-    teamTwoScore: 0,
-    date: '2025-05-20T16:45:00Z',
-    status: MatchStatus.LIVE,
-    maps: [
-      { name: 'Border', teamOneScore: 6, teamTwoScore: 6 }
-    ]
+    teamTwoId: '3',
+    teamOneScore: 1,
+    teamTwoScore: 2,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-21T14:00:00Z',
+    tournamentId: '2',
+    maps: []
   },
   {
     id: '9',
-    tournamentId: '2',
     teamOneId: '4',
-    teamTwoId: '9',
+    teamTwoId: '5',
     teamOneScore: 2,
-    teamTwoScore: 1,
-    date: '2025-05-20T23:00:00Z',
-    status: MatchStatus.LIVE,
-    maps: [
-      { name: 'Kafe', teamOneScore: 7, teamTwoScore: 3 },
-      { name: 'Bank', teamOneScore: 4, teamTwoScore: 7 },
-      { name: 'Coastline', teamOneScore: 6, teamTwoScore: 4 }
-    ]
+    teamTwoScore: 0,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-21T16:00:00Z',
+    tournamentId: '2',
+    maps: []
   },
   {
     id: '10',
-    tournamentId: '2',
-    teamOneId: '2',
+    teamOneId: '6',
     teamTwoId: '7',
     teamOneScore: 0,
     teamTwoScore: 0,
-    date: '2025-06-02T19:00:00Z',
     status: MatchStatus.UPCOMING,
+    date: '2024-05-28T18:00:00Z',
+    tournamentId: '2',
     maps: []
   },
   {
     id: '11',
-    tournamentId: '3',
-    teamOneId: '5',
-    teamTwoId: '8',
-    teamOneScore: 0,
-    teamTwoScore: 0,
-    date: '2025-06-03T20:30:00Z',
-    status: MatchStatus.UPCOMING,
+    teamOneId: '8',
+    teamTwoId: '9',
+    teamOneScore: 1,
+    teamTwoScore: 1,
+    status: MatchStatus.LIVE,
+    date: '2024-05-22T20:00:00Z',
+    tournamentId: '2',
     maps: []
   },
   {
     id: '12',
-    tournamentId: '1',
-    teamOneId: '6',
-    teamTwoId: '10',
-    teamOneScore: 0,
-    teamTwoScore: 0,
-    date: '2025-06-04T17:15:00Z',
-    status: MatchStatus.UPCOMING,
+    teamOneId: '10',
+    teamTwoId: '1',
+    teamOneScore: 3,
+    teamTwoScore: 2,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-19T10:00:00Z',
+    tournamentId: '3',
     maps: []
   },
   {
     id: '13',
-    tournamentId: '2',
-    teamOneId: '1',
-    teamTwoId: '9',
+    teamOneId: '2',
+    teamTwoId: '5',
     teamOneScore: 0,
     teamTwoScore: 0,
-    date: '2025-06-05T21:45:00Z',
     status: MatchStatus.UPCOMING,
+    date: '2024-06-01T12:00:00Z',
+    tournamentId: '3',
     maps: []
   },
   {
     id: '14',
-    tournamentId: '3',
     teamOneId: '3',
-    teamTwoId: '7',
-    teamOneScore: 0,
+    teamTwoId: '6',
+    teamOneScore: 2,
     teamTwoScore: 0,
-    date: '2025-06-06T18:30:00Z',
-    status: MatchStatus.UPCOMING,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-17T18:00:00Z',
+    tournamentId: '3',
     maps: []
   },
   {
     id: '15',
-    tournamentId: '1',
-    teamOneId: '9',
-    teamTwoId: '10',
-    teamOneScore: 3,
-    teamTwoScore: 1,
-    date: '2025-05-16T16:00:00Z',
+    teamOneId: '4',
+    teamTwoId: '8',
+    teamOneScore: 1,
+    teamTwoScore: 2,
     status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Consulate', teamOneScore: 7, teamTwoScore: 2 },
-      { name: 'Chalet', teamOneScore: 4, teamTwoScore: 7 },
-      { name: 'Theme Park', teamOneScore: 7, teamTwoScore: 5 },
-      { name: 'Villa', teamOneScore: 7, teamTwoScore: 4 }
-    ]
+    date: '2024-05-16T22:00:00Z',
+    tournamentId: '3',
+    maps: []
   },
   {
     id: '16',
-    tournamentId: '2',
-    teamOneId: '6',
-    teamTwoId: '8',
+    teamOneId: '7',
+    teamTwoId: '10',
     teamOneScore: 3,
-    teamTwoScore: 0,
-    date: '2025-05-15T19:30:00Z',
+    teamTwoScore: 1,
     status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Oregon', teamOneScore: 7, teamTwoScore: 3 },
-      { name: 'Clubhouse', teamOneScore: 7, teamTwoScore: 5 },
-      { name: 'Bank', teamOneScore: 7, teamTwoScore: 2 }
-    ]
+    date: '2024-05-15T13:00:00Z',
+    tournamentId: '3',
+    maps: []
   },
   {
     id: '17',
-    tournamentId: '1',
     teamOneId: '5',
-    teamTwoId: '7',
-    teamOneScore: 1,
-    teamTwoScore: 3,
-    date: '2025-05-14T14:45:00Z',
+    teamTwoId: '1',
+    teamOneScore: 0,
+    teamTwoScore: 2,
     status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Kafe', teamOneScore: 5, teamTwoScore: 7 },
-      { name: 'Coastline', teamOneScore: 7, teamTwoScore: 4 },
-      { name: 'Border', teamOneScore: 3, teamTwoScore: 7 },
-      { name: 'Skyscraper', teamOneScore: 6, teamTwoScore: 7 }
-    ]
+    date: '2024-05-14T11:00:00Z',
+    tournamentId: '3',
+    maps: []
   },
   {
     id: '18',
-    tournamentId: '3',
     teamOneId: '2',
-    teamTwoId: '4',
-    teamOneScore: 3,
-    teamTwoScore: 2,
-    date: '2025-05-13T20:15:00Z',
+    teamTwoId: '8',
+    teamOneScore: 2,
+    teamTwoScore: 1,
     status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Villa', teamOneScore: 7, teamTwoScore: 5 },
-      { name: 'Chalet', teamOneScore: 4, teamTwoScore: 7 },
-      { name: 'Oregon', teamOneScore: 6, teamTwoScore: 7 },
-      { name: 'Consulate', teamOneScore: 7, teamTwoScore: 3 },
-      { name: 'Theme Park', teamOneScore: 7, teamTwoScore: 5 }
-    ]
+    date: '2024-05-22T15:00:00Z',
+    tournamentId: '2',
+    maps: []
   },
   {
     id: '19',
-    tournamentId: '2',
-    teamOneId: '3',
-    teamTwoId: '1',
-    teamOneScore: 3,
-    teamTwoScore: 1,
-    date: '2025-05-12T17:00:00Z',
+    teamOneId: '4',
+    teamTwoId: '6',
+    teamOneScore: 0,
+    teamTwoScore: 2,
     status: MatchStatus.COMPLETED,
-    maps: [
-      { name: 'Bank', teamOneScore: 7, teamTwoScore: 4 },
-      { name: 'Clubhouse', teamOneScore: 5, teamTwoScore: 7 },
-      { name: 'Kafe', teamOneScore: 7, teamTwoScore: 6 },
-      { name: 'Border', teamOneScore: 7, teamTwoScore: 3 }
-    ]
+    date: '2024-05-22T13:00:00Z',
+    tournamentId: '2',
+    maps: []
+  },
+  {
+    id: '20',
+    teamOneId: '9',
+    teamTwoId: '3',
+    teamOneScore: 2,
+    teamTwoScore: 1,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-21T19:00:00Z',
+    tournamentId: '1',
+    maps: []
+  },
+  {
+    id: '21',
+    teamOneId: '10',
+    teamTwoId: '5',
+    teamOneScore: 1,
+    teamTwoScore: 2,
+    status: MatchStatus.COMPLETED,
+    date: '2024-05-21T17:00:00Z',
+    tournamentId: '1',
+    maps: []
   }
 ];
 
@@ -736,12 +707,12 @@ export const mockMatches: Match[] = [
 export const mockTournaments: Tournament[] = [
   {
     id: '1',
-    name: 'RE:LOAD 2025',
-    game: 'Rainbow Six Siege',
-    startDate: '2025-05-10',
-    endDate: '2025-05-18',
-    location: 'Rio De Janeiro, Brazil',
-    prizePool: '$3,000,000',
+    name: 'Esports R6 RELOAD',
+    game: 'r6',
+    startDate: '2025-05-18',
+    endDate: '2025-06-08',
+    location: 'Online',
+    prizePool: '$50,000',
     type: TournamentType.MAJOR,
     format: TournamentFormat.DOUBLE_ELIMINATION,
     teams: ['1', '2', '3', '4'],
@@ -750,7 +721,7 @@ export const mockTournaments: Tournament[] = [
   },
   {
     id: '2',
-    name: 'Six Invitational 2025',
+    name: 'Six Invitational',
     game: 'Rainbow Six Siege',
     startDate: '2025-02-03',
     endDate: '2025-02-16',

@@ -61,10 +61,10 @@ const Home: React.FC = () => {
         {/* Two Column Layout: News on Left, Matches & Tournaments on Right */}
         <section className="py-16 relative">
           <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
               
-              {/* Left Column - News (2/3 width) */}
-              <div className="lg:col-span-2 space-y-12">
+              {/* Left Column - News (3/5 width) */}
+              <div className="lg:col-span-3 space-y-12">
                 {/* News Section */}
                 <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8">
                   <LatestNews />
@@ -110,8 +110,8 @@ const Home: React.FC = () => {
                 </div>
               </div>
               
-              {/* Right Column - Matches & Tournaments (1/3 width) */}
-              <div className="lg:col-span-1 space-y-8">
+              {/* Right Column - Matches & Tournaments (2/5 width) */}
+              <div className="lg:col-span-2 space-y-8">
                 {/* Matches Section */}
                 <div className="relative overflow-hidden group rounded-3xl"
                      style={{

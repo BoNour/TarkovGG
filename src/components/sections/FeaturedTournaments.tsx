@@ -34,8 +34,8 @@ const FeaturedTournaments: React.FC = () => {
     return bEndDate.getTime() - aEndDate.getTime();
   });
   
-  // Get the first 2 tournaments to ensure they fit the container
-  const featuredTournaments = sortedTournaments.slice(0, 2);
+  // Get the first 4 tournaments to ensure they fit the container
+  const featuredTournaments = sortedTournaments.slice(0, 4);
 
   if (isLoading) {
     return (
@@ -72,16 +72,13 @@ const FeaturedTournaments: React.FC = () => {
           <Link 
             to={`/tournaments/${tournament.id}`}
             key={tournament.id} 
-            className="group block rounded-2xl transition-all duration-300 hover:bg-white/5 overflow-hidden border border-white/10 hover:border-white/20"
+            className="group block rounded-2xl transition-all duration-300 hover:bg-white/5 overflow-hidden border border-white/10 hover:border-white/20 relative"
             style={{
               animation: `fadeInUp 0.5s ease-out ${index * 100}ms both`
             }}
           >
             <div className="flex h-44">
               <div className="w-2/5 relative flex items-center justify-center bg-white/5 overflow-hidden border-r border-white/10">
-                <span className="absolute -bottom-4 -right-2 text-7xl font-black text-white/5 pointer-events-none select-none">
-                  {tournament.name.split(' ')[0].substring(0, 4).toUpperCase()}
-                </span>
                 <img src={tournament.logo} alt={tournament.name} className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-105" />
               </div>
 
@@ -107,13 +104,12 @@ const FeaturedTournaments: React.FC = () => {
                             <span>{new Date(tournament.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         </div>
                     </div>
-                    <div className="text-purple-400 group-hover:text-purple-300 flex items-center text-sm font-semibold">
-                        <span>Details</span>
-                        <ArrowRight size={16} className="ml-1 transition-transform duration-300 group-hover:translate-x-1"/>
-                    </div>
                 </div>
               </div>
             </div>
+            <span className={`absolute bottom-2 right-3 font-black text-white/5 pointer-events-none select-none ${index === 0 ? 'text-4xl' : 'text-3xl'}`}>
+              {index === 0 ? 'MAJOR' : index === 1 ? 'QUALS' : tournament.name.toUpperCase()}
+            </span>
           </Link>
         )
       })}
