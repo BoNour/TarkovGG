@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGameData } from '../context/GameDataContext';
 import MatchCard from '../components/ui/MatchCard';
 import { ChartsGrid } from '../components/ui/Charts';
-import { Search, Filter, Calendar, Users, Activity, RotateCcw, Sparkles, BarChart3, List, TrendingUp, Clock, Trophy } from 'lucide-react';
+import { Search, Filter, Calendar, Users, Activity, RotateCcw, Sparkles, BarChart3, List, TrendingUp, Clock, Trophy, ArrowRight } from 'lucide-react';
 import { MatchStatus } from '../types';
 
 const Matches: React.FC = () => {
@@ -84,34 +84,32 @@ const Matches: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#0a0a0b' }}>
-        {/* Enhanced Background */}
+      <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+        {/* Background Image */}
         <div 
           className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat"
-          style={{ backgroundImage: "url('/BACKGROUND.png')" }}
-        ></div>
-        
-        {/* Modern vignette overlay */}
-        <div 
-          className="fixed inset-0 z-10" 
           style={{ 
-            background: 'radial-gradient(ellipse 80% 50% at 50% -20%, transparent 0%, rgba(10, 10, 11, 0.4) 30%, rgba(10, 10, 11, 0.9) 70%, rgba(10, 10, 11, 1) 100%)',
+            backgroundImage: "url('/BACKGROUND.png')"
           }}
         ></div>
         
-        <div className="relative z-30 max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-20">
+        {/* Vignette overlay */}
+        <div 
+          className="fixed inset-0 z-10" 
+          style={{ 
+            background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+          }}
+        ></div>
+        
+        <div className="relative z-30 pt-8">
+          <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="animate-pulse space-y-8">
-            {/* Header skeleton */}
-            <div className="glass-panel p-8 rounded-3xl">
-              <div className="h-12 w-64 bg-white/10 rounded-2xl mb-6"></div>
-              <div className="h-6 w-96 bg-white/5 rounded-xl"></div>
+              <div className="h-16 w-64 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-3xl"></div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="h-64 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl"></div>
+                ))}
             </div>
-            
-            {/* Cards skeleton */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="glass-panel h-80 rounded-3xl"></div>
-              ))}
             </div>
           </div>
         </div>
@@ -120,90 +118,51 @@ const Matches: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#0a0a0b' }}>
-      {/* Enhanced Background System */}
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+      {/* Background Image - Fixed behind all content */}
       <div 
-        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-700 ease-out"
+        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
         style={{ 
           backgroundImage: "url('/BACKGROUND.png')",
-          transform: `scale(1.02) translate(${mousePosition.x / -150}px, ${mousePosition.y / -150}px)`,
+          transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
         }}
       ></div>
       
-      {/* Multi-layer vignette system */}
+      {/* Single, refined vignette overlay */}
       <div 
         className="fixed inset-0 z-10" 
         style={{ 
-          background: 'radial-gradient(ellipse 80% 50% at 50% -20%, transparent 0%, rgba(10, 10, 11, 0.4) 30%, rgba(10, 10, 11, 0.9) 70%, rgba(10, 10, 11, 1) 100%)',
+          background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
         }}
       ></div>
       
-      {/* Enhanced floating orbs system */}
+      {/* Subtle background orbs - no colors */}
       <div className="fixed inset-0 z-20 pointer-events-none">
-        {/* Primary orbs */}
-        <div 
-          className="absolute w-[800px] h-[800px] opacity-20"
-          style={{
-            top: '10%',
-            left: '15%',
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.1) 50%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(60px)',
-            animation: 'float-1 25s ease-in-out infinite',
-          }}
-        ></div>
-        
-        <div 
-          className="absolute w-[600px] h-[600px] opacity-15"
-          style={{
-            bottom: '20%',
-            right: '10%',
-            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(50px)',
-            animation: 'float-2 30s ease-in-out infinite',
-          }}
-        ></div>
-        
-        <div 
-          className="absolute w-[400px] h-[400px] opacity-10"
-          style={{
-            top: '60%',
-            left: '60%',
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(40px)',
-            animation: 'float-3 20s ease-in-out infinite',
-          }}
-        ></div>
+        {/* Neutral floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-white/5 to-gray-500/5 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-r from-gray-500/5 to-white/5 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-gradient-to-r from-gray-400/5 to-gray-600/5 rounded-full blur-3xl opacity-15" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
 
-        {/* Interactive mouse orb */}
+        {/* Mouse-aware orb - neutral */}
         <div 
-          className="absolute w-[200px] h-[200px] transition-all duration-500 ease-out"
+          className="absolute w-[200px] h-[200px] bg-gradient-to-r from-white/10 to-gray-400/10 rounded-full blur-2xl opacity-40 transition-transform duration-300 ease-out"
           style={{ 
-            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(30px)',
-            transform: `translate(${mousePosition.x - 100}px, ${mousePosition.y - 100}px)`,
+            transform: `translate(${mousePosition.x - 100}px, ${mousePosition.y - 100}px)`
           }}
         ></div>
       </div>
-
       <style>{`
-        @keyframes float-1 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          25% { transform: translate(30px, -50px) rotate(90deg); }
-          50% { transform: translate(-20px, -30px) rotate(180deg); }
-          75% { transform: translate(-40px, 20px) rotate(270deg); }
+        @keyframes slow-float-1 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(40px, -60px); }
         }
-        @keyframes float-2 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(-40px, 30px) rotate(120deg); }
-          66% { transform: translate(20px, -40px) rotate(240deg); }
+        @keyframes slow-float-2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-50px, 50px); }
         }
-        @keyframes float-3 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          50% { transform: translate(25px, -25px) rotate(180deg); }
+        @keyframes slow-float-3 {
+          0%, 100% { transform: translate(-50%, -50%); }
+          50% { transform: translate(-45%, -55%); }
         }
         
         .glass-panel {
@@ -262,56 +221,64 @@ const Matches: React.FC = () => {
       `}</style>
 
       {/* Main Content Container */}
-      <div className="relative z-30 min-h-screen">
+      <div className="relative z-30 min-h-screen pt-8">
         
         {/* Header Section */}
-        <section className="pt-6 pb-4">
-          <div className="max-w-[1650px] mx-auto px-6 sm:px-8 lg:px-10">
+        <section className="py-16 relative">
+          <div className="max-w-[90vw] mx-auto px-4">
             
-            {/* Combined Title and Controls Section */}
-            <div className="glass-panel rounded-3xl p-6 mb-6">
-              {/* Title and Stats Row */}
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
-                
-                {/* Title with modern typography */}
-                <div className="space-y-2">
-                  <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white">
+            {/* Combined Glassmorphism Container */}
+            <div 
+              className="relative group rounded-3xl mb-12 backdrop-blur-3xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.05] transition-all duration-500"
+              style={{
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              {/* Frosted layer */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
+              
+              {/* Content container */}
+              <div className="relative p-12">
+                <div className="text-center space-y-8">
+                  {/* Main headline */}
+                  <div className="space-y-4">
+                    <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
+                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
                       MATCH CENTER
                     </span>
                   </h1>
-                  <p className="text-lg text-gray-400 font-medium">
-                    Track live games, upcoming events, and match results
-                  </p>
-                </div>
-                
-                {/* Quick Stats */}
-                <div className="flex items-center space-x-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-400">{liveMatches}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wider">Live</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-400">{upcomingMatches}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wider">Upcoming</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-400">{completedMatches}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wider">Completed</div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Controls Row */}
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pt-4 border-t border-white/10">
+                  {/* Statistics */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
+                      <div className="text-3xl font-black text-white mb-2">{matches.length}</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-widest">Total Matches</div>
+                    </div>
+                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
+                      <div className="text-3xl font-black text-red-400 mb-2">{liveMatches}</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-widest">Live Now</div>
+                    </div>
+                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
+                      <div className="text-3xl font-black text-blue-400 mb-2">{upcomingMatches}</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-widest">Upcoming</div>
+                    </div>
+                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
+                      <div className="text-3xl font-black text-emerald-400 mb-2">{completedMatches}</div>
+                      <div className="text-sm text-gray-400 uppercase tracking-widest">Completed</div>
+                  </div>
+                  </div>
+                </div>
                 
+                {/* Controls and Filters Section */}
+                <div className="mt-12 pt-8 border-t border-white/10">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                 {/* View Mode Toggle */}
-                <div className="glass-panel rounded-2xl p-2 w-fit">
-                  <div className="flex items-center space-x-2">
+                    <div className="flex backdrop-blur-2xl bg-white/[0.05] rounded-2xl p-2 border border-white/10">
                     <button
                       onClick={() => setViewMode('matches')}
-                      className={`glass-button rounded-xl px-6 py-3 flex items-center space-x-3 text-sm font-medium transition-all duration-300 ${
-                        viewMode === 'matches' ? 'active text-blue-300' : 'text-gray-400 hover:text-white'
+                        className={`px-6 py-3 rounded-xl flex items-center space-x-2 text-sm font-medium transition-all duration-300 ${
+                          viewMode === 'matches' ? 'bg-blue-500/20 text-blue-300' : 'text-gray-400 hover:text-white'
                       }`}
                     >
                       <List className="w-5 h-5" />
@@ -319,20 +286,18 @@ const Matches: React.FC = () => {
                     </button>
                     <button
                       onClick={() => setViewMode('stats')}
-                      className={`glass-button rounded-xl px-6 py-3 flex items-center space-x-3 text-sm font-medium transition-all duration-300 ${
-                        viewMode === 'stats' ? 'active text-purple-300' : 'text-gray-400 hover:text-white'
+                        className={`px-6 py-3 rounded-xl flex items-center space-x-2 text-sm font-medium transition-all duration-300 ${
+                          viewMode === 'stats' ? 'bg-purple-500/20 text-purple-300' : 'text-gray-400 hover:text-white'
                       }`}
                     >
                       <BarChart3 className="w-5 h-5" />
                       <span>Analytics</span>
                     </button>
-                  </div>
                 </div>
                 
                 {/* Filters - Only visible in matches mode */}
                 {viewMode === 'matches' && (
                   <div className="flex flex-wrap items-center gap-4">
-                    
                     {/* Search */}
                     <div className="relative">
                       <input
@@ -389,6 +354,8 @@ const Matches: React.FC = () => {
                     )}
                   </div>
                 )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
