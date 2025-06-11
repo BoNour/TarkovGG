@@ -68,14 +68,14 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
             <span className="font-bold text-sm text-white leading-tight truncate w-full px-2">{teamOne.name}</span>
           </div>
           
-          <div className="flex flex-col items-center justify-center w-20">
+          <div className="flex flex-col items-center justify-center w-24">
             {isUpcoming ? (
-              <span className="text-base font-bold text-gray-500">VS</span>
+              <span className="text-lg font-bold text-gray-500">VS</span>
             ) : (
-              <div className="flex items-center space-x-2">
-                <span className={`text-2xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-white' : 'text-gray-600'}`}>{match.teamOneScore}</span>
-                <span className="text-base font-bold text-gray-500">-</span>
-                <span className={`text-2xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-white' : 'text-gray-600'}`}>{match.teamTwoScore}</span>
+              <div className="flex items-center space-x-3">
+                <span className={`text-4xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-white' : 'text-gray-500'}`}>{match.teamOneScore}</span>
+                <span className="text-xl font-bold text-gray-400">-</span>
+                <span className={`text-4xl font-black ${match.teamTwoScore > match.teamOneScore ? 'text-white' : 'text-gray-500'}`}>{match.teamTwoScore}</span>
               </div>
             )}
           </div>
