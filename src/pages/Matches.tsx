@@ -12,7 +12,20 @@ const Matches: React.FC = () => {
   const [filterTeam, setFilterTeam] = useState('');
   const [hoveredMatchId, setHoveredMatchId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'matches' | 'stats'>('matches');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+  
   // Filter matches
   const filteredMatches = matches.filter(match => {
     // Filter by search term (team names)
@@ -110,9 +123,10 @@ const Matches: React.FC = () => {
     <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#0a0a0b' }}>
       {/* Enhanced Background System */}
       <div 
-        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat"
+        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-700 ease-out"
         style={{ 
           backgroundImage: "url('/BACKGROUND.png')",
+          transform: `scale(1.02) translate(${mousePosition.x / -150}px, ${mousePosition.y / -150}px)`,
         }}
       ></div>
       
@@ -124,13 +138,81 @@ const Matches: React.FC = () => {
         }}
       ></div>
       
+      {/* Enhanced floating orbs system */}
+      <div className="fixed inset-0 z-20 pointer-events-none">
+        {/* Primary orbs */}
+        <div 
+          className="absolute w-[800px] h-[800px] opacity-20"
+          style={{
+            top: '10%',
+            left: '15%',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.1) 50%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(60px)',
+            animation: 'float-1 25s ease-in-out infinite',
+          }}
+        ></div>
+        
+        <div 
+          className="absolute w-[600px] h-[600px] opacity-15"
+          style={{
+            bottom: '20%',
+            right: '10%',
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(50px)',
+            animation: 'float-2 30s ease-in-out infinite',
+          }}
+        ></div>
+        
+        <div 
+          className="absolute w-[400px] h-[400px] opacity-10"
+          style={{
+            top: '60%',
+            left: '60%',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(40px)',
+            animation: 'float-3 20s ease-in-out infinite',
+          }}
+        ></div>
+
+        {/* Interactive mouse orb */}
+        <div 
+          className="absolute w-[200px] h-[200px] transition-all duration-500 ease-out"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(30px)',
+            transform: `translate(${mousePosition.x - 100}px, ${mousePosition.y - 100}px)`,
+          }}
+        ></div>
+      </div>
+
       <style>{`
+        @keyframes float-1 {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          25% { transform: translate(30px, -50px) rotate(90deg); }
+          50% { transform: translate(-20px, -30px) rotate(180deg); }
+          75% { transform: translate(-40px, 20px) rotate(270deg); }
+        }
+        @keyframes float-2 {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          33% { transform: translate(-40px, 30px) rotate(120deg); }
+          66% { transform: translate(20px, -40px) rotate(240deg); }
+        }
+        @keyframes float-3 {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          50% { transform: translate(25px, -25px) rotate(180deg); }
+        }
+        
         .glass-panel {
-          background: rgba(28, 29, 39, 0.6);
-          backdrop-filter: blur(25px);
-          -webkit-backdrop-filter: blur(25px);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 
+            0 8px 32px 0 rgba(0, 0, 0, 0.37),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
         }
         
         .glass-panel-hover {
@@ -138,7 +220,7 @@ const Matches: React.FC = () => {
         }
         
         .glass-panel-hover:hover {
-          background: rgba(28, 29, 39, 0.7);
+          background: rgba(255, 255, 255, 0.05);
           border-color: rgba(255, 255, 255, 0.12);
           transform: translateY(-2px);
           box-shadow: 
@@ -147,37 +229,35 @@ const Matches: React.FC = () => {
         }
         
         .glass-input {
-          background: rgba(16, 18, 27, 0.5);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.07);
+          background: rgba(255, 255, 255, 0.04);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           transition: all 0.3s ease;
         }
         
         .glass-input:focus {
-          background: rgba(20, 22, 30, 0.5);
-          border-color: rgba(59, 130, 246, 0.5);
-          box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(59, 130, 246, 0.4);
+          box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
         
         .glass-button {
-          background: rgba(30, 32, 44, 0.5);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           transition: all 0.3s ease;
         }
         
         .glass-button:hover {
-          background: rgba(40, 42, 54, 0.7);
-          border-color: rgba(255, 255, 255, 0.12);
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.15);
           transform: translateY(-1px);
         }
         
         .glass-button.active {
-          background: rgba(59, 130, 246, 0.2);
-          border-color: rgba(59, 130, 246, 0.4);
-          box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+          background: rgba(59, 130, 246, 0.15);
+          border-color: rgba(59, 130, 246, 0.3);
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
         }
       `}</style>
 
@@ -196,7 +276,7 @@ const Matches: React.FC = () => {
                 {/* Title with modern typography */}
                 <div className="space-y-2">
                   <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none">
-                    <span className="text-white">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white">
                       MATCH CENTER
                     </span>
                   </h1>
@@ -332,8 +412,8 @@ const Matches: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
                 
                                  {/* Live Matches */}
-                 <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden" style={{ background: 'linear-gradient(to bottom, rgba(239, 68, 68, 0.05), transparent), rgba(28, 29, 39, 0.6)' }}>
-                   <div className="p-4">
+                 <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden">
+                   <div className="bg-gradient-to-r from-red-500/10 to-red-500/5 p-4 border-b border-red-500/10">
                      <div className="text-center">
                        <h3 className="text-3xl font-black tracking-tight text-white">
                            LIVE MATCHES
@@ -363,8 +443,8 @@ const Matches: React.FC = () => {
                 </div>
 
                                  {/* Upcoming Matches */}
-                 <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden" style={{ background: 'linear-gradient(to bottom, rgba(59, 130, 246, 0.05), transparent), rgba(28, 29, 39, 0.6)' }}>
-                   <div className="p-4">
+                 <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden">
+                   <div className="bg-gradient-to-r from-blue-500/10 to-blue-500/5 p-4 border-b border-blue-500/10">
                      <div className="text-center">
                        <h3 className="text-3xl font-black tracking-tight text-white">
                            UPCOMING MATCHES
@@ -394,8 +474,8 @@ const Matches: React.FC = () => {
                 </div>
 
                                  {/* Completed Matches */}
-                 <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden" style={{ background: 'linear-gradient(to bottom, rgba(16, 185, 129, 0.05), transparent), rgba(28, 29, 39, 0.6)' }}>
-                   <div className="p-4">
+                 <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden">
+                   <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 p-4 border-b border-emerald-500/10">
                      <div className="text-center">
                        <h3 className="text-3xl font-black tracking-tight text-white">
                            COMPLETED MATCHES
