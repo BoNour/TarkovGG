@@ -118,9 +118,11 @@ export enum TournamentFormat {
   SWISS = 'swiss'
 }
 
-export interface Tournament {
+export type Tournament = {
   id: string;
   name: string;
+  description: string;
+  logo: string;
   startDate: string;
   endDate: string;
   location: string;
@@ -129,7 +131,6 @@ export interface Tournament {
   format: TournamentFormat;
   teams: string[]; // Array of team IDs
   matches: string[]; // Array of match IDs
-  logo: string;
 }
 
 // News types
