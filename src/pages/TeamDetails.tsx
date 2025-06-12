@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useGameData } from '../context/GameDataContext';
 import PlayerCard from '../components/ui/PlayerCard';
@@ -8,6 +8,19 @@ import { ArrowLeft, Users, Activity, Trophy, TrendingUp, Target, Award, UserMinu
 const TeamDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { teams, players, matches, tournaments, exPlayers, isLoading } = useGameData();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
   
   // Find the team
   const team = teams.find(t => t.id === id);
@@ -50,20 +63,37 @@ const TeamDetails: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+        {/* Background Image - Fixed behind all content */}
+        <div 
+          className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+          style={{ 
+            backgroundImage: "url('/BACKGROUND.png')",
+            transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+          }}
+        ></div>
+        
+        {/* Single, refined vignette overlay */}
+        <div 
+          className="fixed inset-0 z-10" 
+          style={{ 
+            background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+          }}
+        ></div>
+        
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
-            <div className="h-10 w-48 bg-gray-700 rounded mb-8"></div>
-            <div className="h-32 bg-gray-700 rounded mb-8"></div>
+            <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
+            <div className="h-32 bg-white/10 rounded mb-8"></div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-6">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-48 bg-gray-700 rounded"></div>
+                  <div key={i} className="h-48 bg-white/10 rounded"></div>
                 ))}
               </div>
               <div className="space-y-6">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-32 bg-gray-700 rounded"></div>
+                  <div key={i} className="h-32 bg-white/10 rounded"></div>
                 ))}
               </div>
             </div>
@@ -75,8 +105,25 @@ const TeamDetails: React.FC = () => {
 
   if (!team) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+      <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+        {/* Background Image - Fixed behind all content */}
+        <div 
+          className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+          style={{ 
+            backgroundImage: "url('/BACKGROUND.png')",
+            transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+          }}
+        ></div>
+        
+        {/* Single, refined vignette overlay */}
+        <div 
+          className="fixed inset-0 z-10" 
+          style={{ 
+            background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+          }}
+        ></div>
+        
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <h1 className="text-3xl font-bold mb-4 text-white">Team not found</h1>
           <p className="text-gray-400 mb-8">The team you're looking for doesn't exist or has been removed.</p>
           <Link 
@@ -92,208 +139,282 @@ const TeamDetails: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#1a1b1b' }}>
-      {/* Header Section */}
-      <section className="relative py-2">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          {/* Back button */}
-          <div className="mb-4">
-            <Link 
-              to="/teams" 
-              className="inline-flex items-center text-gray-400 hover:text-white transition-colors"
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+      {/* Background Image - Fixed behind all content */}
+      <div 
+        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+        style={{ 
+          backgroundImage: "url('/BACKGROUND.png')",
+          transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+        }}
+      ></div>
+      
+      {/* Single, refined vignette overlay */}
+      <div 
+        className="fixed inset-0 z-10" 
+        style={{ 
+          background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+        }}
+      ></div>
+      
+      {/* Animated background orbs */}
+      <div className="fixed inset-0 z-20">
+        {/* Large floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+
+        {/* Mouse-aware orb */}
+        <div 
+          className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-300 ease-out"
+          style={{ 
+            transform: `translate(${mousePosition.x - 75}px, ${mousePosition.y - 75}px)`
+          }}
+        ></div>
+      </div>
+
+      {/* Content sections starting from the top */}
+      <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
+        
+        {/* Header Section */}
+        <section className="py-16 relative">
+          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+            {/* Back button */}
+            <div className="mb-8">
+              <Link 
+                to="/teams" 
+                className="inline-flex items-center text-gray-400 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Teams
+              </Link>
+            </div>
+            
+            <div className="relative overflow-hidden group rounded-3xl mb-8"
+                 style={{
+                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                   backdropFilter: 'blur(12px)',
+                 }}
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Teams
-            </Link>
-          </div>
-          
-          {/* Team header */}
-          <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl mb-4">
-            <div className="px-8 py-4">
-              <div className="flex flex-col md:flex-row items-start md:items-center">
-                <div className="mb-3 md:mb-0 md:mr-6">
-                  <img 
-                    src={team.logo} 
-                    alt={team.name} 
-                    className="w-14 h-14 rounded-full border-4 border-gray-600/50 shadow-xl"
-                  />
-                </div>
-                <div className="flex-grow">
-                  <div className="flex flex-wrap items-center gap-3 mb-1">
-                    <h1 className="text-2xl md:text-3xl font-black text-white">{team.name}</h1>
-                    <span className="bg-gray-700/50 px-3 py-1 rounded-lg text-sm font-medium text-gray-300 border border-gray-600/30">
-                      {team.tag}
-                    </span>
+              {/* Glare Effect */}
+              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                   }}
+              ></div>
+
+              {/* Multiple glass layers for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              
+              <div className="relative p-8">
+                {/* Team header */}
+                <div className="flex flex-col md:flex-row items-start md:items-center mb-8">
+                  <div className="mb-6 md:mb-0 md:mr-6">
+                    <img 
+                      src={team.logo} 
+                      alt={team.name} 
+                      className="w-20 h-20 rounded-full border-4 border-white/20 shadow-xl"
+                    />
                   </div>
-                  <p className="text-gray-400 font-medium">Region: {team.region}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Stats overview */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
-              <div className="flex items-center mb-2">
-                <TrendingUp className="w-5 h-5 text-blue-400 mr-2" />
-                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Win Rate</h3>
-              </div>
-              <p className={`text-2xl font-bold ${getWinRateColor(team.stats.winRate)}`}>
-                {(team.stats.winRate * 100).toFixed(1)}%
-              </p>
-            </div>
-            
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
-              <div className="flex items-center mb-2">
-                <Target className="w-5 h-5 text-green-400 mr-2" />
-                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Match Record</h3>
-              </div>
-              <p className="text-2xl font-bold text-white">
-                {team.stats.wins}-{team.stats.losses}
-              </p>
-              <p className="text-xs text-gray-400 mt-1">Wins-Losses</p>
-            </div>
-            
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 border border-gray-600/30 hover:border-gray-500/50 transition-all duration-300 shadow-lg">
-              <div className="flex items-center mb-2">
-                <Award className="w-5 h-5 text-purple-400 mr-2" />
-                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Round Diff</h3>
-              </div>
-              <p className={`text-2xl font-bold ${team.stats.roundsWon > team.stats.roundsLost ? 'text-green-400' : 'text-red-400'}`}>
-                {team.stats.roundsWon > team.stats.roundsLost ? '+' : ''}{team.stats.roundsWon - team.stats.roundsLost}
-              </p>
-              <p className="text-xs text-gray-400 mt-1">{team.stats.roundsWon}-{team.stats.roundsLost}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Active Line up - Full Width */}
-      <section className="relative pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/2 to-transparent"></div>
-        <div className="relative">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            {/* Header */}
-            <div className="mb-12">
-                            <div className="mb-4">
-                <h2 className="text-4xl font-bold text-white">Line up</h2>
-              </div>
-            </div>
-            
-            {/* Players */}
-            {teamPlayers.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                {teamPlayers.map(player => {
-                  const ratingColor = player.stats.rating > 1.1 
-                    ? 'text-green-400' 
-                    : player.stats.rating < 0.9 
-                      ? 'text-red-400' 
-                      : 'text-yellow-400';
-                  
-                  return (
-                    <div key={player.id} className="group text-center hover:scale-105 transition-all duration-300">
-                      {/* Player Image */}
-                      <div className="relative mb-6">
-                        <img
-                          src={player.image}
-                          alt={player.nickname}
-                          className="w-32 h-32 object-cover mx-auto shadow-2xl transition-all duration-300"
-                        />
-                      </div>
-                      
-                      {/* Player Info */}
-                      <div className="mb-6">
-                        <Link 
-                          to={`/players/${player.id}`}
-                          className="text-white font-bold text-2xl hover:text-blue-400 transition-colors block mb-2"
-                        >
-                          {player.nickname}
-                        </Link>
-                        <p className="text-gray-400 text-base mb-2">{player.realName}</p>
-                        <p className="text-blue-300 text-lg font-medium">{player.role}</p>
-                      </div>
-                      
-                      {/* Stats - K/D and KOST */}
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">K/D</div>
-                          <div className="text-2xl font-bold text-white">{player.stats.kdRatio.toFixed(1)}</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">KOST</div>
-                          <div className="text-2xl font-bold text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
-                        </div>
-                      </div>
-                      
-                      {/* Social Media Links */}
-                      <div className="flex justify-center space-x-4">
-                        {player.socialMedia?.twitter && (
-                          <a
-                            href={player.socialMedia.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 bg-gray-700/30 hover:bg-black/50 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
-                            title="Twitter/X"
-                          >
-                            <svg className="w-5 h-5 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                          </a>
-                        )}
-                        {player.socialMedia?.twitch && (
-                          <a
-                            href={player.socialMedia.twitch}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 bg-gray-700/30 hover:bg-purple-600/50 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
-                            title="Twitch"
-                          >
-                            <svg className="w-5 h-5 text-gray-300 hover:text-purple-400" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
-                            </svg>
-                          </a>
-                        )}
-                      </div>
+                  <div className="flex-grow">
+                    <div className="flex flex-wrap items-center gap-3 mb-2">
+                      <h1 className="text-4xl md:text-5xl font-black text-white">{team.name}</h1>
                     </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-24 space-y-6">
-                <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center">
-                  <Users className="w-10 h-10 text-blue-300" />
+                    <p className="text-gray-400 font-medium text-lg">Region: {team.region}</p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="text-gray-300 font-medium text-xl mb-2">No Players</p>
-                  <p className="text-gray-500">No players currently on the roster</p>
+                
+                {/* Stats overview */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <div className="flex items-center mb-3">
+                      <TrendingUp className="w-5 h-5 text-blue-400 mr-2" />
+                      <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Win Rate</h3>
+                    </div>
+                    <p className={`text-3xl font-bold ${getWinRateColor(team.stats.winRate)}`}>
+                      {(team.stats.winRate * 100).toFixed(1)}%
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <div className="flex items-center mb-3">
+                      <Target className="w-5 h-5 text-green-400 mr-2" />
+                      <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Match Record</h3>
+                    </div>
+                    <p className="text-3xl font-bold text-white">
+                      {team.stats.wins}-{team.stats.losses}
+                    </p>
+                    <p className="text-sm text-gray-400 mt-1">Wins-Losses</p>
+                  </div>
+                  
+                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <div className="flex items-center mb-3">
+                      <Award className="w-5 h-5 text-purple-400 mr-2" />
+                      <h3 className="text-xs font-medium text-gray-400 uppercase tracking-widest">Total Games</h3>
+                    </div>
+                    <p className="text-3xl font-bold text-white">
+                      {team.stats.wins + team.stats.losses}
+                    </p>
+                    <p className="text-sm text-gray-400 mt-1">Matches Played</p>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Recent Matches Section */}
-      <section className="relative pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/3 to-transparent"></div>
-        <div className="relative">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl">
-              {/* Header */}
-              <div className="bg-gradient-to-r from-green-600/10 to-green-500/5 p-6 border-b border-green-500/15">
-                <div className="flex items-center">
+        {/* Active Line up - Full Width */}
+        <section className="relative pb-16">
+          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+            <div className="relative overflow-hidden group rounded-3xl mb-8"
+                 style={{
+                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                   backdropFilter: 'blur(12px)',
+                 }}
+            >
+              {/* Glare Effect */}
+              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                   }}
+              ></div>
+
+              {/* Multiple glass layers for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              
+              <div className="relative p-8">
+                {/* Header */}
+                <div className="mb-12">
+                  <h2 className="text-4xl font-bold text-white mb-2">Line up</h2>
+                  <p className="text-gray-400">Current active roster</p>
+                </div>
+                
+                {/* Players */}
+                {teamPlayers.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    {teamPlayers.map(player => {
+                      const ratingColor = player.stats.rating > 1.1 
+                        ? 'text-green-400' 
+                        : player.stats.rating < 0.9 
+                          ? 'text-red-400' 
+                          : 'text-yellow-400';
+                      
+                      return (
+                        <div key={player.id} className="group text-center hover:scale-105 transition-all duration-300">
+                          {/* Player Image */}
+                          <div className="relative mb-6">
+                            <img
+                              src={player.image}
+                              alt={player.nickname}
+                              className="w-32 h-32 object-cover mx-auto shadow-2xl transition-all duration-300 rounded-2xl"
+                            />
+                          </div>
+                          
+                          {/* Player Info */}
+                          <div className="mb-6">
+                            <Link 
+                              to={`/players/${player.id}`}
+                              className="text-white font-bold text-2xl hover:text-blue-400 transition-colors block mb-2"
+                            >
+                              {player.nickname}
+                            </Link>
+                            <p className="text-gray-400 text-base mb-2">{player.realName}</p>
+                            <p className="text-blue-300 text-lg font-medium">{player.role}</p>
+                          </div>
+                          
+                          {/* Stats - K/D and KOST */}
+                          <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div className="text-center">
+                              <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">K/D</div>
+                              <div className="text-2xl font-bold text-white">{player.stats.kdRatio.toFixed(1)}</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">KOST</div>
+                              <div className="text-2xl font-bold text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
+                            </div>
+                          </div>
+                          
+                          {/* Social Media Links */}
+                          <div className="flex justify-center space-x-4">
+                            {player.socialMedia?.twitter && (
+                              <a
+                                href={player.socialMedia.twitter}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 bg-white/10 hover:bg-black/50 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-white/20"
+                                title="Twitter/X"
+                              >
+                                <svg className="w-5 h-5 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                              </a>
+                            )}
+                            {player.socialMedia?.twitch && (
+                              <a
+                                href={player.socialMedia.twitch}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 bg-white/10 hover:bg-purple-600/50 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-white/20"
+                                title="Twitch"
+                              >
+                                <svg className="w-5 h-5 text-gray-300 hover:text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                                </svg>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-24 space-y-6">
+                    <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center">
+                      <Users className="w-10 h-10 text-blue-300" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-300 font-medium text-xl mb-2">No Players</p>
+                      <p className="text-gray-500">No players currently on the roster</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Recent Matches Section */}
+        <section className="relative pb-16">
+          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+            <div className="relative overflow-hidden group rounded-3xl"
+                 style={{
+                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                   backdropFilter: 'blur(12px)',
+                 }}
+            >
+              {/* Glare Effect */}
+              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                   }}
+              ></div>
+
+              {/* Multiple glass layers for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              
+              <div className="relative p-8">
+                {/* Header */}
+                <div className="flex items-center mb-8">
                   <div className="w-12 h-12 bg-green-500/15 rounded-2xl flex items-center justify-center border border-green-500/20 mr-4">
                     <Activity className="w-6 h-6 text-green-300" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">Recent Matches</h2>
-                    <p className="text-green-200 text-sm font-medium">Latest 5 games</p>
+                    <h2 className="text-4xl font-bold text-white">Recent Matches</h2>
+                    <p className="text-green-200 text-lg font-medium">Latest 5 games</p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Content */}
-              <div className="p-6">
+                
+                {/* Content */}
                 {teamMatches.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {teamMatches.map(match => {
@@ -306,7 +427,7 @@ const TeamDetails: React.FC = () => {
                       const won = teamScore > opponentScore;
                       
                       return (
-                        <div key={match.id} className="bg-black/15 border border-gray-600/20 rounded-xl p-6 hover:border-gray-500/30 transition-all duration-300">
+                        <div key={match.id} className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center space-x-3">
                               <div className={`w-3 h-3 rounded-full ${
@@ -354,35 +475,45 @@ const TeamDetails: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Tournament Results Section - Full Width Below */}
-      <section className="relative pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/3 to-transparent"></div>
-        <div className="relative">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl">
-              {/* Header */}
-              <div className="bg-gradient-to-r from-purple-600/10 to-purple-500/5 p-6 border-b border-purple-500/15">
-                <div className="flex items-center">
+        {/* Tournament Results Section */}
+        <section className="relative pb-16">
+          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+            <div className="relative overflow-hidden group rounded-3xl"
+                 style={{
+                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                   backdropFilter: 'blur(12px)',
+                 }}
+            >
+              {/* Glare Effect */}
+              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                   }}
+              ></div>
+
+              {/* Multiple glass layers for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              
+              <div className="relative p-8">
+                {/* Header */}
+                <div className="flex items-center mb-8">
                   <div className="w-12 h-12 bg-purple-500/15 rounded-2xl flex items-center justify-center border border-purple-500/20 mr-4">
                     <Trophy className="w-6 h-6 text-purple-300" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">Tournament Results</h2>
-                    <p className="text-purple-200 text-sm font-medium">Competition history and placements</p>
+                    <h2 className="text-4xl font-bold text-white">Tournament Results</h2>
+                    <p className="text-purple-200 text-lg font-medium">Competition history and placements</p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Content */}
-              <div className="p-6">
+                
+                {/* Content */}
                 {tournamentResults && tournamentResults.length > 0 ? (
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
-                        <tr className="border-b border-gray-600/30">
+                        <tr className="border-b border-white/10">
                           <th className="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Tournament
                           </th>
@@ -394,9 +525,9 @@ const TeamDetails: React.FC = () => {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-600/20">
+                      <tbody className="divide-y divide-white/10">
                         {tournamentResults.map((result, index) => (
-                          <tr key={index} className="hover:bg-gray-700/20 transition-colors">
+                          <tr key={index} className="hover:bg-white/5 transition-colors">
                             <td className="px-6 py-4">
                               <div className="flex items-center">
                                 {result.tournament && (
@@ -404,7 +535,7 @@ const TeamDetails: React.FC = () => {
                                     <img 
                                       src={result.tournament.logo} 
                                       alt={result.tournament.name}
-                                      className="w-10 h-10 rounded-lg mr-4 border border-gray-600/30"
+                                      className="w-10 h-10 rounded-lg mr-4 border border-white/20"
                                     />
                                     <div>
                                       <Link 
@@ -447,30 +578,40 @@ const TeamDetails: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Ex-Players Section - Full Width Below */}
-      <section className="relative pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/3 to-transparent"></div>
-        <div className="relative">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl">
-              {/* Header */}
-              <div className="bg-gradient-to-r from-orange-600/10 to-orange-500/5 p-6 border-b border-orange-500/15">
-                <div className="flex items-center">
+        {/* Ex-Players Section */}
+        <section className="relative pb-16">
+          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+            <div className="relative overflow-hidden group rounded-3xl"
+                 style={{
+                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                   backdropFilter: 'blur(12px)',
+                 }}
+            >
+              {/* Glare Effect */}
+              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                   }}
+              ></div>
+
+              {/* Multiple glass layers for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              
+              <div className="relative p-8">
+                {/* Header */}
+                <div className="flex items-center mb-8">
                   <div className="w-12 h-12 bg-orange-500/15 rounded-2xl flex items-center justify-center border border-orange-500/20 mr-4">
                     <UserMinus className="w-6 h-6 text-orange-300" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">Ex-Players</h2>
-                    <p className="text-orange-200 text-sm font-medium">Former team members and their tenure</p>
+                    <h2 className="text-4xl font-bold text-white">Ex-Players</h2>
+                    <p className="text-orange-200 text-lg font-medium">Former team members and their tenure</p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Content */}
-              <div className="p-6">
+                
+                {/* Content */}
                 {teamExPlayers && teamExPlayers.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {teamExPlayers.map(player => {
@@ -486,12 +627,12 @@ const TeamDetails: React.FC = () => {
                           : 'text-yellow-400';
                       
                       return (
-                        <div key={player.id} className="bg-black/15 border border-orange-500/15 rounded-xl p-5 hover:border-orange-500/25 hover:bg-black/20 transition-all duration-300 group">
+                        <div key={player.id} className="bg-white/5 border border-orange-500/15 rounded-xl p-5 hover:border-orange-500/25 hover:bg-white/10 transition-all duration-300 group">
                           <div className="flex items-start space-x-4">
                             <img
                               src={player.image}
                               alt={player.nickname}
-                              className="w-16 h-16 rounded-full object-cover border-2 border-gray-600/50 group-hover:border-orange-500/50 transition-colors"
+                              className="w-16 h-16 rounded-full object-cover border-2 border-white/20 group-hover:border-orange-500/50 transition-colors"
                             />
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between mb-2">
@@ -576,127 +717,8 @@ const TeamDetails: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Map Stats Section - Full Width Below */}
-      <section className="relative pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/3 to-transparent"></div>
-        <div className="relative">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-3xl border border-gray-600/30 overflow-hidden shadow-2xl">
-              {/* Header */}
-              <div className="bg-gradient-to-r from-green-600/10 to-green-500/5 p-6 border-b border-green-500/15">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-green-500/15 rounded-2xl flex items-center justify-center border border-green-500/20 mr-4">
-                    <Map className="w-6 h-6 text-green-300" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white">Map Stats</h2>
-                    <p className="text-green-200 text-sm font-medium">Map results from the past 3 months</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Content */}
-              <div className="p-6">
-                {team?.stats.mapStats && team.stats.mapStats.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                    {team.stats.mapStats.map((mapStat, index) => {
-                      const winRateColor = mapStat.winRate >= 0.7 
-                        ? 'text-green-400' 
-                        : mapStat.winRate >= 0.4 
-                          ? 'text-yellow-400' 
-                          : 'text-red-400';
-                      
-                      const winRateBg = mapStat.winRate >= 0.7 
-                        ? 'bg-green-500/20 border-green-500/30' 
-                        : mapStat.winRate >= 0.4 
-                          ? 'bg-yellow-500/20 border-yellow-500/30' 
-                          : 'bg-red-500/20 border-red-500/30';
-                      
-                      return (
-                        <div key={index} className="relative bg-black/20 rounded-2xl overflow-hidden border border-gray-600/30 hover:border-green-500/30 transition-all duration-300 group">
-                          {/* Map Image Background */}
-                          <div className="relative h-40 overflow-hidden">
-                            <img 
-                              src={mapStat.mapImage} 
-                              alt={mapStat.mapName}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                            
-                            {/* Map Name */}
-                            <div className="absolute bottom-4 left-4 right-4">
-                              <h3 className="text-white font-bold text-lg mb-2">{mapStat.mapName}</h3>
-                              
-                              {/* Stats */}
-                              <div className="space-y-2">
-                                <div className="flex items-center">
-                                  <span className="bg-black/60 text-white px-3 py-1 rounded-full text-sm font-bold">
-                                    {mapStat.plays}
-                                  </span>
-                                  <span className="text-gray-300 text-sm ml-2">
-                                    play{mapStat.plays !== 1 ? 's' : ''}
-                                  </span>
-                                </div>
-                                
-                                <div className="flex items-center">
-                                  <span className={`px-3 py-1 rounded-full text-sm font-bold border ${winRateBg} ${winRateColor}`}>
-                                    {Math.round(mapStat.winRate * 100)}%
-                                  </span>
-                                  <span className="text-gray-300 text-sm ml-2">winrate</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* Detailed Stats on Hover */}
-                          <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <div className="text-center text-white space-y-3">
-                              <h3 className="text-xl font-bold">{mapStat.mapName}</h3>
-                              <div className="space-y-2">
-                                <div className="flex justify-between items-center min-w-[120px]">
-                                  <span className="text-gray-300">Plays:</span>
-                                  <span className="font-bold">{mapStat.plays}</span>
-                                </div>
-                                <div className="flex justify-between items-center min-w-[120px]">
-                                  <span className="text-gray-300">Wins:</span>
-                                  <span className="font-bold text-green-400">{mapStat.wins}</span>
-                                </div>
-                                <div className="flex justify-between items-center min-w-[120px]">
-                                  <span className="text-gray-300">Losses:</span>
-                                  <span className="font-bold text-red-400">{mapStat.losses}</span>
-                                </div>
-                                <div className="flex justify-between items-center min-w-[120px]">
-                                  <span className="text-gray-300">Win Rate:</span>
-                                  <span className={`font-bold ${winRateColor}`}>
-                                    {Math.round(mapStat.winRate * 100)}%
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-16 space-y-4">
-                    <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center">
-                      <Map className="w-8 h-8 text-green-300" />
-                    </div>
-                    <div className="text-center">
-                      <p className="text-gray-300 font-medium mb-1">No Map Statistics</p>
-                      <p className="text-gray-500 text-sm">No map data available for this team</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };
