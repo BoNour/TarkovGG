@@ -28,22 +28,21 @@ const Matches: React.FC = () => {
   
   // Filter matches
   const filteredMatches = matches.filter(match => {
-    // Filter by search term (team names)
+    if (!searchTerm.trim()) {
+      return true;
+    }
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
     const teamOne = teams.find(t => t.id === match.teamOneId);
     const teamTwo = teams.find(t => t.id === match.teamTwoId);
-    const matchesSearch = 
-      teamOne?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      teamTwo?.name.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    // Filter by status
-    const matchesStatus = filterStatus === 'all' || match.status === filterStatus;
-    
-    // Filter by team
-    const matchesTeam = filterTeam === '' || 
-      match.teamOneId === filterTeam || 
-      match.teamTwoId === filterTeam;
-    
-    return matchesSearch && matchesStatus && matchesTeam;
+
+    const teamOneName = teamOne?.name || '';
+    const teamTwoName = teamTwo?.name || '';
+
+    return (
+      teamOneName.toLowerCase().includes(lowerCaseSearchTerm) ||
+      teamTwoName.toLowerCase().includes(lowerCaseSearchTerm)
+    );
   });
   
   // Enhanced sorting: Live matches first, then upcoming, then completed
@@ -74,8 +73,6 @@ const Matches: React.FC = () => {
 
   const clearFilters = () => {
     setSearchTerm('');
-    setFilterStatus('all');
-    setFilterTeam('');
   };
 
   const toggleViewMode = () => {
@@ -221,145 +218,72 @@ const Matches: React.FC = () => {
       `}</style>
 
       {/* Main Content Container */}
-      <div className="relative z-30 min-h-screen pt-8">
+      <div className="relative z-30 min-h-screen">
         
         {/* Header Section */}
-        <section className="py-16 relative">
+        <header className="py-8">
           <div className="max-w-[90vw] mx-auto px-4">
-            
-            {/* Combined Glassmorphism Container */}
-            <div 
-              className="relative group rounded-3xl mb-12 backdrop-blur-3xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.05] transition-all duration-500"
-              style={{
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-            >
-              {/* Frosted layer */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
-              
-              {/* Content container */}
-              <div className="relative p-12">
-                <div className="text-center space-y-8">
-                  {/* Main headline */}
-                  <div className="space-y-4">
-                    <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
-                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
-                      MATCH CENTER
-                    </span>
-                  </h1>
-                  </div>
+            <div className="glass-panel rounded-2xl p-6">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <h1 className="text-4xl lg:text-5xl font-bold tracking-tighter text-white text-center md:text-left shrink-0">
+                  Match Center
+                </h1>
 
-                  {/* Statistics */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-white mb-2">{matches.length}</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Total Matches</div>
-                    </div>
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-red-400 mb-2">{liveMatches}</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Live Now</div>
-                    </div>
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-blue-400 mb-2">{upcomingMatches}</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Upcoming</div>
-                    </div>
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-emerald-400 mb-2">{completedMatches}</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Completed</div>
-                  </div>
-                  </div>
-                </div>
-                
-                {/* Controls and Filters Section */}
-                <div className="mt-12 pt-8 border-t border-white/10">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                {/* View Mode Toggle */}
-                    <div className="flex backdrop-blur-2xl bg-white/[0.05] rounded-2xl p-2 border border-white/10">
+                <div className="flex items-center justify-center md:justify-end gap-3 flex-wrap">
+                  {/* View Mode Toggle */}
+                  <div className="flex bg-white/[0.05] rounded-lg p-1 border border-white/10">
                     <button
                       onClick={() => setViewMode('matches')}
-                        className={`px-6 py-3 rounded-xl flex items-center space-x-2 text-sm font-medium transition-all duration-300 ${
-                          viewMode === 'matches' ? 'bg-blue-500/20 text-blue-300' : 'text-gray-400 hover:text-white'
+                      className={`px-3 py-1.5 rounded-md flex items-center space-x-2 text-xs font-medium transition-all duration-300 ${
+                        viewMode === 'matches' ? 'bg-blue-500/20 text-blue-300' : 'text-gray-400 hover:text-white'
                       }`}
                     >
-                      <List className="w-5 h-5" />
+                      <List className="w-4 h-4" />
                       <span>Matches</span>
                     </button>
                     <button
                       onClick={() => setViewMode('stats')}
-                        className={`px-6 py-3 rounded-xl flex items-center space-x-2 text-sm font-medium transition-all duration-300 ${
-                          viewMode === 'stats' ? 'bg-purple-500/20 text-purple-300' : 'text-gray-400 hover:text-white'
+                      className={`px-3 py-1.5 rounded-md flex items-center space-x-2 text-xs font-medium transition-all duration-300 ${
+                        viewMode === 'stats' ? 'bg-purple-500/20 text-purple-300' : 'text-gray-400 hover:text-white'
                       }`}
                     >
-                      <BarChart3 className="w-5 h-5" />
+                      <BarChart3 className="w-4 h-4" />
                       <span>Analytics</span>
                     </button>
-                </div>
+                  </div>
                 
-                {/* Filters - Only visible in matches mode */}
-                {viewMode === 'matches' && (
-                  <div className="flex flex-wrap items-center gap-4">
-                    {/* Search */}
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Search teams..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="glass-input rounded-2xl text-white px-6 py-3 pr-12 focus:outline-none placeholder:text-gray-500 text-sm w-64"
-                      />
-                      <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    </div>
+                  {/* Filters - Only visible in matches mode */}
+                  {viewMode === 'matches' && (
+                    <div className="flex items-center gap-2">
+                      {/* Search */}
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Search teams..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="glass-input rounded-lg text-white px-4 py-2 pr-10 focus:outline-none placeholder:text-gray-500 text-xs w-48"
+                        />
+                        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      </div>
                     
-                    {/* Status Filter */}
-                    <div className="relative">
-                      <select
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value as MatchStatus | 'all')}
-                        className="glass-input rounded-2xl text-white px-6 py-3 pr-12 focus:outline-none cursor-pointer text-sm appearance-none"
-                        style={{ colorScheme: 'dark' }}
-                      >
-                        <option value="all" style={{ backgroundColor: '#1a1a1b', color: 'white' }}>All Status</option>
-                        <option value={MatchStatus.LIVE} style={{ backgroundColor: '#1a1a1b', color: 'white' }}>🔴 Live</option>
-                        <option value={MatchStatus.UPCOMING} style={{ backgroundColor: '#1a1a1b', color: 'white' }}>🔵 Upcoming</option>
-                        <option value={MatchStatus.COMPLETED} style={{ backgroundColor: '#1a1a1b', color: 'white' }}>🟢 Completed</option>
-                      </select>
-                      <Activity className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                      {/* Clear Button */}
+                      {searchTerm && (
+                        <button
+                          onClick={clearFilters}
+                          className="glass-button rounded-lg p-2 text-gray-400 hover:text-white transition-all duration-300"
+                          title="Clear filters"
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
-                    
-                    {/* Team Filter */}
-                    <div className="relative">
-                      <select
-                        value={filterTeam}
-                        onChange={(e) => setFilterTeam(e.target.value)}
-                        className="glass-input rounded-2xl text-white px-6 py-3 pr-12 focus:outline-none cursor-pointer text-sm appearance-none"
-                        style={{ colorScheme: 'dark' }}
-                      >
-                        <option value="" style={{ backgroundColor: '#1a1a1b', color: 'white' }}>All Teams</option>
-                        {teams.map(team => (
-                          <option key={team.id} value={team.id} style={{ backgroundColor: '#1a1a1b', color: 'white' }}>{team.name}</option>
-                        ))}
-                      </select>
-                      <Users className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                    </div>
-                    
-                    {/* Clear Button */}
-                    {(searchTerm || filterStatus !== 'all' || filterTeam) && (
-                      <button
-                        onClick={clearFilters}
-                        className="glass-button rounded-2xl px-4 py-3 text-gray-400 hover:text-white transition-all duration-300"
-                        title="Clear filters"
-                      >
-                        <RotateCcw className="w-5 h-5" />
-                      </button>
-                    )}
-                  </div>
-                )}
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </header>
 
         {/* Content Section */}
         <section className="pb-6">
@@ -380,17 +304,17 @@ const Matches: React.FC = () => {
                 
                                  {/* Live Matches */}
                  <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden">
-                   <div className="bg-gradient-to-r from-red-500/10 to-red-500/5 p-4 border-b border-red-500/10">
+                   <div className="bg-gradient-to-r from-red-500/10 to-red-500/5 p-2 border-b border-red-500/10">
                      <div className="text-center">
-                       <h3 className="text-3xl font-black tracking-tight text-white">
+                       <h3 className="text-xl font-black tracking-tight text-white">
                            LIVE MATCHES
                        </h3>
                      </div>
                    </div>
                   
-                  <div className="p-4 space-y-3 min-h-[300px]">
+                  <div className="p-2 space-y-2">
                     {matches.filter(m => m.status === 'live').length === 0 ? (
-                      <div className="flex flex-col items-center justify-center py-8 space-y-3">
+                      <div className="flex flex-col items-center justify-center py-4 space-y-2">
                         <div className="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center">
                           <Activity className="w-6 h-6 text-red-400" />
                         </div>
@@ -411,17 +335,17 @@ const Matches: React.FC = () => {
 
                                  {/* Upcoming Matches */}
                  <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden">
-                   <div className="bg-gradient-to-r from-blue-500/10 to-blue-500/5 p-4 border-b border-blue-500/10">
+                   <div className="bg-gradient-to-r from-blue-500/10 to-blue-500/5 p-2 border-b border-blue-500/10">
                      <div className="text-center">
-                       <h3 className="text-3xl font-black tracking-tight text-white">
+                       <h3 className="text-xl font-black tracking-tight text-white">
                            UPCOMING MATCHES
                        </h3>
                      </div>
                    </div>
                   
-                  <div className="p-4 space-y-3 min-h-[300px]">
+                  <div className="p-2 space-y-2">
                     {matches.filter(m => m.status === 'upcoming').length === 0 ? (
-                      <div className="flex flex-col items-center justify-center py-8 space-y-3">
+                      <div className="flex flex-col items-center justify-center py-4 space-y-2">
                         <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
                           <Calendar className="w-6 h-6 text-blue-400" />
                         </div>
@@ -442,17 +366,17 @@ const Matches: React.FC = () => {
 
                                  {/* Completed Matches */}
                  <div className="glass-panel glass-panel-hover rounded-3xl overflow-hidden">
-                   <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 p-4 border-b border-emerald-500/10">
+                   <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 p-2 border-b border-emerald-500/10">
                      <div className="text-center">
-                       <h3 className="text-3xl font-black tracking-tight text-white">
+                       <h3 className="text-xl font-black tracking-tight text-white">
                            COMPLETED MATCHES
                        </h3>
                      </div>
                    </div>
                   
-                  <div className="p-4 space-y-3 min-h-[300px]">
+                  <div className="p-2 space-y-2">
                     {matches.filter(m => m.status === 'completed').length === 0 ? (
-                      <div className="flex flex-col items-center justify-center py-8 space-y-3">
+                      <div className="flex flex-col items-center justify-center py-4 space-y-2">
                         <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center">
                           <Sparkles className="w-6 h-6 text-emerald-400" />
                         </div>
