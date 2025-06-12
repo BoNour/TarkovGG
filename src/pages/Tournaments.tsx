@@ -12,7 +12,17 @@ const Tournaments: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('');
   const [filterFormat, setFilterFormat] = useState<string>('');
   const [viewMode, setViewMode] = useState<ViewMode>('featured');
+  const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const regions = [
+    { id: 'all', name: 'All Regions' },
+    { id: 'na', name: 'North America' },
+    { id: 'eu', name: 'Europe' },
+    { id: 'asia', name: 'Asia' },
+    { id: 'sa', name: 'South America' },
+    { id: 'oce', name: 'Oceania' }
+  ];
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -184,167 +194,58 @@ const Tournaments: React.FC = () => {
         ></div>
       </div>
 
-      {/* Content sections starting from the top */}
-      <div className="relative z-30 pt-8">
-        {/* Combined Header and Filters Section */}
-        <section className="py-16 relative">
-          <div className="max-w-[90vw] mx-auto px-4">
-            {/* Combined Glassmorphism Container */}
-            <div 
-              className="relative group rounded-3xl mb-12 backdrop-blur-3xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.05] transition-all duration-500"
-              style={{
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)'
-              }}
-            >
-              {/* Frosted layer */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
+      {/* Main Content Container */}
+      <div className="relative z-30 min-h-screen">
+        
+        {/* Minimalist Header Section */}
+        <header className="py-12 relative">
+          <div className="max-w-[95vw] mx-auto px-4">
+            {/* Main Header Container */}
+            <div className="glass-panel rounded-3xl p-12 relative overflow-hidden">
+              {/* Subtle Decorative Elements */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
               
-              {/* Content container */}
-              <div className="relative p-12">
-                <div className="text-center space-y-8">
-                  {/* Main headline */}
-                  <div className="space-y-4">
-                    <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
-                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
-                        TOURNAMENTS
-                      </span>
-                    </h1>
-                  </div>
-
-                  {/* Statistics */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-white mb-2">{tournaments.length}</div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Total Events</div>
-                    </div>
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-red-400 mb-2">
-                        {tournaments.filter(t => getTournamentStatus(t) === 'live').length}
-                      </div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Live Now</div>
-                    </div>
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-blue-400 mb-2">
-                        {tournaments.filter(t => getTournamentStatus(t) === 'upcoming').length}
-                      </div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Upcoming</div>
-                    </div>
-                    <div className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300">
-                      <div className="text-3xl font-black text-yellow-400 mb-2">
-                        ${(tournaments.reduce((sum, t) => {
-                          const prize = parseInt(t.prizePool.replace(/[^0-9]/g, ''));
-                          return sum + (isNaN(prize) ? 0 : prize);
-                        }, 0) / 1000000).toFixed(1)}M
-                      </div>
-                      <div className="text-sm text-gray-400 uppercase tracking-widest">Total Prizes</div>
-                    </div>
-                  </div>
+              {/* Header Content */}
+              <div className="relative z-10">
+                {/* Centered Title Section */}
+                <div className="flex flex-col items-center text-center">
+                  <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none">
+                    Tournaments
+                  </h1>
                 </div>
 
-                {/* Filters Section */}
-                <div className="mt-12 pt-8 border-t border-white/10">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                    {/* View Mode Toggle */}
-                    <div className="flex backdrop-blur-2xl bg-white/[0.05] rounded-2xl p-2 border border-white/10">
+                {/* Centered Region Navigation */}
+                <div className="flex justify-center mt-12">
+                  <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm overflow-x-auto">
+                    {regions.map((region) => (
                       <button
-                        onClick={() => setViewMode('featured')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 min-w-[140px] justify-center ${
-                          viewMode === 'featured' 
-                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg backdrop-blur-xl' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/[0.08]'
+                        key={region.id}
+                        onClick={() => setSelectedRegion(region.id)}
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                          selectedRegion === region.id 
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <Star className="w-4 h-4" />
-                        <span>Featured</span>
+                        <Globe className="w-4 h-4" />
+                        <span>{region.name}</span>
                       </button>
-                      <button
-                        onClick={() => setViewMode('all')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
-                          viewMode === 'all' 
-                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg backdrop-blur-xl' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/[0.08]'
-                        }`}
-                      >
-                        <Trophy className="w-4 h-4" />
-                        <span>All</span>
-                      </button>
-                    </div>
-
-                    {/* Filters */}
-                    <div className="flex flex-col sm:flex-row gap-4 flex-1 max-w-2xl">
-                      {/* Search */}
-                      <div className="relative flex-1">
-                        <input
-                          type="text"
-                          placeholder="Search tournaments..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="w-full backdrop-blur-2xl bg-white/[0.05] border border-white/10 text-white pl-12 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-white/20 transition-all placeholder-gray-500 hover:bg-white/[0.08]"
-                        />
-                        <Search className="absolute left-4 top-3.5 h-5 w-5 text-gray-500" />
-                      </div>
-                      
-                      {/* Type filter */}
-                      <select
-                        value={filterType}
-                        onChange={(e) => setFilterType(e.target.value)}
-                        className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-white/20 transition-all hover:bg-white/[0.08]"
-                      >
-                        <option value="" style={{ backgroundColor: '#1a1b1b' }}>All Types</option>
-                        {Object.values(TournamentType).map(type => (
-                          <option key={type} value={type} style={{ backgroundColor: '#1a1b1b' }}>
-                            {type.charAt(0).toUpperCase() + type.slice(1)}
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Format filter */}
-                      <select
-                        value={filterFormat}
-                        onChange={(e) => setFilterFormat(e.target.value)}
-                        className="backdrop-blur-2xl bg-white/[0.05] border border-white/10 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-white/20 transition-all hover:bg-white/[0.08]"
-                      >
-                        <option value="" style={{ backgroundColor: '#1a1b1b' }}>All Formats</option>
-                        {Object.values(TournamentFormat).map(format => (
-                          <option key={format} value={format} style={{ backgroundColor: '#1a1b1b' }}>
-                            {format.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Clear Filters */}
-                      {(searchTerm || filterType || filterFormat) && (
-                        <button
-                          onClick={clearFilters}
-                          className="px-4 py-3 backdrop-blur-2xl bg-red-500/10 hover:bg-red-500/20 border border-red-400/30 hover:border-red-400/50 rounded-xl text-red-300 hover:text-red-200 transition-all duration-300"
-                        >
-                          Clear
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Results count */}
-                  <div className="mt-6 flex justify-between items-center">
-                    <span className="text-gray-400 text-sm font-medium">
-                      Showing {viewMode === 'featured' ? featuredTournaments.length : sortedTournaments.length} tournaments
-                    </span>
-                    {tournaments.filter(t => getTournamentStatus(t) === 'live').length > 0 && (
-                      <div className="flex items-center space-x-2 px-4 py-2 backdrop-blur-2xl bg-red-500/10 border border-red-400/20 rounded-full">
-                        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
-                        <span className="text-red-300 text-sm font-medium">
-                          {tournaments.filter(t => getTournamentStatus(t) === 'live').length} Live
-                        </span>
-                      </div>
-                    )}
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </header>
+
+        {/* Content Section */}
+        <section className="pb-6">
+          <div className="max-w-[1850px] mx-auto px-2 sm:px-4 lg:px-6 xl:px-8">
 
             {/* Tournaments Grid */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-              {(viewMode === 'featured' ? featuredTournaments : sortedTournaments).map((tournament, index) => {
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mt-8">
+              {sortedTournaments.map((tournament, index) => {
                 const statusInfo = getStatusInfo(tournament);
                 
                 return (
@@ -437,7 +338,7 @@ const Tournaments: React.FC = () => {
             </div>
 
             {/* Empty State */}
-            {(viewMode === 'featured' ? featuredTournaments : sortedTournaments).length === 0 && (
+            {sortedTournaments.length === 0 && (
               <div 
                 className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10"
                 style={{
@@ -472,6 +373,75 @@ const Tournaments: React.FC = () => {
             )}
           </div>
         </section>
+
+        <style>{`
+          @keyframes slow-float-1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(40px, -60px); }
+          }
+          @keyframes slow-float-2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 50px); }
+          }
+          @keyframes slow-float-3 {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-45%, -55%); }
+          }
+          
+          .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+              0 8px 32px 0 rgba(0, 0, 0, 0.37),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+          }
+          
+          .glass-panel-hover {
+            transition: all 0.4s ease;
+          }
+          
+          .glass-panel-hover:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 
+              0 20px 50px 0 rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+          }
+          
+          .glass-input {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+          }
+          
+          .glass-input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+          }
+          
+          .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+          }
+          
+          .glass-button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+          }
+          
+          .glass-button.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+          }
+        `}</style>
       </div>
     </div>
   );
