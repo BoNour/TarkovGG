@@ -291,8 +291,8 @@ const TeamDetails: React.FC = () => {
                 
                 {/* Players */}
                 {teamPlayers.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                    {teamPlayers.map(player => {
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                    {teamPlayers.map((player, index) => {
                       const ratingColor = player.stats.rating > 1.1 
                         ? 'text-green-400' 
                         : player.stats.rating < 0.9 
@@ -300,68 +300,136 @@ const TeamDetails: React.FC = () => {
                           : 'text-yellow-400';
                       
                       return (
-                        <div key={player.id} className="group text-center hover:scale-105 transition-all duration-300">
-                          {/* Player Image */}
-                          <div className="relative mb-6">
-                            <img
-                              src={player.image}
-                              alt={player.nickname}
-                              className="w-32 h-32 object-cover mx-auto shadow-2xl transition-all duration-300 rounded-2xl"
-                            />
-                          </div>
-                          
-                          {/* Player Info */}
-                          <div className="mb-6">
-                            <Link 
-                              to={`/players/${player.id}`}
-                              className="text-white font-bold text-2xl hover:text-blue-400 transition-colors block mb-2"
+                        <div 
+                          key={player.id} 
+                          className="group transition-all duration-500 ease-out hover:scale-105 hover:-translate-y-2"
+                        >
+                          {/* Player Card - Exact same as TopPlayers */}
+                          <div className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu"
+                               style={{ 
+                                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+                               }}
+                               onMouseEnter={(e) => {
+                                 e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+                               }}
+                               onMouseLeave={(e) => {
+                                 e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)';
+                               }}
+                          >
+                            {/* Image area */}
+                            <div className="relative h-56 rounded-t-3xl overflow-hidden">
+                              <div className="w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
+                              
+                              <div className="absolute inset-0 flex items-start justify-center">
+                                <img 
+                                  src={player.image} 
+                                  alt={player.nickname} 
+                                  className="object-contain transition-all duration-700 transform-gpu group-hover:translate-y-0 group-hover:scale-[1.2] translate-y-5 scale-90"
+                                  style={{ 
+                                    filter: 'contrast(1) brightness(1.3)',
+                                    height: '120%',
+                                    width: 'auto',
+                                    maxWidth: '120%',
+                                    transformOrigin: 'center top',
+                                    zIndex: 10,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            
+                            {/* Team logo */}
+                            <div className="absolute top-4 left-4 z-20">
+                              <Link to={`/teams/${team.id}`} className="block group/team">
+                                <div className="relative">
+                                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
+                                  <img 
+                                    src="/cov logo.png" 
+                                    alt="COV Logo" 
+                                    className="relative w-10 h-10 object-contain transition-all duration-300"
+                                  />
+                                </div>
+                              </Link>
+                            </div>
+
+                            {/* Card content */}
+                            <div 
+                              className="relative z-10 p-6 space-y-6 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md overflow-hidden"
+                              style={{ 
+                                background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
+                                borderColor: 'rgba(255, 255, 255, 0.08)',
+                                borderTopColor: 'rgba(255, 255, 255, 0.06)',
+                              }}
                             >
-                              {player.nickname}
-                            </Link>
-                            <p className="text-gray-400 text-base mb-2">{player.realName}</p>
-                            <p className="text-blue-300 text-lg font-medium">{player.role}</p>
-                          </div>
-                          
-                          {/* Stats - K/D and KOST */}
-                          <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="text-center">
-                              <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">K/D</div>
-                              <div className="text-2xl font-bold text-white">{player.stats.kdRatio.toFixed(1)}</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="text-sm text-gray-400 mb-2 uppercase tracking-wider">KOST</div>
-                              <div className="text-2xl font-bold text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
-                            </div>
-                          </div>
-                          
-                          {/* Social Media Links */}
-                          <div className="flex justify-center space-x-4">
-                            {player.socialMedia?.twitter && (
-                              <a
-                                href={player.socialMedia.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-white/10 hover:bg-black/50 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-white/20"
-                                title="Twitter/X"
+                              {/* Player name section */}
+                              <div className="text-center">
+                                <Link to={`/players/${player.id}`} className="block group/name">
+                                  <h3 className="text-2xl font-black text-white mb-1 transition-all duration-300 group-hover/name:text-cyan-300">
+                                    {player.nickname}
+                                  </h3>
+                                  <p className="text-sm text-gray-300/80 font-medium">{player.role}</p>
+                                </Link>
+                              </div>
+                              
+                              {/* Stats grid with icons */}
+                              <div className="grid grid-cols-3 gap-4">
+                                <div className="text-center group/stat">
+                                  <div className="flex items-center justify-center mb-2">
+                                    <svg className="w-4 h-4 text-cyan-400 group-hover/stat:text-cyan-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <circle cx="12" cy="12" r="3"></circle>
+                                      <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
+                                    </svg>
+                                  </div>
+                                  <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">K/D</p>
+                                  <p className="text-lg font-bold text-white">{player.stats.kdRatio.toFixed(2)}</p>
+                                </div>
+                                <div className="text-center group/stat">
+                                  <div className="flex items-center justify-center mb-2">
+                                    <svg className="w-4 h-4 text-purple-400 group-hover/stat:text-purple-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                  </div>
+                                  <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">KOST</p>
+                                  <p className="text-lg font-bold text-white">{(player.stats.kost * 100).toFixed(0)}%</p>
+                                </div>
+                                <div className="text-center group/stat">
+                                  <div className="flex items-center justify-center mb-2">
+                                    <svg className="w-4 h-4 text-amber-400 group-hover/stat:text-amber-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                    </svg>
+                                  </div>
+                                  <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">RATING</p>
+                                  <p className="text-lg font-bold text-white">{player.stats.rating.toFixed(2)}</p>
+                                </div>
+                              </div>
+                              
+                              {/* View Profile button */}
+                              <Link 
+                                to={`/players/${player.id}`} 
+                                className="group/btn relative block w-full text-center py-4 rounded-2xl font-bold text-sm transition-all duration-300 overflow-hidden border"
+                                style={{ 
+                                  background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%)',
+                                  borderColor: 'rgba(6, 182, 212, 0.2)'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.12) 100%)';
+                                  e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                                  e.currentTarget.style.transform = 'translateY(-2px)';
+                                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(6, 182, 212, 0.15)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%)';
+                                  e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
+                                  e.currentTarget.style.transform = 'translateY(0)';
+                                  e.currentTarget.style.boxShadow = 'none';
+                                }}
                               >
-                                <svg className="w-5 h-5 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                                </svg>
-                              </a>
-                            )}
-                            {player.socialMedia?.twitch && (
-                              <a
-                                href={player.socialMedia.twitch}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-white/10 hover:bg-purple-600/50 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-white/20"
-                                title="Twitch"
-                              >
-                                <svg className="w-5 h-5 text-gray-300 hover:text-purple-400" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
-                                </svg>
-                              </a>
-                            )}
+                                {/* Shimmer effect */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                                <span className="relative z-10 text-white group-hover/btn:text-white transition-colors duration-300">
+                                  View Profile
+                                </span>
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       );
