@@ -191,7 +191,7 @@ const Tournaments: React.FC = () => {
         <header className="py-12 relative">
           <div className="max-w-[95vw] mx-auto px-4">
             {/* Main Header Container */}
-            <div className="glass-panel rounded-3xl p-12 relative overflow-hidden">
+            <div className="glass-panel rounded-3xl py-20 px-16 relative overflow-hidden">
               {/* Subtle Decorative Elements */}
               <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
               <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
@@ -199,10 +199,18 @@ const Tournaments: React.FC = () => {
               {/* Header Content */}
               <div className="relative z-10">
                 {/* Centered Title Section */}
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center -mt-4">
                   <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none">
                     Tournaments
                   </h1>
+                </div>
+
+                {/* Centered Info Section */}
+                <div className="flex justify-center mt-5">
+                  <div className="flex items-center gap-3 text-lg font-medium text-gray-300">
+                    <Trophy className="w-5 h-5 text-yellow-400" />
+                    <span>Compete in Tarkov's biggest tournaments</span>
+                  </div>
                 </div>
               </div>
             </div>
