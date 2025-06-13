@@ -102,9 +102,17 @@ const TopTeams: React.FC = () => {
                 onMouseLeave={() => setHoveredTeamId(null)}
               >
                 {/* Vertical Team Card */}
-                <div className="relative group overflow-hidden rounded-2xl transition-all duration-300 border border-white/10 hover:border-white/20 h-[520px]">
+                <div className={`relative group overflow-hidden rounded-2xl transition-all duration-300 h-[520px] ${
+                  index === 0 
+                    ? 'border border-yellow-400/30 hover:border-yellow-400/50' 
+                    : ''
+                }`}>
                   {/* Background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50"></div>
+                  <div className={`absolute inset-0 bg-gradient-to-br opacity-50 ${
+                    index === 0 
+                      ? 'from-yellow-400/10 to-amber-500/5' 
+                      : 'from-white/5 to-transparent'
+                  }`}></div>
                   
                   {/* Content */}
                   <div className="relative h-full flex flex-col p-6 text-white">
@@ -113,19 +121,29 @@ const TopTeams: React.FC = () => {
                       {/* Clean glass-morphism rank indicators */}
                       <div className="relative">
                         {index === 0 ? (
-                          // 1st Place - Premium Glass Badge
+                          // 1st Place - Extra Golden Premium Badge
                           <div className="relative">
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-white/25 to-white/8 backdrop-blur-xl border border-white/30 shadow-2xl flex items-center justify-center relative overflow-hidden">
-                              {/* Single refined inner glow */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/12 to-amber-500/6 rounded-2xl"></div>
-                              {/* Rank number */}
-                              <span className="relative text-xl font-black text-white drop-shadow-xl">1</span>
-                              {/* Refined light reflections */}
-                              <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/60 rounded-full blur-[0.5px]"></div>
-                              <div className="absolute bottom-2 left-2 w-1 h-1 bg-yellow-400/40 rounded-full"></div>
+                            {/* Multiple layered outer glows for extra golden effect */}
+                            <div className="absolute inset-0 bg-yellow-400/20 rounded-2xl blur-2xl transform scale-150"></div>
+                            <div className="absolute inset-0 bg-amber-500/15 rounded-2xl blur-xl transform scale-125"></div>
+                            <div className="absolute inset-0 bg-yellow-300/10 rounded-2xl blur-lg transform scale-110"></div>
+                            
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/40 to-amber-600/25 backdrop-blur-xl border-2 border-yellow-400/60 shadow-2xl flex items-center justify-center relative overflow-hidden transform hover:scale-110 transition-all duration-300">
+                              {/* Enhanced golden inner glow */}
+                              <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/25 to-amber-500/15 rounded-2xl"></div>
+                              <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/20 to-transparent rounded-2xl"></div>
+                              
+                              {/* Golden shimmer effect */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200/20 to-transparent rounded-2xl animate-pulse"></div>
+                              
+                              {/* Rank number with golden text */}
+                              <span className="relative text-xl font-black text-yellow-100 drop-shadow-2xl filter brightness-110">1</span>
+                              
+                              {/* Enhanced golden light reflections */}
+                              <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-yellow-200/80 rounded-full blur-[0.5px] animate-pulse"></div>
+                              <div className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 bg-amber-300/70 rounded-full animate-pulse"></div>
+                              <div className="absolute top-3 left-3 w-1 h-1 bg-yellow-100/60 rounded-full"></div>
                             </div>
-                            {/* Clean outer glow */}
-                            <div className="absolute inset-0 bg-yellow-400/6 rounded-2xl blur-xl"></div>
                           </div>
                         ) : index === 1 ? (
                           // 2nd Place - Elegant Glass Badge
@@ -180,7 +198,11 @@ const TopTeams: React.FC = () => {
                         alt={team.name}
                         className="w-20 h-20 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10 group-hover:border-white/30 transition-all duration-300 mb-4 group-hover:scale-110"
                       />
-                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                      <h4 className={`text-xl font-bold mb-2 transition-colors ${
+                        index === 0 
+                          ? 'text-yellow-300 group-hover:text-yellow-200' 
+                          : 'text-white group-hover:text-purple-300'
+                      }`}>
                         {team.name}
                       </h4>
                       <p className="text-gray-400 font-mono text-sm uppercase tracking-wider">{team.tag}</p>
@@ -190,7 +212,9 @@ const TopTeams: React.FC = () => {
                     <div className="flex-1 flex flex-col justify-center space-y-6 text-center">
                       {/* Win Rate - Primary Focus */}
                       <div>
-                        <div className="text-4xl font-black text-white mb-2">
+                        <div className={`text-4xl font-black mb-2 ${
+                          index === 0 ? 'text-yellow-300' : 'text-white'
+                        }`}>
                           {(team.stats.winRate * 100).toFixed(0)}%
                         </div>
                         <div className="text-sm text-gray-400 uppercase tracking-widest">Win Rate</div>
@@ -202,7 +226,9 @@ const TopTeams: React.FC = () => {
                           <Trophy size={16} className="text-yellow-400" />
                           <span className="text-base text-gray-400">Record</span>
                         </div>
-                        <div className="text-2xl font-bold text-white">
+                        <div className={`text-2xl font-bold ${
+                          index === 0 ? 'text-yellow-300' : 'text-white'
+                        }`}>
                           {team.stats.wins}-{team.stats.losses}
                         </div>
                       </div>

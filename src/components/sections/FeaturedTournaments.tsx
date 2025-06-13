@@ -78,8 +78,8 @@ const FeaturedTournaments: React.FC = () => {
             }}
           >
             <div className="flex h-44">
-              <div className="w-2/5 relative flex items-center justify-center bg-white/5 overflow-hidden border-r border-white/10">
-                <img src={tournament.logo} alt={tournament.name} className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-105" />
+              <div className="w-2/5 relative bg-white/5 overflow-hidden border-r border-white/10">
+                <img src={tournament.logo} alt={tournament.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
               </div>
 
               <div className="w-3/5 p-5 flex flex-col">

@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import PlayerDetails from './pages/PlayerDetails';
+import Players from './pages/Players';
 import Teams from './pages/Teams';
 import TeamDetails from './pages/TeamDetails';
 import Matches from './pages/Matches';
@@ -12,7 +13,6 @@ import Tournaments from './pages/Tournaments';
 import TournamentDetails from './pages/TournamentDetails';
 import News from './pages/News';
 import NotFound from './pages/NotFound';
-import TarkovStats from './components/TarkovStats';
 import { GameDataProvider } from './context/GameDataContext';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <main className="flex-grow pt-16">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/players" element={<TarkovStats />} />
+              <Route path="/players" element={<Players />} />
               <Route path="/players/:id" element={<PlayerDetails />} />
               <Route path="/teams" element={<Teams />} />
               <Route path="/teams/:id" element={<TeamDetails />} />

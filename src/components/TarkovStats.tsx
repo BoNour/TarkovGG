@@ -53,6 +53,19 @@ const Players: React.FC = () => {
   const [sortField, setSortField] = useState<SortField>('rating');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [viewMode, setViewMode] = useState<ViewMode>('table');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   useEffect(() => {
     loadData();
@@ -168,49 +181,6 @@ const Players: React.FC = () => {
     });
   };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setLoading(true);
-      const text = await file.text();
-      const records = parseCSV(text);
-      setMatchRecords(records);
-      
-      const aggregatedPlayers = aggregatePlayerStats(records);
-      setPlayers(aggregatedPlayers);
-      setError(null);
-    } catch (err) {
-      setError('Failed to parse CSV file');
-      console.error('Error parsing CSV:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const exportToJSON = () => {
-    const exportData = {
-      players,
-      matchRecords,
-      summary: {
-        totalPlayers: players.length,
-        totalTeams: uniqueTeams.length,
-        totalMatches: new Set(matchRecords.map(r => r.gameId)).size,
-        totalMaps: new Set(matchRecords.map(r => r.map)).size,
-      }
-    };
-    
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const exportFileDefaultName = 'tarkov-tournament-stats.json';
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  };
-
   // Get unique teams
   const uniqueTeams = Array.from(new Set(players.map(p => p.team))).filter(Boolean);
 
@@ -263,11 +233,48 @@ const Players: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="animate-pulse">
-          <div className="h-10 w-64 bg-gray-700 rounded mb-8"></div>
-          <div className="h-16 bg-gray-700 rounded mb-8"></div>
-          <div className="h-96 bg-gray-700 rounded"></div>
+      <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+        {/* Background Image - Fixed behind all content */}
+        <div 
+          className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+          style={{ 
+            backgroundImage: "url('/BACKGROUND.png')",
+            transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+          }}
+        ></div>
+        
+        {/* Single, refined vignette overlay */}
+        <div 
+          className="fixed inset-0 z-10" 
+          style={{ 
+            background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+          }}
+        ></div>
+        
+        {/* Animated background orbs */}
+        <div className="fixed inset-0 z-20">
+          {/* Large floating orbs */}
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
+          <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+
+          {/* Mouse-aware orb */}
+          <div 
+            className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-300 ease-out"
+            style={{ 
+              transform: `translate(${mousePosition.x - 75}px, ${mousePosition.y - 75}px)`
+            }}
+          ></div>
+        </div>
+
+        <div className="relative z-30 pt-8">
+          <div className="container mx-auto px-4 py-12">
+            <div className="animate-pulse">
+              <div className="h-10 w-64 bg-white/10 backdrop-blur-md rounded-3xl mb-8"></div>
+              <div className="h-16 bg-white/10 backdrop-blur-md rounded-3xl mb-8"></div>
+              <div className="h-96 bg-white/10 backdrop-blur-md rounded-3xl"></div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -275,370 +282,463 @@ const Players: React.FC = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="bg-red-900 border border-red-700 rounded-lg p-6 text-center">
-          <h2 className="text-xl font-bold text-red-400 mb-2">Error Loading Data</h2>
-          <p className="text-red-300 mb-4">{error}</p>
-          <button 
-            onClick={loadData}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition"
-          >
-            Retry
-          </button>
+      <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+        {/* Background Image - Fixed behind all content */}
+        <div 
+          className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+          style={{ 
+            backgroundImage: "url('/BACKGROUND.png')",
+            transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+          }}
+        ></div>
+        
+        {/* Single, refined vignette overlay */}
+        <div 
+          className="fixed inset-0 z-10" 
+          style={{ 
+            background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+          }}
+        ></div>
+        
+        {/* Animated background orbs */}
+        <div className="fixed inset-0 z-20">
+          {/* Large floating orbs */}
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
+          <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+
+          {/* Mouse-aware orb */}
+          <div 
+            className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-300 ease-out"
+            style={{ 
+              transform: `translate(${mousePosition.x - 75}px, ${mousePosition.y - 75}px)`
+            }}
+          ></div>
+        </div>
+
+        <div className="relative z-30 pt-8">
+          <div className="container mx-auto px-4 py-12">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 text-center">
+              <h2 className="text-xl font-bold text-red-400 mb-2">Error Loading Data</h2>
+              <p className="text-red-300 mb-4">{error}</p>
+              <button 
+                onClick={loadData}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-white">Players</h1>
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
+      {/* Background Image - Fixed behind all content */}
+      <div 
+        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+        style={{ 
+          backgroundImage: "url('/BACKGROUND.png')",
+          transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+        }}
+      ></div>
+      
+      {/* Single, refined vignette overlay */}
+      <div 
+        className="fixed inset-0 z-10" 
+        style={{ 
+          background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+        }}
+      ></div>
+      
+      {/* Animated background orbs */}
+      <div className="fixed inset-0 z-20">
+        {/* Large floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+
+        {/* Mouse-aware orb */}
+        <div 
+          className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-300 ease-out"
+          style={{ 
+            transform: `translate(${mousePosition.x - 75}px, ${mousePosition.y - 75}px)`
+          }}
+        ></div>
       </div>
 
-      {/* Statistics Summary */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
-          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Players</h3>
-          <p className="text-2xl font-bold text-white">{players.length}</p>
-        </div>
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
-          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Teams</h3>
-          <p className="text-2xl font-bold text-white">{uniqueTeams.length}</p>
-        </div>
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
-          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Matches</h3>
-          <p className="text-2xl font-bold text-white">{new Set(matchRecords.map(r => r.gameId)).size}</p>
-        </div>
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
-          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Avg Rating</h3>
-          <p className="text-2xl font-bold text-white">
-            {players.length > 0 ? (players.reduce((sum, p) => sum + p.rating, 0) / players.length).toFixed(2) : '0.00'}
-          </p>
-        </div>
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 shadow-2xl">
-          <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Top K/D</h3>
-          <p className="text-2xl font-bold text-white">
-            {players.length > 0 ? Math.max(...players.map(p => p.kd)).toFixed(2) : '0.00'}
-          </p>
-        </div>
-      </div>
-
-      {/* Controls */}
-      <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl p-6 mb-8 border border-gray-700/50 shadow-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {/* Search */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search players or teams..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-700/50 text-white pl-10 pr-4 py-3 rounded-xl border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
-            />
-            <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-          </div>
-          
-          {/* Team filter */}
-          <div className="flex items-center">
-            <Filter className="h-5 w-5 text-gray-400 mr-2" />
-            <select
-              value={filterTeam}
-              onChange={(e) => setFilterTeam(e.target.value)}
-              className="w-full bg-gray-700/50 text-white px-3 py-3 rounded-xl border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
-            >
-              <option value="">All Teams</option>
-              {uniqueTeams.map(team => (
-                <option key={team} value={team}>{team}</option>
-              ))}
-            </select>
+      {/* Content sections starting from the top */}
+      <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-white">Players</h1>
           </div>
 
-          {/* View Mode */}
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setViewMode('table')}
-              className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'table' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
-            >
-              Table
-            </button>
-            <button
-              onClick={() => setViewMode('cards')}
-              className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'cards' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
-            >
-              Cards
-            </button>
-            <button
-              onClick={() => setViewMode('charts')}
-              className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'charts' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
-            >
-              Charts
-            </button>
-          </div>
-
-          {/* Results count */}
-          <div className="flex items-center justify-end">
-            <span className="text-gray-400 text-sm font-medium">
-              Showing {sortedPlayers.length} of {players.length} players
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Table View */}
-      {viewMode === 'table' && (
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden shadow-2xl">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border-b border-gray-700/50">
-                  <th className="px-4 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center space-x-1 hover:text-white transition-colors"
-                      onClick={() => handleSort('player')}
-                    >
-                      <span>Player</span>
-                      <SortIcon field="player" />
-                    </button>
-                  </th>
-                  <th className="px-3 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center space-x-1 hover:text-white transition-colors"
-                      onClick={() => handleSort('team')}
-                    >
-                      <span>Team</span>
-                      <SortIcon field="team" />
-                    </button>
-                  </th>
-                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
-                      onClick={() => handleSort('totalKills')}
-                    >
-                      <span>Kills</span>
-                      <SortIcon field="totalKills" />
-                    </button>
-                  </th>
-                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
-                      onClick={() => handleSort('totalDeaths')}
-                    >
-                      <span>Deaths</span>
-                      <SortIcon field="totalDeaths" />
-                    </button>
-                  </th>
-                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 tracking-widest">Games</th>
-                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
-                      onClick={() => handleSort('kd')}
-                    >
-                      <span>K/D</span>
-                      <SortIcon field="kd" />
-                    </button>
-                  </th>
-                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
-                      onClick={() => handleSort('kpr')}
-                    >
-                      <span>KPR</span>
-                      <SortIcon field="kpr" />
-                    </button>
-                  </th>
-                  <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
-                      onClick={() => handleSort('winRate')}
-                    >
-                      <span>Win %</span>
-                      <SortIcon field="winRate" />
-                    </button>
-                  </th>
-                  <th className="px-4 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    <button 
-                      className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
-                      onClick={() => handleSort('rating')}
-                    >
-                      <span>Rating</span>
-                      <SortIcon field="rating" />
-                    </button>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                                  {sortedPlayers.map((player, index) => (
-                    <tr key={`${player.player}-${index}`} className="border-b border-gray-700/30 hover:bg-gray-700/20 transition-all duration-300">
-                    <td className="px-4 py-4">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-2 h-2 rounded-full ${getRatingBadge(player.rating)}`}></div>
-                        <span className="font-medium text-white text-sm truncate max-w-32">{player.player}</span>
-                      </div>
-                    </td>
-                                          <td className="px-3 py-4">
-                        <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-medium bg-gray-700/50 text-gray-300 border border-gray-600/50">
-                          {player.team}
-                        </span>
-                      </td>
-                                          <td className="px-3 py-4 text-center">
-                                                <span className="font-mono text-sm text-gray-200">{player.totalKills}</span>
-                      </td>
-                      <td className="px-3 py-4 text-center">
-                        <span className="font-mono text-sm text-gray-200">{player.totalDeaths}</span>
-                      </td>
-                      <td className="px-3 py-4 text-center">
-                        <span className="font-mono text-sm text-gray-300">{player.gamesPlayed}</span>
-                      </td>
-                      <td className="px-3 py-4 text-center">
-                        <span className={`font-mono text-sm font-medium ${player.kd >= 1.5 ? 'text-green-400' : player.kd >= 1.0 ? 'text-yellow-400' : 'text-red-400'}`}>
-                          {player.kd.toFixed(2)}
-                        </span>
-                      </td>
-                      <td className="px-3 py-4 text-center">
-                        <span className="font-mono text-sm text-gray-200">{player.kpr.toFixed(2)}</span>
-                      </td>
-                      <td className="px-3 py-4 text-center">
-                        <span className="font-mono text-sm text-gray-200">{player.winRate.toFixed(1)}%</span>
-                      </td>
-                                          <td className="px-4 py-4 text-center">
-                        <div className="flex items-center justify-center">
-                          <span className={`font-mono text-sm font-bold px-3 py-1.5 rounded-xl ${getRatingBadge(player.rating)} text-white shadow-lg`}>
-                            {player.rating.toFixed(2)}
-                          </span>
-                        </div>
-                      </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* Cards View */}
-      {viewMode === 'cards' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedPlayers.map((player, index) => (
-            <div key={`${player.player}-${index}`} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white">{player.player}</h3>
-                  <p className="text-gray-400">{player.team}</p>
-                </div>
-                <div className={`px-3 py-1 rounded-full text-sm font-bold ${getRatingBadge(player.rating)} text-white`}>
-                  {player.rating.toFixed(2)}
-                </div>
+          {/* Statistics Summary */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+            <div className="relative group">
+              {/* Background container with effects */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                   style={{
+                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                     backdropFilter: 'blur(12px)',
+                   }}
+              >
+                {/* Glare Effect */}
+                <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     style={{
+                       maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                     }}
+                ></div>
+                {/* Multiple glass layers for depth */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
               </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-gray-400 text-sm">Total Kills</p>
-                  <p className="text-white font-bold text-lg">{player.totalKills}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-sm">Total Deaths</p>
-                  <p className="text-white font-bold text-lg">{player.totalDeaths}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-sm">K/D Ratio</p>
-                  <p className={`font-bold text-lg ${player.kd >= 1.5 ? 'text-green-500' : player.kd >= 1.0 ? 'text-yellow-500' : 'text-red-500'}`}>
-                    {player.kd.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-sm">Win Rate</p>
-                  <p className="text-white font-bold text-lg">{player.winRate.toFixed(1)}%</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-sm">Games Played</p>
-                  <p className="text-white font-bold text-lg">{player.gamesPlayed}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-sm">KPR</p>
-                  <p className="text-white font-bold text-lg">{player.kpr.toFixed(2)}</p>
-                </div>
+              {/* Content container */}
+              <div className="relative p-6">
+                <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Players</h3>
+                <p className="text-2xl font-bold text-white">{players.length}</p>
               </div>
             </div>
-          ))}
-        </div>
-      )}
-
-      {/* Charts View */}
-      {viewMode === 'charts' && (
-        <div className="space-y-8">
-          {/* Top performers by rating */}
-          <div className="bg-gray-800 rounded-lg p-6">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <TrendingUp className="h-5 w-5 mr-2" />
-              Top 10 Players by Rating
-            </h3>
-            <div className="space-y-3">
-              {sortedPlayers.slice(0, 10).map((player, index) => (
-                <div key={`chart-${player.player}-${index}`} className="flex items-center">
-                  <div className="w-8 text-gray-400 text-sm">{index + 1}</div>
-                  <div className="flex-1 flex items-center">
-                    <div className="w-32 text-white font-medium truncate">{player.player}</div>
-                    <div className="w-16 text-gray-400 text-sm">{player.team}</div>
-                    <div className="flex-1 mx-4">
-                      <div className="bg-gray-700 rounded-full h-2">
-                        <div 
-                          className={`h-2 rounded-full ${getRatingBadge(player.rating)}`}
-                          style={{ width: `${Math.min((player.rating / Math.max(...players.map(p => p.rating))) * 100, 100)}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={`w-16 text-right font-bold ${getRatingColor(player.rating)}`}>
-                      {player.rating.toFixed(2)}
-                    </div>
-                  </div>
-                </div>
-              ))}
+            
+            <div className="relative group">
+              {/* Background container with effects */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                   style={{
+                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                     backdropFilter: 'blur(12px)',
+                   }}
+              >
+                {/* Glare Effect */}
+                <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     style={{
+                       maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                     }}
+                ></div>
+                {/* Multiple glass layers for depth */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              </div>
+              {/* Content container */}
+              <div className="relative p-6">
+                <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Teams</h3>
+                <p className="text-2xl font-bold text-white">{uniqueTeams.length}</p>
+              </div>
+            </div>
+            
+            <div className="relative group">
+              {/* Background container with effects */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                   style={{
+                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                     backdropFilter: 'blur(12px)',
+                   }}
+              >
+                {/* Glare Effect */}
+                <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     style={{
+                       maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                     }}
+                ></div>
+                {/* Multiple glass layers for depth */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              </div>
+              {/* Content container */}
+              <div className="relative p-6">
+                <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Total Matches</h3>
+                <p className="text-2xl font-bold text-white">{new Set(matchRecords.map(r => r.gameId)).size}</p>
+              </div>
+            </div>
+            
+            <div className="relative group">
+              {/* Background container with effects */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                   style={{
+                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                     backdropFilter: 'blur(12px)',
+                   }}
+              >
+                {/* Glare Effect */}
+                <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     style={{
+                       maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                     }}
+                ></div>
+                {/* Multiple glass layers for depth */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              </div>
+              {/* Content container */}
+              <div className="relative p-6">
+                <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Avg Rating</h3>
+                <p className="text-2xl font-bold text-white">
+                  {players.length > 0 ? (players.reduce((sum, p) => sum + p.rating, 0) / players.length).toFixed(2) : '0.00'}
+                </p>
+              </div>
+            </div>
+            
+            <div className="relative group">
+              {/* Background container with effects */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                   style={{
+                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                     backdropFilter: 'blur(12px)',
+                   }}
+              >
+                {/* Glare Effect */}
+                <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     style={{
+                       maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                     }}
+                ></div>
+                {/* Multiple glass layers for depth */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              </div>
+              {/* Content container */}
+              <div className="relative p-6">
+                <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">Top K/D</h3>
+                <p className="text-2xl font-bold text-white">
+                  {players.length > 0 ? Math.max(...players.map(p => p.kd)).toFixed(2) : '0.00'}
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Team performance */}
-          <div className="bg-gray-800 rounded-lg p-6">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-              <PieChart className="h-5 w-5 mr-2" />
-              Team Performance
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {uniqueTeams.map(team => {
-                const teamPlayers = players.filter(p => p.team === team);
-                const avgRating = teamPlayers.reduce((sum, p) => sum + p.rating, 0) / teamPlayers.length;
-                const totalKills = teamPlayers.reduce((sum, p) => sum + p.totalKills, 0);
-                const avgWinRate = teamPlayers.reduce((sum, p) => sum + p.winRate, 0) / teamPlayers.length;
+          {/* Controls */}
+          <div className="relative group mb-8">
+            {/* Background container with effects */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                 style={{
+                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                   backdropFilter: 'blur(12px)',
+                 }}
+            >
+              {/* Glare Effect */}
+              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                   }}
+              ></div>
+              {/* Multiple glass layers for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+            </div>
+            {/* Content container */}
+            <div className="relative p-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {/* Search */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search players or teams..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full bg-gray-700/50 text-white pl-10 pr-4 py-3 rounded-xl border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                  />
+                  <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                </div>
                 
-                return (
-                  <div key={team} className="bg-gray-700 rounded-lg p-4">
-                    <h4 className="font-bold text-white text-lg">{team}</h4>
-                    <p className="text-gray-400 text-sm">{teamPlayers.length} players</p>
-                    <div className="mt-2 space-y-1">
-                      <p className={`font-bold ${getRatingColor(avgRating)}`}>
-                        Avg Rating: {avgRating.toFixed(2)}
-                      </p>
-                      <p className="text-gray-300 text-sm">
-                        Total Kills: {totalKills}
-                      </p>
-                      <p className="text-gray-300 text-sm">
-                        Win Rate: {avgWinRate.toFixed(1)}%
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                {/* Team filter */}
+                <div className="flex items-center">
+                  <Filter className="h-5 w-5 text-gray-400 mr-2" />
+                  <select
+                    value={filterTeam}
+                    onChange={(e) => setFilterTeam(e.target.value)}
+                    className="w-full bg-gray-700/50 text-white px-3 py-3 rounded-xl border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                  >
+                    <option value="">All Teams</option>
+                    {uniqueTeams.map(team => (
+                      <option key={team} value={team}>{team}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* View Mode */}
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => setViewMode('table')}
+                    className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'table' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
+                  >
+                    Table
+                  </button>
+                  <button
+                    onClick={() => setViewMode('cards')}
+                    className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'cards' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
+                  >
+                    Cards
+                  </button>
+                  <button
+                    onClick={() => setViewMode('charts')}
+                    className={`px-4 py-3 rounded-xl transition-all duration-200 font-medium ${viewMode === 'charts' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white'}`}
+                  >
+                    Charts
+                  </button>
+                </div>
+
+                {/* Results count */}
+                <div className="flex items-center justify-end">
+                  <span className="text-gray-400 text-sm font-medium">
+                    Showing {sortedPlayers.length} of {players.length} players
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
 
-      {sortedPlayers.length === 0 && (
-        <div className="text-center py-16">
-          <p className="text-xl text-gray-400 font-medium">No players found. Try adjusting your filters.</p>
+          {/* Table View */}
+          {viewMode === 'table' && (
+            <div className="relative group">
+              {/* Background container with effects */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden"
+                   style={{
+                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                     backdropFilter: 'blur(12px)',
+                   }}
+              >
+                {/* Glare Effect */}
+                <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                     style={{
+                       maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                     }}
+                ></div>
+                {/* Multiple glass layers for depth */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+              </div>
+              {/* Content container */}
+              <div className="relative overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border-b border-gray-700/50">
+                        <th className="px-4 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center space-x-1 hover:text-white transition-colors"
+                            onClick={() => handleSort('player')}
+                          >
+                            <span>Player</span>
+                            <SortIcon field="player" />
+                          </button>
+                        </th>
+                        <th className="px-3 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center space-x-1 hover:text-white transition-colors"
+                            onClick={() => handleSort('team')}
+                          >
+                            <span>Team</span>
+                            <SortIcon field="team" />
+                          </button>
+                        </th>
+                        <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
+                            onClick={() => handleSort('totalKills')}
+                          >
+                            <span>Kills</span>
+                            <SortIcon field="totalKills" />
+                          </button>
+                        </th>
+                        <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
+                            onClick={() => handleSort('totalDeaths')}
+                          >
+                            <span>Deaths</span>
+                            <SortIcon field="totalDeaths" />
+                          </button>
+                        </th>
+                        <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 tracking-widest">Games</th>
+                        <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
+                            onClick={() => handleSort('kd')}
+                          >
+                            <span>K/D</span>
+                            <SortIcon field="kd" />
+                          </button>
+                        </th>
+                        <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
+                            onClick={() => handleSort('kpr')}
+                          >
+                            <span>KPR</span>
+                            <SortIcon field="kpr" />
+                          </button>
+                        </th>
+                        <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
+                            onClick={() => handleSort('winRate')}
+                          >
+                            <span>Win %</span>
+                            <SortIcon field="winRate" />
+                          </button>
+                        </th>
+                        <th className="px-4 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <button 
+                            className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
+                            onClick={() => handleSort('rating')}
+                          >
+                            <span>Rating</span>
+                            <SortIcon field="rating" />
+                          </button>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sortedPlayers.map((player, index) => (
+                        <tr key={`${player.player}-${index}`} className="border-b border-gray-700/30 hover:bg-gray-700/20 transition-all duration-300">
+                          <td className="px-4 py-4">
+                            <div className="flex items-center space-x-3">
+                              <div className={`w-2 h-2 rounded-full ${getRatingBadge(player.rating)}`}></div>
+                              <span className="font-medium text-white text-sm truncate max-w-32">{player.player}</span>
+                            </div>
+                          </td>
+                          <td className="px-3 py-4">
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-medium bg-gray-700/50 text-gray-300 border border-gray-600/50">
+                              {player.team}
+                            </span>
+                          </td>
+                          <td className="px-3 py-4 text-center">
+                            <span className="font-mono text-sm text-gray-200">{player.totalKills}</span>
+                          </td>
+                          <td className="px-3 py-4 text-center">
+                            <span className="font-mono text-sm text-gray-200">{player.totalDeaths}</span>
+                          </td>
+                          <td className="px-3 py-4 text-center">
+                            <span className="font-mono text-sm text-gray-300">{player.gamesPlayed}</span>
+                          </td>
+                          <td className="px-3 py-4 text-center">
+                            <span className={`font-mono text-sm font-medium ${player.kd >= 1.5 ? 'text-green-400' : player.kd >= 1.0 ? 'text-yellow-400' : 'text-red-400'}`}>
+                              {player.kd.toFixed(2)}
+                            </span>
+                          </td>
+                          <td className="px-3 py-4 text-center">
+                            <span className="font-mono text-sm text-gray-200">{player.kpr.toFixed(2)}</span>
+                          </td>
+                          <td className="px-3 py-4 text-center">
+                            <span className="font-mono text-sm text-gray-200">{player.winRate.toFixed(1)}%</span>
+                          </td>
+                          <td className="px-4 py-4 text-center">
+                            <div className="flex items-center justify-center">
+                              <span className={`font-mono text-sm font-bold px-3 py-1.5 rounded-xl ${getRatingBadge(player.rating)} text-white shadow-lg`}>
+                                {player.rating.toFixed(2)}
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {sortedPlayers.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-xl text-gray-400 font-medium">No players found. Try adjusting your filters.</p>
+            </div>
+          )}
         </div>
-      )}
       </div>
     </div>
   );

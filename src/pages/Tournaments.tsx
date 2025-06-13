@@ -273,9 +273,9 @@ const Tournaments: React.FC = () => {
                         <div className="w-2/3 relative bg-white/[0.03] overflow-hidden flex items-center justify-center">
                           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent z-10"></div>
                           <img 
-                            src="/Tournaments/lega3.png" 
+                            src={tournament.logo} 
                             alt={tournament.name} 
-                            className="w-full h-full object-fill transition-transform duration-300 group-hover:scale-105" 
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
                           />
                         </div>
 
