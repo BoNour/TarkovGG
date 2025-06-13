@@ -1,4 +1,4 @@
-import { Player, Team, Match, Tournament, News, MatchStatus, TournamentType, TournamentFormat, ExPlayer, TeamMapStats } from '../types';
+import { Player, Team, Match, Tournament, News, MatchStatus, TournamentType, TournamentFormat, ExPlayer, TeamMapStats, TeamHistoryEntry } from '../types';
 
 // Mock Players
 export const mockPlayers: Player[] = [
@@ -22,6 +22,22 @@ export const mockPlayers: Player[] = [
       attack: 48,
       defense: 52
     },
+    teamHistory: [
+      {
+        teamId: 'team4',
+        teamName: 'FaZe Clan',
+        joinDate: '2022-03-15',
+        leaveDate: '2023-08-20',
+        role: 'Support'
+      },
+      {
+        teamId: 'team10',
+        teamName: 'Spacestation',
+        joinDate: '2021-06-10',
+        leaveDate: '2022-03-10',
+        role: 'Entry Fragger'
+      }
+    ],
     socialMedia: {
       twitter: 'https://twitter.com/anitun'
     }
@@ -137,7 +153,23 @@ export const mockPlayers: Player[] = [
       headshots: 2,
       attack: 60,
       defense: 40
-    }
+    },
+    teamHistory: [
+      {
+        teamId: 'team6',
+        teamName: 'G2 Esports',
+        joinDate: '2021-11-20',
+        leaveDate: '2023-05-15',
+        role: 'Duelist'
+      },
+      {
+        teamId: 'team32',
+        teamName: 'XSET',
+        joinDate: '2020-09-01',
+        leaveDate: '2021-11-15',
+        role: 'Entry Fragger'
+      }
+    ]
   },
   // Additional FURIA Esports players (total 5)
   {
@@ -209,6 +241,15 @@ export const mockPlayers: Player[] = [
       attack: 78,
       defense: 22
     },
+    teamHistory: [
+      {
+        teamId: 'team8',
+        teamName: 'LOUD',
+        joinDate: '2022-01-12',
+        leaveDate: '2023-12-18',
+        role: 'Duelist'
+      }
+    ],
     socialMedia: {
       twitter: 'https://twitter.com/dgzin',
       twitch: 'https://twitch.tv/dgzin'

@@ -7,7 +7,6 @@ import MatchCard from '../components/ui/MatchCard';
 const TournamentDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { tournaments, teams, matches, isLoading } = useGameData();
-  const [activeTab, setActiveTab] = useState<'overview' | 'matches' | 'teams' | 'brackets'>('overview');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -84,7 +83,7 @@ const TournamentDetails: React.FC = () => {
       </div>
 
       <div className="relative z-30 pt-8">
-        <div className="max-w-[90vw] mx-auto px-4 py-12">
+        <div className="max-w-[90vw] mx-auto px-4 py-12 space-y-12">
           
           <div className="mb-8">
             <Link to="/tournaments" className="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300 group">
@@ -93,8 +92,9 @@ const TournamentDetails: React.FC = () => {
             </Link>
           </div>
           
+          {/* Tournament Header */}
           <div 
-            className="relative group rounded-3xl mb-12 backdrop-blur-3xl bg-white/[0.03] border border-white/10"
+            className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10"
             style={{ boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)' }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
@@ -126,100 +126,100 @@ const TournamentDetails: React.FC = () => {
               </div>
             </div>
           </div>
-          
-          <div className="flex justify-center backdrop-blur-2xl bg-white/[0.05] rounded-2xl p-2 border border-white/10 mb-12">
-            {['overview', 'teams', 'matches', 'brackets'].map(tab => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab as any)}
-                className={`flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 min-w-[140px] justify-center ${
-                  activeTab === tab 
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg backdrop-blur-xl' 
-                    : 'text-gray-400 hover:text-white hover:bg-white/[0.08]'
-                }`}
-              >
-                <span>{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
-              </button>
-            ))}
-          </div>
 
+          {/* Live Matches Section */}
+          {liveMatches.length > 0 && (
+            <div 
+              className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 p-8"
+              style={{ boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
+              <div className="relative">
+                <h2 className="text-3xl font-bold mb-6 text-white">Live Matches</h2>
+                <div className="space-y-4">
+                  {liveMatches.map(match => <MatchCard key={match.id} match={match} />)}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Upcoming Matches Section */}
+          {upcomingMatches.length > 0 && (
+            <div 
+              className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 p-8"
+              style={{ boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
+              <div className="relative">
+                <h2 className="text-3xl font-bold mb-6 text-white">Upcoming Matches</h2>
+                <div className="space-y-4">
+                  {upcomingMatches.map(match => <MatchCard key={match.id} match={match} />)}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Participating Teams Section */}
           <div 
             className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 p-8"
             style={{ boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)' }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
             <div className="relative">
-              {activeTab === 'overview' && (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2 space-y-8">
-                    <div>
-                      <h2 className="text-2xl font-bold mb-4 text-white">Live Matches</h2>
-                      {liveMatches.length > 0 ? (
-                        <div className="space-y-4">
-                          {liveMatches.map(match => <MatchCard key={match.id} match={match} />)}
-                        </div>
-                      ) : <p className="text-gray-400">No matches are currently live.</p>}
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold mb-4 text-white">Upcoming Matches</h2>
-                      {upcomingMatches.length > 0 ? (
-                        <div className="space-y-4">
-                          {upcomingMatches.map(match => <MatchCard key={match.id} match={match} />)}
-                        </div>
-                      ) : <p className="text-gray-400">No upcoming matches scheduled.</p>}
-                    </div>
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold mb-4 text-white">Participating Teams</h2>
-                    <div className="space-y-2">
-                      {tournamentTeams.map(team => (
-                        <Link key={team.id} to={`/teams/${team.id}`} className="flex items-center p-3 hover:bg-white/[0.05] rounded-lg transition-colors duration-200">
-                          <img src={team.logo} alt={team.name} className="w-10 h-10 rounded-full object-cover"/>
-                          <div className="ml-4">
-                            <p className="font-semibold text-white">{team.name}</p>
-                            <p className="text-sm text-gray-400">{team.region}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-              
-              {activeTab === 'teams' && (
-                <div>
-                  <h2 className="text-3xl font-bold mb-6 text-white">Participating Teams</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {tournamentTeams.map(team => (
-                      <Link key={team.id} to={`/teams/${team.id}`} className="group relative bg-white/[0.05] rounded-xl p-4 text-center transition-all duration-300 hover:bg-white/[0.08] hover:-translate-y-1">
-                        <img src={team.logo} alt={team.name} className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-2 border-white/10"/>
-                        <h3 className="text-lg font-bold text-white">{team.name}</h3>
-                        <p className="text-sm text-gray-400">{team.region}</p>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {activeTab === 'matches' && (
-                <div>
-                  <h2 className="text-3xl font-bold mb-6 text-white">All Matches</h2>
-                  <div className="space-y-4">
-                    {tournamentMatches.map(match => <MatchCard key={match.id} match={match} />)}
-                  </div>
-                </div>
-              )}
-
-              {activeTab === 'brackets' && (
-                <div className="text-center py-16">
-                   <h2 className="text-3xl font-bold mb-6 text-white">Brackets</h2>
-                   <p className="text-gray-400">Brackets for this tournament are not yet available. Please check back later.</p>
-                </div>
-              )}
+              <h2 className="text-3xl font-bold mb-6 text-white">Participating Teams</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {tournamentTeams.map(team => (
+                  <Link key={team.id} to={`/teams/${team.id}`} className="group relative bg-white/[0.05] rounded-xl p-4 text-center transition-all duration-300 hover:bg-white/[0.08] hover:-translate-y-1">
+                    <img src={team.logo} alt={team.name} className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-2 border-white/10"/>
+                    <h3 className="text-lg font-bold text-white">{team.name}</h3>
+                    <p className="text-sm text-gray-400">{team.region}</p>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* All Matches Section */}
+          {completedMatches.length > 0 && (
+            <div 
+              className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 p-8"
+              style={{ boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
+              <div className="relative">
+                <h2 className="text-3xl font-bold mb-6 text-white">Completed Matches</h2>
+                <div className="space-y-4">
+                  {completedMatches.map(match => <MatchCard key={match.id} match={match} />)}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Brackets Section */}
+          <div 
+            className="relative group rounded-3xl backdrop-blur-3xl bg-white/[0.03] border border-white/10 p-8"
+            style={{ boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-white/[0.01] rounded-3xl"></div>
+            <div className="relative text-center py-16">
+              <h2 className="text-3xl font-bold mb-6 text-white">Brackets</h2>
+              <p className="text-gray-400">Brackets for this tournament are not yet available. Please check back later.</p>
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <style>{`
+        @keyframes slow-float-1 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(40px, -60px); }
+        }
+        @keyframes slow-float-2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-50px, 50px); }
+        }
+      `}</style>
     </div>
   );
 };

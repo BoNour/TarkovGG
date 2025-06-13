@@ -12,6 +12,14 @@ export interface PlayerStats {
   defense: number;
 }
 
+export interface TeamHistoryEntry {
+  teamId: string;
+  teamName: string;
+  joinDate: string;
+  leaveDate: string;
+  role: string;
+}
+
 export interface Player {
   id: string;
   nickname: string;
@@ -21,6 +29,7 @@ export interface Player {
   role: string;
   image: string;
   stats: PlayerStats;
+  teamHistory?: TeamHistoryEntry[];
   socialMedia?: {
     twitter?: string;
     twitch?: string;

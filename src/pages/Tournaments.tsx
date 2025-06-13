@@ -12,15 +12,7 @@ const Tournaments: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('');
   const [filterFormat, setFilterFormat] = useState<string>('');
   const [viewMode, setViewMode] = useState<ViewMode>('featured');
-  const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const regions = [
-    { id: 'all', name: 'All Regions' },
-    { id: 'na', name: 'North America' },
-    { id: 'eu', name: 'Europe' },
-    { id: 'asia', name: 'Asia' }
-  ];
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -212,26 +204,6 @@ const Tournaments: React.FC = () => {
                     Tournaments
                   </h1>
                 </div>
-
-                {/* Centered Region Navigation */}
-                <div className="flex justify-center mt-12">
-                  <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm overflow-x-auto">
-                    {regions.map((region) => (
-                      <button
-                        key={region.id}
-                        onClick={() => setSelectedRegion(region.id)}
-                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-                          selectedRegion === region.id 
-                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
-                        }`}
-                      >
-                        <Globe className="w-4 h-4" />
-                        <span>{region.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -263,11 +235,7 @@ const Tournaments: React.FC = () => {
                         {statusInfo.label}
                       </div>
 
-                      {/* View Details - top right */}
-                      <div className="absolute top-6 right-6 flex items-center space-x-2 text-blue-400 group-hover:text-blue-300 transition-colors z-10 opacity-0 group-hover:opacity-100 duration-300">
-                        <span className="text-sm font-medium">View Details</span>
-                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                      </div>
+
                       
                       <div className="relative flex h-[28rem]">
                         <div className="w-2/3 relative bg-white/[0.03] overflow-hidden flex items-center justify-center">
