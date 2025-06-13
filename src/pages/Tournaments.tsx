@@ -19,9 +19,7 @@ const Tournaments: React.FC = () => {
     { id: 'all', name: 'All Regions' },
     { id: 'na', name: 'North America' },
     { id: 'eu', name: 'Europe' },
-    { id: 'asia', name: 'Asia' },
-    { id: 'sa', name: 'South America' },
-    { id: 'oce', name: 'Oceania' }
+    { id: 'asia', name: 'Asia' }
   ];
 
   useEffect(() => {
@@ -272,12 +270,12 @@ const Tournaments: React.FC = () => {
                       </div>
                       
                       <div className="relative flex h-[28rem]">
-                        <div className="w-2/3 relative flex items-center justify-center bg-white/[0.03] overflow-hidden">
-                          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent"></div>
+                        <div className="w-2/3 relative bg-white/[0.03] overflow-hidden flex items-center justify-center">
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent z-10"></div>
                           <img 
-                            src={tournament.logo} 
+                            src="/Tournaments/lega3.png" 
                             alt={tournament.name} 
-                            className="relative h-48 w-48 object-contain transition-transform duration-300 group-hover:scale-105" 
+                            className="w-full h-full object-fill transition-transform duration-300 group-hover:scale-105" 
                           />
                         </div>
 

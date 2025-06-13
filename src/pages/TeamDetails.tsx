@@ -481,53 +481,12 @@ const TeamDetails: React.FC = () => {
                     <p className="text-green-200 text-lg font-medium">Latest 5 games</p>
                   </div>
                 </div>
-                
-                {/* Content */}
+                {/* Matches Grid */}
                 {teamMatches.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {teamMatches.map(match => {
-                      const opponent = teams.find(t => 
-                        t.id === (match.teamOneId === id ? match.teamTwoId : match.teamOneId)
-                      );
-                      const isTeamOne = match.teamOneId === id;
-                      const teamScore = isTeamOne ? match.teamOneScore : match.teamTwoScore;
-                      const opponentScore = isTeamOne ? match.teamTwoScore : match.teamOneScore;
-                      const won = teamScore > opponentScore;
-                      
-                      return (
-                        <div key={match.id} className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-white/20 transition-all duration-300">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center space-x-3">
-                              <div className={`w-3 h-3 rounded-full ${
-                                match.status === 'live' ? 'bg-red-400 animate-pulse' :
-                                match.status === 'upcoming' ? 'bg-blue-400' : 
-                                won ? 'bg-green-400' : 'bg-red-400'
-                              }`}></div>
-                              <span className="text-gray-300 text-sm font-medium capitalize">
-                                {match.status === 'live' ? 'Live' : 
-                                 match.status === 'upcoming' ? 'Upcoming' :
-                                 won ? 'Victory' : 'Defeat'}
-                              </span>
-                            </div>
-                            <span className="text-gray-400 text-xs">
-                              {new Date(match.date).toLocaleDateString()}
-                            </span>
-                          </div>
-                          
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <p className="text-white font-medium">vs {opponent?.name || 'Unknown'}</p>
-                              <p className="text-gray-400 text-sm">{opponent?.region}</p>
-                            </div>
-                            <div className="text-right">
-                              <p className={`font-bold text-xl ${won ? 'text-green-400' : 'text-red-400'}`}>
-                                {teamScore}-{opponentScore}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {teamMatches.map(match => (
+                      <MatchCard key={match.id} match={match} />
+                    ))}
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-16 space-y-4">
