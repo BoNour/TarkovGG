@@ -47,19 +47,19 @@ const TopTeams: React.FC = () => {
   return (
     <div className="relative overflow-hidden group rounded-3xl"
          style={{
-           backgroundColor: 'rgba(24, 24, 27, 0.7)',
-           backdropFilter: 'blur(12px)',
+           backgroundColor: 'rgba(24, 24, 27, 0.8)',
+           backdropFilter: 'blur(8px)',
          }}
     >
-      {/* Glare Effect */}
-      <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      {/* Glare Effect - Very Subtle */}
+      <div className="absolute inset-0 w-full h-full bg-white/2 opacity-0 group-hover:opacity-40 transition-opacity duration-500"
            style={{
              maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
            }}
       ></div>
 
-      {/* Multiple glass layers for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+      {/* Multiple glass layers for depth - Very Subtle */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/3 to-transparent opacity-30"></div>
       
       {/* Content container */}
       <div className="relative p-6">
@@ -91,11 +91,11 @@ const TopTeams: React.FC = () => {
                 className="transition-all duration-500 ease-out"
                 style={{
                   transform: hoveredTeamId && hoveredTeamId !== team.id 
-                    ? 'scale(0.95) translateY(8px)' 
+                    ? 'scale(0.98) translateY(4px)' 
                     : hoveredTeamId === team.id
-                      ? 'scale(1.05) translateY(-8px)'
+                      ? 'scale(1.02) translateY(-4px)'
                       : 'scale(1.0) translateY(0px)',
-                  opacity: hoveredTeamId && hoveredTeamId !== team.id ? 0.6 : 1.0,
+                  opacity: hoveredTeamId && hoveredTeamId !== team.id ? 0.8 : 1.0,
                   animationDelay: `${index * 100}ms`
                 }}
                 onMouseEnter={() => setHoveredTeamId(team.id)}
@@ -128,7 +128,7 @@ const TopTeams: React.FC = () => {
                             <div className="absolute inset-0 bg-amber-500/15 rounded-2xl blur-xl transform scale-125"></div>
                             <div className="absolute inset-0 bg-yellow-300/10 rounded-2xl blur-lg transform scale-110"></div>
                             
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/40 to-amber-600/25 backdrop-blur-xl border-2 border-yellow-400/60 shadow-2xl flex items-center justify-center relative overflow-hidden transform hover:scale-110 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/40 to-amber-600/25 backdrop-blur-xl border-2 border-yellow-400/60 shadow-2xl flex items-center justify-center relative overflow-hidden transform hover:scale-105 transition-all duration-300">
                               {/* Enhanced golden inner glow */}
                               <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/25 to-amber-500/15 rounded-2xl"></div>
                               <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/20 to-transparent rounded-2xl"></div>
@@ -196,7 +196,7 @@ const TopTeams: React.FC = () => {
                       <img 
                         src={team.logo} 
                         alt={team.name}
-                        className="w-20 h-20 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10 group-hover:border-white/30 transition-all duration-300 mb-4 group-hover:scale-110"
+                        className="w-20 h-20 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10 group-hover:border-white/30 transition-all duration-300 mb-4 group-hover:scale-105"
                       />
                       <h4 className={`text-xl font-bold mb-2 transition-colors ${
                         index === 0 
@@ -238,7 +238,7 @@ const TopTeams: React.FC = () => {
                     <div className="mt-auto pt-6 pb-4">
                       <Link 
                         to={`/teams/${team.id}`}
-                        className="block w-full text-center py-4 rounded-xl font-bold transition-all duration-300 text-base bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white shadow-lg hover:shadow-xl transform hover:scale-105 border border-white/20 hover:border-white/30"
+                        className="block w-full text-center py-4 rounded-xl font-bold transition-all duration-300 text-base bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white shadow-lg hover:shadow-xl transform hover:scale-102 border border-white/20 hover:border-white/30"
                         style={{ backdropFilter: 'blur(8px)' }}
                       >
                         View Team

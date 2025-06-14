@@ -25,10 +25,10 @@ const Home: React.FC = () => {
     <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#101012' }}>
       {/* Background Image - Fixed behind all content */}
       <div 
-        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-500 ease-out"
+        className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat transition-transform duration-1000 ease-out"
         style={{ 
           backgroundImage: "url('/BACKGROUND.png')",
-          transform: `scale(1.05) translate(${mousePosition.x / -100}px, ${mousePosition.y / -100}px)`,
+          transform: `scale(1.02) translate(${mousePosition.x / -200}px, ${mousePosition.y / -200}px)`,
         }}
       ></div>
       
@@ -43,15 +43,15 @@ const Home: React.FC = () => {
       {/* Animated background orbs */}
       <div className="fixed inset-0 z-20">
         {/* Large floating orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
-        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 25s ease-in-out infinite'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 30s ease-in-out infinite'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 35s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
 
         {/* Mouse-aware orb */}
         <div 
-          className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-300 ease-out"
+          className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-700 ease-out"
           style={{ 
-            transform: `translate(${mousePosition.x - 75}px, ${mousePosition.y - 75}px)`
+            transform: `translate(${mousePosition.x / 1.5 - 75}px, ${mousePosition.y / 1.5 - 75}px)`
           }}
         ></div>
       </div>

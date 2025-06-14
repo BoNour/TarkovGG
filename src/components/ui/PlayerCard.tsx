@@ -60,7 +60,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-[1.2]' : 'translate-y-5 scale-90'}`}
+              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-5 scale-90'}`}
               style={{ 
                 filter: 'contrast(1) brightness(1.3)',
                 height: '120%',
@@ -78,7 +78,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
           <img 
             src={player.image} 
             alt="" 
-            className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-0 scale-[1.2]' : 'translate-y-5 scale-90 opacity-0'}`}
+            className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-5 scale-90 opacity-0'}`}
             style={{ 
               filter: 'contrast(1) brightness(1.3) blur(3px)',
               height: '120%',
@@ -90,21 +90,32 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
           />
         </div>
 
-        {/* Team logo with modern styling */}
-        {team && (
-          <div className="absolute top-4 left-4 z-20">
+        {/* Team logo with modern styling - Always show COV logo for now */}
+        <div className="absolute top-4 left-4 z-20">
+          {team ? (
             <Link to={`/teams/${team.id}`} className="block group/team">
               <div className="relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
                 <img 
                   src="/cov logo.png" 
                   alt="COV Logo" 
-                  className="relative w-10 h-10 object-contain transition-all duration-300"
+                  className="relative w-10 h-10 object-contain transition-all duration-300 drop-shadow-lg"
                 />
               </div>
             </Link>
-          </div>
-        )}
+          ) : (
+            <div className="block group/team">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
+                <img 
+                  src="/cov logo.png" 
+                  alt="COV Logo" 
+                  className="relative w-12 h-12 object-contain transition-all duration-300 drop-shadow-lg"
+                />
+              </div>
+            </div>
+          )}
+        </div>
 
 
         
@@ -152,29 +163,30 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
               </div>
             </div>
             
-            {/* Enhanced action button */}
+            {/* Enhanced glassy action button */}
             <Link 
               to={`/players/${player.id}`} 
-              className="group/btn relative block w-full text-center py-4 rounded-2xl font-bold text-sm transition-all duration-300 overflow-hidden border"
+              className="group/btn relative block w-full text-center py-4 rounded-2xl font-bold text-sm transition-all duration-300 overflow-hidden border backdrop-blur-md"
               style={{ 
-                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%)',
-                borderColor: 'rgba(6, 182, 212, 0.2)'
+                background: 'rgba(255, 255, 255, 0.08)',
+                borderColor: 'rgba(255, 255, 255, 0.15)',
+                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.12) 100%)';
-                e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 10px 25px rgba(6, 182, 212, 0.15)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%)';
-                e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255, 255, 255, 0.1)';
               }}
             >
               {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
               <span className="relative z-10 text-white group-hover/btn:text-white transition-colors duration-300">
                 View Profile
               </span>
@@ -200,23 +212,26 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
               </div>
               <Link 
                 to={`/players/${player.id}`} 
-                className="px-4 py-2 rounded-xl font-semibold text-xs transition-all duration-300 border"
+                className="px-4 py-2 rounded-xl font-semibold text-xs transition-all duration-300 border backdrop-blur-md"
                 style={{ 
-                  backgroundColor: 'rgba(6, 182, 212, 0.08)', 
-                  color: '#06b6d4',
-                  borderColor: 'rgba(6, 182, 212, 0.2)'
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)', 
+                  color: '#ffffff',
+                  borderColor: 'rgba(255, 255, 255, 0.15)',
+                  boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.15)';
-                  e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
                   e.currentTarget.style.color = '#ffffff';
                   e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.2)';
-                  e.currentTarget.style.color = '#06b6d4';
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                  e.currentTarget.style.color = '#ffffff';
                   e.currentTarget.style.transform = 'scale(1.0)';
+                  e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255, 255, 255, 0.1)';
                 }}
               >
                 Profile
