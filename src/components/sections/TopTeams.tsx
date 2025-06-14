@@ -102,7 +102,7 @@ const TopTeams: React.FC = () => {
                 onMouseLeave={() => setHoveredTeamId(null)}
               >
                 {/* Vertical Team Card */}
-                <div className={`relative group overflow-hidden rounded-2xl transition-all duration-300 h-[520px] ${
+                <div className={`relative group overflow-hidden rounded-2xl transition-all duration-300 h-[580px] ${
                   index === 0 
                     ? 'border border-yellow-400/30 hover:border-yellow-400/50' 
                     : ''
@@ -235,7 +235,7 @@ const TopTeams: React.FC = () => {
                     </div>
 
                     {/* View Team Button - Always at bottom */}
-                    <div className="mt-auto pt-6">
+                    <div className="mt-auto pt-6 pb-4">
                       <Link 
                         to={`/teams/${team.id}`}
                         className="block w-full text-center py-4 rounded-xl font-bold transition-all duration-300 text-base bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white shadow-lg hover:shadow-xl transform hover:scale-105 border border-white/20 hover:border-white/30"

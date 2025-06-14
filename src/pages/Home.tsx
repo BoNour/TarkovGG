@@ -66,8 +66,26 @@ const Home: React.FC = () => {
               {/* Left Column - News (3/5 width) */}
               <div className="lg:col-span-3 space-y-12">
                 {/* News Section */}
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8">
-                  <LatestNews />
+                <div className="relative overflow-hidden group rounded-3xl"
+                     style={{
+                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                       backdropFilter: 'blur(12px)',
+                     }}
+                >
+                  {/* Glare Effect */}
+                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                       style={{
+                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
+                       }}
+                  ></div>
+
+                  {/* Multiple glass layers for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                  
+                  {/* Content container */}
+                  <div className="relative p-8">
+                    <LatestNews />
+                  </div>
                 </div>
                 
                 {/* Top Players Section - Now under News */}
@@ -97,20 +115,7 @@ const Home: React.FC = () => {
                 </div>
                 
                 {/* Top Teams Section - Now under Top Players */}
-                <div className="relative overflow-hidden rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(24px)',
-                     }}
-                >
-                  {/* Multiple glass layers for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
-                  
-                  {/* Content container */}
-                  <div className="relative p-8">
-                    <TopTeams />
-                  </div>
-                </div>
+                <TopTeams />
               </div>
               
               {/* Right Column - Matches & Tournaments (2/5 width) */}
