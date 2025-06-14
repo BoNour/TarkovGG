@@ -173,8 +173,8 @@ const Teams: React.FC = () => {
               <div className="relative z-10">
                 {/* Top Row: Title */}
                 <div className="text-center mb-8">
-                  <h1 className="text-8xl lg:text-9xl xl:text-[10rem] font-black text-white leading-none">
-                    Teams
+                  <h1 className="text-8xl lg:text-9xl xl:text-[10rem] font-black text-white leading-none uppercase">
+                    TEAMS
                   </h1>
                 </div>
 
