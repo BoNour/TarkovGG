@@ -161,90 +161,81 @@ const Players: React.FC = () => {
       {/* Content sections starting from the top */}
       <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
         
-        {/* Header Section with Stats Overview Combined */}
-        <section className="py-16 relative">
-          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
-            <div className="relative overflow-hidden group rounded-3xl mb-8"
-                 style={{
-                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                   backdropFilter: 'blur(12px)',
-                 }}
-            >
-              {/* Glare Effect */}
-              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                   }}
-              ></div>
-
-              {/* Multiple glass layers for depth */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+        {/* Combined Header and Stats Section */}
+        <header className="py-12 relative">
+          <div className="max-w-[95vw] mx-auto px-4">
+            {/* Main Header Container */}
+            <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
+              {/* Subtle Decorative Elements */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
               
-              <div className="relative p-8">
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
-                  
-                  {/* Title */}
-                  <div className="flex-shrink-0 mb-4 lg:mb-0">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none">
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
-                        PLAYERS
-                      </span>
-                    </h1>
-                  </div>
-                  
-                  {/* View Mode Toggle and Filters */}
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-6">
-                    
-                    {/* View Mode Toggle */}
-                    <div className="flex items-center bg-white/10 backdrop-blur-md rounded-xl p-2 border border-white/20 shadow-lg">
+              {/* Header Content */}
+              <div className="relative z-10">
+                
+                {/* Top Row: Title */}
+                <div className="text-center mb-8">
+                  <h1 className="text-8xl lg:text-9xl font-black text-white leading-none">
+                    PLAYERS
+                  </h1>
+                </div>
+
+                {/* Bottom Row: View Mode Toggle and Filters */}
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                  {/* View Mode Toggle */}
+                  <div className="flex justify-center lg:justify-start">
+                    <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
                       <button
                         onClick={() => setViewMode('table')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                           viewMode === 'table' 
-                            ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30 shadow-lg shadow-blue-500/20' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <List className="w-5 h-5" />
+                        <List className="w-4 h-4" />
                         <span>Table</span>
                       </button>
                       <button
                         onClick={() => setViewMode('cards')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                           viewMode === 'cards' 
-                            ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-lg shadow-purple-500/20' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <Grid3X3 className="w-5 h-5" />
+                        <Grid3X3 className="w-4 h-4" />
                         <span>Cards</span>
                       </button>
                       <button
                         onClick={() => setViewMode('charts')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                           viewMode === 'charts' 
-                            ? 'bg-green-500/20 text-green-300 border border-green-500/30 shadow-lg shadow-green-500/20' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <BarChart3 className="w-5 h-5" />
+                        <BarChart3 className="w-4 h-4" />
                         <span>Stats</span>
                       </button>
                     </div>
-                    
-                    {/* Filters Container */}
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
-                    
+                  </div>
+
+                  {/* Filters Section */}
+                  <div className="flex justify-center lg:justify-end">
+                    <div className="flex flex-wrap items-center gap-4">
                       {/* Search */}
                       <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                          <Search className="h-5 w-5 text-gray-400" />
+                        </div>
                         <input
                           type="text"
                           placeholder="Search players..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300 placeholder:text-gray-500 text-sm w-48 shadow-lg"
+                          className="glass-input block w-full pl-12 pr-4 py-4 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20"
                         />
-                        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                       </div>
                       
                       {/* Role Filter */}
@@ -252,7 +243,7 @@ const Players: React.FC = () => {
                         <select
                           value={filterRole}
                           onChange={(e) => setFilterRole(e.target.value)}
-                          className="appearance-none bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300 cursor-pointer text-sm shadow-lg"
+                          className="glass-input appearance-none px-4 py-4 pr-10 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
                           style={{ colorScheme: 'dark' }}
                         >
                           <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Roles</option>
@@ -260,7 +251,7 @@ const Players: React.FC = () => {
                             <option key={role} value={role} style={{ backgroundColor: '#18181b', color: 'white' }}>{role}</option>
                           ))}
                         </select>
-                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                       </div>
 
                       {/* Team Filter */}
@@ -268,7 +259,7 @@ const Players: React.FC = () => {
                         <select
                           value={filterTeam}
                           onChange={(e) => setFilterTeam(e.target.value)}
-                          className="appearance-none bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300 cursor-pointer text-sm shadow-lg"
+                          className="glass-input appearance-none px-4 py-4 pr-10 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
                           style={{ colorScheme: 'dark' }}
                         >
                           <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Teams</option>
@@ -276,14 +267,14 @@ const Players: React.FC = () => {
                             <option key={team.id} value={team.id} style={{ backgroundColor: '#18181b', color: 'white' }}>{team.name}</option>
                           ))}
                         </select>
-                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                       </div>
                       
                       {/* Clear Button */}
                       {(searchTerm || filterRole || filterTeam) && (
                         <button
                           onClick={clearFilters}
-                          className="flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-gray-400 hover:text-white hover:bg-white/20 transition-all duration-300 shadow-lg"
+                          className="glass-button flex items-center justify-center px-4 py-4 rounded-2xl text-gray-400 hover:text-white transition-all duration-300"
                           title="Clear filters"
                         >
                           <RotateCcw className="w-5 h-5" />
@@ -292,25 +283,10 @@ const Players: React.FC = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Stats Overview integrated within the header */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
-                    { label: 'Total Players', value: players.length },
-                    { label: 'Total Roles', value: roles.length },
-                    { label: 'Avg Rating', value: `${players.length > 0 ? (players.reduce((sum, p) => sum + p.stats.rating, 0) / players.length).toFixed(2) : '0.00'}` },
-                    { label: 'Top Rating', value: `${players.length > 0 ? Math.max(...players.map(p => p.stats.rating)).toFixed(2) : '0.00'}` }
-                  ].map((stat, index) => (
-                    <div key={index} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
-                      <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">{stat.label}</h3>
-                      <p className="text-2xl font-bold text-white">{stat.value}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </header>
 
         {/* Content sections */}
         <div className="space-y-8">
@@ -614,4 +590,74 @@ const Players: React.FC = () => {
   );
 };
 
-export default Players; 
+export default Players;
+
+const styles = `
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+  
+  .glass-input {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 0 0 4px rgba(255, 255, 255, 0.1),
+      0 8px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+  
+  .glass-button {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .glass-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+  
+  .glass-button:hover::before {
+    left: 100%;
+  }
+`;
+
+// Add styles to document head
+if (typeof document !== 'undefined') {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = styles;
+  document.head.appendChild(styleElement);
+} 

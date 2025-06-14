@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useGameData } from '../context/GameDataContext';
 import { Link } from 'react-router-dom';
-import { Search, Filter, ArrowUpDown, ChevronUp, ChevronDown, BarChart3, Grid3X3, List, RotateCcw } from 'lucide-react';
+import { Search, Filter, ArrowUpDown, ChevronUp, ChevronDown, BarChart3, Grid3X3, List, RotateCcw, Users } from 'lucide-react';
 
 type SortField = 'name' | 'tag' | 'winRate' | 'wins' | 'losses';
 type SortDirection = 'asc' | 'desc';
@@ -159,90 +159,83 @@ const Teams: React.FC = () => {
       {/* Content sections starting from the top */}
       <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
         
-        {/* Header Section with Stats Overview Combined */}
-        <section className="py-16 relative">
-          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
-            <div className="relative overflow-hidden group rounded-3xl mb-8"
-                 style={{
-                   backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                   backdropFilter: 'blur(12px)',
-                 }}
-            >
-              {/* Glare Effect */}
-              <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                   }}
-              ></div>
-
-              {/* Multiple glass layers for depth */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+        {/* Combined Header and Controls Section */}
+        <header className="py-12 relative">
+          <div className="max-w-[95vw] mx-auto px-4">
+            {/* Main Header Container */}
+            <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
+              {/* Subtle Decorative Elements */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
+              <div className="absolute top-1/2 right-1/4 w-16 h-16 bg-white/2 rounded-full blur-xl"></div>
               
-              <div className="relative p-8">
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
+              {/* Header Content */}
+              <div className="relative z-10">
+                {/* Top Row: Title */}
+                <div className="text-center mb-8">
+                  <h1 className="text-8xl lg:text-9xl xl:text-[10rem] font-black text-white leading-none">
+                    Teams
+                  </h1>
+                </div>
+
+                {/* Bottom Row: View Mode Toggle and Filters */}
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   
-                  {/* Title */}
-                  <div className="flex-shrink-0 mb-4 lg:mb-0">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none">
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white">
-                        TEAMS CENTER
-                      </span>
-                    </h1>
-                  </div>
-                  
-                  {/* View Mode Toggle and Filters */}
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between w-full gap-6">
-                    
-                    {/* View Mode Toggle */}
-                    <div className="flex items-center bg-white/10 backdrop-blur-md rounded-xl p-2 border border-white/20 shadow-lg">
+                  {/* View Mode Toggle */}
+                  <div className="flex justify-center lg:justify-start">
+                    <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
                       <button
                         onClick={() => setViewMode('table')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                           viewMode === 'table' 
-                            ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30 shadow-lg shadow-blue-500/20' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <List className="w-5 h-5" />
+                        <List className="w-4 h-4" />
                         <span>Table</span>
                       </button>
                       <button
                         onClick={() => setViewMode('cards')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                           viewMode === 'cards' 
-                            ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-lg shadow-purple-500/20' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <Grid3X3 className="w-5 h-5" />
+                        <Grid3X3 className="w-4 h-4" />
                         <span>Cards</span>
                       </button>
                       <button
                         onClick={() => setViewMode('charts')}
-                        className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 min-w-[120px] justify-center ${
+                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                           viewMode === 'charts' 
-                            ? 'bg-green-500/20 text-green-300 border border-green-500/30 shadow-lg shadow-green-500/20' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                            : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <BarChart3 className="w-5 h-5" />
+                        <BarChart3 className="w-4 h-4" />
                         <span>Stats</span>
                       </button>
                     </div>
-                    
-                    {/* Filters Container */}
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
-                    
+                  </div>
+                  
+                  {/* Filters Container */}
+                  <div className="flex justify-center lg:justify-end">
+                    <div className="flex flex-wrap items-center gap-4">
+                  
                       {/* Search */}
                       <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                          <Search className="h-5 w-5 text-gray-400" />
+                        </div>
                         <input
                           type="text"
                           placeholder="Search teams..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300 placeholder:text-gray-500 text-sm w-48 shadow-lg"
+                          className="glass-input block w-full pl-12 pr-4 py-4 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20"
                         />
-                        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                       </div>
                       
                       {/* Region Filter */}
@@ -250,7 +243,7 @@ const Teams: React.FC = () => {
                         <select
                           value={filterRegion}
                           onChange={(e) => setFilterRegion(e.target.value)}
-                          className="appearance-none bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300 cursor-pointer text-sm shadow-lg"
+                          className="glass-input appearance-none px-4 py-4 pr-10 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
                           style={{ colorScheme: 'dark' }}
                         >
                           <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Regions</option>
@@ -258,14 +251,14 @@ const Teams: React.FC = () => {
                             <option key={region} value={region} style={{ backgroundColor: '#18181b', color: 'white' }}>{region}</option>
                           ))}
                         </select>
-                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                       </div>
                       
                       {/* Clear Button */}
                       {(searchTerm || filterRegion) && (
                         <button
                           onClick={clearFilters}
-                          className="flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-gray-400 hover:text-white hover:bg-white/20 transition-all duration-300 shadow-lg"
+                          className="glass-button flex items-center justify-center px-4 py-4 rounded-2xl text-gray-400 hover:text-white transition-all duration-300"
                           title="Clear filters"
                         >
                           <RotateCcw className="w-5 h-5" />
@@ -274,25 +267,10 @@ const Teams: React.FC = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Stats Overview integrated within the header */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
-                    { label: 'Total Teams', value: teams.length },
-                    { label: 'Total Regions', value: regions.length },
-                    { label: 'Avg Win Rate', value: `${teams.length > 0 ? ((teams.reduce((sum, t) => sum + t.stats.winRate, 0) / teams.length) * 100).toFixed(1) : '0.0'}%` },
-                    { label: 'Top Win Rate', value: `${teams.length > 0 ? (Math.max(...teams.map(t => t.stats.winRate)) * 100).toFixed(1) : '0.0'}%` }
-                  ].map((stat, index) => (
-                    <div key={index} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300">
-                      <h3 className="text-xs font-medium text-gray-400 mb-3 uppercase tracking-widest">{stat.label}</h3>
-                      <p className="text-2xl font-bold text-white">{stat.value}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </header>
 
         {/* Content sections */}
         <div className="space-y-8">
@@ -563,6 +541,56 @@ const Teams: React.FC = () => {
             </div>
           )}
         </div>
+
+        <style>{`
+          @keyframes slow-float-1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(40px, -60px); }
+          }
+          @keyframes slow-float-2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 50px); }
+          }
+          @keyframes slow-float-3 {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-45%, -55%); }
+          }
+          
+          .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+              0 8px 32px 0 rgba(0, 0, 0, 0.37),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+          }
+          
+          .glass-input {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+          }
+          
+          .glass-input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+          }
+          
+          .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+          }
+          
+          .glass-button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+          }
+        `}</style>
 
       </div>
     </div>
