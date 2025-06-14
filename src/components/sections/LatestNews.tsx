@@ -76,16 +76,16 @@ const LatestNews: React.FC = () => {
         <div className="space-y-8">
           {/* Row 1: Featured Article (Full Width) */}
           <div className="w-full">
-            <div className="rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:transform hover:scale-[1.02] border" 
+            <div className="rounded-2xl overflow-hidden shadow-xl transition-all duration-500 border" 
                  style={{ 
                    backgroundColor: 'rgba(255, 255, 255, 0.03)', 
                    borderColor: 'rgba(255, 255, 255, 0.1)' 
                  }}>
               <Link to={`/news/${featuredNews.id}`} className="block">
                 <img 
-                  src={featuredNews.image} 
+                  src="/Tournaments/lega3.png" 
                   alt={featuredNews.title}
-                  className="w-full h-64 object-cover object-center transition-transform duration-700 hover:scale-110"
+                  className="w-full h-64 object-cover object-center"
                 />
               </Link>
               
@@ -133,16 +133,16 @@ const LatestNews: React.FC = () => {
             <div key={rowIndex} className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {rowPair.map((article, articleIndex) => (
                 <div key={article.id} className="w-full">
-                  <div className="rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:transform hover:scale-[1.02] border h-full" 
+                  <div className="rounded-2xl overflow-hidden shadow-xl transition-all duration-500 border h-full" 
                        style={{ 
                          backgroundColor: 'rgba(255, 255, 255, 0.03)', 
                          borderColor: 'rgba(255, 255, 255, 0.1)' 
                        }}>
                     <Link to={`/news/${article.id}`} className="block">
                       <img 
-                        src={article.image} 
+                        src="/Tournaments/lega3.png" 
                         alt={article.title}
-                        className="w-full h-48 object-cover object-center transition-transform duration-700 hover:scale-110"
+                        className="w-full h-48 object-cover object-center"
                       />
                     </Link>
                     
