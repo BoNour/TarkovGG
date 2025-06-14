@@ -64,7 +64,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
         {/* Body */}
         <div className="flex items-center justify-between my-4">
           <div className="flex-1 flex flex-col items-center text-center">
-            <img src={teamOne.logo} alt={teamOne.name} className="w-14 h-14 rounded-full mb-2 border-2 border-white/10 group-hover:border-white/30 transition-all"/>
+            <img src={teamOne.logo} alt={teamOne.name} className="w-14 h-14 rounded-full mb-2 border-2 border-white/10"/>
             <span className="font-bold text-sm text-white leading-tight truncate w-full px-2">{teamOne.name}</span>
           </div>
           
@@ -81,7 +81,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
           </div>
           
           <div className="flex-1 flex flex-col items-center text-center">
-            <img src={teamTwo.logo} alt={teamTwo.name} className="w-14 h-14 rounded-full mb-2 border-2 border-white/10 group-hover:border-white/30 transition-all"/>
+            <img src={teamTwo.logo} alt={teamTwo.name} className="w-14 h-14 rounded-full mb-2 border-2 border-white/10"/>
             <span className="font-bold text-sm text-white leading-tight truncate w-full px-2">{teamTwo.name}</span>
           </div>
         </div>

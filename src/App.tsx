@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import ScrollToTop from './components/common/ScrollToTop';
 import Home from './pages/Home';
 import PlayerDetails from './pages/PlayerDetails';
 import Players from './pages/Players';
@@ -18,6 +19,7 @@ import { GameDataProvider } from './context/GameDataContext';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <GameDataProvider>
         <div className="min-h-screen bg-dark text-gray-100 flex flex-col">
           <Navbar />
