@@ -70,7 +70,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
           
           <div className="flex flex-col items-center justify-center w-24">
             {isUpcoming ? (
-              <span className="text-lg font-bold text-gray-500">VS</span>
+              <span className="text-4xl font-black text-gray-300 tracking-wider">VS</span>
             ) : (
               <div className="flex items-center space-x-3">
                 <span className={`text-4xl font-black ${match.teamOneScore > match.teamTwoScore ? 'text-white' : 'text-gray-500'}`}>{match.teamOneScore}</span>

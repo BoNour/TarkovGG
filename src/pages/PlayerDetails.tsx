@@ -374,12 +374,28 @@ const PlayerDetails: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
                 
                 <div className="relative p-8">
-                  <h2 className="text-3xl font-black text-white mb-8 flex items-center">
-                    <Users className="h-7 w-7 mr-3 text-orange-400" />
-                    Ex Teams
-                  </h2>
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center">
+                      <div className="relative">
+                        <div className="w-12 h-12 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-2xl flex items-center justify-center border border-gray-500/30 mr-4">
+                          <Users className="w-6 h-6 text-gray-400" />
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                      </div>
+                      <div>
+                        <h2 className="text-4xl font-black text-white mb-1">Career Journey</h2>
+                        <p className="text-gray-300 text-lg font-medium">Previous teams and career history</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-white">{player.teamHistory.length}</div>
+                      <div className="text-gray-400 text-sm font-medium">Teams</div>
+                    </div>
+                  </div>
                   
-                  <div className="space-y-4">
+                  {/* Teams Grid */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {player.teamHistory.map((teamEntry, index) => {
                       const joinDate = new Date(teamEntry.joinDate);
                       const leaveDate = new Date(teamEntry.leaveDate);
@@ -398,43 +414,89 @@ const PlayerDetails: React.FC = () => {
                         }
                       };
                       
+                      const isRecent = index === 0; // Most recent team
+                      
                       return (
-                        <div key={index} className="bg-white/5 border border-orange-500/15 rounded-2xl p-6 hover:border-orange-500/25 hover:bg-white/10 transition-all duration-300 group/team">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                              <div className="w-16 h-16 bg-gradient-to-br from-orange-500/20 to-orange-400/20 rounded-full border border-orange-500/30 flex items-center justify-center">
-                                <Users className="h-8 w-8 text-orange-300" />
-                              </div>
-                              
-                              <div>
-                                <h3 className="text-xl font-bold text-white group-hover/team:text-orange-300 transition-colors">
-                                  {teamEntry.teamName}
-                                </h3>
-                                <p className="text-orange-300 text-sm font-medium mb-1">{teamEntry.role}</p>
-                                <div className="flex items-center text-sm text-gray-400 space-x-4">
-                                  <div className="flex items-center">
-                                    <Calendar className="w-4 h-4 mr-1" />
-                                    <span>Joined: {joinDate.toLocaleDateString('en-US', { 
-                                      year: 'numeric', 
-                                      month: 'short', 
-                                      day: 'numeric' 
-                                    })}</span>
-                                  </div>
-                                  <div className="flex items-center">
-                                    <Calendar className="w-4 h-4 mr-1" />
-                                    <span>Left: {leaveDate.toLocaleDateString('en-US', { 
-                                      year: 'numeric', 
-                                      month: 'short', 
-                                      day: 'numeric' 
-                                    })}</span>
-                                  </div>
-                                </div>
-                              </div>
+                        <div key={index} className="relative group/team">
+                          <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-500 group-hover/team:scale-[1.02] group-hover/team:shadow-2xl group-hover/team:shadow-blue-500/10">
+                            {/* Background Pattern */}
+                            <div className="absolute inset-0 opacity-5">
+                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:16px_16px]"></div>
                             </div>
                             
-                            <div className="text-right">
-                              <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-orange-500/15 text-orange-300 border border-orange-500/20">
-                                {formatDuration()} with team
+                            {/* Content */}
+                            <div className="relative p-6">
+                              <div className="flex items-start space-x-4">
+                                {/* Team Avatar */}
+                                <div className="relative flex-shrink-0">
+                                  <div className="w-20 h-20 bg-gradient-to-br from-gray-700/20 to-gray-600/20 rounded-full border-2 border-gray-500/30 flex items-center justify-center group-hover/team:border-blue-400/60 transition-all duration-300">
+                                    <Users className="h-10 w-10 text-gray-300" />
+                                  </div>
+                                  {isRecent && (
+                                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center border-2 border-gray-900">
+                                      <span className="text-white text-xs font-bold">1</span>
+                                    </div>
+                                  )}
+                                </div>
+                                
+                                {/* Team Info */}
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-start justify-between mb-3">
+                                    <div>
+                                      <h3 className="text-xl font-bold text-white group-hover/team:text-blue-300 transition-colors duration-300">
+                                        {teamEntry.teamName}
+                                      </h3>
+                                      <div className="flex items-center space-x-2 mt-1">
+                                        <span className="px-2 py-1 bg-gray-600/20 text-gray-300 text-xs font-medium rounded-full border border-gray-500/30">
+                                          {teamEntry.role}
+                                        </span>
+                                        {isRecent && (
+                                          <span className="px-2 py-1 bg-blue-600/20 text-blue-300 text-xs font-medium rounded-full border border-blue-500/30">
+                                            Latest
+                                          </span>
+                                        )}
+                                      </div>
+                                    </div>
+                                    
+                                    {/* Duration badge */}
+                                    <div className="text-right">
+                                      <div className="px-3 py-1 bg-gradient-to-r from-gray-600/20 to-gray-700/20 text-gray-200 rounded-lg border border-gray-500/30">
+                                        <div className="text-sm font-bold">{formatDuration()}</div>
+                                        <div className="text-xs text-gray-400">duration</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Timeline dates */}
+                                  <div className="bg-gradient-to-r from-gray-900/30 to-gray-800/30 rounded-lg p-3 border border-gray-500/20">
+                                    <div className="grid grid-cols-2 gap-3">
+                                      <div className="text-center">
+                                        <div className="flex items-center justify-center text-gray-300 mb-1">
+                                          <Calendar className="w-3 h-3 mr-1" />
+                                          <span className="text-xs font-medium">Joined</span>
+                                        </div>
+                                        <div className="text-white font-bold text-sm">
+                                          {joinDate.toLocaleDateString('en-US', { 
+                                            month: 'short', 
+                                            year: 'numeric' 
+                                          })}
+                                        </div>
+                                      </div>
+                                      <div className="text-center">
+                                        <div className="flex items-center justify-center text-gray-300 mb-1">
+                                          <Calendar className="w-3 h-3 mr-1" />
+                                          <span className="text-xs font-medium">Left</span>
+                                        </div>
+                                        <div className="text-white font-bold text-sm">
+                                          {leaveDate.toLocaleDateString('en-US', { 
+                                            month: 'short', 
+                                            year: 'numeric' 
+                                          })}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>

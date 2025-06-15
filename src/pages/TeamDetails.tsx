@@ -628,24 +628,47 @@ const TeamDetails: React.FC = () => {
               
               <div className="relative p-8">
                 {/* Header */}
-                <div className="flex items-center mb-8">
-                  <div className="w-12 h-12 bg-orange-500/15 rounded-2xl flex items-center justify-center border border-orange-500/20 mr-4">
-                    <UserMinus className="w-6 h-6 text-orange-300" />
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center">
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-700/30 to-gray-600/30 rounded-2xl flex items-center justify-center border border-gray-500/30 mr-4">
+                        <UserMinus className="w-6 h-6 text-gray-400" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div>
+                      <h2 className="text-4xl font-black text-white mb-1">Ex-Players</h2>
+                      <p className="text-gray-300 text-lg font-medium">Former team members</p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-4xl font-bold text-white">Ex-Players</h2>
-                    <p className="text-orange-200 text-lg font-medium">Former team members and their tenure</p>
-                  </div>
+                  {teamExPlayers && teamExPlayers.length > 0 && (
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-white">{teamExPlayers.length}</div>
+                      <div className="text-gray-400 text-sm font-medium">Departed</div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Content */}
                 {teamExPlayers && teamExPlayers.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {teamExPlayers.map(player => {
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {teamExPlayers.map((player, index) => {
                       const joinDate = new Date(player.joinDate);
                       const leaveDate = new Date(player.leaveDate);
                       const daysDiff = Math.floor((leaveDate.getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24));
                       const monthsDiff = Math.floor(daysDiff / 30);
+                      const yearsDiff = Math.floor(daysDiff / 365);
+                      
+                      const formatDuration = () => {
+                        if (yearsDiff > 0) {
+                          const remainingMonths = Math.floor((daysDiff % 365) / 30);
+                          return `${yearsDiff} year${yearsDiff > 1 ? 's' : ''}${remainingMonths > 0 ? ` ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}` : ''}`;
+                        } else if (monthsDiff > 0) {
+                          return `${monthsDiff} month${monthsDiff > 1 ? 's' : ''}`;
+                        } else {
+                          return `${daysDiff} day${daysDiff > 1 ? 's' : ''}`;
+                        }
+                      };
                       
                       const ratingColor = player.stats.rating > 1.1 
                         ? 'text-green-400' 
@@ -653,77 +676,106 @@ const TeamDetails: React.FC = () => {
                           ? 'text-red-400' 
                           : 'text-yellow-400';
                       
+                      const ratingBg = player.stats.rating > 1.1 
+                        ? 'bg-gradient-to-r from-green-600/20 to-green-500/20 border-green-500/40' 
+                        : player.stats.rating < 0.9 
+                          ? 'bg-gradient-to-r from-red-600/20 to-red-500/20 border-red-500/40' 
+                          : 'bg-gradient-to-r from-yellow-600/20 to-yellow-500/20 border-yellow-500/40';
+                      
                       return (
-                        <div key={player.id} className="bg-white/5 border border-orange-500/15 rounded-xl p-5 hover:border-orange-500/25 hover:bg-white/10 transition-all duration-300 group">
-                          <div className="flex items-start space-x-4">
-                            <img
-                              src={player.image}
-                              alt={player.nickname}
-                              className="w-16 h-16 rounded-full object-cover border-2 border-white/20 group-hover:border-orange-500/50 transition-colors"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between mb-2">
-                                <div>
-                                  <h3 className="text-white font-semibold text-lg">{player.nickname}</h3>
-                                  <p className="text-gray-400 text-sm">{player.realName}</p>
-                                  <p className="text-orange-300 text-sm font-medium">{player.role}</p>
-                                </div>
-                                <div className="text-right">
-                                  <div className={`text-lg font-bold ${ratingColor}`}>
-                                    {player.stats.rating.toFixed(2)}
+                        <div key={player.id} className="relative group/player">
+                          <div className="relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-500 group-hover/player:scale-[1.02] group-hover/player:shadow-2xl group-hover/player:shadow-blue-500/10">
+                            {/* Background Pattern */}
+                            <div className="absolute inset-0 opacity-5">
+                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:20px_20px]"></div>
+                            </div>
+                            
+                            {/* Content */}
+                            <div className="relative p-6">
+                              <div className="flex items-start space-x-4">
+                                {/* Player Avatar */}
+                                <div className="relative flex-shrink-0">
+                                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gray-700/20 to-gray-600/20 p-1 border-2 border-gray-500/30 group-hover/player:border-blue-400/60 transition-all duration-300">
+                                    <img
+                                      src={player.image}
+                                      alt={player.nickname}
+                                      className="w-full h-full rounded-full object-cover grayscale group-hover/player:grayscale-0 transition-all duration-500"
+                                    />
                                   </div>
-                                  <div className="text-xs text-gray-400">Rating</div>
-                                </div>
-                              </div>
-                              
-                              <div className="grid grid-cols-3 gap-3 text-center mb-4">
-                                <div>
-                                  <div className="text-xs text-gray-400">K/D</div>
-                                  <div className="text-sm font-medium text-white">{player.stats.kdRatio.toFixed(1)}</div>
-                                </div>
-                                <div>
-                                  <div className="text-xs text-gray-400">KOST</div>
-                                  <div className="text-sm font-medium text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
-                                </div>
-                                <div>
-                                  <div className="text-xs text-gray-400">SRV</div>
-                                  <div className="text-sm font-medium text-white">{(player.stats.srv * 100).toFixed(0)}%</div>
-                                </div>
-                              </div>
-                              
-                              <div className="border-t border-orange-500/15 pt-3">
-                                <div className="flex items-center justify-between text-sm">
-                                  <div className="flex items-center text-gray-400">
-                                    <Calendar className="w-4 h-4 mr-1" />
-                                    <span>Joined: {joinDate.toLocaleDateString()}</span>
-                                  </div>
-                                  <div className="flex items-center text-gray-400">
-                                    <Calendar className="w-4 h-4 mr-1" />
-                                    <span>Left: {leaveDate.toLocaleDateString()}</span>
+                                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center border-2 border-gray-900">
+                                    <UserMinus className="w-4 h-4 text-white" />
                                   </div>
                                 </div>
-                                <div className="mt-2 text-center">
-                                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-500/15 text-orange-300 border border-orange-500/20">
-                                    {monthsDiff > 0 ? `${monthsDiff} months` : `${daysDiff} days`} with team
-                                  </span>
+                                
+                                {/* Player Info */}
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-start justify-between mb-3">
+                                    <div>
+                                      <h3 className="text-xl font-bold text-white group-hover/player:text-blue-300 transition-colors duration-300">
+                                        {player.nickname}
+                                      </h3>
+                                      <p className="text-gray-400 text-sm mb-1">{player.realName}</p>
+                                      <span className="px-2 py-1 bg-gray-600/20 text-gray-300 text-xs font-medium rounded-full border border-gray-500/30">
+                                        {player.role}
+                                      </span>
+                                    </div>
+                                    <div className={`px-3 py-1 rounded-lg border ${ratingBg} text-center`}>
+                                      <div className={`text-lg font-bold ${ratingColor}`}>
+                                        {player.stats.rating.toFixed(2)}
+                                      </div>
+                                      <div className="text-xs text-gray-400 font-medium">RATING</div>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Stats Grid */}
+                                  <div className="grid grid-cols-2 gap-3 mb-4">
+                                    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                                      <div className="text-white font-bold text-lg">{player.stats.kdRatio.toFixed(2)}</div>
+                                      <div className="text-gray-400 text-xs font-medium">K/D</div>
+                                    </div>
+                                    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                                      <div className="text-white font-bold text-lg">{(player.stats.kost * 100).toFixed(0)}%</div>
+                                      <div className="text-gray-400 text-xs font-medium">KOST</div>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Timeline */}
+                                  <div className="bg-gradient-to-r from-gray-900/30 to-gray-800/30 rounded-lg p-3 border border-gray-500/20">
+                                    <div className="text-center mb-2">
+                                      <span className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-gray-600/30 to-gray-700/30 text-gray-200 text-xs font-bold rounded-full border border-gray-500/30">
+                                        {formatDuration()} with team
+                                      </span>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-2 text-xs text-gray-400">
+                                      <div className="flex items-center">
+                                        <Calendar className="w-3 h-3 mr-1 text-blue-400" />
+                                        <span>Joined: {joinDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+                                      </div>
+                                      <div className="flex items-center">
+                                        <Calendar className="w-3 h-3 mr-1 text-blue-400" />
+                                        <span>Left: {leaveDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Social Media */}
+                                  {player.socialMedia?.twitter && (
+                                    <div className="mt-3 pt-3 border-t border-gray-500/20">
+                                      <a 
+                                        href={player.socialMedia.twitter}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center px-3 py-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-xs font-medium rounded-lg transition-all duration-200 border border-blue-500/30 backdrop-blur-sm"
+                                      >
+                                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                          <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                        </svg>
+                                        Twitter
+                                      </a>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
-                              
-                              {player.socialMedia?.twitter && (
-                                <div className="mt-3 pt-3 border-t border-orange-500/15">
-                                  <a 
-                                    href={player.socialMedia.twitter}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center text-orange-300 hover:text-orange-200 transition-colors text-sm"
-                                  >
-                                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                    </svg>
-                                    Follow on Twitter
-                                  </a>
-                                </div>
-                              )}
                             </div>
                           </div>
                         </div>
@@ -732,12 +784,20 @@ const TeamDetails: React.FC = () => {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-16 space-y-4">
-                    <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center">
-                      <UserMinus className="w-8 h-8 text-orange-300" />
+                    <div className="relative">
+                      <div className="w-24 h-24 bg-gradient-to-br from-gray-500/10 to-gray-600/10 rounded-full flex items-center justify-center border-2 border-gray-500/20">
+                        <UserMinus className="w-12 h-12 text-gray-400" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
                     </div>
                     <div className="text-center">
-                      <p className="text-gray-300 font-medium mb-1">No Ex-Players</p>
-                      <p className="text-gray-500 text-sm">This team has no former players on record</p>
+                      <h3 className="text-xl font-bold text-white mb-2">Perfect Retention</h3>
+                      <p className="text-gray-400 mb-3">This team has maintained its roster without any departures</p>
+                      <div className="px-4 py-2 bg-green-600/20 text-green-300 rounded-lg border border-green-500/30 inline-block">
+                        <span className="font-medium text-sm">Team Loyalty: 100%</span>
+                      </div>
                     </div>
                   </div>
                 )}
