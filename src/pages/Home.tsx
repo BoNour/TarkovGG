@@ -5,6 +5,7 @@ import TopPlayers from '../components/sections/TopPlayers';
 import TopTeams from '../components/sections/TopTeams';
 import LatestNews from '../components/sections/LatestNews';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 const Home: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -162,7 +163,16 @@ const Home: React.FC = () => {
                   
                   {/* Content container */}
                   <div className="relative p-6">
-                    <h3 className="text-3xl font-black text-white mb-6">Competitions</h3>
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-3xl font-black text-white">Competitions</h3>
+                      <Link 
+                        to="/tournaments" 
+                        className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+                      >
+                        <span>View All</span>
+                        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+                      </Link>
+                    </div>
                     <FeaturedTournaments />
                   </div>
                 </div>

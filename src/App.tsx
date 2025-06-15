@@ -13,6 +13,7 @@ import MatchDetails from './pages/MatchDetails';
 import Tournaments from './pages/Tournaments';
 import TournamentDetails from './pages/TournamentDetails';
 import News from './pages/News';
+import NewsArticle from './pages/NewsArticle';
 import NotFound from './pages/NotFound';
 import { GameDataProvider } from './context/GameDataContext';
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="/tournaments" element={<Tournaments />} />
               <Route path="/tournaments/:id" element={<TournamentDetails />} />
               <Route path="/news" element={<News />} />
+              <Route path="/news/:id" element={<NewsArticle />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
