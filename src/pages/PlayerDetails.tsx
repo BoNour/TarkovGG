@@ -416,92 +416,68 @@ const PlayerDetails: React.FC = () => {
                       
                       const isRecent = index === 0; // Most recent team
                       
-                      return (
-                        <div key={index} className="relative group/team">
-                          <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-500 group-hover/team:scale-[1.02] group-hover/team:shadow-2xl group-hover/team:shadow-blue-500/10">
-                            {/* Background Pattern */}
-                            <div className="absolute inset-0 opacity-5">
-                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:16px_16px]"></div>
-                            </div>
-                            
-                            {/* Content */}
-                            <div className="relative p-6">
-                              <div className="flex items-start space-x-4">
-                                {/* Team Avatar */}
-                                <div className="relative flex-shrink-0">
-                                  <div className="w-20 h-20 bg-gradient-to-br from-gray-700/20 to-gray-600/20 rounded-full border-2 border-gray-500/30 flex items-center justify-center group-hover/team:border-blue-400/60 transition-all duration-300">
+                                              return (
+                          <div key={index} className="relative group overflow-hidden rounded-2xl p-0.5 transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
+                            <div className="relative bg-zinc-900/60 backdrop-blur-xl rounded-[15px] p-4">
+                              {/* Header with Status */}
+                              <div className="flex justify-between items-center mb-3">
+                                <div className={`flex items-center space-x-2 px-2.5 py-1 text-xs font-bold rounded-full border ${isRecent ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' : 'bg-gray-500/10 border-gray-500/20 text-gray-400'}`}>
+                                  <Users className="w-3 h-3" />
+                                  <span>{isRecent ? 'RECENT' : 'FORMER'}</span>
+                                </div>
+                                <span className="text-xs text-gray-400 flex items-center">
+                                  <Calendar className="w-3 h-3 mr-1.5"/>
+                                  {leaveDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                </span>
+                              </div>
+
+                              {/* Body */}
+                              <div className="flex items-center justify-between my-4">
+                                <div className="flex-1 flex flex-col items-center text-center">
+                                  <div className="w-18 h-18 bg-gradient-to-br from-gray-700/20 to-gray-600/20 rounded-full border-2 border-white/10 flex items-center justify-center mb-2">
                                     <Users className="h-10 w-10 text-gray-300" />
                                   </div>
-                                  {isRecent && (
-                                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center border-2 border-gray-900">
-                                      <span className="text-white text-xs font-bold">1</span>
-                                    </div>
-                                  )}
+                                  <span className="font-bold text-sm text-white leading-tight truncate w-full px-2">{teamEntry.teamName}</span>
+                                  <span className="text-xs text-gray-400">{teamEntry.role}</span>
                                 </div>
                                 
-                                {/* Team Info */}
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-start justify-between mb-3">
-                                    <div>
-                                      <h3 className="text-xl font-bold text-white group-hover/team:text-blue-300 transition-colors duration-300">
-                                        {teamEntry.teamName}
-                                      </h3>
-                                      <div className="flex items-center space-x-2 mt-1">
-                                        <span className="px-2 py-1 bg-gray-600/20 text-gray-300 text-xs font-medium rounded-full border border-gray-500/30">
-                                          {teamEntry.role}
-                                        </span>
-                                        {isRecent && (
-                                          <span className="px-2 py-1 bg-blue-600/20 text-blue-300 text-xs font-medium rounded-full border border-blue-500/30">
-                                            Latest
-                                          </span>
-                                        )}
-                                      </div>
-                                    </div>
-                                    
-                                    {/* Duration badge */}
-                                    <div className="text-right">
-                                      <div className="px-3 py-1 bg-gradient-to-r from-gray-600/20 to-gray-700/20 text-gray-200 rounded-lg border border-gray-500/30">
-                                        <div className="text-sm font-bold">{formatDuration()}</div>
-                                        <div className="text-xs text-gray-400">duration</div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  
-                                  {/* Timeline dates */}
-                                  <div className="bg-gradient-to-r from-gray-900/30 to-gray-800/30 rounded-lg p-3 border border-gray-500/20">
-                                    <div className="grid grid-cols-2 gap-3">
-                                      <div className="text-center">
-                                        <div className="flex items-center justify-center text-gray-300 mb-1">
-                                          <Calendar className="w-3 h-3 mr-1" />
-                                          <span className="text-xs font-medium">Joined</span>
-                                        </div>
-                                        <div className="text-white font-bold text-sm">
-                                          {joinDate.toLocaleDateString('en-US', { 
-                                            month: 'short', 
-                                            year: 'numeric' 
-                                          })}
-                                        </div>
-                                      </div>
-                                      <div className="text-center">
-                                        <div className="flex items-center justify-center text-gray-300 mb-1">
-                                          <Calendar className="w-3 h-3 mr-1" />
-                                          <span className="text-xs font-medium">Left</span>
-                                        </div>
-                                        <div className="text-white font-bold text-sm">
-                                          {leaveDate.toLocaleDateString('en-US', { 
-                                            month: 'short', 
-                                            year: 'numeric' 
-                                          })}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                                <div className="flex flex-col items-center justify-center w-24">
+                                  <span className="text-4xl font-black text-gray-300 tracking-wider">vs</span>
+                                  <span className="text-xs text-gray-400 mt-1">CAREER</span>
                                 </div>
+                                
+                                <div className="flex-1 flex flex-col items-center text-center">
+                                  <div className="w-16 h-16 rounded-full mb-2 border-2 border-white/10 bg-gradient-to-br from-blue-700/20 to-blue-600/20 flex items-center justify-center">
+                                    <span className="text-lg font-bold text-white">{formatDuration().split(' ')[0]}</span>
+                                  </div>
+                                  <span className="font-bold text-sm text-white leading-tight">{formatDuration().split(' ').slice(1).join(' ')}</span>
+                                  <span className="text-xs text-gray-400">duration</span>
+                                </div>
+                              </div>
+
+                              {/* Footer with Dates */}
+                              <div className="grid grid-cols-2 gap-2 mb-3">
+                                <div className="bg-white/5 rounded-lg p-2 text-center">
+                                  <div className="text-sm font-bold text-white">
+                                    {joinDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}
+                                  </div>
+                                  <div className="text-xs text-gray-400">Joined</div>
+                                </div>
+                                <div className="bg-white/5 rounded-lg p-2 text-center">
+                                  <div className="text-sm font-bold text-white">
+                                    {leaveDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}
+                                  </div>
+                                  <div className="text-xs text-gray-400">Left</div>
+                                </div>
+                              </div>
+
+                              {/* Footer Button */}
+                              <div className="block w-full text-center py-2.5 rounded-lg font-semibold text-xs bg-white/10 hover:bg-white/20 text-white transition-all duration-300">
+                                View Timeline
                               </div>
                             </div>
                           </div>
-                        </div>
-                      );
+                        );
                     })}
                   </div>
                 </div>

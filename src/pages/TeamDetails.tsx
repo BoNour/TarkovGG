@@ -682,104 +682,90 @@ const TeamDetails: React.FC = () => {
                           ? 'bg-gradient-to-r from-red-600/20 to-red-500/20 border-red-500/40' 
                           : 'bg-gradient-to-r from-yellow-600/20 to-yellow-500/20 border-yellow-500/40';
                       
-                      return (
-                        <div key={player.id} className="relative group/player">
-                          <div className="relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-500 group-hover/player:scale-[1.02] group-hover/player:shadow-2xl group-hover/player:shadow-blue-500/10">
-                            {/* Background Pattern */}
-                            <div className="absolute inset-0 opacity-5">
-                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:20px_20px]"></div>
-                            </div>
-                            
-                            {/* Content */}
-                            <div className="relative p-6">
-                              <div className="flex items-start space-x-4">
-                                {/* Player Avatar */}
-                                <div className="relative flex-shrink-0">
-                                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gray-700/20 to-gray-600/20 p-1 border-2 border-gray-500/30 group-hover/player:border-blue-400/60 transition-all duration-300">
-                                    <img
-                                      src={player.image}
-                                      alt={player.nickname}
-                                      className="w-full h-full rounded-full object-cover grayscale group-hover/player:grayscale-0 transition-all duration-500"
-                                    />
-                                  </div>
-                                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center border-2 border-gray-900">
-                                    <UserMinus className="w-4 h-4 text-white" />
-                                  </div>
+                                              return (
+                          <div key={player.id} className="relative group overflow-hidden rounded-2xl p-0.5 transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
+                            <div className="relative bg-zinc-900/60 backdrop-blur-xl rounded-[15px] p-4">
+                              {/* Twitter X Icon - Positioned as overlay */}
+                              {player.socialMedia?.twitter && (
+                                <a 
+                                  href={player.socialMedia.twitter}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="absolute top-2 right-2 z-10 w-6 h-6 bg-black/30 hover:bg-black/50 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                  title="Follow on Twitter"
+                                >
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                  </svg>
+                                </a>
+                              )}
+
+                              {/* Body */}
+                              <div className="flex items-center justify-between my-4">
+                                <div className="flex-1 flex flex-col items-center text-center">
+                                  <img 
+                                    src={player.image} 
+                                    alt={player.nickname} 
+                                    className="w-20 h-20 rounded-full mb-2 border-2 border-white/10 grayscale group-hover:grayscale-0 transition-all duration-300"
+                                  />
+                                  <span className="font-bold text-sm text-white leading-tight truncate w-full px-2">{player.nickname}</span>
+                                  <span className="text-xs text-gray-400">{player.role}</span>
                                 </div>
                                 
-                                {/* Player Info */}
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-start justify-between mb-3">
-                                    <div>
-                                      <h3 className="text-xl font-bold text-white group-hover/player:text-blue-300 transition-colors duration-300">
-                                        {player.nickname}
-                                      </h3>
-                                      <p className="text-gray-400 text-sm mb-1">{player.realName}</p>
-                                      <span className="px-2 py-1 bg-gray-600/20 text-gray-300 text-xs font-medium rounded-full border border-gray-500/30">
-                                        {player.role}
-                                      </span>
-                                    </div>
-                                    <div className={`px-3 py-1 rounded-lg border ${ratingBg} text-center`}>
-                                      <div className={`text-lg font-bold ${ratingColor}`}>
-                                        {player.stats.rating.toFixed(2)}
-                                      </div>
-                                      <div className="text-xs text-gray-400 font-medium">RATING</div>
-                                    </div>
+                                <div className="flex flex-col items-center justify-center w-24">
+                                  <div className="flex items-center space-x-3">
+                                    <span className={`text-2xl font-black ${ratingColor}`}>{player.stats.rating.toFixed(2)}</span>
                                   </div>
-                                  
-                                  {/* Stats Grid */}
-                                  <div className="grid grid-cols-2 gap-3 mb-4">
-                                    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
-                                      <div className="text-white font-bold text-lg">{player.stats.kdRatio.toFixed(2)}</div>
-                                      <div className="text-gray-400 text-xs font-medium">K/D</div>
-                                    </div>
-                                    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
-                                      <div className="text-white font-bold text-lg">{(player.stats.kost * 100).toFixed(0)}%</div>
-                                      <div className="text-gray-400 text-xs font-medium">KOST</div>
-                                    </div>
+                                  <span className="text-xs text-gray-400 mt-1">RATING</span>
+                                </div>
+                                
+                                <div className="flex-1 flex flex-col items-center text-center">
+                                  <div className="w-16 h-16 rounded-full mb-2 border-2 border-white/10 bg-gradient-to-br from-gray-700/20 to-gray-600/20 flex items-center justify-center">
+                                    <span className="text-lg font-bold text-white">{formatDuration().split(' ')[0]}</span>
                                   </div>
-                                  
-                                  {/* Timeline */}
-                                  <div className="bg-gradient-to-r from-gray-900/30 to-gray-800/30 rounded-lg p-3 border border-gray-500/20">
-                                    <div className="text-center mb-2">
-                                      <span className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-gray-600/30 to-gray-700/30 text-gray-200 text-xs font-bold rounded-full border border-gray-500/30">
-                                        {formatDuration()} with team
-                                      </span>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-2 text-xs text-gray-400">
-                                      <div className="flex items-center">
-                                        <Calendar className="w-3 h-3 mr-1 text-blue-400" />
-                                        <span>Joined: {joinDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
-                                      </div>
-                                      <div className="flex items-center">
-                                        <Calendar className="w-3 h-3 mr-1 text-blue-400" />
-                                        <span>Left: {leaveDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  
-                                  {/* Social Media */}
-                                  {player.socialMedia?.twitter && (
-                                    <div className="mt-3 pt-3 border-t border-gray-500/20">
-                                      <a 
-                                        href={player.socialMedia.twitter}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center px-3 py-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-xs font-medium rounded-lg transition-all duration-200 border border-blue-500/30 backdrop-blur-sm"
-                                      >
-                                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                                          <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                        </svg>
-                                        Twitter
-                                      </a>
-                                    </div>
-                                  )}
+                                  <span className="font-bold text-sm text-white leading-tight">{formatDuration().split(' ').slice(1).join(' ')}</span>
+                                  <span className="text-xs text-gray-400">with team</span>
                                 </div>
                               </div>
+
+                              {/* Footer with Dates and Stats */}
+                              <div className="grid grid-cols-2 gap-2 mb-3">
+                                <div className="bg-white/5 rounded-lg p-2 text-center">
+                                  <div className="text-sm font-bold text-white">
+                                    {joinDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                  </div>
+                                  <div className="text-xs text-gray-400">Joined</div>
+                                </div>
+                                <div className="bg-white/5 rounded-lg p-2 text-center">
+                                  <div className="text-sm font-bold text-white">
+                                    {leaveDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                  </div>
+                                  <div className="text-xs text-gray-400">Left</div>
+                                </div>
+                              </div>
+                              
+                              {/* Stats Row */}
+                              <div className="grid grid-cols-2 gap-2 mb-3">
+                                <div className="bg-white/5 rounded-lg p-2 text-center">
+                                  <div className="text-sm font-bold text-white">{player.stats.kdRatio.toFixed(1)}</div>
+                                  <div className="text-xs text-gray-400">K/D</div>
+                                </div>
+                                <div className="bg-white/5 rounded-lg p-2 text-center">
+                                  <div className="text-sm font-bold text-white">{(player.stats.kost * 100).toFixed(0)}%</div>
+                                  <div className="text-xs text-gray-400">KOST</div>
+                                </div>
+                              </div>
+
+                              {/* Footer Button */}
+                              <Link 
+                                to={`/players/${player.id}`}
+                                className="block w-full text-center py-2.5 rounded-lg font-semibold transition-all duration-300 text-xs bg-white/10 hover:bg-white/20 text-white"
+                              >
+                                View Player
+                              </Link>
                             </div>
                           </div>
-                        </div>
-                      );
+                        );
                     })}
                   </div>
                 ) : (
