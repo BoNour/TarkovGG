@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useGameData } from '../context/GameDataContext';
 import NewsCard from '../components/ui/NewsCard';
 import { Search, Newspaper, Filter, Globe, Calendar, Tag, Eye, ArrowRight } from 'lucide-react';
@@ -245,7 +246,8 @@ const News: React.FC = () => {
             {/* News Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {sortedNews.map((article, index) => (
-                <article 
+                <Link
+                  to={`/news/${article.id}`}
                   key={article.id}
                   className="group block rounded-3xl transition-all duration-700 ease-out hover:-translate-y-3 hover:bg-white/[0.08] overflow-hidden border border-white/10 hover:border-white/20 relative backdrop-blur-3xl bg-white/[0.03] hover:shadow-2xl hover:shadow-black/30 h-full cursor-pointer"
                   style={{
@@ -329,7 +331,7 @@ const News: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
 
