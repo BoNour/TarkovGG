@@ -157,7 +157,7 @@ const Teams: React.FC = () => {
       </div>
 
       {/* Content sections starting from the top */}
-      <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
+      <div className="relative z-30" style={{ backgroundColor: 'transparent' }}>
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
