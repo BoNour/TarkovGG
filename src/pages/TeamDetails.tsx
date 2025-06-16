@@ -343,7 +343,7 @@ const TeamDetails: React.FC = () => {
                                 <div className="relative">
                                   <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/15 to-blue-500/10 rounded-full opacity-0 group-hover/team:opacity-50 blur transition-all duration-300"></div>
                                   <img 
-                                    src="/cov logo.png" 
+                                    src="/TEAMs/cov logo.png" 
                                     alt="COV Logo" 
                                     className="relative w-10 h-10 object-contain transition-all duration-300"
                                   />

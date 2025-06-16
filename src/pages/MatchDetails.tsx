@@ -182,6 +182,60 @@ const MatchDetails: React.FC = () => {
           </div>
         </div>
         
+        {/* Twitch Stream/VOD Embed */}
+        <div className="glass-panel rounded-3xl overflow-hidden mb-8">
+          <div className={`p-4 border-b ${
+            isCompleted 
+              ? 'bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 border-emerald-500/10' 
+              : 'bg-gradient-to-r from-purple-500/10 to-purple-500/5 border-purple-500/10'
+          }`}>
+            <div className="text-center">
+              <h3 className="text-2xl font-bold tracking-tight text-white flex items-center justify-center gap-2">
+                {isCompleted ? (
+                  <>
+                    <svg className="w-5 h-5 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    MATCH VOD
+                  </>
+                ) : (
+                  <>
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                    LIVE STREAM
+                  </>
+                )}
+              </h3>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="aspect-video rounded-lg overflow-hidden bg-black/20 border border-white/10">
+              <iframe
+                src="https://player.twitch.tv/?channel=bunnyxpaco&parent=localhost&parent=your-domain.com&autoplay=false&muted=true"
+                height="100%"
+                width="100%"
+                allowFullScreen
+                className="w-full h-full"
+                title={isCompleted ? `Match VOD for ${teamOne.name} vs ${teamTwo.name}` : `Live stream for ${teamOne.name} vs ${teamTwo.name}`}
+              />
+            </div>
+            <div className="mt-4 text-center">
+              <a 
+                href="https://www.twitch.tv/bunnyxpaco" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`glass-button inline-flex items-center text-white px-6 py-3 rounded-xl font-semibold transition group ${
+                  isCompleted ? 'hover:bg-emerald-500/20' : 'hover:bg-purple-500/20'
+                }`}
+              >
+                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                </svg>
+                {isCompleted ? 'Watch VOD on Twitch' : 'Watch on Twitch'}
+              </a>
+            </div>
+          </div>
+        </div>
+        
         <div className="space-y-8">
           <h2 className="text-4xl font-black tracking-tighter text-white">Overview</h2>
           
