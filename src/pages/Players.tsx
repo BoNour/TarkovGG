@@ -385,10 +385,9 @@ const Players: React.FC = () => {
                                     }`}
                                   />
                                   <div>
-                                    <h3 className="text-lg font-bold text-white hover:text-blue-400 transition-colors duration-200">
+                                    <h3 className="text-xl font-bold text-white hover:text-blue-400 transition-colors duration-200">
                                       {player.nickname}
                                     </h3>
-                                    <p className="text-sm text-gray-400">{player.realName}</p>
                                   </div>
                                 </div>
                               </td>
@@ -564,8 +563,7 @@ const Players: React.FC = () => {
                               <Link to={`/players/${player.id}`} className="text-xl font-bold text-white hover:text-blue-400 transition-colors">
                                 {player.nickname}
                               </Link>
-                              <p className="text-gray-400">{player.realName}</p>
-                              <p className="text-sm text-gray-500">{player.role}</p>
+                              <p className="text-sm text-gray-500 mt-1">{player.role}</p>
                               {team && (
                                 <div className="flex items-center mt-1">
                                   <img src={team.logo} alt={team.name} className="w-4 h-4 rounded-full mr-1" />
