@@ -831,7 +831,7 @@ export const mockNews: News[] = [
   },
   {
     id: '2',
-    title: 'When is the next Rainbow Six Siege season?',
+    title: 'When is the next joe Rainbow Six Siege season?',
     content: 'Ubisoft has announced that the next season of Rainbow Six Siege will begin in June 2025...',
     author: 'Jane Doe',
     date: '2025-04-25',

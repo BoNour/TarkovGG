@@ -164,7 +164,7 @@ const Home: React.FC = () => {
                   {/* Content container */}
                   <div className="relative p-6">
                     <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-3xl font-black text-white">Competitions</h3>
+                      <h3 className="text-3xl font-black text-white">Tournaments</h3>
                       <Link 
                         to="/tournaments" 
                         className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"

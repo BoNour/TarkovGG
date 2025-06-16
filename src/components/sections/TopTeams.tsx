@@ -91,11 +91,11 @@ const TopTeams: React.FC = () => {
                 className="transition-all duration-500 ease-out"
                 style={{
                   transform: hoveredTeamId && hoveredTeamId !== team.id 
-                    ? 'scale(0.98) translateY(4px)' 
+                    ? 'scale(0.95) translateY(8px)' 
                     : hoveredTeamId === team.id
-                      ? 'scale(1.02) translateY(-4px)'
+                      ? 'scale(1.05) translateY(-8px)'
                       : 'scale(1.0) translateY(0px)',
-                  opacity: hoveredTeamId && hoveredTeamId !== team.id ? 0.8 : 1.0,
+                  opacity: hoveredTeamId && hoveredTeamId !== team.id ? 0.6 : 1.0,
                   animationDelay: `${index * 100}ms`
                 }}
                 onMouseEnter={() => setHoveredTeamId(team.id)}
@@ -238,10 +238,30 @@ const TopTeams: React.FC = () => {
                     <div className="mt-auto pt-6 pb-4">
                       <Link 
                         to={`/teams/${team.id}`}
-                        className="block w-full text-center py-4 rounded-xl font-bold transition-all duration-300 text-base bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white shadow-lg hover:shadow-xl transform hover:scale-102 border border-white/20 hover:border-white/30"
-                        style={{ backdropFilter: 'blur(8px)' }}
+                        className="group/btn relative block w-full text-center py-4 rounded-2xl font-bold text-sm transition-all duration-300 overflow-hidden border backdrop-blur-md"
+                        style={{ 
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          borderColor: 'rgba(255, 255, 255, 0.15)',
+                          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+                        }}
                       >
-                        View Team
+                        {/* Shimmer effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                        <span className="relative z-10 text-white group-hover/btn:text-white transition-colors duration-300">
+                          View Team
+                        </span>
                       </Link>
                     </div>
                   </div>

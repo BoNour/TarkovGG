@@ -16,8 +16,8 @@ const LatestNews: React.FC = () => {
   // Get featured news (most recent) - top row
   const featuredNews = sortedNews[0];
   
-  // Get the rest of the news for the 3 rows (6 articles, 2 per row)
-  const rowNews = sortedNews.slice(1, 7);
+  // Get all remaining news articles for the rows (instead of limiting to 6)
+  const rowNews = sortedNews.slice(1);
 
   if (isLoading) {
     return (
@@ -27,9 +27,9 @@ const LatestNews: React.FC = () => {
             <div className="h-8 w-48 rounded mb-8 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
             {/* Featured article skeleton */}
             <div className="h-80 rounded-2xl mb-8" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
-            {/* Row articles skeleton */}
+            {/* Row articles skeleton - increased to show more loading rows */}
             <div className="space-y-6">
-              {[1, 2, 3].map((i) => (
+              {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="h-48 rounded-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
                   <div className="h-48 rounded-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
