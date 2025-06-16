@@ -220,55 +220,64 @@ const Matches: React.FC = () => {
       {/* Main Content Container */}
       <div className="relative z-30 min-h-screen">
         
-        {/* Minimalist Header Section */}
+        {/* Unified Header Section */}
         <header className="py-12 relative">
           <div className="max-w-[95vw] mx-auto px-4">
-            {/* Main Header Container */}
-            <div className="glass-panel rounded-3xl p-12 relative overflow-hidden">
+            {/* Main Header Container - Exact same size for all pages */}
+            <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
               
-              {/* Header Content */}
-              <div className="relative z-10">
-                {/* Centered Title Section */}
-                <div className="flex flex-col items-center text-center">
-                  <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none">
-                    Match Center
-                  </h1>
-                </div>
-
-                {/* Centered Navigation */}
-                <div className="flex justify-center mt-12">
-                  <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
-                    <button
-                      onClick={() => setViewMode('matches')}
-                      className={`px-6 py-3 rounded-xl flex items-center gap-3 text-sm font-bold transition-all duration-300 ${
-                        viewMode === 'matches' 
-                          ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                          : 'text-gray-400 hover:text-white hover:bg-white/5'
-                      }`}
-                    >
-                      <List className="w-4 h-4" />
-                      <span>Live Matches</span>
-                    </button>
-                    <button
-                      onClick={() => setViewMode('stats')}
-                      className={`px-6 py-3 rounded-xl flex items-center gap-3 text-sm font-bold transition-all duration-300 ${
-                        viewMode === 'stats' 
-                          ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                          : 'text-gray-400 hover:text-white hover:bg-white/5'
-                      }`}
-                    >
-                      <BarChart3 className="w-4 h-4" />
-                      <span>Analytics</span>
-                    </button>
-                  </div>
-                </div>
+              {/* Header Content - Exact same structure for all pages */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
+                {/* Page Title */}
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                  Match Center
+                </h1>
+                
+                {/* Page Subtitle */}
+                <p className="text-xl text-gray-300 font-medium">
+                  Live matches, upcoming games, and tournament results
+                </p>
               </div>
             </div>
           </div>
         </header>
+
+        {/* Filters Section */}
+        <section className="pb-6">
+          <div className="max-w-[95vw] mx-auto px-4">
+            <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
+              <div className="flex justify-center">
+                <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <button
+                    onClick={() => setViewMode('matches')}
+                    className={`px-6 py-3 rounded-xl flex items-center gap-3 text-sm font-bold transition-all duration-300 ${
+                      viewMode === 'matches' 
+                        ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <List className="w-4 h-4" />
+                    <span>Live Matches</span>
+                  </button>
+                  <button
+                    onClick={() => setViewMode('stats')}
+                    className={`px-6 py-3 rounded-xl flex items-center gap-3 text-sm font-bold transition-all duration-300 ${
+                      viewMode === 'stats' 
+                        ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <BarChart3 className="w-4 h-4" />
+                    <span>Analytics</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Content Section */}
         <section className="pb-6">

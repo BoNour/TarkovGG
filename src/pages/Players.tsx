@@ -161,162 +161,154 @@ const Players: React.FC = () => {
       {/* Content sections starting from the top */}
       <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
         
-        {/* Combined Header and Stats Section */}
+        {/* Unified Header Section */}
         <header className="py-12 relative">
           <div className="max-w-[95vw] mx-auto px-4">
-            {/* Main Header Container */}
-            <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
+            {/* Main Header Container - Exact same size for all pages */}
+            <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
               
-              {/* Header Content */}
-              <div className="relative z-10">
+              {/* Header Content - Exact same structure for all pages */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
+                {/* Page Title */}
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                  Players
+                </h1>
                 
-                {/* Top Row: Title */}
-                <div className="text-center mb-8">
-                  <h1 className="text-8xl lg:text-9xl font-black text-white leading-none">
-                    PLAYERS
-                  </h1>
-                </div>
-
-                {/* Bottom Row: View Mode Toggle and Filters */}
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                  {/* View Mode Toggle */}
-                  <div className="flex justify-center lg:justify-start">
-                    <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
-                      <button
-                        onClick={() => setViewMode('table')}
-                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-                          viewMode === 'table' 
-                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
-                        }`}
-                      >
-                        <List className="w-4 h-4" />
-                        <span>Table</span>
-                      </button>
-                      <button
-                        onClick={() => setViewMode('cards')}
-                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-                          viewMode === 'cards' 
-                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
-                        }`}
-                      >
-                        <Grid3X3 className="w-4 h-4" />
-                        <span>Cards</span>
-                      </button>
-                      <button
-                        onClick={() => setViewMode('charts')}
-                        className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-                          viewMode === 'charts' 
-                            ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
-                        }`}
-                      >
-                        <BarChart3 className="w-4 h-4" />
-                        <span>Stats</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Filters Section */}
-                  <div className="flex justify-center lg:justify-end">
-                    <div className="flex flex-wrap items-center gap-4">
-                      {/* Search */}
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                          <Search className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          type="text"
-                          placeholder="Search players..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="glass-input block w-full pl-12 pr-4 py-4 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20"
-                        />
-                      </div>
-                      
-                      {/* Role Filter */}
-                      <div className="relative">
-                        <select
-                          value={filterRole}
-                          onChange={(e) => setFilterRole(e.target.value)}
-                          className="glass-input appearance-none px-4 py-4 pr-10 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
-                          style={{ colorScheme: 'dark' }}
-                        >
-                          <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Roles</option>
-                          {roles.map(role => (
-                            <option key={role} value={role} style={{ backgroundColor: '#18181b', color: 'white' }}>{role}</option>
-                          ))}
-                        </select>
-                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                      </div>
-
-                      {/* Team Filter */}
-                      <div className="relative">
-                        <select
-                          value={filterTeam}
-                          onChange={(e) => setFilterTeam(e.target.value)}
-                          className="glass-input appearance-none px-4 py-4 pr-10 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
-                          style={{ colorScheme: 'dark' }}
-                        >
-                          <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Teams</option>
-                          {teamNames.map(team => (
-                            <option key={team.id} value={team.id} style={{ backgroundColor: '#18181b', color: 'white' }}>{team.name}</option>
-                          ))}
-                        </select>
-                        <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                      </div>
-                      
-                      {/* Clear Button */}
-                      {(searchTerm || filterRole || filterTeam) && (
-                        <button
-                          onClick={clearFilters}
-                          className="glass-button flex items-center justify-center px-4 py-4 rounded-2xl text-gray-400 hover:text-white transition-all duration-300"
-                          title="Clear filters"
-                        >
-                          <RotateCcw className="w-5 h-5" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                {/* Page Subtitle */}
+                <p className="text-xl text-gray-300 font-medium">
+                  Explore top players and their performance statistics
+                </p>
               </div>
             </div>
           </div>
         </header>
 
-        {/* Content sections */}
-        <div className="space-y-8">
-          
-          {/* Table View */}
-          {viewMode === 'table' && (
-            <section className="relative pb-16">
-              <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
-                <div className="relative overflow-hidden group rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(12px)',
-                     }}
-                >
-                  {/* Glare Effect */}
-                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                       }}
-                  ></div>
-
-                  {/* Multiple glass layers for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
-                  
+        {/* Main Content Section */}
+        <section className="relative pb-16">
+          <div className="max-w-[95vw] mx-auto px-4">
+            <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
+              
+              {/* Table View */}
+              {viewMode === 'table' && (
+                <div className="relative overflow-hidden rounded-3xl bg-black/20 border border-white/10">
                   <div className="relative overflow-x-auto">
                     <table className="w-full">
                       <thead>
+                        {/* Filters and Controls Header Row */}
                         <tr className="bg-gradient-to-r from-white/5 to-white/10 border-b border-white/10">
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Rank</th>
-                          <th className="px-4 py-5 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <th colSpan={8} className="px-6 py-4">
+                            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                {/* View Mode Toggle */}
+                <div className="flex justify-center lg:justify-start">
+                  <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                    <button
+                      onClick={() => setViewMode('table')}
+                                    className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                        viewMode === 'table' 
+                          ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                          : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <List className="w-4 h-4" />
+                      <span>Table</span>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('cards')}
+                                    className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                        viewMode === 'cards' 
+                          ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                          : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <Grid3X3 className="w-4 h-4" />
+                      <span>Cards</span>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('charts')}
+                                    className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                        viewMode === 'charts' 
+                          ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                          : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <BarChart3 className="w-4 h-4" />
+                      <span>Stats</span>
+                    </button>
+                  </div>
+                </div>
+
+                              {/* Search and Filters */}
+                <div className="flex justify-center lg:justify-end">
+                                <div className="flex flex-wrap items-center gap-3">
+                    {/* Search */}
+                    <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                      <Search className="h-4 w-4 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Search players..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                                      className="glass-input block w-full pl-10 pr-3 py-2 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                      />
+                    </div>
+                    
+                    {/* Role Filter */}
+                    <div className="relative">
+                      <select
+                        value={filterRole}
+                        onChange={(e) => setFilterRole(e.target.value)}
+                                      className="glass-input appearance-none px-3 py-2 pr-8 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
+                        style={{ colorScheme: 'dark' }}
+                      >
+                        <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Roles</option>
+                        {roles.map(role => (
+                          <option key={role} value={role} style={{ backgroundColor: '#18181b', color: 'white' }}>{role}</option>
+                        ))}
+                      </select>
+                                    <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                    </div>
+
+                    {/* Team Filter */}
+                    <div className="relative">
+                      <select
+                        value={filterTeam}
+                        onChange={(e) => setFilterTeam(e.target.value)}
+                                      className="glass-input appearance-none px-3 py-2 pr-8 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
+                        style={{ colorScheme: 'dark' }}
+                      >
+                        <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Teams</option>
+                        {teamNames.map(team => (
+                          <option key={team.id} value={team.id} style={{ backgroundColor: '#18181b', color: 'white' }}>{team.name}</option>
+                        ))}
+                      </select>
+                                    <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                    </div>
+                    
+                    {/* Clear Button */}
+                    {(searchTerm || filterRole || filterTeam) && (
+                      <button
+                        onClick={clearFilters}
+                                      className="glass-button flex items-center justify-center px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all duration-300"
+                        title="Clear filters"
+                      >
+                                      <RotateCcw className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+                          </th>
+                        </tr>
+                        
+                        {/* Column Headers Row */}
+                        <tr className="bg-gradient-to-r from-white/10 to-white/15 border-b border-white/10">
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Rank</th>
+                          <th className="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
                             <button 
                               className="flex items-center space-x-1 hover:text-white transition-colors"
                               onClick={() => handleSort('nickname')}
@@ -325,9 +317,9 @@ const Players: React.FC = () => {
                               <SortIcon field="nickname" />
                             </button>
                           </th>
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Team</th>
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Role</th>
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Team</th>
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Role</th>
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                             <button 
                               className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                               onClick={() => handleSort('rating')}
@@ -336,7 +328,7 @@ const Players: React.FC = () => {
                               <SortIcon field="rating" />
                             </button>
                           </th>
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                             <button 
                               className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                               onClick={() => handleSort('kdRatio')}
@@ -345,7 +337,7 @@ const Players: React.FC = () => {
                               <SortIcon field="kdRatio" />
                             </button>
                           </th>
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">
                             <button 
                               className="flex items-center justify-center space-x-1 hover:text-white transition-colors w-full"
                               onClick={() => handleSort('kost')}
@@ -354,7 +346,7 @@ const Players: React.FC = () => {
                               <SortIcon field="kost" />
                             </button>
                           </th>
-                          <th className="px-3 py-5 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Actions</th>
+                          <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Actions</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/10">
@@ -439,14 +431,115 @@ const Players: React.FC = () => {
                     </table>
                   </div>
                 </div>
-              </div>
-            </section>
           )}
 
           {/* Cards View */}
           {viewMode === 'cards' && (
-            <section className="relative pb-16">
-              <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+                <div>
+                  {/* Cards Header with Filters */}
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-xl border-b border-white/10">
+                    {/* View Mode Toggle */}
+                    <div className="flex justify-center lg:justify-start">
+                      <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                        <button
+                          onClick={() => setViewMode('table')}
+                          className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                            viewMode === 'table' 
+                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <List className="w-4 h-4" />
+                          <span>Table</span>
+                        </button>
+                        <button
+                          onClick={() => setViewMode('cards')}
+                          className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                            viewMode === 'cards' 
+                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <Grid3X3 className="w-4 h-4" />
+                          <span>Cards</span>
+                        </button>
+                        <button
+                          onClick={() => setViewMode('charts')}
+                          className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                            viewMode === 'charts' 
+                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <BarChart3 className="w-4 h-4" />
+                          <span>Stats</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Search and Filters */}
+                    <div className="flex justify-center lg:justify-end">
+                      <div className="flex flex-wrap items-center gap-3">
+                        {/* Search */}
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <Search className="h-4 w-4 text-gray-400" />
+                          </div>
+                          <input
+                            type="text"
+                            placeholder="Search players..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="glass-input block w-full pl-10 pr-3 py-2 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                          />
+                        </div>
+                        
+                        {/* Role Filter */}
+                        <div className="relative">
+                          <select
+                            value={filterRole}
+                            onChange={(e) => setFilterRole(e.target.value)}
+                            className="glass-input appearance-none px-3 py-2 pr-8 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
+                            style={{ colorScheme: 'dark' }}
+                          >
+                            <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Roles</option>
+                            {roles.map(role => (
+                              <option key={role} value={role} style={{ backgroundColor: '#18181b', color: 'white' }}>{role}</option>
+                            ))}
+                          </select>
+                          <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                        </div>
+
+                        {/* Team Filter */}
+                        <div className="relative">
+                          <select
+                            value={filterTeam}
+                            onChange={(e) => setFilterTeam(e.target.value)}
+                            className="glass-input appearance-none px-3 py-2 pr-8 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
+                            style={{ colorScheme: 'dark' }}
+                          >
+                            <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Teams</option>
+                            {teamNames.map(team => (
+                              <option key={team.id} value={team.id} style={{ backgroundColor: '#18181b', color: 'white' }}>{team.name}</option>
+                            ))}
+                          </select>
+                          <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                        </div>
+                        
+                        {/* Clear Button */}
+                        {(searchTerm || filterRole || filterTeam) && (
+                          <button
+                            onClick={clearFilters}
+                            className="glass-button flex items-center justify-center px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all duration-300"
+                            title="Clear filters"
+                          >
+                            <RotateCcw className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {sortedPlayers.map((player, index) => {
                     const team = teams.find(t => t.id === player.teamId);
@@ -454,24 +547,10 @@ const Players: React.FC = () => {
                     return (
                       <div 
                         key={player.id} 
-                        className="relative overflow-hidden rounded-3xl"
-                        style={{
-                          backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                          backdropFilter: 'blur(12px)',
-                        }}
+                          className="relative overflow-hidden rounded-3xl bg-black/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300"
                         onMouseEnter={() => setHoveredPlayer(player.id)}
                         onMouseLeave={() => setHoveredPlayer(null)}
                       >
-                        {/* Glare Effect */}
-                        <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                             style={{
-                               maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                             }}
-                        ></div>
-
-                        {/* Multiple glass layers for depth */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
-                        
                         <div className="relative p-6">
                           <div className="flex items-center mb-6">
                             <img
@@ -522,30 +601,116 @@ const Players: React.FC = () => {
                   })}
                 </div>
               </div>
-            </section>
           )}
 
           {/* Charts View */}
           {viewMode === 'charts' && (
-            <section className="relative pb-16">
-              <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
-                <div className="relative overflow-hidden group rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(12px)',
-                     }}
-                >
-                  {/* Glare Effect */}
-                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                       }}
-                  ></div>
+                <div>
+                  {/* Charts Header with Filters */}
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-xl border-b border-white/10">
+                    {/* View Mode Toggle */}
+                    <div className="flex justify-center lg:justify-start">
+                      <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                        <button
+                          onClick={() => setViewMode('table')}
+                          className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                            viewMode === 'table' 
+                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <List className="w-4 h-4" />
+                          <span>Table</span>
+                        </button>
+                        <button
+                          onClick={() => setViewMode('cards')}
+                          className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                            viewMode === 'cards' 
+                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <Grid3X3 className="w-4 h-4" />
+                          <span>Cards</span>
+                        </button>
+                        <button
+                          onClick={() => setViewMode('charts')}
+                          className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                            viewMode === 'charts' 
+                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
+                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <BarChart3 className="w-4 h-4" />
+                          <span>Stats</span>
+                        </button>
+                      </div>
+                    </div>
 
-                  {/* Multiple glass layers for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                    {/* Search and Filters */}
+                    <div className="flex justify-center lg:justify-end">
+                      <div className="flex flex-wrap items-center gap-3">
+                        {/* Search */}
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <Search className="h-4 w-4 text-gray-400" />
+                          </div>
+                          <input
+                            type="text"
+                            placeholder="Search players..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="glass-input block w-full pl-10 pr-3 py-2 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                          />
+                        </div>
+                        
+                        {/* Role Filter */}
+                        <div className="relative">
+                          <select
+                            value={filterRole}
+                            onChange={(e) => setFilterRole(e.target.value)}
+                            className="glass-input appearance-none px-3 py-2 pr-8 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
+                            style={{ colorScheme: 'dark' }}
+                          >
+                            <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Roles</option>
+                            {roles.map(role => (
+                              <option key={role} value={role} style={{ backgroundColor: '#18181b', color: 'white' }}>{role}</option>
+                            ))}
+                          </select>
+                          <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                        </div>
+
+                        {/* Team Filter */}
+                        <div className="relative">
+                          <select
+                            value={filterTeam}
+                            onChange={(e) => setFilterTeam(e.target.value)}
+                            className="glass-input appearance-none px-3 py-2 pr-8 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
+                            style={{ colorScheme: 'dark' }}
+                          >
+                            <option value="" style={{ backgroundColor: '#18181b', color: 'white' }}>All Teams</option>
+                            {teamNames.map(team => (
+                              <option key={team.id} value={team.id} style={{ backgroundColor: '#18181b', color: 'white' }}>{team.name}</option>
+                            ))}
+                          </select>
+                          <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                        </div>
+                        
+                        {/* Clear Button */}
+                        {(searchTerm || filterRole || filterTeam) && (
+                          <button
+                            onClick={clearFilters}
+                            className="glass-button flex items-center justify-center px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all duration-300"
+                            title="Clear filters"
+                          >
+                            <RotateCcw className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                   
-                  <div className="relative p-8">
+                  <div className="relative overflow-hidden rounded-3xl bg-black/20 border border-white/10 p-8">
                     <h3 className="text-2xl font-bold text-white mb-8 flex items-center">
                       <BarChart3 className="h-6 w-6 mr-3 text-green-400" />
                       Role Distribution
@@ -574,8 +739,6 @@ const Players: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
           )}
 
           {sortedPlayers.length === 0 && (
@@ -584,6 +747,8 @@ const Players: React.FC = () => {
             </div>
           )}
         </div>
+          </div>
+        </section>
 
       </div>
     </div>

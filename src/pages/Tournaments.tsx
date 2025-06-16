@@ -187,31 +187,26 @@ const Tournaments: React.FC = () => {
       {/* Main Content Container */}
       <div className="relative z-30 min-h-screen">
         
-        {/* Minimalist Header Section */}
+        {/* Unified Header Section */}
         <header className="py-12 relative">
           <div className="max-w-[95vw] mx-auto px-4">
-            {/* Main Header Container */}
-            <div className="glass-panel rounded-3xl py-20 px-16 relative overflow-hidden">
+            {/* Main Header Container - Exact same size for all pages */}
+            <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
               
-              {/* Header Content */}
-              <div className="relative z-10">
-                {/* Centered Title Section */}
-                <div className="flex flex-col items-center text-center -mt-4">
-                  <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none">
-                    Tournaments
-                  </h1>
-                </div>
-
-                {/* Centered Info Section */}
-                <div className="flex justify-center mt-5">
-                  <div className="flex items-center gap-3 text-lg font-medium text-gray-300">
-                    <Trophy className="w-5 h-5 text-yellow-400" />
-                    <span>Compete in Tarkov's biggest tournaments</span>
-                  </div>
-                </div>
+              {/* Header Content - Exact same structure for all pages */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
+                {/* Page Title */}
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                  Tournaments
+                </h1>
+                
+                {/* Page Subtitle */}
+                <p className="text-xl text-gray-300 font-medium">
+                  Compete in Tarkov's biggest tournaments and championships
+                </p>
               </div>
             </div>
           </div>
