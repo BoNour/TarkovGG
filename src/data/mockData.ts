@@ -9,7 +9,7 @@ export const mockPlayers: Player[] = [
     nationality: 'JP',
     teamId: '1',
     role: 'Entry Fragger',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.01,
       kdRatio: 1.0,
@@ -49,7 +49,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Support',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.24,
       kdRatio: 1.5,
@@ -74,7 +74,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Flex',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.20,
       kdRatio: 1.6,
@@ -99,7 +99,7 @@ export const mockPlayers: Player[] = [
     nationality: 'JP',
     teamId: '1',
     role: 'Support',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 0.95,
       kdRatio: 0.9,
@@ -120,7 +120,7 @@ export const mockPlayers: Player[] = [
     nationality: 'JP',
     teamId: '1',
     role: 'IGL',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 0.94,
       kdRatio: 0.96,
@@ -141,7 +141,7 @@ export const mockPlayers: Player[] = [
     nationality: 'US',
     teamId: '3',
     role: 'Entry Fragger',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.15,
       kdRatio: 1.2,
@@ -179,7 +179,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'IGL',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.18,
       kdRatio: 1.3,
@@ -204,7 +204,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Sentinel',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.12,
       kdRatio: 1.1,
@@ -228,7 +228,7 @@ export const mockPlayers: Player[] = [
     nationality: 'BR',
     teamId: '2',
     role: 'Duelist',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     stats: {
       rating: 1.26,
       kdRatio: 1.7,
@@ -265,7 +265,7 @@ export const mockExPlayers: ExPlayer[] = [
     realName: 'Alexandre Fonseca',
     nationality: 'BR',
     role: 'Duelist',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     joinDate: '2023-01-15',
     leaveDate: '2024-08-20',
     stats: {
@@ -290,7 +290,7 @@ export const mockExPlayers: ExPlayer[] = [
     realName: 'Igor Oliveira',
     nationality: 'BR',
     role: 'Controller',
-    image: '/fulllpmc2.png',
+    image: '/Players/fulllpmc2.png',
     joinDate: '2022-06-10',
     leaveDate: '2024-03-15',
     stats: {
@@ -323,7 +323,7 @@ export const mockTeams: Team[] = [
     id: 'team1',
     name: 'CAG Osaka',
     tag: 'CAG',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'APAC',
     players: ['1', '4', '5'],
     stats: {
@@ -340,7 +340,7 @@ export const mockTeams: Team[] = [
     id: 'team2',
     name: 'FURIA Esports',
     tag: 'FURIA',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'LATAM',
     players: ['2', '3', '7', '8', '9'], // All 5 active players
     exPlayers: ['ex1', 'ex2'], // 2 ex-players
@@ -358,7 +358,7 @@ export const mockTeams: Team[] = [
     id: 'team3',
     name: 'Team Liquid',
     tag: 'TL',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'EU',
     players: ['6'],
     stats: {
@@ -375,7 +375,7 @@ export const mockTeams: Team[] = [
     id: 'team4',
     name: 'FaZe Clan',
     tag: 'FaZe',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'NA',
     players: [],
     stats: {
@@ -392,7 +392,7 @@ export const mockTeams: Team[] = [
     id: 'team5',
     name: 'TSM',
     tag: 'TSM',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'NA',
     players: [],
     stats: {
@@ -409,7 +409,7 @@ export const mockTeams: Team[] = [
     id: 'team6',
     name: 'G2 Esports',
     tag: 'G2',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'EU',
     players: [],
     stats: {
@@ -426,7 +426,7 @@ export const mockTeams: Team[] = [
     id: 'team7',
     name: 'DWG KIA',
     tag: 'DK',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'APAC',
     players: [],
     stats: {
@@ -443,7 +443,7 @@ export const mockTeams: Team[] = [
     id: 'team8',
     name: 'LOUD',
     tag: 'LOUD',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'LATAM',
     players: [],
     stats: {
@@ -460,7 +460,7 @@ export const mockTeams: Team[] = [
     id: 'team9',
     name: 'NaVi',
     tag: 'NAVI',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'EU',
     players: [],
     stats: {
@@ -477,7 +477,7 @@ export const mockTeams: Team[] = [
     id: 'team10',
     name: 'Spacestation',
     tag: 'SSG',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'NA',
     players: [],
     stats: {
@@ -494,7 +494,7 @@ export const mockTeams: Team[] = [
     id: 'team32',
     name: 'XSET',
     tag: 'XSET',
-    logo: '/cov%20logo.png',
+    logo: '/TEAMs/cov logo.png',
     region: 'NA',
     players: [],
     stats: {
