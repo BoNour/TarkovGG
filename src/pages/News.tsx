@@ -160,15 +160,15 @@ const News: React.FC = () => {
       ></div>
       
       {/* Subtle background orbs - no colors */}
-      <div className="fixed inset-0 z-20">
+      <div className="fixed inset-0 z-20 pointer-events-none">
         {/* Neutral floating orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-white/5 to-gray-500/5 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-r from-gray-500/5 to-white/5 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
-        <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-gradient-to-r from-gray-400/5 to-gray-600/5 rounded-full blur-3xl opacity-15" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-white/5 to-gray-500/5 rounded-full blur-3xl opacity-30 pointer-events-none" style={{animation: 'slow-float-1 15s ease-in-out infinite'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-r from-gray-500/5 to-white/5 rounded-full blur-3xl opacity-20 pointer-events-none" style={{animation: 'slow-float-2 18s ease-in-out infinite'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-gradient-to-r from-gray-400/5 to-gray-600/5 rounded-full blur-3xl opacity-15 pointer-events-none" style={{animation: 'slow-float-3 20s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
 
         {/* Mouse-aware orb - neutral */}
         <div 
-          className="absolute w-[200px] h-[200px] bg-gradient-to-r from-white/10 to-gray-400/10 rounded-full blur-2xl opacity-40 transition-transform duration-300 ease-out"
+          className="absolute w-[200px] h-[200px] bg-gradient-to-r from-white/10 to-gray-400/10 rounded-full blur-2xl opacity-40 transition-transform duration-300 ease-out pointer-events-none"
           style={{ 
             transform: `translate(${mousePosition.x - 100}px, ${mousePosition.y - 100}px)`
           }}
@@ -184,8 +184,8 @@ const News: React.FC = () => {
             {/* Main Header Container */}
             <div className="glass-panel rounded-3xl p-12 relative overflow-hidden">
               {/* Subtle Decorative Elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl"></div>
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
               
               {/* Header Content */}
               <div className="relative z-10">
@@ -311,13 +311,13 @@ const News: React.FC = () => {
                             {article.tags.slice(0, 3).map((tag, tagIndex) => (
                               <span 
                                 key={tagIndex}
-                                className="group/tag px-4 py-2 text-sm font-semibold bg-gradient-to-r from-white/10 to-white/5 text-gray-200 rounded-xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/10 cursor-pointer"
+                                className="group/tag px-4 py-2 text-sm font-semibold bg-gradient-to-r from-white/10 to-white/5 text-gray-200 rounded-xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-white/20 hover:to-white/10 pointer-events-none"
                               >
                                 {tag}
                               </span>
                             ))}
                             {article.tags.length > 3 && (
-                              <span className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-white/5 to-transparent text-gray-400 rounded-xl backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer">
+                              <span className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-white/5 to-transparent text-gray-400 rounded-xl backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 pointer-events-none">
                                 +{article.tags.length - 3} more
                               </span>
                             )}
