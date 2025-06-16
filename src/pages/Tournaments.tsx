@@ -199,8 +199,8 @@ const Tournaments: React.FC = () => {
               {/* Header Content - Exact same structure for all pages */}
               <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
                 {/* Page Title */}
-                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
-                  Tournaments
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tight text-white leading-none mb-6">
+                  TOURNAMENTS
                 </h1>
                 
                 {/* Page Subtitle */}
