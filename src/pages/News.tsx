@@ -196,42 +196,19 @@ const News: React.FC = () => {
                   </h1>
                 </div>
 
-                {/* Category Navigation and Search Row */}
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                  {/* Category Navigation */}
-                  <div className="flex justify-center lg:justify-start">
-                    <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm overflow-x-auto">
-                      {categories.map((category) => (
-                        <button
-                          key={category.id}
-                          onClick={() => setSelectedCategory(category.id)}
-                          className={`px-4 py-3 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-                            selectedCategory === category.id 
-                              ? 'bg-white/12 text-white border border-white/20 shadow-xl' 
-                              : 'text-gray-400 hover:text-white hover:bg-white/5'
-                          }`}
-                        >
-                          <Newspaper className="w-4 h-4" />
-                          <span>{category.name}</span>
-                        </button>
-                      ))}
+                {/* Search Section */}
+                <div className="flex justify-center">
+                  <div className="relative max-w-md w-full">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Search className="h-5 w-5 text-gray-400" />
                     </div>
-                  </div>
-
-                  {/* Search Section */}
-                  <div className="flex justify-center lg:justify-end">
-                    <div className="relative max-w-md w-full">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <Search className="h-5 w-5 text-gray-400" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Search articles..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="glass-input block w-full pl-12 pr-4 py-4 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20"
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      placeholder="Search articles..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="glass-input block w-full pl-12 pr-4 py-4 rounded-2xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-white/20"
+                    />
                   </div>
                 </div>
               </div>

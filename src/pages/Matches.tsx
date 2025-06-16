@@ -241,15 +241,9 @@ const Matches: React.FC = () => {
                   Live matches, upcoming games, and tournament results
                 </p>
               </div>
-            </div>
-          </div>
-        </header>
 
-        {/* Filters Section */}
-        <section className="pb-6">
-          <div className="max-w-[95vw] mx-auto px-4">
-            <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
-              <div className="flex justify-center">
+              {/* View Mode Buttons - Bottom Right */}
+              <div className="absolute bottom-6 right-6 z-20">
                 <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
                   <button
                     onClick={() => setViewMode('matches')}
@@ -277,7 +271,7 @@ const Matches: React.FC = () => {
               </div>
             </div>
           </div>
-        </section>
+        </header>
 
         {/* Content Section */}
         <section className="pb-6">
