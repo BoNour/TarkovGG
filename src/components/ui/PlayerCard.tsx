@@ -52,15 +52,15 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
       >
         
         {/* Image area background - clipped for card shape */}
-        <div className="relative h-56 rounded-t-3xl overflow-hidden">
+        <div className="relative h-56 rounded-t-3xl overflow-visible">
           <div className="w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
           
-          {/* Sharp image within card bounds */}
-          <div className="absolute inset-0 flex items-start justify-center">
+          {/* Sharp image for top portion */}
+          <div className="absolute inset-0 flex items-start justify-center" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 99%, 0 99%)' }}>
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-5 scale-90'}`}
+              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-2 scale-[0.95]'}`}
               style={{ 
                 filter: 'contrast(1) brightness(1.3)',
                 height: '120%',
@@ -71,9 +71,28 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
               }}
             />
           </div>
+          
+          {/* Blurred image extending into bottom section - always visible */}
+          <div className="absolute top-0 left-0 w-full h-full flex items-start justify-center pointer-events-none" style={{ zIndex: 1 }}>
+            <img 
+              src={player.image} 
+              alt="" 
+              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-2 scale-[0.95]'}`}
+              style={{ 
+                filter: 'contrast(1) brightness(1.3) blur(2px)',
+                height: '120%',
+                width: 'auto',
+                maxWidth: '120%',
+                transformOrigin: 'center top',
+                opacity: 0.5,
+                maskImage: 'linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.8) 95%, rgba(0,0,0,0.4) 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.8) 95%, rgba(0,0,0,0.4) 100%)',
+              }}
+            />
+          </div>
         </div>
         
-        {/* Blurred overflow image - only visible outside card bounds */}
+        {/* Blurred overflow image - only visible outside card bounds on hover */}
         <div className="absolute top-0 left-0 w-full h-56 flex items-start justify-center pointer-events-none" style={{ zIndex: isHovered ? -10 : -1 }}>
           <img 
             src={player.image} 
@@ -121,11 +140,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         
         {variant === 'full' && (
           <div 
-            className="relative z-10 p-6 space-y-6 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md overflow-hidden"
+            className="relative z-10 p-6 space-y-6 border rounded-b-3xl backdrop-blur-lg overflow-hidden"
             style={{ 
-              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
-              borderColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.08)',
-              borderTopColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.06)',
+              background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
+              borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 8px 22px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(16px) saturate(150%)'
             }}
           >
             {/* Player name section */}
@@ -196,11 +216,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         
         {variant === 'compact' && (
           <div 
-            className="relative z-10 p-4 border-t border-l border-r border-b rounded-b-3xl backdrop-blur-md overflow-hidden"
+            className="relative z-10 p-4 border rounded-b-3xl backdrop-blur-lg overflow-hidden"
             style={{ 
-              background: 'linear-gradient(135deg, rgba(42, 43, 43, 0.7) 0%, rgba(38, 39, 39, 0.8) 100%)',
-              borderColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.08)',
-              borderTopColor: isHovered ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.06)',
+              background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
+              borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(16px) saturate(150%)'
             }}
           >
             <div className="flex justify-between items-center">

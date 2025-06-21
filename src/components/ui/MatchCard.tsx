@@ -47,7 +47,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
   };
 
   const status = getStatusInfo();
-  const date = new Date(match.date).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   return (
     <div className="relative group overflow-hidden rounded-xl p-0.5 transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
@@ -58,7 +57,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
             <status.Icon className="w-3 h-3" />
             <span>{status.label}</span>
           </div>
-          <span className="text-xs text-gray-400 flex items-center"><Clock className="w-3 h-3 mr-1"/>{date}</span>
         </div>
 
         {/* Body */}
