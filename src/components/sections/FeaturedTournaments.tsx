@@ -34,8 +34,8 @@ const FeaturedTournaments: React.FC = () => {
     return bEndDate.getTime() - aEndDate.getTime();
   });
   
-  // Get the first 4 tournaments to ensure they fit the container
-  const featuredTournaments = sortedTournaments.slice(0, 4);
+  // Get the first 5 tournaments to ensure they fit the container
+  const featuredTournaments = sortedTournaments.slice(0, 5);
 
   if (isLoading) {
     return (
@@ -79,7 +79,7 @@ const FeaturedTournaments: React.FC = () => {
           >
             <div className="flex h-44">
               <div className="w-2/5 relative bg-white/5 overflow-hidden border-r border-white/10">
-                <img src={tournament.logo} alt={tournament.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <img src="/arenapfp.webp" alt={tournament.name} className="w-full h-full object-cover scale-100 transition-transform duration-300" />
               </div>
 
               <div className="w-3/5 p-5 flex flex-col">
@@ -98,15 +98,12 @@ const FeaturedTournaments: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={`text-xs font-semibold px-2 py-1 rounded-full ${statusColor} flex-shrink-0 ml-2`}>
-                            {status}
-                        </div>
                     </div>
                 </div>
               </div>
             </div>
             <span className={`absolute bottom-2 right-3 font-black text-white/5 pointer-events-none select-none ${index === 0 ? 'text-4xl' : 'text-3xl'}`}>
-              {index === 0 ? 'MAJOR' : index === 1 ? 'QUALS' : tournament.name.toUpperCase()}
+              {tournament.name.split(' ')[0].toUpperCase()}
             </span>
           </Link>
         )

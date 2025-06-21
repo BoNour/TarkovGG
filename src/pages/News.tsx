@@ -192,7 +192,7 @@ const News: React.FC = () => {
                 {/* Centered Title Section */}
                 <div className="flex flex-col items-center text-center mb-12">
                   <h1 className="text-6xl lg:text-8xl font-black tracking-tight text-white leading-none">
-                    LATEST NEWS
+                    News
                   </h1>
                 </div>
 

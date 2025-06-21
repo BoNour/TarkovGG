@@ -157,7 +157,7 @@ const Teams: React.FC = () => {
       </div>
 
       {/* Content sections starting from the top */}
-      <div className="relative z-30" style={{ backgroundColor: 'transparent' }}>
+      <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
@@ -171,8 +171,8 @@ const Teams: React.FC = () => {
               {/* Header Content - Exact same structure for all pages */}
               <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
                 {/* Page Title */}
-                <h1 className="text-6xl lg:text-8xl font-black tracking-tight text-white leading-none mb-6">
-                  TEAMS
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                  Teams
                 </h1>
                 
                 {/* Page Subtitle */}

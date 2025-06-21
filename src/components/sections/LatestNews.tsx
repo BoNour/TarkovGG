@@ -13,11 +13,8 @@ const LatestNews: React.FC = () => {
     new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   
-  // Get featured news (most recent) - top row
-  const featuredNews = sortedNews[0];
-  
-  // Get all remaining news articles for the rows (instead of limiting to 6)
-  const rowNews = sortedNews.slice(1);
+  // Get the first 5 news articles to display
+  const displayNews = sortedNews.slice(0, 5);
 
   if (isLoading) {
     return (
@@ -25,15 +22,10 @@ const LatestNews: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="animate-pulse">
             <div className="h-8 w-48 rounded mb-8 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
-            {/* Featured article skeleton */}
-            <div className="h-80 rounded-2xl mb-8" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
-            {/* Row articles skeleton - increased to show more loading rows */}
-            <div className="space-y-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="h-48 rounded-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
-                  <div className="h-48 rounded-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
-                </div>
+            {/* Loading skeleton for articles */}
+            <div className="space-y-3">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="w-full mx-auto h-48 rounded-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
               ))}
             </div>
           </div>
@@ -42,156 +34,67 @@ const LatestNews: React.FC = () => {
     );
   }
 
-  if (!featuredNews) {
+  if (!displayNews.length) {
     return null;
-  }
-
-  // Group row news into pairs for the 3 rows
-  const newsRows = [];
-  for (let i = 0; i < rowNews.length; i += 2) {
-    newsRows.push(rowNews.slice(i, i + 2));
   }
 
   return (
     <section className="py-0 relative" style={{ backgroundColor: 'transparent' }}>      
-      <div className="max-w-none mx-auto px-0 relative">
+      <div className="max-w-none mx-auto relative">
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-12 space-y-6 lg:space-y-0">
-          <div className="space-y-4">
-            <h2 className="text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
-              Latest News
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="text-3xl font-black text-white">
+              News
             </h2>
           </div>
           
           <Link 
             to="/news" 
-            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+            className="group flex items-center space-x-1 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
           >
             <span>View All News</span>
             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
         </div>
         
-        {/* News Grid Layout */}
-        <div className="space-y-8">
-          {/* Row 1: Featured Article (Full Width) */}
-          <div className="w-full">
-            <Link 
-              to={`/news/${featuredNews.id}`}
-              className="block relative group rounded-2xl overflow-hidden shadow-xl transition-all duration-500 border hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] cursor-pointer" 
-              style={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.03)', 
-                borderColor: 'rgba(255, 255, 255, 0.1)' 
-              }}
-            >
-              {/* Subtle glow effect - no movement */}
-              <div className="absolute inset-0 w-full h-full bg-white/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                   style={{
-                     maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 80%)',
-                   }}
-              ></div>
-
-              {/* Enhanced glass layers for depth - no movement */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/8 to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/5 opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"></div>
-              
-              <div>
-                <img 
-                  src="/Tournaments/lega3.png" 
-                  alt={featuredNews.title}
-                  className="w-full h-64 object-cover object-center transition-all duration-500 group-hover:brightness-110"
-                />
-              </div>
-              
-              <div className="p-6 relative">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {featuredNews.tags.filter(tag => !tagsToRemove.includes(tag)).map((tag, index) => (
-                    <span key={index} className="text-xs px-3 py-1.5 rounded-full font-medium transition-all duration-300 group-hover:bg-green-500/20 group-hover:text-green-300 pointer-events-none"
-                          style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#10b981' }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <div>
-                  <h3 className="text-2xl font-bold mb-4 text-white hover:text-green-400 transition-colors duration-300 group-hover:text-shadow-lg">
-                    {featuredNews.title}
-                  </h3>
-                </div>
-                
-                <div className="flex justify-between items-center mt-auto pt-4 border-white/10">
-                  <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                    By <span className="font-semibold">{featuredNews.author}</span> • {new Date(featuredNews.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                  </p>
-                  
-                  <span 
-                    className="text-sm py-2 px-4 rounded-xl font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] pointer-events-none"
-                    style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#10b981' }}
-                  >
-                    Read More
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-          
-          {/* Rows 2-4: Two Articles Side by Side */}
-          {newsRows.map((rowPair, rowIndex) => (
-            <div key={rowIndex} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {rowPair.map((article, articleIndex) => (
-                <div key={article.id} className="w-full">
-                  <Link 
-                    to={`/news/${article.id}`}
-                    className="block relative group rounded-2xl overflow-hidden shadow-xl transition-all duration-500 border h-full hover:border-white/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.08)] cursor-pointer" 
-                    style={{ 
-                      backgroundColor: 'rgba(255, 255, 255, 0.03)', 
-                      borderColor: 'rgba(255, 255, 255, 0.1)' 
-                    }}
-                  >
-                    {/* Subtle glow effect - no movement */}
-                    <div className="absolute inset-0 w-full h-full bg-white/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                         style={{
-                           maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 80%)',
-                         }}
-                    ></div>
-
-                    {/* Enhanced glass layers for depth - no movement */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/8 to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/5 opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"></div>
-                    
-                    <div>
+        {/* News Articles - Consistent sizing without button */}
+        <div className="space-y-4">
+          {displayNews.map((article, index) => (
+            <div key={article.id} className="w-full">
+              <Link 
+                to={`/news/${article.id}`}
+                className="block" 
+              >
+                <div className="relative group overflow-hidden rounded-xl transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
+                  <div className="relative bg-zinc-900/60 backdrop-blur-xl rounded-xl overflow-hidden">
+                    {/* Image at top */}
+                    <div className="relative">
                       <img 
                         src="/Tournaments/lega3.png" 
                         alt={article.title}
-                        className="w-full h-48 object-cover object-center transition-all duration-500 group-hover:brightness-110"
+                        className="w-full h-48 object-cover object-center transition-all duration-300 group-hover:brightness-110"
                       />
-                    </div>
-                    
-                    <div className="p-6 flex flex-col h-full relative">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {article.tags.filter(tag => !tagsToRemove.includes(tag)).slice(0, 2).map((tag, index) => (
-                          <span key={index} className="text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 group-hover:bg-green-500/20 group-hover:text-green-300 pointer-events-none"
-                                style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#10b981' }}>
+                      {/* Tags overlay on image */}
+                      <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+                        {article.tags.filter(tag => !tagsToRemove.includes(tag)).slice(0, 2).map((tag, tagIndex) => (
+                          <span key={tagIndex} className="text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm transition-all duration-300"
+                                style={{ backgroundColor: 'rgba(34, 197, 94, 0.8)', color: 'white' }}>
                             {tag}
                           </span>
                         ))}
                       </div>
-                      
-                      <div className="flex-grow">
-                        <h4 className="text-lg font-bold mb-3 text-white hover:text-green-400 transition-colors duration-300 line-clamp-3 group-hover:text-gray-100">
-                          {article.title}
-                        </h4>
-                      </div>
-                      
-                      <div className="flex justify-between items-center mt-auto pt-4 border-white/10">
-                        <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                          By <span className="font-semibold">{article.author}</span> • {new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                        </p>
-                      </div>
                     </div>
-                  </Link>
+                    
+                    {/* Content below image */}
+                    <div className="p-4">
+                      <h3 className="text-base font-bold text-white hover:text-green-400 transition-colors duration-300 line-clamp-2">
+                        {article.title}
+                      </h3>
+                    </div>
+                  </div>
                 </div>
-              ))}
+              </Link>
             </div>
           ))}
         </div>

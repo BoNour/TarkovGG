@@ -45,22 +45,7 @@ const TopTeams: React.FC = () => {
   }
 
   return (
-    <div className="relative overflow-hidden group rounded-3xl"
-         style={{
-           backgroundColor: 'rgba(24, 24, 27, 0.8)',
-           backdropFilter: 'blur(8px)',
-         }}
-    >
-      {/* Glare Effect - Very Subtle */}
-      <div className="absolute inset-0 w-full h-full bg-white/2 opacity-0 group-hover:opacity-40 transition-opacity duration-500"
-           style={{
-             maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-           }}
-      ></div>
-
-      {/* Multiple glass layers for depth - Very Subtle */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/3 to-transparent opacity-30"></div>
-      
+    <div className="relative group">
       {/* Content container */}
       <div className="relative p-6">
         {/* Header with View All link */}

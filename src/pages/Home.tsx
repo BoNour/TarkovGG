@@ -59,130 +59,73 @@ const Home: React.FC = () => {
 
       {/* Content sections starting from the top */}
       <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
-        {/* Two Column Layout: News on Left, Matches & Tournaments on Right */}
+        {/* Three Column Layout: News, Competitions, Matches */}
         <section className="py-16 relative">
-          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-              
-              {/* Left Column - News (3/5 width) */}
-              <div className="lg:col-span-3 space-y-12">
-                {/* News Section */}
-                <div className="relative overflow-hidden group rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(12px)',
-                     }}
+          <div className="relative max-w-none mx-auto px-[5%]">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+              {/* Combined Competitions, News, and Matches Section */}
+              <div className="lg:col-span-4">
+                <div 
+                  className="relative overflow-hidden group rounded-3xl h-full"
+                  style={{
+                    backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                    backdropFilter: 'blur(12px)',
+                  }}
                 >
-                  {/* Glare Effect */}
-                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                       }}
+                  <div 
+                    className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)' }}
                   ></div>
-
-                  {/* Multiple glass layers for depth */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
                   
-                  {/* Content container */}
                   <div className="relative p-8">
-                    <LatestNews />
-                  </div>
-                </div>
-                
-                {/* Top Players Section - Now under News */}
-                <div className="relative group">
-                  {/* Background container with effects */}
-                  <div className="absolute inset-0 rounded-3xl overflow-hidden"
-                       style={{
-                         backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                         backdropFilter: 'blur(12px)',
-                       }}
-                  >
-                    {/* Glare Effect */}
-                    <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                         style={{
-                           maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                         }}
-                    ></div>
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                      {/* Main content area */}
+                      <div className="lg:col-span-3">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                          {/* Competitions Column */}
+                          <div className="lg:col-span-1">
+                            <div className="flex items-center justify-between mb-6">
+                              <h3 className="text-5 xl font-black text-white">Competitions</h3>
+                              <Link 
+                                to="/tournaments" 
+                                className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+                              >
+                                <span>View All</span>
+                                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+                              </Link>
+                            </div>
+                            <FeaturedTournaments />
+                          </div>
 
-                    {/* Multiple glass layers for depth */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
-                  </div>
-                  
-                  {/* Content container - no overflow restrictions */}
-                  <div className="relative p-8">
-                    <TopPlayers />
-                  </div>
-                </div>
-                
-                {/* Top Teams Section - Now under Top Players */}
-                <TopTeams />
-              </div>
-              
-              {/* Right Column - Matches & Tournaments (2/5 width) */}
-              <div className="lg:col-span-2 space-y-8">
-                {/* Matches Section */}
-                <div className="relative overflow-hidden group rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(12px)',
-                     }}
-                >
-                  {/* Glare Effect */}
-                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                       }}
-                  ></div>
+                          {/* News Column */}
+                          <div className="lg:col-span-2">
+                            <LatestNews />
+                          </div>
+                        </div>
 
-                  {/* Multiple glass layers for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
-                  
-                  {/* Content container */}
-                  <div className="relative p-6">
-                    <LatestMatches />
-                  </div>
-                </div>
-                
-                {/* Competitions Section */}
-                <div className="relative overflow-hidden group rounded-3xl"
-                     style={{
-                       backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                       backdropFilter: 'blur(12px)',
-                     }}
-                >
-                  {/* Glare Effect */}
-                  <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-                       }}
-                  ></div>
+                        {/* Top Players and Top Teams sections */}
+                        <div className="grid grid-cols-1 gap-8 mt-8">
+                          <div>
+                            <TopPlayers />
+                          </div>
+                          <div>
+                            <TopTeams />
+                          </div>
+                        </div>
+                      </div>
 
-                  {/* Multiple glass layers for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
-                  
-                  {/* Content container */}
-                  <div className="relative p-6">
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-3xl font-black text-white">Tournaments</h3>
-                      <Link 
-                        to="/tournaments" 
-                        className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-                      >
-                        <span>View All Tournaments</span>
-                        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-                      </Link>
+                      {/* Matches Column (Sidebar) */}
+                      <div className="lg:col-span-1">
+                        <LatestMatches />
+                      </div>
                     </div>
-                    <FeaturedTournaments />
                   </div>
                 </div>
               </div>
-              
             </div>
           </div>
         </section>
-        
-
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const LatestMatches: React.FC = () => {
     return (
       <div>
         <div className="h-8 w-48 rounded mb-8 bg-gray-700 animate-pulse"></div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="space-y-6 px-8">
           {[...Array(14)].map((_, i) => (
             <div key={i} className="h-48 rounded-2xl bg-gray-800 animate-pulse"></div>
           ))}
@@ -31,7 +31,7 @@ const LatestMatches: React.FC = () => {
     <section>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-4xl font-black text-white">
-          Latest Matches
+          Matches
         </h2>
         <Link 
           to="/matches" 
@@ -43,7 +43,7 @@ const LatestMatches: React.FC = () => {
       </div>
 
       {displayedMatches.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="space-y-5">
           {displayedMatches.map((match) => (
             <MatchCard key={match.id} match={match} />
           ))}
