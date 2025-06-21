@@ -85,16 +85,7 @@ const Home: React.FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                           {/* Competitions Column */}
                           <div className="lg:col-span-1">
-                            <div className="flex items-center justify-between mb-6">
-                              <h3 className="text-5 xl font-black text-white">Competitions</h3>
-                              <Link 
-                                to="/tournaments" 
-                                className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-                              >
-                                <span>View All</span>
-                                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-                              </Link>
-                            </div>
+                            <h3 className="text-4xl font-black text-white mb-6">Competitions</h3>
                             <FeaturedTournaments />
                           </div>
 

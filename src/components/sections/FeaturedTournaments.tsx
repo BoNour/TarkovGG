@@ -63,7 +63,7 @@ const FeaturedTournaments: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-7">
       {featuredTournaments.map((tournament, index) => {
         const status = new Date(tournament.startDate) > new Date() ? 'Upcoming' : new Date(tournament.endDate) < new Date() ? 'Completed' : 'Live';
         const statusColor = status === 'Upcoming' ? 'bg-blue-500/20 text-blue-300' : status === 'Completed' ? 'bg-gray-500/20 text-gray-300' : 'bg-red-500/20 text-red-300 animate-pulse';
@@ -103,7 +103,7 @@ const FeaturedTournaments: React.FC = () => {
               </div>
             </div>
             <span className={`absolute bottom-2 right-3 font-black text-white/5 pointer-events-none select-none ${index === 0 ? 'text-4xl' : 'text-3xl'}`}>
-              {tournament.name.split(' ')[0].toUpperCase()}
+              {tournament.name.split(' ')[0].substring(0, 9).toUpperCase()}
             </span>
           </Link>
         )
@@ -116,6 +116,13 @@ const FeaturedTournaments: React.FC = () => {
           <p className="text-sm text-gray-500">Check back soon for events.</p>
         </div>
       )}
+       <Link 
+        to="/tournaments" 
+        className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
+      >
+        <span>View All</span>
+        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+      </Link>
     </div>
   );
 };

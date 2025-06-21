@@ -48,14 +48,6 @@ const LatestNews: React.FC = () => {
               News
             </h2>
           </div>
-          
-          <Link 
-            to="/news" 
-            className="group flex items-center space-x-1 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            <span>View All News</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
         </div>
         
         {/* News Articles - Consistent sizing without button */}
@@ -98,6 +90,13 @@ const LatestNews: React.FC = () => {
             </div>
           ))}
         </div>
+        <Link 
+          to="/news" 
+          className="group flex items-center justify-end space-x-1 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
+        >
+          <span>View All News</span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
       </div>
     </section>
   );

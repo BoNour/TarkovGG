@@ -43,14 +43,6 @@ const TopPlayers: React.FC = () => {
               Top Players
             </h2>
           </div>
-          
-          <Link 
-            to="/players" 
-            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            <span>View All Players</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
         </div>
         
         {/* Players grid with enhanced layout */}
@@ -98,6 +90,13 @@ const TopPlayers: React.FC = () => {
             </div>
           </div>
         )}
+        <Link 
+          to="/players" 
+          className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
+        >
+          <span>View All Players</span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
       </div>
     </section>
   );

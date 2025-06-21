@@ -33,13 +33,6 @@ const LatestMatches: React.FC = () => {
         <h2 className="text-4xl font-black text-white">
           Matches
         </h2>
-        <Link 
-          to="/matches" 
-          className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-        >
-          <span>View All Matches</span>
-          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-        </Link>
       </div>
 
       {displayedMatches.length > 0 ? (
@@ -57,6 +50,13 @@ const LatestMatches: React.FC = () => {
           <p className="text-gray-400 text-sm">Check back later for scheduled games.</p>
         </div>
       )}
+      <Link 
+        to="/matches" 
+        className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
+      >
+        <span>View All Matches</span>
+        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+      </Link>
     </section>
   );
 };

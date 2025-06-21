@@ -51,13 +51,6 @@ const TopTeams: React.FC = () => {
         {/* Header with View All link */}
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-3xl font-black text-white">Top Teams</h3>
-          <Link 
-            to="/teams" 
-            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            <span>View All Teams</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
         </div>
         
         {/* Teams grid - vertical cards side by side */}
@@ -264,6 +257,13 @@ const TopTeams: React.FC = () => {
             <p className="text-sm text-gray-500">Check back soon for team rankings.</p>
           </div>
         )}
+        <Link 
+          to="/teams" 
+          className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
+        >
+          <span>View All Teams</span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
       </div>
     </div>
   );
