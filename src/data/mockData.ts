@@ -822,38 +822,74 @@ export const mockTournaments: Tournament[] = [
 export const mockNews: News[] = [
   {
     id: '1',
-    title: 'APAC North 2025 Stage 1: Everything you need to know',
-    content: 'The APAC North 2025 Stage 1 is set to begin next week with 10 teams competing for a spot in the Major...',
-    author: 'John Smith',
-    date: '2025-04-28',
-    image: 'https://placehold.co/800x400/e74c3c/ffffff?text=APAC+North',
-    tags: ['APAC', 'Stage 1', 'Tournament']
+    title: 'BLAST R6 Major Manchester: Everything you need to know',
+    date: '2024-05-15',
+    author: 'John Doe',
+    content: 'The BLAST R6 Major is coming to Manchester! Here is a full rundown of the teams, schedule, and what to expect from this massive event.',
+    tags: ['Tournament', 'R6 Siege', 'BLAST', 'Manchester'],
+    image: '/news/blast-major.jpg'
   },
   {
     id: '2',
-    title: 'When is the next joe Rainbow Six Siege season?',
-    content: 'Ubisoft has announced that the next season of Rainbow Six Siege will begin in June 2025...',
-    author: 'Jane Doe',
-    date: '2025-04-25',
-    image: 'https://placehold.co/800x400/3498db/ffffff?text=R6+Season',
-    tags: ['R6 Siege', 'Season', 'Update']
+    title: 'G2 Esports crowned champions of the Six Invitational 2024',
+    date: '2024-03-10',
+    author: 'Jane Smith',
+    content: 'G2 Esports have once again proven their dominance in the Rainbow Six Siege scene by winning the prestigious Six Invitational 2024.',
+    tags: ['Tournament', 'R6 Siege', 'G2 Esports', 'Six Invitational'],
+    image: '/news/g2-champions.jpg'
   },
   {
     id: '3',
-    title: 'North America League 2025 Stage 1: Everything you need to know',
-    content: 'The North America League 2025 Stage 1 starts next month with 10 teams competing...',
-    author: 'Michael Johnson',
-    date: '2025-04-20',
-    image: 'https://placehold.co/800x400/2ecc71/ffffff?text=NAL',
-    tags: ['NAL', 'Stage 1', 'Tournament']
+    title: 'Top 5 Plays from the Gamers8 2023 Tournament',
+    date: '2023-08-20',
+    author: 'Alex Johnson',
+    content: 'Relive the most breathtaking moments from the Gamers8 2023 tournament with our compilation of the top 5 plays.',
+    tags: ['Tournament', 'Highlights', 'Gamers8'],
+    image: '/news/gamers8-plays.jpg'
   },
   {
     id: '4',
-    title: 'Best FFAR 1 loadout in Warzone Season 4',
-    content: 'The FFAR 1 has become one of the most powerful weapons in Warzone Season 4...',
-    author: 'Chris Williams',
-    date: '2025-04-15',
-    image: 'https://placehold.co/800x400/f39c12/ffffff?text=Warzone',
-    tags: ['Warzone', 'Loadout', 'FFAR 1']
+    title: 'FURIA announces new roster for the upcoming season',
+    date: '2024-01-05',
+    author: 'Emily White',
+    content: 'FURIA Esports has officially revealed their new Rainbow Six Siege roster, featuring a mix of veteran talent and rising stars.',
+    tags: ['Roster', 'FURIA', 'R6 Siege'],
+    image: '/news/furia-roster.jpg'
+  },
+  {
+    id: '5',
+    title: 'A Deep Dive into the New Operator "Fenrir"',
+    date: '2023-11-28',
+    author: 'Chris Green',
+    content: 'We take a closer look at the new operator, Fenrir, exploring his abilities, strategies, and potential impact on the meta.',
+    tags: ['Operator', 'Fenrir', 'R6 Siege', 'Guide'],
+    image: '/news/fenrir-guide.jpg'
+  },
+  {
+    id: '6',
+    title: 'BLAST R6 Major Atlanta: A Retrospective',
+    date: '2023-11-12',
+    author: 'John Doe',
+    content: 'Looking back at the most memorable moments from the BLAST R6 Major in Atlanta.',
+    tags: ['Tournament', 'R6 Siege', 'BLAST', 'Atlanta'],
+    image: '/news/blast-atlanta.jpg'
+  },
+  {
+    id: '7',
+    title: 'The Rise of Spacestation Gaming in the NAL',
+    date: '2024-04-22',
+    author: 'Michael Brown',
+    content: 'Spacestation Gaming has been on a tear in the North American League. We analyze their recent performance and what makes them a top contender.',
+    tags: ['NAL', 'Spacestation Gaming', 'R6 Siege'],
+    image: '/news/ssg-rise.jpg'
+  },
+  {
+    id: '8',
+    title: 'Patch 9.1 Notes: Major Changes to Ranked Play',
+    date: '2024-06-01',
+    author: 'Ubisoft',
+    content: 'Ubisoft has released the latest patch notes for Rainbow Six Siege, introducing significant changes to the ranked playlist and operator balancing.',
+    tags: ['Update', 'Patch Notes', 'Ranked', 'R6 Siege'],
+    image: '/news/patch-9-1.jpg'
   }
 ];

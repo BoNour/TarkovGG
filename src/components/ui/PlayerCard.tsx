@@ -6,7 +6,7 @@ import { Trophy, Target, Shield } from 'lucide-react';
 
 interface PlayerCardProps {
   player: Player;
-  variant?: 'compact' | 'full';
+  variant?: 'compact' | 'full' | 'minimal';
   isHovered?: boolean;
 }
 
@@ -52,7 +52,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
       >
         
         {/* Image area background - clipped for card shape */}
-        <div className="relative h-56 rounded-t-3xl overflow-visible">
+        <div className="relative h-40 rounded-t-3xl overflow-visible">
           <div className="w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
           
           {/* Sharp image for top portion */}
@@ -93,7 +93,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         </div>
         
         {/* Blurred overflow image - only visible outside card bounds on hover */}
-        <div className="absolute top-0 left-0 w-full h-56 flex items-start justify-center pointer-events-none" style={{ zIndex: isHovered ? -10 : -1 }}>
+        <div className="absolute top-0 left-0 w-full h-40 flex items-start justify-center pointer-events-none" style={{ zIndex: isHovered ? -10 : -1 }}>
           <img 
             src={player.image} 
             alt="" 
@@ -257,6 +257,35 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
               >
                 Profile
               </Link>
+            </div>
+          </div>
+        )}
+
+        {variant === 'minimal' && (
+          <div 
+            className="relative z-10 p-3 border rounded-b-3xl backdrop-blur-lg overflow-hidden"
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
+              borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(16px) saturate(150%)'
+            }}
+          >
+            {/* Player name and rating only */}
+            <div className="text-center space-y-2">
+              <Link to={`/players/${player.id}`} className="block group/name">
+                <h3 className="text-lg font-black text-white transition-all duration-300 group-hover/name:text-cyan-300">
+                  {player.nickname}
+                </h3>
+              </Link>
+              
+              {/* Rating only */}
+              <div className="text-center">
+                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">RATING</p>
+                <p className={`text-xl font-bold ${player.stats.rating > 1.1 ? 'text-green-400' : player.stats.rating < 0.9 ? 'text-red-400' : 'text-yellow-400'}`}>
+                  {player.stats.rating.toFixed(2)}
+                </p>
+              </div>
             </div>
           </div>
         )}

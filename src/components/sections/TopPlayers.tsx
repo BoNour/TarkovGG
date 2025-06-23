@@ -37,19 +37,25 @@ const TopPlayers: React.FC = () => {
       
       <div className="max-w-none mx-auto relative">
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-16 space-y-6 lg:space-y-0">
-          <div className="space-y-4">
-            <h2 className="text-5xl font-black text-white leading-tight">
-              Top Players
-            </h2>
-          </div>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-black text-white leading-tight flex items-center">
+            <Award className="w-6 h-6 mr-3 text-yellow-400" />
+            Top Players
+          </h2>
+          <Link 
+            to="/players" 
+            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+          >
+            <span>View All Players</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+          </Link>
         </div>
         
         {/* Players grid with enhanced layout */}
         <div className="relative">
           {/* Decorative background elements */}
           
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
             {topPlayers.map((player, index) => (
               <div 
                 key={player.id} 
@@ -66,7 +72,7 @@ const TopPlayers: React.FC = () => {
                 onMouseEnter={() => setHoveredPlayerId(player.id)}
                 onMouseLeave={() => setHoveredPlayerId(null)}
               >
-                <PlayerCard player={player} variant="full" isHovered={hoveredPlayerId === player.id} />
+                <PlayerCard player={player} variant="minimal" isHovered={hoveredPlayerId === player.id} />
               </div>
             ))}
           </div>
@@ -90,13 +96,7 @@ const TopPlayers: React.FC = () => {
             </div>
           </div>
         )}
-        <Link 
-          to="/players" 
-          className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
-        >
-          <span>View All Players</span>
-          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-        </Link>
+
       </div>
     </section>
   );

@@ -49,12 +49,22 @@ const TopTeams: React.FC = () => {
       {/* Content container */}
       <div className="relative p-6">
         {/* Header with View All link */}
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-3xl font-black text-white">Top Teams</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-2xl font-black text-white flex items-center">
+            <Users className="w-6 h-6 mr-3 text-purple-400" />
+            Top Teams
+          </h3>
+          <Link 
+            to="/teams" 
+            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+          >
+            <span>View All Teams</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+          </Link>
         </div>
         
         {/* Teams grid - vertical cards side by side */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {topTeams.map((team, index) => {
             const rankColors = [
               'bg-yellow-500/20 text-yellow-300 border-yellow-500/30', // 1st - Gold
@@ -80,7 +90,7 @@ const TopTeams: React.FC = () => {
                 onMouseLeave={() => setHoveredTeamId(null)}
               >
                 {/* Vertical Team Card */}
-                <div className={`relative group overflow-hidden rounded-2xl transition-all duration-300 h-[580px] ${
+                <div className={`relative group overflow-hidden rounded-2xl transition-all duration-300 h-[200px] ${
                   index === 0 
                     ? 'border border-yellow-400/30 hover:border-yellow-400/50' 
                     : ''
@@ -93,154 +103,53 @@ const TopTeams: React.FC = () => {
                   }`}></div>
                   
                   {/* Content */}
-                  <div className="relative h-full flex flex-col p-6 text-white">
+                  <div className="relative h-full flex flex-col p-3 text-white">
                     {/* Rank indicator */}
-                    <div className="flex justify-between items-start mb-6">
-                      {/* Clean glass-morphism rank indicators */}
+                    <div className="flex justify-between items-start mb-0">
+                      {/* Simplified rank indicators */}
                       <div className="relative">
-                        {index === 0 ? (
-                          // 1st Place - Extra Golden Premium Badge
-                          <div className="relative">
-                            {/* Multiple layered outer glows for extra golden effect */}
-                            <div className="absolute inset-0 bg-yellow-400/20 rounded-2xl blur-2xl transform scale-150"></div>
-                            <div className="absolute inset-0 bg-amber-500/15 rounded-2xl blur-xl transform scale-125"></div>
-                            <div className="absolute inset-0 bg-yellow-300/10 rounded-2xl blur-lg transform scale-110"></div>
-                            
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/40 to-amber-600/25 backdrop-blur-xl border-2 border-yellow-400/60 shadow-2xl flex items-center justify-center relative overflow-hidden transform hover:scale-105 transition-all duration-300">
-                              {/* Enhanced golden inner glow */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/25 to-amber-500/15 rounded-2xl"></div>
-                              <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/20 to-transparent rounded-2xl"></div>
-                              
-                              {/* Golden shimmer effect */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200/20 to-transparent rounded-2xl animate-pulse"></div>
-                              
-                              {/* Rank number with golden text */}
-                              <span className="relative text-xl font-black text-yellow-100 drop-shadow-2xl filter brightness-110">1</span>
-                              
-                              {/* Enhanced golden light reflections */}
-                              <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-yellow-200/80 rounded-full blur-[0.5px] animate-pulse"></div>
-                              <div className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 bg-amber-300/70 rounded-full animate-pulse"></div>
-                              <div className="absolute top-3 left-3 w-1 h-1 bg-yellow-100/60 rounded-full"></div>
-                            </div>
-                          </div>
-                        ) : index === 1 ? (
-                          // 2nd Place - Elegant Glass Badge
-                          <div className="relative">
-                            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-white/20 to-white/6 backdrop-blur-xl border border-white/25 shadow-xl flex items-center justify-center relative overflow-hidden">
-                              {/* Single inner glow */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-slate-300/10 to-slate-400/5 rounded-2xl"></div>
-                              {/* Rank number */}
-                              <span className="relative text-lg font-black text-white/95 drop-shadow-xl">2</span>
-                              {/* Clean light reflections */}
-                              <div className="absolute top-2 right-2 w-1 h-1 bg-white/50 rounded-full blur-[0.5px]"></div>
-                              <div className="absolute bottom-2 left-2 w-0.5 h-0.5 bg-slate-300/30 rounded-full"></div>
-                            </div>
-                            {/* Subtle outer glow */}
-                            <div className="absolute inset-0 bg-white/4 rounded-2xl blur-lg"></div>
-                          </div>
-                        ) : index === 2 ? (
-                          // 3rd Place - Refined Glass Badge
-                          <div className="relative">
-                            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-white/18 to-white/6 backdrop-blur-xl border border-white/22 shadow-xl flex items-center justify-center relative overflow-hidden">
-                              {/* Single inner glow */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-amber-500/5 rounded-2xl"></div>
-                              {/* Rank number */}
-                              <span className="relative text-lg font-black text-white/95 drop-shadow-xl">3</span>
-                              {/* Clean light reflections */}
-                              <div className="absolute top-2 right-2 w-1 h-1 bg-white/50 rounded-full blur-[0.5px]"></div>
-                              <div className="absolute bottom-2 left-2 w-0.5 h-0.5 bg-orange-400/30 rounded-full"></div>
-                            </div>
-                            {/* Subtle outer glow */}
-                            <div className="absolute inset-0 bg-white/4 rounded-2xl blur-lg"></div>
-                          </div>
-                        ) : (
-                          // 4th Place - Clean Glass Badge
-                          <div className="relative">
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-lg border border-white/18 shadow-lg flex items-center justify-center relative overflow-hidden">
-                              {/* Single inner glow */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/8 to-indigo-500/4 rounded-2xl"></div>
-                              {/* Rank number */}
-                              <span className="relative text-base font-black text-white/90 drop-shadow-lg">4</span>
-                              {/* Simple light reflection */}
-                              <div className="absolute top-2 right-2 w-0.5 h-0.5 bg-white/40 rounded-full"></div>
-                            </div>
-                          </div>
-                        )}
+                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-black backdrop-blur-xl border ${
+                          index === 0 
+                            ? 'bg-yellow-500/30 border-yellow-400/50 text-yellow-100' 
+                            : index === 1
+                              ? 'bg-gray-400/20 border-gray-400/30 text-gray-200'
+                              : index === 2
+                                ? 'bg-orange-500/20 border-orange-400/30 text-orange-200'
+                                : 'bg-blue-500/20 border-blue-400/30 text-blue-200'
+                        }`}>
+                          {index + 1}
+                        </div>
                       </div>
                     </div>
 
                     {/* Team logo and name */}
-                    <div className="text-center mb-6">
+                    <div className="text-center mb-2">
                       <img 
                         src={team.logo} 
                         alt={team.name}
-                        className="w-20 h-20 mx-auto object-cover rounded-full shadow-lg border-2 border-white/10 group-hover:border-white/30 transition-all duration-300 mb-4 group-hover:scale-105"
+                        className="w-10 h-10 mx-auto object-cover rounded-full shadow-lg border border-white/10 group-hover:border-white/30 transition-all duration-300 mb-1 group-hover:scale-105"
                       />
-                      <h4 className={`text-xl font-bold mb-2 transition-colors ${
+                      <h4 className={`text-base font-bold transition-colors ${
                         index === 0 
                           ? 'text-yellow-300 group-hover:text-yellow-200' 
                           : 'text-white group-hover:text-purple-300'
                       }`}>
                         {team.name}
                       </h4>
-                      <p className="text-gray-400 font-mono text-sm uppercase tracking-wider">{team.tag}</p>
+                      <p className="text-gray-400 font-mono text-xs uppercase tracking-wider">{team.tag}</p>
                     </div>
 
-                    {/* Stats section */}
-                    <div className="flex-1 flex flex-col justify-center space-y-6 text-center">
+                    {/* Stats section - Compact */}
+                    <div className="text-center">
                       {/* Win Rate - Primary Focus */}
                       <div>
-                        <div className={`text-4xl font-black mb-2 ${
+                        <div className={`text-xl font-black ${
                           index === 0 ? 'text-yellow-300' : 'text-white'
                         }`}>
                           {(team.stats.winRate * 100).toFixed(0)}%
                         </div>
-                        <div className="text-sm text-gray-400 uppercase tracking-widest">Win Rate</div>
+                        <div className="text-xs text-gray-400 uppercase tracking-wider">Win Rate</div>
                       </div>
-
-                      {/* Record */}
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-center space-x-2">
-                          <Trophy size={16} className="text-yellow-400" />
-                          <span className="text-base text-gray-400">Record</span>
-                        </div>
-                        <div className={`text-2xl font-bold ${
-                          index === 0 ? 'text-yellow-300' : 'text-white'
-                        }`}>
-                          {team.stats.wins}-{team.stats.losses}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* View Team Button - Always at bottom */}
-                    <div className="mt-auto pt-6 pb-4">
-                      <Link 
-                        to={`/teams/${team.id}`}
-                        className="group/btn relative block w-full text-center py-4 rounded-2xl font-bold text-sm transition-all duration-300 overflow-hidden border backdrop-blur-md"
-                        style={{ 
-                          background: 'rgba(255, 255, 255, 0.08)',
-                          borderColor: 'rgba(255, 255, 255, 0.15)',
-                          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
-                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255, 255, 255, 0.1)';
-                        }}
-                      >
-                        {/* Shimmer effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
-                        <span className="relative z-10 text-white group-hover/btn:text-white transition-colors duration-300">
-                          View Team
-                        </span>
-                      </Link>
                     </div>
                   </div>
                 </div>
@@ -257,13 +166,7 @@ const TopTeams: React.FC = () => {
             <p className="text-sm text-gray-500">Check back soon for team rankings.</p>
           </div>
         )}
-        <Link 
-          to="/teams" 
-          className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-4"
-        >
-          <span>View All Teams</span>
-          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-        </Link>
+
       </div>
     </div>
   );

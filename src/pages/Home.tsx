@@ -5,7 +5,7 @@ import TopPlayers from '../components/sections/TopPlayers';
 import TopTeams from '../components/sections/TopTeams';
 import LatestNews from '../components/sections/LatestNews';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play, Calendar, Trophy, Users, Star } from 'lucide-react';
 
 const Home: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -44,72 +44,91 @@ const Home: React.FC = () => {
       {/* Animated background orbs */}
       <div className="fixed inset-0 z-20">
         {/* Large floating orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 25s ease-in-out infinite'}}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-800/30 to-pink-800/30 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 30s ease-in-out infinite'}}></div>
-        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-3 35s ease-in-out infinite', transform: 'translate(-50%, -50%)'}}></div>
+        <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-full blur-3xl opacity-30" style={{animation: 'slow-float-1 25s ease-in-out infinite'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] bg-gradient-to-r from-purple-800/15 to-pink-800/15 rounded-full blur-3xl opacity-20" style={{animation: 'slow-float-2 30s ease-in-out infinite'}}></div>
 
         {/* Mouse-aware orb */}
         <div 
-          className="absolute w-[150px] h-[150px] bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-700 ease-out"
+          className="absolute w-[100px] h-[100px] bg-gradient-to-r from-white/5 to-transparent rounded-full blur-2xl opacity-50 transition-transform duration-700 ease-out"
           style={{ 
-            transform: `translate(${mousePosition.x / 1.5 - 75}px, ${mousePosition.y / 1.5 - 75}px)`
+            transform: `translate(${mousePosition.x / 1.5 - 50}px, ${mousePosition.y / 1.5 - 50}px)`
           }}
         ></div>
       </div>
 
-      {/* Content sections starting from the top */}
-      <div className="relative z-30 pt-8" style={{ backgroundColor: 'transparent' }}>
-        {/* Three Column Layout: News, Competitions, Matches */}
-        <section className="py-16 relative">
-          <div className="relative max-w-none mx-auto px-[5%]">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Combined Competitions, News, and Matches Section */}
-              <div className="lg:col-span-4">
+      {/* Main Content Layout - HLTV Style */}
+      <div className="relative z-30 min-h-screen pt-8">
+        {/* Main Content Grid - HLTV Layout */}
+        <section className="pb-8">
+          <div className="w-full px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              
+              {/* Left Column - Main Content (3/5 = 60% width) */}
+              <div className="lg:col-span-3">
+                
+                {/* Combined Players, Teams, and News Container */}
                 <div 
-                  className="relative overflow-hidden group rounded-3xl h-full"
+                  className="relative overflow-hidden rounded-2xl p-4"
                   style={{
                     backgroundColor: 'rgba(24, 24, 27, 0.7)',
                     backdropFilter: 'blur(12px)',
                   }}
                 >
-                  <div 
-                    className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)' }}
-                  ></div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
                   
-                  <div className="relative p-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                      {/* Main content area */}
-                      <div className="lg:col-span-3">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                          {/* Competitions Column */}
-                          <div className="lg:col-span-1">
-                            <h3 className="text-4xl font-black text-white mb-6">Competitions</h3>
-                            <FeaturedTournaments />
-                          </div>
+                  <div className="relative space-y-4">
+                    {/* Top Players Section */}
+                    <div>
+                      <TopPlayers />
+                    </div>
 
-                          {/* News Column */}
-                          <div className="lg:col-span-2">
-                            <LatestNews />
-                          </div>
-                        </div>
+                    {/* Separator Line */}
+                    <div className="border-t border-white/10"></div>
 
-                        {/* Top Players and Top Teams sections */}
-                        <div className="grid grid-cols-1 gap-8 mt-8">
-                          <div>
-                            <TopPlayers />
-                          </div>
-                          <div>
-                            <TopTeams />
-                          </div>
-                        </div>
-                      </div>
+                    {/* Top Teams Section */}
+                    <div>
+                      <TopTeams />
+                    </div>
 
-                      {/* Matches Column (Sidebar) */}
-                      <div className="lg:col-span-1">
-                        <LatestMatches />
-                      </div>
+                    {/* Separator Line */}
+                    <div className="border-t border-white/10"></div>
+
+                    {/* Latest News Section */}
+                    <div>
+                      <LatestNews />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Sidebar - Tournaments & Matches (2/5 = 40% width) */}
+              <div className="lg:col-span-2">
+                {/* Combined Tournaments and Matches Container */}
+                <div 
+                  className="relative overflow-hidden rounded-2xl p-6 space-y-6"
+                  style={{
+                    backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                    backdropFilter: 'blur(12px)',
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+                  
+                  <div className="relative space-y-6">
+                    {/* Tournaments Section */}
+                    <div>
+                      <h3 className="text-2xl font-black text-white mb-6 flex items-center">
+                        <Trophy className="w-6 h-6 mr-3 text-yellow-400" />
+                        Tournaments
+                      </h3>
+                      <FeaturedTournaments />
+                    </div>
+
+                    {/* Separator Line */}
+                    <div className="border-t border-white/10"></div>
+
+                    {/* Matches Section */}
+                    <div className="sticky top-6">
+                      <LatestMatches />
                     </div>
                   </div>
                 </div>
