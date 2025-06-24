@@ -266,7 +266,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             className="relative z-10 p-3 border rounded-b-3xl backdrop-blur-lg overflow-hidden"
             style={{ 
               background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
-              borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
+              borderColor: 'rgba(255, 255, 255, 0.08)',
               boxShadow: '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
               backdropFilter: 'blur(16px) saturate(150%)'
             }}

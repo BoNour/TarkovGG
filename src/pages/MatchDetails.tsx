@@ -44,7 +44,7 @@ const MatchDetails: React.FC = () => {
           }}
         ></div>
         <div className="relative z-30 pt-8">
-          <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="max-w-none mx-[7%] px-6 py-20">
           <div className="animate-pulse space-y-8">
               <div className="h-10 w-48 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-xl mb-8"></div>
               <div className="h-48 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-3xl mb-8"></div>
@@ -116,7 +116,7 @@ const MatchDetails: React.FC = () => {
         .glass-button:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15); transform: translateY(-1px); }
       `}</style>
       
-      <div className="relative z-30 container mx-auto px-4 py-12">
+      <div className="relative z-30 max-w-none mx-[7%] px-4 py-12">
         <div className="mb-8">
           <Link to="/matches" className="glass-button inline-flex items-center text-gray-300 hover:text-white transition group px-4 py-2 rounded-xl">
             <ArrowLeft className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />

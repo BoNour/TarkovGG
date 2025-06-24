@@ -4,170 +4,162 @@ import { ArrowRight, Users, Trophy, Star, Award } from 'lucide-react';
 import { useGameData } from '../../context/GameDataContext';
 
 const TopTeams: React.FC = () => {
-  const { teams, isLoading, players } = useGameData();
-  const [hoveredTeamId, setHoveredTeamId] = useState<string | null>(null);
+  const { teams, isLoading } = useGameData();
   
   // Sort teams by win rate (highest first)
   const sortedTeams = [...teams].sort((a, b) => b.stats.winRate - a.stats.winRate);
   
-  // Get the top 4 teams
-  const topTeams = sortedTeams.slice(0, 4);
+  // Get the top 5 teams
+  const topTeams = sortedTeams.slice(0, 5);
 
   if (isLoading) {
     return (
-      <div className="relative overflow-hidden group rounded-3xl"
-           style={{
-             backgroundColor: 'rgba(24, 24, 27, 0.7)',
-             backdropFilter: 'blur(12px)',
-           }}
-      >
-        {/* Glare Effect */}
-        <div className="absolute inset-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-             style={{
-               maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%)',
-             }}
-        ></div>
-
-        {/* Multiple glass layers for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+      <div className="relative">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-2xl font-black text-white flex items-center">
+            <Users className="w-6 h-6 mr-3 text-purple-400" />
+            Top Teams
+          </h3>
+        </div>
         
-        {/* Content container */}
-        <div className="relative p-6">
-          <h3 className="text-3xl font-black text-white mb-6">Top Teams</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-80 rounded-2xl bg-white/5 animate-pulse"></div>
-            ))}
-          </div>
+        {/* Loading grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="relative rounded-xl overflow-hidden bg-white/5 animate-pulse">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+              <div className="absolute inset-0 rounded-xl border border-white/10"></div>
+              <div className="relative p-4 text-center">
+                <div className="absolute top-1 left-1">
+                  <div className="w-6 h-6 bg-gray-700 rounded-lg"></div>
+                </div>
+                <div className="mb-3">
+                  <div className="w-14 h-14 bg-gray-700 rounded-xl mx-auto"></div>
+                </div>
+                <div className="h-4 bg-gray-700 rounded w-3/4 mx-auto mb-2"></div>
+                <div className="h-5 bg-gray-700 rounded w-8 mx-auto mb-1"></div>
+                <div className="h-3 bg-gray-700 rounded w-6 mx-auto"></div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative group">
-      {/* Content container */}
-      <div className="relative p-6">
-        {/* Header with View All link */}
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-2xl font-black text-white flex items-center">
-            <Users className="w-6 h-6 mr-3 text-purple-400" />
-            Top Teams
-          </h3>
-          <Link 
-            to="/teams" 
-            className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            <span>View All Teams</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
-        </div>
-        
-        {/* Teams grid - vertical cards side by side */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="relative">
+      {/* Header with View All link */}
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-2xl font-black text-white flex items-center">
+          <Users className="w-6 h-6 mr-3 text-purple-400" />
+          Top Teams
+        </h3>
+        <Link 
+          to="/teams" 
+          className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+        >
+          <span>View All Teams</span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
+      </div>
+      
+      {/* Teams grid - compact cards side by side */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {topTeams.map((team, index) => {
-            const rankColors = [
-              'bg-yellow-500/20 text-yellow-300 border-yellow-500/30', // 1st - Gold
-              'bg-gray-400/20 text-gray-300 border-gray-400/30',       // 2nd - Silver
-              'bg-orange-600/20 text-orange-300 border-orange-600/30', // 3rd - Bronze
-              'bg-blue-500/20 text-blue-300 border-blue-500/30'        // 4th - Blue
-            ];
+            // Generate a mock ELO rating based on win rate (1000-1400 range)
+            const eloRating = Math.floor(1000 + (team.stats.winRate * 400));
             
             return (
-              <div 
+              <Link
+                to={`/teams/${team.id}`}
                 key={team.id} 
-                className="transition-all duration-500 ease-out"
+                className="group relative block rounded-xl overflow-hidden transition-all duration-300"
                 style={{
-                  transform: hoveredTeamId && hoveredTeamId !== team.id 
-                    ? 'scale(0.95) translateY(8px)' 
-                    : hoveredTeamId === team.id
-                      ? 'scale(1.05) translateY(-8px)'
-                      : 'scale(1.0) translateY(0px)',
-                  opacity: hoveredTeamId && hoveredTeamId !== team.id ? 0.6 : 1.0,
-                  animationDelay: `${index * 100}ms`
+                  animationDelay: `${index * 100}ms`,
+                  background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.3) 100%)',
+                  backdropFilter: 'blur(16px) saturate(150%)',
+                  boxShadow: '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)'
                 }}
-                onMouseEnter={() => setHoveredTeamId(team.id)}
-                onMouseLeave={() => setHoveredTeamId(null)}
               >
-                {/* Vertical Team Card */}
-                <div className={`relative group overflow-hidden rounded-2xl transition-all duration-300 h-[200px] ${
+                {/* Background gradient overlay based on rank - only for #1 */}
+                <div className={`absolute inset-0 ${
                   index === 0 
-                    ? 'border border-yellow-400/30 hover:border-yellow-400/50' 
+                    ? 'bg-gradient-to-br from-yellow-500/5 via-amber-600/3 to-orange-500/2 opacity-30' 
                     : ''
-                }`}>
-                  {/* Background gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br opacity-50 ${
-                    index === 0 
-                      ? 'from-yellow-400/10 to-amber-500/5' 
-                      : 'from-white/5 to-transparent'
-                  }`}></div>
-                  
-                  {/* Content */}
-                  <div className="relative h-full flex flex-col p-3 text-white">
-                    {/* Rank indicator */}
-                    <div className="flex justify-between items-start mb-0">
-                      {/* Simplified rank indicators */}
-                      <div className="relative">
-                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-black backdrop-blur-xl border ${
-                          index === 0 
-                            ? 'bg-yellow-500/30 border-yellow-400/50 text-yellow-100' 
-                            : index === 1
-                              ? 'bg-gray-400/20 border-gray-400/30 text-gray-200'
-                              : index === 2
-                                ? 'bg-orange-500/20 border-orange-400/30 text-orange-200'
-                                : 'bg-blue-500/20 border-blue-400/30 text-blue-200'
-                        }`}>
-                          {index + 1}
-                        </div>
-                      </div>
-                    </div>
+                }`}></div>
 
-                    {/* Team logo and name */}
-                    <div className="text-center mb-2">
+                {/* Border glow effect - only top 3 have colors */}
+                <div className={`absolute inset-0 rounded-xl border transition-all duration-300 ${
+                  index === 0 
+                    ? 'border-yellow-400/20 group-hover:border-yellow-400/30' 
+                    : index === 1
+                      ? 'border-gray-300/30 group-hover:border-gray-300/40'
+                      : index === 2
+                        ? 'border-orange-600/30 group-hover:border-orange-600/40'
+                        : 'border-white/15 group-hover:border-white/25'
+                }`}></div>
+
+                {/* Content */}
+                <div className="relative p-4 text-center">
+                  {/* Rank indicator - rounded square badge */}
+                  <div className="absolute top-3 left-3">
+                    <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shadow-md ${
+                      index === 0 
+                        ? 'bg-gradient-to-br from-yellow-400/80 to-yellow-500/80 text-black' 
+                        : index === 1
+                          ? 'bg-gradient-to-br from-gray-300/80 to-gray-400/80 text-black'
+                          : index === 2
+                            ? 'bg-gradient-to-br from-orange-500/80 to-orange-600/80 text-white'
+                            : 'bg-gradient-to-br from-gray-500/80 to-gray-600/80 text-white'
+                    }`}>
+                      {index + 1}
+                    </div>
+                  </div>
+
+                  {/* Team logo with enhanced styling */}
+                  <div className="mb-3 relative">
+                    <div className="w-14 h-14 mx-auto relative">
                       <img 
                         src={team.logo} 
                         alt={team.name}
-                        className="w-10 h-10 mx-auto object-cover rounded-full shadow-lg border border-white/10 group-hover:border-white/30 transition-all duration-300 mb-1 group-hover:scale-105"
+                        className="w-full h-full object-cover rounded-xl shadow-xl transition-all duration-300"
                       />
-                      <h4 className={`text-base font-bold transition-colors ${
-                        index === 0 
-                          ? 'text-yellow-300 group-hover:text-yellow-200' 
-                          : 'text-white group-hover:text-purple-300'
-                      }`}>
-                        {team.name}
-                      </h4>
-                      <p className="text-gray-400 font-mono text-xs uppercase tracking-wider">{team.tag}</p>
-                    </div>
-
-                    {/* Stats section - Compact */}
-                    <div className="text-center">
-                      {/* Win Rate - Primary Focus */}
-                      <div>
-                        <div className={`text-xl font-black ${
-                          index === 0 ? 'text-yellow-300' : 'text-white'
-                        }`}>
-                          {(team.stats.winRate * 100).toFixed(0)}%
-                        </div>
-                        <div className="text-xs text-gray-400 uppercase tracking-wider">Win Rate</div>
-                      </div>
+                      {/* Glow effect behind logo - only for top 3 */}
+                      {index < 3 && (
+                        <div className={`absolute inset-0 rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-300 ${
+                          index === 0 ? 'bg-yellow-400' : index === 1 ? 'bg-gray-400' : 'bg-orange-400'
+                        }`}></div>
+                      )}
                     </div>
                   </div>
+
+                  {/* Team name with better typography */}
+                  <h4 className="text-sm font-bold text-white group-hover:text-yellow-300 transition-colors mb-2 leading-tight">
+                    {team.name}
+                  </h4>
+
+                  {/* ELO Rating with enhanced styling */}
+                  <div className="relative">
+                    <div className="text-lg font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent group-hover:from-green-300 group-hover:to-emerald-300 transition-all duration-300">
+                      {eloRating}
+                    </div>
+                    <div className="text-xs text-gray-400 uppercase tracking-wider font-medium">ELO</div>
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
 
-        {/* No teams state */}
-        {topTeams.length === 0 && (
-          <div className="text-center py-16 flex flex-col items-center justify-center">
-            <Users className="w-8 h-8 mx-auto text-gray-600 mb-2" />
-            <h3 className="text-lg font-semibold text-white">No Teams</h3>
-            <p className="text-sm text-gray-500">Check back soon for team rankings.</p>
-          </div>
-        )}
-
-      </div>
+      {/* No teams state */}
+      {topTeams.length === 0 && (
+        <div className="text-center py-8 flex flex-col items-center justify-center">
+          <Users className="w-8 h-8 mx-auto text-gray-600 mb-2" />
+          <h3 className="text-lg font-semibold text-white">No Teams</h3>
+          <p className="text-sm text-gray-500">Check back soon for team rankings.</p>
+        </div>
+      )}
     </div>
   );
 };

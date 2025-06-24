@@ -53,17 +53,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, compact = false }) => {
     return (
       <div className="relative group overflow-hidden rounded-lg p-0.5 transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
         <div className="relative bg-zinc-900/60 backdrop-blur-xl rounded-[7px] p-3">
-          {/* Compact Header */}
-          <div className="flex justify-between items-center mb-2">
-            <div className={`flex items-center space-x-1 px-2 py-0.5 text-xs font-bold rounded-full border ${status.className} ${status.color}`}>
-              <status.Icon className="w-2.5 h-2.5" />
-              <span className="text-xs">{status.label}</span>
-            </div>
-            <span className="text-xs text-gray-400">
-              {new Date(match.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            </span>
-          </div>
-
           {/* Compact Body - Horizontal Layout */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 flex-1">
@@ -96,7 +85,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, compact = false }) => {
                 : 'bg-white/10 hover:bg-white/20 text-white'
             }`}
           >
-            {isLive ? 'Watch' : 'Details'}
+            Watch now
           </Link>
         </div>
       </div>
@@ -106,14 +95,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, compact = false }) => {
   return (
     <div className="relative group overflow-hidden rounded-xl p-0.5 transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
       <div className="relative bg-zinc-900/60 backdrop-blur-xl rounded-[11px] p-3">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-2">
-          <div className={`flex items-center space-x-1.5 px-2 py-0.5 text-xs font-bold rounded-full border ${status.className} ${status.color}`}>
-            <status.Icon className="w-3 h-3" />
-            <span>{status.label}</span>
-          </div>
-        </div>
-
         {/* Body */}
         <div className="flex items-center justify-between my-3">
           <div className="flex-1 flex flex-col items-center text-center">
@@ -146,7 +127,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, compact = false }) => {
               : 'bg-white/10 hover:bg-white/20 text-white'
           }`}
         >
-          {isLive ? 'Watch Now' : 'View Details'}
+          Watch now
         </Link>
       </div>
     </div>

@@ -61,11 +61,6 @@ const TopPlayers: React.FC = () => {
                 key={player.id} 
                 className="transition-all duration-500 ease-out"
                 style={{
-                  transform: hoveredPlayerId && hoveredPlayerId !== player.id 
-                    ? 'scale(0.95) translateY(8px)' 
-                    : hoveredPlayerId === player.id
-                      ? 'scale(1.05) translateY(-8px)'
-                      : 'scale(1.0) translateY(0px)',
                   opacity: hoveredPlayerId && hoveredPlayerId !== player.id ? 0.6 : 1.0,
                   animationDelay: `${index * 100}ms`
                 }}

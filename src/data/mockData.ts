@@ -876,7 +876,7 @@ export const mockNews: News[] = [
   },
   {
     id: '7',
-    title: 'The Rise of Spacestation Gaming in the NAL',
+    title: 'LEGA CHAMPIONS QUALS: See where each team stands',
     date: '2024-04-22',
     author: 'Michael Brown',
     content: 'Spacestation Gaming has been on a tear in the North American League. We analyze their recent performance and what makes them a top contender.',
@@ -885,7 +885,7 @@ export const mockNews: News[] = [
   },
   {
     id: '8',
-    title: 'Patch 9.1 Notes: Major Changes to Ranked Play',
+    title: 'Most Meta Guns to run in arena today',
     date: '2024-06-01',
     author: 'Ubisoft',
     content: 'Ubisoft has released the latest patch notes for Rainbow Six Siege, introducing significant changes to the ranked playlist and operator balancing.',

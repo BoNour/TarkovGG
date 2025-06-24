@@ -39,70 +39,82 @@ const FeaturedTournaments: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-3">
-        {[1, 2, 3].map(i => (
-          <div key={i} className="h-24 rounded-lg bg-white/5 animate-pulse flex overflow-hidden">
-            <div className="w-1/3 bg-white/5"></div>
-            <div className="w-2/3 p-3 flex flex-col justify-between">
-                <div>
-                  <div className="h-3 bg-gray-700 rounded w-3/4 mb-1"></div>
-                  <div className="h-2 bg-gray-700 rounded w-1/2"></div>
-                </div>
-                <div className="flex justify-between items-end">
-                  <div className="space-y-1">
-                    <div className="h-2 bg-gray-700 rounded w-16"></div>
-                    <div className="h-2 bg-gray-700 rounded w-20"></div>
-                  </div>
-                </div>
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <div className="h-6 bg-gray-700 rounded w-32 animate-pulse"></div>
+          <div className="h-4 bg-gray-700 rounded w-16 animate-pulse"></div>
+        </div>
+        <div className="space-y-3">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="p-4 rounded-lg bg-white/5 animate-pulse border border-white/10">
+              <div className="flex items-center justify-between mb-2">
+                <div className="h-4 bg-gray-700 rounded w-2/3"></div>
+                <div className="h-3 bg-gray-700 rounded w-16"></div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="h-3 bg-gray-700 rounded w-20"></div>
+                <div className="h-3 bg-gray-700 rounded w-16"></div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div>
+      {/* Header with View All button */}
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-bold text-white">Tournaments</h3>
+        <Link 
+          to="/tournaments" 
+          className="group flex items-center space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300"
+        >
+          <span>View All Tournaments </span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
+      </div>
+      
+      <div className="space-y-3">
       {featuredTournaments.map((tournament, index) => {
         const status = new Date(tournament.startDate) > new Date() ? 'Upcoming' : new Date(tournament.endDate) < new Date() ? 'Completed' : 'Live';
-        const statusColor = status === 'Upcoming' ? 'bg-blue-500/20 text-blue-300' : status === 'Completed' ? 'bg-gray-500/20 text-gray-300' : 'bg-red-500/20 text-red-300 animate-pulse';
+        const statusColor = status === 'Upcoming' ? 'text-blue-400' : status === 'Completed' ? 'text-gray-400' : 'text-red-400';
         
         return (
           <Link 
             to={`/tournaments/${tournament.id}`}
             key={tournament.id} 
-            className="group block rounded-lg transition-all duration-300 hover:bg-white/5 overflow-hidden border border-white/10 hover:border-white/20 relative"
+            className="group block p-4 rounded-lg transition-all duration-300 hover:bg-white/5 border border-white/10 hover:border-white/20 relative overflow-hidden"
             style={{
               animation: `fadeInUp 0.5s ease-out ${index * 100}ms both`
             }}
           >
-            <div className="flex h-24">
-              <div className="w-1/3 relative bg-white/5 overflow-hidden border-r border-white/10">
-                <img src="/arenapfp.webp" alt={tournament.name} className="w-full h-full object-cover scale-100 transition-transform duration-300" />
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center space-x-2">
+                <h3 className="font-bold text-white group-hover:text-yellow-400 transition-colors text-sm line-clamp-1">{tournament.name}</h3>
+                <span className={`text-[10px] font-semibold uppercase tracking-wide ${statusColor}`}>
+                  {status}
+                </span>
               </div>
-
-              <div className="w-2/3 p-3 flex flex-col justify-between">
-                <div>
-                    <h3 className="font-bold text-sm text-white group-hover:text-purple-300 transition-colors mb-1 line-clamp-1">{tournament.name}</h3>
-                    <div className="text-xs space-y-1">
-                        <div className="flex items-center space-x-2 text-gray-400">
-                            <Trophy size={12} className="text-yellow-400" />
-                            <span className="font-semibold text-white text-xs">{tournament.prizePool}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-400">
-                            <Calendar size={12} className="text-blue-400" />
-                            <span className="text-xs">{new Date(tournament.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                        </div>
-                    </div>
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4 text-xs">
+                <div className="flex items-center space-x-1">
+                  <Trophy size={12} className="text-yellow-400" />
+                  <span className="font-semibold text-yellow-400">{tournament.prizePool}</span>
                 </div>
-                
-                {/* Status badge */}
-                <div className="flex justify-end">
-                  <span className={`px-2 py-1 text-xs font-bold rounded-full ${statusColor}`}>
-                    {status}
-                  </span>
+                <div className="flex items-center space-x-1">
+                  <Calendar size={12} className="text-gray-400" />
+                  <span className="text-gray-300">{new Date(tournament.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                 </div>
               </div>
+            </div>
+            
+            {/* Overlay text in bottom right */}
+            <div className="absolute bottom-2 right-2 text-2xl font-black text-white/10 uppercase tracking-wider pointer-events-none">
+              {tournament.name.split(' ')[0]}
             </div>
           </Link>
         )
@@ -115,13 +127,7 @@ const FeaturedTournaments: React.FC = () => {
           <p className="text-xs text-gray-500">Check back soon for events.</p>
         </div>
       )}
-       <Link 
-        to="/tournaments" 
-        className="group flex items-center justify-end space-x-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors duration-300 mt-3"
-      >
-        <span>View All</span>
-        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-      </Link>
+      </div>
     </div>
   );
 };

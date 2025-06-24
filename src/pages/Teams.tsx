@@ -106,7 +106,7 @@ const Teams: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
             <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
             <div className="h-12 bg-white/10 rounded mb-8"></div>
@@ -161,7 +161,7 @@ const Teams: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-[95vw] mx-auto px-4">
+          <div className="max-w-none mx-[7%] px-4">
             {/* Main Header Container - Exact same size for all pages */}
             <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
@@ -186,7 +186,7 @@ const Teams: React.FC = () => {
 
         {/* Main Content Section */}
         <section className="relative pb-16">
-          <div className="max-w-[95vw] mx-auto px-4">
+          <div className="max-w-none mx-[7%] px-4">
             {/* Charts View - No wrapper */}
             {viewMode === 'charts' ? (
               <div>

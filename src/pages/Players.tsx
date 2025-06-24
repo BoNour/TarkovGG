@@ -108,7 +108,7 @@ const Players: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
             <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
             <div className="h-12 bg-white/10 rounded mb-8"></div>
@@ -163,7 +163,7 @@ const Players: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-[95vw] mx-auto px-4">
+          <div className="max-w-none mx-[7%] px-4">
             {/* Main Header Container - Exact same size for all pages */}
             <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
@@ -188,7 +188,7 @@ const Players: React.FC = () => {
 
         {/* Main Content Section */}
         <section className="relative pb-16">
-          <div className="max-w-[95vw] mx-auto px-4">
+          <div className="max-w-none mx-[7%] px-4">
             <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
               
               {/* Table View */}

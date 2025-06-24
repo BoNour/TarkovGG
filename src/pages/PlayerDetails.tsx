@@ -55,7 +55,7 @@ const PlayerDetails: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
             <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
             <div className="h-64 bg-white/10 rounded-3xl mb-8"></div>
@@ -90,7 +90,7 @@ const PlayerDetails: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12 text-center">
           <h1 className="text-4xl font-bold text-white mb-4">Player not found</h1>
           <p className="text-gray-400 mb-8">The player you're looking for doesn't exist or has been removed.</p>
           <Link to="/players" className="inline-flex items-center px-6 py-3 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 font-medium rounded-lg transition-all duration-200 shadow-lg border border-blue-500/30 backdrop-blur-md">
@@ -157,7 +157,7 @@ const PlayerDetails: React.FC = () => {
         
         {/* Back button */}
         <section className="py-8 relative">
-          <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+          <div className="max-w-none mx-[7%] px-4 lg:px-8 xl:px-12">
             <Link to="/players" className="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300 mb-8">
               <ArrowLeft className="h-5 w-5 mr-2" />
               <span className="font-medium">Back to Players</span>
@@ -167,7 +167,7 @@ const PlayerDetails: React.FC = () => {
         
         {/* Player Header Section */}
         <section className="relative pb-8">
-          <div className="relative max-w-none mx-auto px-4 lg:px-8 xl:px-12">
+          <div className="relative max-w-none mx-[7%] px-4 lg:px-8 xl:px-12">
             <div className="relative overflow-hidden group rounded-3xl"
                  style={{
                    backgroundColor: 'rgba(24, 24, 27, 0.7)',
@@ -263,7 +263,7 @@ const PlayerDetails: React.FC = () => {
         </section>
 
         {/* Main Statistics */}
-        <section className="relative pb-8">
+        <section className="relative pb-8 pt-[10px]">
           <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
             <div className="relative overflow-hidden group rounded-3xl mb-8"
                  style={{
@@ -355,7 +355,7 @@ const PlayerDetails: React.FC = () => {
 
         {/* Ex Teams Section */}
         {player.teamHistory && player.teamHistory.length > 0 && (
-          <section className="relative pb-8">
+          <section className="relative pb-8 pt-[10px]">
             <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
               <div className="relative overflow-hidden group rounded-3xl"
                    style={{
@@ -487,7 +487,7 @@ const PlayerDetails: React.FC = () => {
         )}
 
         {/* Recent Matches */}
-        <section className="relative pb-16">
+        <section className="relative pb-16 pt-[10px]">
           <div className="max-w-none mx-auto px-4 lg:px-8 xl:px-12">
             <div className="relative overflow-hidden group rounded-3xl"
                  style={{

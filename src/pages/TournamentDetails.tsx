@@ -36,7 +36,7 @@ const TournamentDetails: React.FC = () => {
         <div className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: "url('/BACKGROUND.png')" }}></div>
         <div className="fixed inset-0 z-10" style={{ background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)' }}></div>
         <div className="relative z-30 pt-8">
-          <div className="max-w-[90vw] mx-auto px-4 py-20">
+          <div className="max-w-none mx-[7%] px-4 py-20">
             <div className="animate-pulse space-y-8">
               <div className="h-10 w-48 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl"></div>
               <div className="h-64 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-3xl"></div>
@@ -83,7 +83,7 @@ const TournamentDetails: React.FC = () => {
       </div>
 
       <div className="relative z-30 pt-8">
-        <div className="max-w-[90vw] mx-auto px-4 py-12 space-y-12">
+        <div className="max-w-none mx-[7%] px-4 py-12 space-y-12">
           
           <div className="mb-8">
             <Link to="/tournaments" className="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300 group">

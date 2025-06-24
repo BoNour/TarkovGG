@@ -61,75 +61,46 @@ const Home: React.FC = () => {
         {/* Main Content Grid - HLTV Layout */}
         <section className="pb-8">
           <div className="w-full px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div 
+              className="relative overflow-hidden rounded-2xl p-6 mx-[7%]"
+              style={{
+                backgroundColor: 'rgba(24, 24, 27, 0.7)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
               
-              {/* Left Column - Main Content (3/5 = 60% width) */}
-              <div className="lg:col-span-3">
-                
-                {/* Combined Players, Teams, and News Container */}
-                <div 
-                  className="relative overflow-hidden rounded-2xl p-4"
-                  style={{
-                    backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                    backdropFilter: 'blur(12px)',
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+              <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6">
+              
+                {/* Left Column - Main Content (9/12 = 75% width) */}
+                <div className="lg:col-span-9 space-y-4">
                   
-                  <div className="relative space-y-4">
-                    {/* Top Players Section */}
-                    <div>
-                      <TopPlayers />
-                    </div>
+                  {/* Top Players Section */}
+                  <div>
+                    <TopPlayers />
+                  </div>
 
-                    {/* Separator Line */}
-                    <div className="border-t border-white/10"></div>
+                  {/* Top Teams Section */}
+                  <div className="pt-[10px]">
+                    <TopTeams />
+                  </div>
 
-                    {/* Top Teams Section */}
-                    <div>
-                      <TopTeams />
-                    </div>
-
-                    {/* Separator Line */}
-                    <div className="border-t border-white/10"></div>
-
-                    {/* Latest News Section */}
-                    <div>
-                      <LatestNews />
-                    </div>
+                  {/* Latest News Section */}
+                  <div className="pt-[10px]">
+                    <LatestNews />
                   </div>
                 </div>
-              </div>
 
-              {/* Right Sidebar - Tournaments & Matches (2/5 = 40% width) */}
-              <div className="lg:col-span-2">
-                {/* Combined Tournaments and Matches Container */}
-                <div 
-                  className="relative overflow-hidden rounded-2xl p-6 space-y-6"
-                  style={{
-                    backgroundColor: 'rgba(24, 24, 27, 0.7)',
-                    backdropFilter: 'blur(12px)',
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
-                  
-                  <div className="relative space-y-6">
-                    {/* Tournaments Section */}
-                    <div>
-                      <h3 className="text-2xl font-black text-white mb-6 flex items-center">
-                        <Trophy className="w-6 h-6 mr-3 text-yellow-400" />
-                        Tournaments
-                      </h3>
-                      <FeaturedTournaments />
-                    </div>
+                                 {/* Right Sidebar - Tournaments & Matches (3/12 = 25% width) */}
+                 <div className="lg:col-span-3 space-y-6">
+                  {/* Tournaments Section */}
+                  <div>
+                    <FeaturedTournaments />
+                  </div>
 
-                    {/* Separator Line */}
-                    <div className="border-t border-white/10"></div>
-
-                    {/* Matches Section */}
-                    <div className="sticky top-6">
-                      <LatestMatches />
-                    </div>
+                  {/* Matches Section */}
+                  <div className="sticky top-6 pt-[10px]">
+                    <LatestMatches />
                   </div>
                 </div>
               </div>
