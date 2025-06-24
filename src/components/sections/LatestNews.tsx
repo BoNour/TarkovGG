@@ -23,9 +23,9 @@ const LatestNews: React.FC = () => {
           <div className="animate-pulse">
             <div className="h-6 w-32 rounded mb-6 mx-auto" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}></div>
             {/* Loading skeleton for articles */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-full mx-auto h-32 rounded-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
+            <div className="space-y-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="w-full h-[90px] rounded-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}></div>
               ))}
             </div>
           </div>
@@ -56,8 +56,8 @@ const LatestNews: React.FC = () => {
           </Link>
         </div>
         
-        {/* News Articles - Grid Layout for better space usage */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* News Articles - Single Column Layout with consistent heights */}
+        <div className="space-y-3">
           {displayNews.map((article, index) => (
             <div key={article.id} className="w-full">
               <Link 
@@ -66,18 +66,20 @@ const LatestNews: React.FC = () => {
               >
                 <div className="relative group overflow-hidden rounded-lg transition-all duration-300 ease-in-out bg-gradient-to-br from-white/10 to-transparent hover:from-white/20">
                   <div className="relative bg-zinc-900/60 backdrop-blur-xl rounded-lg overflow-hidden">
-                    {/* Horizontal layout with image on left */}
-                    <div className="flex h-24">
-                      <div className="w-24 flex-shrink-0">
+                    {/* Horizontal layout with image on left - consistent height */}
+                    <div className="flex h-[91px]">
+                      <div className="w-1/3 flex-shrink-0">
                         <img 
-                          src="/Tournaments/lega3.png" 
+                          src={index % 2 === 0 ? "/Tournaments/lega3.png" : "/Tournaments/hpl.png"} 
                           alt={article.title}
-                          className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-110"
+                          className={`w-full h-full transition-all duration-300 group-hover:brightness-110 ${
+                            index % 2 === 0 ? 'object-cover' : 'object-contain'
+                          }`}
                         />
                       </div>
                       
                       {/* Content on right */}
-                      <div className="flex-1 p-3 flex flex-col justify-center">
+                      <div className="w-2/3 p-3 flex flex-col justify-center">
                         <div>
                           <h3 className="text-sm font-bold text-white hover:text-green-400 transition-colors duration-300 line-clamp-2 leading-tight">
                             {article.title}
