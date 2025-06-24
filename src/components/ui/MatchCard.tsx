@@ -85,7 +85,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, compact = false }) => {
                 : 'bg-white/10 hover:bg-white/20 text-white'
             }`}
           >
-            Watch now
+            {isLive ? 'Watch now' : 'View details'}
           </Link>
         </div>
       </div>
@@ -127,7 +127,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, compact = false }) => {
               : 'bg-white/10 hover:bg-white/20 text-white'
           }`}
         >
-          Watch now
+          {isLive ? 'Watch now' : 'View details'}
         </Link>
       </div>
     </div>

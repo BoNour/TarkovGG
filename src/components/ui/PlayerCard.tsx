@@ -60,7 +60,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-2 scale-[0.95]'}`}
+              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.3]' : 'translate-y-2 scale-[0.95]'}`}
               style={{ 
                 filter: 'contrast(1) brightness(1.3)',
                 height: '120%',
@@ -84,9 +84,10 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
                 width: 'auto',
                 maxWidth: '120%',
                 transformOrigin: 'center top',
-                opacity: 0.5,
+                opacity: isHovered ? 0.7 : 0.3,
                 maskImage: 'linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.8) 95%, rgba(0,0,0,0.4) 100%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.8) 95%, rgba(0,0,0,0.4) 100%)',
+                transition: 'opacity 1s ease-out, transform 0.7s ease-out, filter 0.8s ease-out',
               }}
             />
           </div>
@@ -97,7 +98,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
           <img 
             src={player.image} 
             alt="" 
-            className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-5 scale-90 opacity-0'}`}
+            className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-5 scale-90'}`}
             style={{ 
               filter: 'contrast(1) brightness(1.3) blur(3px)',
               height: '120%',
@@ -105,12 +106,13 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
               maxWidth: '120%',
               transformOrigin: 'center top',
               opacity: isHovered ? 0.8 : 0,
+              transition: 'opacity 1.2s ease-out, transform 0.7s ease-out',
             }}
           />
         </div>
 
         {/* Team logo with modern styling - Always show COV logo for now */}
-        <div className="absolute top-4 left-4 z-20">
+        <div className="absolute top-3 left-3 z-20">
           {team ? (
             <Link to={`/teams/${team.id}`} className="block group/team">
               <div className="relative">
@@ -118,7 +120,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
                 <img 
                   src="/TEAMs/cov logo.png" 
                   alt="COV Logo" 
-                  className="relative w-10 h-10 object-contain transition-all duration-300 drop-shadow-lg"
+                  className="relative w-8 h-8 object-contain transition-all duration-300 drop-shadow-lg"
                 />
               </div>
             </Link>
@@ -129,7 +131,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
                 <img 
                   src="/TEAMs/cov logo.png" 
                   alt="COV Logo" 
-                  className="relative w-12 h-12 object-contain transition-all duration-300 drop-shadow-lg"
+                  className="relative w-8 h-8 object-contain transition-all duration-300 drop-shadow-lg"
                 />
               </div>
             </div>
@@ -144,8 +146,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             style={{ 
               background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
               borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
-              boxShadow: '0 8px 22px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
-              backdropFilter: 'blur(16px) saturate(150%)'
+              boxShadow: isHovered ? '0 8px 32px rgba(34, 211, 238, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.06)' : '0 8px 22px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(16px) saturate(150%)',
+              transition: 'border-color 1s ease-out, box-shadow 1.2s ease-out'
             }}
           >
             {/* Player name section */}
@@ -220,8 +223,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             style={{ 
               background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
               borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
-              boxShadow: '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
-              backdropFilter: 'blur(16px) saturate(150%)'
+              boxShadow: isHovered ? '0 6px 24px rgba(34, 211, 238, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.06)' : '0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
+              backdropFilter: 'blur(16px) saturate(150%)',
+              transition: 'border-color 1s ease-out, box-shadow 1.2s ease-out'
             }}
           >
             <div className="flex justify-between items-center">

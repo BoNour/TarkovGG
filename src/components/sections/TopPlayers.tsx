@@ -55,14 +55,14 @@ const TopPlayers: React.FC = () => {
         <div className="relative">
           {/* Decorative background elements */}
           
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {topPlayers.map((player, index) => (
               <div 
                 key={player.id} 
                 className="transition-all duration-500 ease-out"
                 style={{
-                  opacity: hoveredPlayerId && hoveredPlayerId !== player.id ? 0.6 : 1.0,
-                  animationDelay: `${index * 100}ms`
+                  animationDelay: `${index * 100}ms`,
+                  transform: hoveredPlayerId === player.id ? 'scale(1.05)' : 'scale(1.0)',
                 }}
                 onMouseEnter={() => setHoveredPlayerId(player.id)}
                 onMouseLeave={() => setHoveredPlayerId(null)}
