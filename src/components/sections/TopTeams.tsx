@@ -24,19 +24,19 @@ const TopTeams: React.FC = () => {
         </div>
         
         {/* Loading grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-5 gap-6">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="relative rounded-xl overflow-hidden bg-white/5 animate-pulse">
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
               <div className="absolute inset-0 rounded-xl border border-white/10"></div>
-              <div className="relative p-4 text-center">
+              <div className="relative px-4 py-2 text-center">
                 <div className="absolute top-1 left-1">
-                  <div className="w-6 h-6 bg-gray-700 rounded-lg"></div>
+                  <div className="w-5 h-5 bg-gray-700 rounded-lg"></div>
                 </div>
-                <div className="mb-3">
-                  <div className="w-14 h-14 bg-gray-700 rounded-xl mx-auto"></div>
+                <div className="mb-2">
+                  <div className="w-12 h-12 bg-gray-700 rounded-xl mx-auto"></div>
                 </div>
-                <div className="h-4 bg-gray-700 rounded w-3/4 mx-auto mb-2"></div>
+                <div className="h-4 bg-gray-700 rounded w-3/4 mx-auto mb-1"></div>
                 <div className="h-5 bg-gray-700 rounded w-8 mx-auto mb-1"></div>
                 <div className="h-3 bg-gray-700 rounded w-6 mx-auto"></div>
               </div>
@@ -65,7 +65,7 @@ const TopTeams: React.FC = () => {
       </div>
       
       {/* Teams grid - compact cards side by side */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-5 gap-6">
           {topTeams.map((team, index) => {
             // Generate a mock ELO rating based on win rate (1000-1400 range)
             const eloRating = Math.floor(1000 + (team.stats.winRate * 400));
@@ -101,10 +101,10 @@ const TopTeams: React.FC = () => {
                 }`}></div>
 
                 {/* Content */}
-                <div className="relative p-4 text-center">
+                <div className="relative px-4 py-2 text-center">
                   {/* Rank indicator - rounded square badge */}
-                  <div className="absolute top-3 left-3">
-                    <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shadow-md ${
+                  <div className="absolute top-2 left-2">
+                    <div className={`w-5 h-5 rounded-lg flex items-center justify-center text-xs font-bold shadow-md ${
                       index === 0 
                         ? 'bg-gradient-to-br from-yellow-400/80 to-yellow-500/80 text-black' 
                         : index === 1
@@ -118,8 +118,8 @@ const TopTeams: React.FC = () => {
                   </div>
 
                   {/* Team logo with enhanced styling */}
-                  <div className="mb-3 relative">
-                    <div className="w-14 h-14 mx-auto relative">
+                  <div className="mb-2 relative">
+                    <div className="w-12 h-12 mx-auto relative">
                       <img 
                         src={team.logo} 
                         alt={team.name}
@@ -135,7 +135,7 @@ const TopTeams: React.FC = () => {
                   </div>
 
                   {/* Team name with better typography */}
-                  <h4 className="text-sm font-bold text-white group-hover:text-yellow-300 transition-colors mb-2 leading-tight">
+                  <h4 className="text-sm font-bold text-white group-hover:text-yellow-300 transition-colors mb-1 leading-tight">
                     {team.name}
                   </h4>
 
