@@ -210,7 +210,7 @@ const MatchDetails: React.FC = () => {
           <div className="p-6">
             <div className="aspect-video rounded-lg overflow-hidden bg-black/20 border border-white/10">
               <iframe
-                src="https://player.twitch.tv/?channel=bunnyxpaco&parent=localhost&parent=your-domain.com&autoplay=false&muted=true"
+                src={`https://player.twitch.tv/?channel=bunnyxpaco&parent=localhost&parent=${window.location.hostname}&autoplay=false&muted=true`}
                 height="100%"
                 width="100%"
                 allowFullScreen
