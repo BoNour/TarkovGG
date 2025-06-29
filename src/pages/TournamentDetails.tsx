@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useGameData } from '../context/GameDataContext';
-import { ArrowLeft, Calendar, MapPin, Trophy, Users, Star, Target } from 'lucide-react';
+import { ArrowLeft, MapPin, Trophy, Users, Star, Target } from 'lucide-react';
 import MatchCard from '../components/ui/MatchCard';
 
 const TournamentDetails: React.FC = () => {
@@ -36,7 +36,7 @@ const TournamentDetails: React.FC = () => {
         <div className="fixed inset-0 z-0 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: "url('/BACKGROUND.png')" }}></div>
         <div className="fixed inset-0 z-10" style={{ background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)' }}></div>
         <div className="relative z-30 pt-8">
-          <div className="max-w-none mx-[7%] px-4 py-20">
+          <div className="max-w-none mx-[14%] px-4 py-20">
             <div className="animate-pulse space-y-8">
               <div className="h-10 w-48 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl"></div>
               <div className="h-64 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-3xl"></div>
@@ -83,7 +83,7 @@ const TournamentDetails: React.FC = () => {
       </div>
 
       <div className="relative z-30 pt-8">
-        <div className="max-w-none mx-[7%] px-4 py-12 space-y-12">
+        <div className="max-w-none mx-[14%] px-4 py-12 space-y-12">
           
           <div className="mb-8">
             <Link to="/tournaments" className="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300 group">
@@ -106,15 +106,12 @@ const TournamentDetails: React.FC = () => {
                   <p className="text-lg text-gray-400 max-w-2xl">{tournament.description}</p>
                 </div>
               </div>
-              <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                 <div className="space-y-1">
                   <p className="text-sm text-gray-400 uppercase tracking-widest">Prize Pool</p>
                   <p className="text-2xl font-bold text-yellow-400">{tournament.prizePool}</p>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-sm text-gray-400 uppercase tracking-widest">Dates</p>
-                  <p className="text-lg font-semibold text-white">{new Date(tournament.startDate).toLocaleDateString()} - {new Date(tournament.endDate).toLocaleDateString()}</p>
-                </div>
+
                 <div className="space-y-1">
                   <p className="text-sm text-gray-400 uppercase tracking-widest">Location</p>
                   <p className="text-lg font-semibold text-white">{tournament.location}</p>

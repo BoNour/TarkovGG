@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Trophy } from 'lucide-react';
+import { MapPin, Trophy } from 'lucide-react';
 import { Tournament } from '../../types';
 
 interface TournamentCardProps {
@@ -17,13 +17,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, variant = '
   const isUpcoming = startDate > now;
   const isFinished = endDate < now;
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
+
 
   const getStatusColor = () => {
     if (isOngoing) return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30';
@@ -86,16 +80,6 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, variant = '
               {/* Info Grid */}
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3 transition-all duration-500 group-hover:translate-x-0.5" style={{ transitionDelay: '100ms' }}>
-                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center transition-all duration-500 group-hover:bg-blue-500/25 group-hover:scale-105">
-                      <Calendar className="w-4 h-4 text-blue-400" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Duration</p>
-                      <p className="text-sm text-white font-medium">{formatDate(startDate)} - {formatDate(endDate)}</p>
-                    </div>
-                  </div>
-                  
                   <div className="flex items-center space-x-3 transition-all duration-500 group-hover:translate-x-0.5" style={{ transitionDelay: '200ms' }}>
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center transition-all duration-500 group-hover:bg-emerald-500/25 group-hover:scale-105">
                       <MapPin className="w-4 h-4 text-emerald-400" />
@@ -183,10 +167,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, variant = '
       {/* Content */}
       <div className="p-5">
         <div className="flex items-center justify-between text-sm text-gray-300 mb-4">
-          <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-blue-400" />
-            <span>{formatDate(startDate)} - {formatDate(endDate)}</span>
-          </div>
+          <div></div>
           <span className="text-purple-400 font-medium">{tournament.teams.length} teams</span>
         </div>
         

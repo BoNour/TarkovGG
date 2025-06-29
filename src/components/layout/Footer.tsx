@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center group">
               <img 
@@ -45,6 +45,23 @@ const Footer: React.FC = () => {
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">YouTube</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">Twitch</a></li>
             </ul>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <a 
+              href="https://bolt.new/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group transition-all duration-300"
+            >
+              <img 
+                src="/bolt.png" 
+                alt="Powered by Bolt" 
+                className="h-24 w-auto transition-all duration-300 group-hover:scale-110 opacity-90 hover:opacity-100 group-hover:drop-shadow-lg" 
+              />
+            </a>
+            <p className="mt-2 text-xs text-gray-400 text-center">
+              Built with Bolt.new
+            </p>
           </div>
         </div>
       </div>

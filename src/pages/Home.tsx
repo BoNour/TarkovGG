@@ -63,7 +63,7 @@ const Home: React.FC = () => {
           <div className="w-full px-6">
             <div 
             // SCREEN PADDING HERE BICH
-              className="relative overflow-hidden rounded-2xl p-6 mx-[13%]"
+              className="relative overflow-hidden rounded-2xl p-6 mx-[14%]"
               style={{
                 backgroundColor: 'rgba(24, 24, 27, 0.7)',
                 backdropFilter: 'blur(12px)',

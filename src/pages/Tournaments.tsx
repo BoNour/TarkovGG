@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGameData } from '../context/GameDataContext';
-import { Search, Filter, Calendar, Trophy, MapPin, DollarSign, Users, Clock, Star, Award, Target, Zap, Crown, Play, Eye, Sparkles, TrendingUp, Globe, ArrowRight } from 'lucide-react';
+import { Search, Filter, Trophy, MapPin, DollarSign, Users, Clock, Star, Award, Target, Zap, Crown, Play, Eye, Sparkles, TrendingUp, Globe, ArrowRight } from 'lucide-react';
 import { TournamentType, TournamentFormat } from '../types';
 import { Link } from 'react-router-dom';
 
@@ -132,7 +132,7 @@ const Tournaments: React.FC = () => {
         ></div>
 
         <div className="relative z-30 pt-8">
-          <div className="max-w-none mx-[7%] px-6 py-20">
+          <div className="max-w-none mx-[14%] px-6 py-20">
             <div className="animate-pulse space-y-8">
               <div className="h-16 w-64 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-3xl"></div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -189,7 +189,7 @@ const Tournaments: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-none mx-[7%] px-4">
+          <div className="max-w-none mx-[14%] px-4">
             {/* Main Header Container - Exact same size for all pages */}
             <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
@@ -214,7 +214,7 @@ const Tournaments: React.FC = () => {
 
         {/* Content Section */}
         <section className="pb-6">
-          <div className="max-w-none mx-[7%] px-2 sm:px-4 lg:px-6 xl:px-8">
+          <div className="max-w-none mx-[14%] px-2 sm:px-4 lg:px-6 xl:px-8">
 
             {/* Tournaments Grid */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mt-8">
@@ -265,13 +265,7 @@ const Tournaments: React.FC = () => {
 
                             {/* Tournament Details Grid */}
                             <div className="flex-1 min-h-0 space-y-4">
-                                <div className="flex items-start space-x-3 text-gray-400">
-                                  <Calendar size={16} className="text-blue-400 flex-shrink-0 mt-1" />
-                                  <div className="flex-1">
-                                    <div className="text-sm text-gray-500 uppercase tracking-wide">Date</div>
-                                    <div className="text-white font-medium text-base">{formatDate(tournament.startDate)}</div>
-                                  </div>
-                                </div>
+
                                 <div className="flex items-start space-x-3 text-gray-400">
                                   <MapPin size={16} className="text-green-400 flex-shrink-0 mt-1" />
                                   <div className="flex-1">

@@ -81,7 +81,7 @@ const News: React.FC = () => {
         ></div>
 
         <div className="relative z-30 pt-8">
-          <div className="max-w-none mx-[7%] px-6 py-20">
+          <div className="max-w-none mx-[14%] px-6 py-20">
             {/* Enhanced loading animation */}
             <div className="space-y-12">
               {/* Loading header */}
@@ -180,7 +180,7 @@ const News: React.FC = () => {
         
         {/* Minimalist Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-none mx-[7%] px-4">
+          <div className="max-w-none mx-[14%] px-4">
             {/* Main Header Container */}
             <div className="glass-panel rounded-3xl p-12 relative overflow-hidden">
               {/* Subtle Decorative Elements */}
@@ -218,7 +218,7 @@ const News: React.FC = () => {
 
         {/* Content Section */}
         <section className="pb-6">
-          <div className="max-w-none mx-[7%] px-2 sm:px-4 lg:px-6 xl:px-8">
+          <div className="max-w-none mx-[14%] px-2 sm:px-4 lg:px-6 xl:px-8">
 
             {/* News Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

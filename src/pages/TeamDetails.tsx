@@ -81,7 +81,7 @@ const TeamDetails: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative z-30 max-w-none mx-[14%] px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
             <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
             <div className="h-32 bg-white/10 rounded mb-8"></div>
@@ -123,7 +123,7 @@ const TeamDetails: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12 text-center">
+        <div className="relative z-30 max-w-none mx-[14%] px-4 sm:px-6 lg:px-8 py-12 text-center">
           <h1 className="text-3xl font-bold mb-4 text-white">Team not found</h1>
           <p className="text-gray-400 mb-8">The team you're looking for doesn't exist or has been removed.</p>
           <Link 
@@ -178,7 +178,7 @@ const TeamDetails: React.FC = () => {
         
         {/* Header Section */}
         <section className="py-16 relative">
-          <div className="relative max-w-none mx-[7%] px-4 lg:px-8 xl:px-12">
+          <div className="relative max-w-none mx-[14%] px-4 lg:px-8 xl:px-12">
             {/* Back button */}
             <div className="mb-8">
               <Link 

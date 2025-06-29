@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGameData } from '../../context/GameDataContext';
-import { Trophy, Calendar, ArrowRight } from 'lucide-react';
+import { Trophy, ArrowRight } from 'lucide-react';
 
 const FeaturedTournaments: React.FC = () => {
   const { tournaments, isLoading } = useGameData();
@@ -105,10 +105,7 @@ const FeaturedTournaments: React.FC = () => {
                   <Trophy size={12} className="text-yellow-400" />
                   <span className="font-semibold text-yellow-400">{tournament.prizePool}</span>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <Calendar size={12} className="text-gray-400" />
-                  <span className="text-gray-300">{new Date(tournament.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                </div>
+
               </div>
             </div>
             

@@ -108,7 +108,7 @@ const Players: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative z-30 max-w-none mx-[14%] px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
             <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
             <div className="h-12 bg-white/10 rounded mb-8"></div>
@@ -163,42 +163,42 @@ const Players: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-none mx-[7%] px-4">
-            {/* Main Header Container - Exact same size for all pages */}
-            <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
-              {/* Subtle Decorative Elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
-              
-              {/* Header Content - Exact same structure for all pages */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
-                {/* Page Title */}
-                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
-                  Players
-                </h1>
+                      <div className="max-w-none mx-[14%] px-4">
+              {/* Main Header Container - Exact same size for all pages */}
+              <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
+                {/* Subtle Decorative Elements */}
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
                 
-                {/* Page Subtitle */}
-                <p className="text-xl text-gray-300 font-medium">
-                  Explore top players and their performance statistics
-                </p>
+                {/* Header Content - Exact same structure for all pages */}
+                <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
+                  {/* Page Title */}
+                  <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                    Players
+                  </h1>
+                  
+                  {/* Page Subtitle */}
+                  <p className="text-xl text-gray-300 font-medium">
+                    Explore top players and their performance statistics
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
         </header>
 
         {/* Main Content Section */}
         <section className="relative pb-16">
-          <div className="max-w-none mx-[7%] px-4">
+          <div className="max-w-none mx-[14%] px-4">
             <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
               
               {/* Table View */}
               {viewMode === 'table' && (
-                <div className="relative overflow-hidden rounded-3xl bg-black/20 border border-white/10">
+                <div className="relative overflow-hidden">
                   <div className="relative overflow-x-auto">
                     <table className="w-full">
                       <thead>
                         {/* Filters and Controls Header Row */}
-                        <tr className="bg-gradient-to-r from-white/5 to-white/10 border-b border-white/10">
+                        <tr className="border-b border-white/10">
                           <th colSpan={8} className="px-6 py-4">
                             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 {/* View Mode Toggle */}
@@ -306,7 +306,7 @@ const Players: React.FC = () => {
                         </tr>
                         
                         {/* Column Headers Row */}
-                        <tr className="bg-gradient-to-r from-white/10 to-white/15 border-b border-white/10">
+                        <tr className="border-b border-white/10">
                           <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Rank</th>
                           <th className="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
                             <button 
@@ -437,7 +437,7 @@ const Players: React.FC = () => {
           {viewMode === 'cards' && (
                 <div>
                   {/* Cards Header with Filters */}
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-xl border-b border-white/10">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-black/20 rounded-xl border-b border-white/10">
                     {/* View Mode Toggle */}
                     <div className="flex justify-center lg:justify-start">
                       <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
@@ -607,7 +607,7 @@ const Players: React.FC = () => {
           {viewMode === 'charts' && (
                 <div>
                   {/* Charts Header with Filters */}
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-xl border-b border-white/10">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-black/20 rounded-xl border-b border-white/10">
                     {/* View Mode Toggle */}
                     <div className="flex justify-center lg:justify-start">
                       <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">

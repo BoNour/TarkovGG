@@ -106,7 +106,7 @@ const Teams: React.FC = () => {
           }}
         ></div>
         
-        <div className="relative z-30 max-w-none mx-[7%] px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative z-30 max-w-none mx-[14%] px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
             <div className="h-10 w-48 bg-white/10 rounded mb-8"></div>
             <div className="h-12 bg-white/10 rounded mb-8"></div>
@@ -161,32 +161,32 @@ const Teams: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-none mx-[7%] px-4">
-            {/* Main Header Container - Exact same size for all pages */}
-            <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
-              {/* Subtle Decorative Elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
-              
-              {/* Header Content - Exact same structure for all pages */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
-                {/* Page Title */}
-                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
-                  Teams
-                </h1>
+                      <div className="max-w-none mx-[14%] px-4">
+              {/* Main Header Container - Exact same size for all pages */}
+              <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
+                {/* Subtle Decorative Elements */}
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
                 
-                {/* Page Subtitle */}
-                <p className="text-xl text-gray-300 font-medium">
-                  Discover top performing teams and their statistics
-                </p>
+                {/* Header Content - Exact same structure for all pages */}
+                <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
+                  {/* Page Title */}
+                  <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                    Teams
+                  </h1>
+                  
+                  {/* Page Subtitle */}
+                  <p className="text-xl text-gray-300 font-medium">
+                    Discover top performing teams and their statistics
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
         </header>
 
         {/* Main Content Section */}
         <section className="relative pb-16">
-          <div className="max-w-none mx-[7%] px-4">
+          <div className="max-w-none mx-[14%] px-4">
             {/* Charts View - No wrapper */}
             {viewMode === 'charts' ? (
               <div>

@@ -60,7 +60,7 @@ const NewsArticle: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-30 pt-16 pb-24 text-white">
-        <div className="max-w-none mx-[7%] px-4 lg:px-8">
+        <div className="max-w-none mx-[14%] px-4 lg:px-8">
           
           {/* Main Article Container */}
           <div 

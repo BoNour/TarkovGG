@@ -99,7 +99,7 @@ const Matches: React.FC = () => {
         ></div>
         
         <div className="relative z-30 pt-8">
-          <div className="max-w-none mx-[7%] px-6 py-20">
+          <div className="max-w-none mx-[14%] px-6 py-20">
           <div className="animate-pulse space-y-8">
               <div className="h-16 w-64 backdrop-blur-3xl bg-white/5 border border-white/10 rounded-3xl"></div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -222,7 +222,7 @@ const Matches: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-          <div className="max-w-none mx-[7%] px-4">
+          <div className="max-w-none mx-[14%] px-4">
             {/* Main Header Container - Exact same size for all pages */}
             <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
               {/* Subtle Decorative Elements */}
@@ -275,7 +275,7 @@ const Matches: React.FC = () => {
 
         {/* Content Section */}
         <section className="pb-6">
-          <div className="max-w-none mx-[7%] px-2 sm:px-4 lg:px-6 xl:px-8">
+          <div className="max-w-none mx-[14%] px-2 sm:px-4 lg:px-6 xl:px-8">
             
             {viewMode === 'stats' ? (
               /* Analytics Dashboard with Graphs & Numbers */
