@@ -45,8 +45,15 @@ const LatestMatches: React.FC = () => {
 
       {displayedMatches.length > 0 ? (
         <div className="space-y-3">
-          {displayedMatches.map((match) => (
-            <MatchCard key={match.id} match={match} compact={true} />
+          {displayedMatches.map((match, index) => (
+            <div
+              key={match.id}
+              style={{
+                animation: `fadeInUp 0.6s ease-out ${index * 120}ms both`
+              }}
+            >
+              <MatchCard match={match} compact={true} />
+            </div>
           ))}
         </div>
       ) : (
