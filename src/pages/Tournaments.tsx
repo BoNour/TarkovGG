@@ -240,8 +240,8 @@ const Tournaments: React.FC = () => {
 
 
                       
-                      <div className="relative flex h-[28rem]">
-                        <div className="w-2/3 relative bg-white/[0.03] overflow-hidden flex items-center justify-center">
+                      <div className="relative flex flex-col h-[30rem]">
+                        <div className="h-1/2 relative bg-white/[0.03] overflow-hidden flex items-center justify-center">
                           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent z-10"></div>
                           <img 
                             src={tournament.logo} 
@@ -250,41 +250,44 @@ const Tournaments: React.FC = () => {
                           />
                         </div>
 
-                        <div className="w-1/3 p-8  flex flex-col relative min-h-0 border-l border-white/10">
+                        <div className="h-1/2 p-5 flex flex-col relative min-h-0 border-t border-white/10">
                           <div className="flex-1 flex flex-col min-h-0">
                             {/* Tournament Title */}
-                            <div className="mb-6 flex-shrink-0">
-                              <h3 className="font-bold text-2xl text-white group-hover:text-purple-300 transition-colors mb-3 leading-tight">
+                            <div className="mb-3 flex-shrink-0">
+                              <h3 className="font-bold text-3xl text-white group-hover:text-purple-300 transition-colors mb-2 leading-tight">
                                 {tournament.name}
                               </h3>
-                              <div className="flex items-center space-x-3 text-gray-400">
-                                <Trophy size={18} className="text-yellow-400 flex-shrink-0" />
-                                <span className="font-bold text-xl text-white">{tournament.prizePool}</span>
-                              </div>
                             </div>
 
                             {/* Tournament Details Grid */}
-                            <div className="flex-1 min-h-0 space-y-4">
+                            <div className="flex-1 min-h-0 grid grid-cols-2 gap-3">
 
-                                <div className="flex items-start space-x-3 text-gray-400">
-                                  <MapPin size={16} className="text-green-400 flex-shrink-0 mt-1" />
+                                <div className="flex items-start space-x-2 text-gray-400">
+                                  <Trophy size={20} className="text-yellow-400 flex-shrink-0 mt-1" />
                                   <div className="flex-1">
-                                    <div className="text-sm text-gray-500 uppercase tracking-wide">Location</div>
-                                    <div className="text-white font-medium text-base">{tournament.location}</div>
+                                    <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Prize Pool</div>
+                                    <div className="text-white font-semibold text-lg">{tournament.prizePool}</div>
                                   </div>
                                 </div>
-                                <div className="flex items-start space-x-3 text-gray-400">
-                                  <Target size={16} className="text-purple-400 flex-shrink-0 mt-1" />
+                                <div className="flex items-start space-x-2 text-gray-400">
+                                  <MapPin size={20} className="text-green-400 flex-shrink-0 mt-1" />
                                   <div className="flex-1">
-                                    <div className="text-sm text-gray-500 uppercase tracking-wide">Format</div>
-                                    <div className="text-white font-medium text-base">{tournament.format.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</div>
+                                    <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Location</div>
+                                    <div className="text-white font-semibold text-lg">{tournament.location}</div>
                                   </div>
                                 </div>
-                                <div className="flex items-start space-x-3 text-gray-400">
-                                  <Users size={16} className="text-cyan-400 flex-shrink-0 mt-1" />
+                                <div className="flex items-start space-x-2 text-gray-400">
+                                  <Target size={20} className="text-purple-400 flex-shrink-0 mt-1" />
                                   <div className="flex-1">
-                                    <div className="text-sm text-gray-500 uppercase tracking-wide">Teams</div>
-                                    <div className="text-white font-medium text-base">{tournament.teams.length} registered</div>
+                                    <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Format</div>
+                                    <div className="text-white font-semibold text-lg">{tournament.format.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start space-x-2 text-gray-400">
+                                  <Users size={20} className="text-cyan-400 flex-shrink-0 mt-1" />
+                                  <div className="flex-1">
+                                    <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Teams</div>
+                                    <div className="text-white font-semibold text-lg">{tournament.teams.length} registered</div>
                                   </div>
                                 </div>
                             </div>
