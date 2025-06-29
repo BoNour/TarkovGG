@@ -210,7 +210,7 @@ const MatchDetails: React.FC = () => {
           <div className="p-6">
             <div className="aspect-video rounded-lg overflow-hidden bg-black/20 border border-white/10">
               <iframe
-                src={`https://player.twitch.tv/?channel=cryodrollic&parent=localhost&parent=${window.location.hostname}&autoplay=false&muted=true`}
+                src={`https://player.twitch.tv/?channel=justlock_tv&parent=localhost&parent=${window.location.hostname}&autoplay=false&muted=true`}
                 height="100%"
                 width="100%"
                 allowFullScreen
@@ -220,7 +220,7 @@ const MatchDetails: React.FC = () => {
             </div>
             <div className="mt-4 text-center">
               <a 
-                href="https://www.twitch.tv/cryodrollic" 
+                href="https://www.twitch.tv/justlock_tv" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`glass-button inline-flex items-center text-white px-6 py-3 rounded-xl font-semibold transition group ${
