@@ -210,10 +210,11 @@ const MatchDetails: React.FC = () => {
           <div className="p-6">
             <div className="aspect-video rounded-lg overflow-hidden bg-black/20 border border-white/10">
               <iframe
-                src={`https://player.twitch.tv/?channel=justlock_tv&parent=localhost&parent=${window.location.hostname}&autoplay=false&muted=true`}
+                src="https://player.twitch.tv/?channel=justlock_tv&parent=localhost&parent=www.example.com&autoplay=true&muted=false"
                 height="100%"
                 width="100%"
                 allowFullScreen
+                allow="autoplay; fullscreen"
                 className="w-full h-full"
                 title={isCompleted ? `Match VOD for ${teamOne.name} vs ${teamTwo.name}` : `Live stream for ${teamOne.name} vs ${teamTwo.name}`}
               />
