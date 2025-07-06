@@ -102,7 +102,7 @@ const Teams: React.FC = () => {
         <div 
           className="fixed inset-0 z-10" 
           style={{ 
-            background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+            background: 'radial-gradient(circle at center, rgba(16, 16, 18, 0.3) 10%, rgba(16, 16, 18, 0.85) 50%, rgba(16, 16, 18, 0.95) 85%)',
           }}
         ></div>
         
@@ -136,7 +136,7 @@ const Teams: React.FC = () => {
       <div 
         className="fixed inset-0 z-10" 
         style={{ 
-          background: 'radial-gradient(circle at center, transparent 20%, rgba(16, 16, 18, 0.8) 60%, rgba(16, 16, 18, 1) 90%)',
+          background: 'radial-gradient(circle at center, rgba(16, 16, 18, 0.3) 10%, rgba(16, 16, 18, 0.85) 50%, rgba(16, 16, 18, 0.95) 85%)',
         }}
       ></div>
       
@@ -161,27 +161,27 @@ const Teams: React.FC = () => {
         
         {/* Unified Header Section */}
         <header className="py-12 relative">
-                      <div className="max-w-none mx-[14%] px-4">
-              {/* Main Header Container - Exact same size for all pages */}
-              <div className="glass-panel rounded-3xl p-16 relative overflow-hidden" style={{ minHeight: '240px' }}>
-                {/* Subtle Decorative Elements */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
-                <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
+          <div className="max-w-none mx-[14%] px-4">
+            {/* Header Content */}
+            <div className="relative p-16 text-center" style={{ minHeight: '240px' }}>
+              {/* Subtle Decorative Elements */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/3 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/2 rounded-full blur-xl pointer-events-none"></div>
+              
+              {/* Header Content */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
+                {/* Page Title */}
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
+                  Teams
+                </h1>
                 
-                {/* Header Content - Exact same structure for all pages */}
-                <div className="relative z-10 flex flex-col items-center justify-center text-center h-full">
-                  {/* Page Title */}
-                  <h1 className="text-6xl lg:text-8xl font-black tracking-tighter text-white leading-none mb-6">
-                    Teams
-                  </h1>
-                  
-                  {/* Page Subtitle */}
-                  <p className="text-xl text-gray-300 font-medium">
-                    Discover top performing teams and their statistics
-                  </p>
-                </div>
+                {/* Page Subtitle */}
+                <p className="text-xl text-gray-300 font-medium">
+                  Discover top performing teams and their statistics
+                </p>
               </div>
             </div>
+          </div>
         </header>
 
         {/* Main Content Section */}
@@ -191,10 +191,10 @@ const Teams: React.FC = () => {
             {viewMode === 'charts' ? (
               <div>
                 {/* Charts Header with Filters */}
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-xl border-b border-white/10">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/10 to-white/15 rounded-xl border-b border-white/20">
                   {/* View Mode Toggle */}
                   <div className="flex justify-center lg:justify-start">
-                    <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                    <div className="flex items-center bg-black/50 p-2 rounded-2xl border border-white/15 backdrop-blur-sm">
                       <button
                         onClick={() => setViewMode('table')}
                         className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
@@ -289,7 +289,7 @@ const Teams: React.FC = () => {
                     const totalWins = regionTeams.reduce((sum, t) => sum + t.stats.wins, 0);
                     
                     return (
-                      <div key={region} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300">
+                      <div key={region} className="bg-black/40 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300">
                         <h4 className="font-bold text-white text-lg mb-2">{region}</h4>
                         <p className="text-gray-400 text-sm mb-4">{regionTeams.length} teams</p>
                         <div className="space-y-3">
@@ -306,21 +306,21 @@ const Teams: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="glass-panel rounded-3xl p-8 relative overflow-hidden">
+              <div className="relative">
                 
                 {/* Table View */}
                 {viewMode === 'table' && (
-                <div className="relative overflow-hidden rounded-3xl bg-black/20 border border-white/10">
+                <div className="relative overflow-hidden rounded-3xl bg-black/60 border border-white/20">
                   <div className="relative overflow-x-auto">
                     <table className="w-full">
                       <thead>
                         {/* Filters and Controls Header Row */}
-                        <tr className="bg-gradient-to-r from-white/5 to-white/10 border-b border-white/10">
+                        <tr className="bg-gradient-to-r from-white/10 to-white/15 border-b border-white/20">
                           <th colSpan={8} className="px-6 py-4">
                             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                               {/* View Mode Toggle */}
                               <div className="flex justify-center lg:justify-start">
-                                <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                                <div className="flex items-center bg-black/50 p-2 rounded-2xl border border-white/15 backdrop-blur-sm">
                                   <button
                                     onClick={() => setViewMode('table')}
                                     className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
@@ -407,7 +407,7 @@ const Teams: React.FC = () => {
                         </tr>
                         
                         {/* Column Headers Row */}
-                        <tr className="bg-gradient-to-r from-white/10 to-white/15 border-b border-white/10">
+                        <tr className="bg-gradient-to-r from-white/15 to-white/20 border-b border-white/20">
                           <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Rank</th>
                           <th className="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-widest">
                             <button 
@@ -450,7 +450,7 @@ const Teams: React.FC = () => {
                           <th className="px-3 py-4 text-center text-xs font-medium text-gray-400 uppercase tracking-widest">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/10">
+                      <tbody className="divide-y divide-white/20">
                         {sortedTeams.map((team, index) => {
                           // Calculate Elo rating based on win rate and performance
                           const baseElo = 1200;
@@ -463,11 +463,11 @@ const Teams: React.FC = () => {
                             if (rank === 1) return 'bg-gradient-to-r from-yellow-500/30 to-yellow-400/30 border-yellow-500/50 text-yellow-300';
                             if (rank === 2) return 'bg-gradient-to-r from-gray-400/30 to-gray-300/30 border-gray-400/50 text-gray-300';
                             if (rank === 3) return 'bg-gradient-to-r from-orange-600/30 to-orange-500/30 border-orange-600/50 text-orange-300';
-                            return 'bg-white/10 border-white/20 text-white';
+                            return 'bg-black/30 border-white/20 text-white';
                           };
                           
                           return (
-                            <tr key={team.id} className="hover:bg-white/5 transition-colors duration-200">
+                            <tr key={team.id} className="bg-black/20 hover:bg-black/40 transition-colors duration-200">
                               <td className="px-3 py-6 text-center">
                                 <div className="flex items-center justify-center">
                                   <span className={`font-bold text-lg rounded-full w-10 h-10 flex items-center justify-center border transition-all duration-200 ${getRankingStyle(index + 1)}`}>
@@ -527,10 +527,10 @@ const Teams: React.FC = () => {
               {viewMode === 'cards' && (
                 <div>
                   {/* Cards Header with Filters */}
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-xl border-b border-white/10">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 p-4 bg-gradient-to-r from-white/10 to-white/15 rounded-xl border-b border-white/20">
                     {/* View Mode Toggle */}
                     <div className="flex justify-center lg:justify-start">
-                      <div className="flex items-center bg-black/30 p-2 rounded-2xl border border-white/10 backdrop-blur-sm">
+                      <div className="flex items-center bg-black/50 p-2 rounded-2xl border border-white/15 backdrop-blur-sm">
                         <button
                           onClick={() => setViewMode('table')}
                           className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
@@ -616,7 +616,7 @@ const Teams: React.FC = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {sortedTeams.map((team, index) => (
-                    <div key={team.id} className="relative overflow-hidden rounded-3xl bg-black/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <div key={team.id} className="relative overflow-hidden rounded-3xl bg-black/60 backdrop-blur-md border border-white/20 hover:border-white/30 transition-all duration-300">
                       <div className="relative p-6">
                         <div className="flex items-center mb-6">
                           <img
@@ -657,9 +657,7 @@ const Teams: React.FC = () => {
                     </div>
                   ))}
                   </div>
-                </div>
-              )}
-
+                  
                   {sortedTeams.length === 0 && (
                     <div className="text-center py-16">
                       <p className="text-xl text-gray-400 font-medium">No teams found. Try adjusting your filters.</p>
@@ -667,6 +665,8 @@ const Teams: React.FC = () => {
                   )}
                 </div>
               )}
+            </div>
+          )}
           </div>
         </section>
 
@@ -685,37 +685,37 @@ const Teams: React.FC = () => {
           }
           
           .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 
-              0 8px 32px 0 rgba(0, 0, 0, 0.37),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+              0 8px 32px 0 rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
           }
           
           .glass-input {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.3s ease;
           }
           
           .glass-input:focus {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
           }
           
           .glass-button {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.3s ease;
           }
           
           .glass-button:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-1px);
           }
         `}</style>
