@@ -29,6 +29,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex md:justify-center md:flex-1">
             <div className="flex items-baseline space-x-1">
               <Link to="/" className="text-gray-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300">Home</Link>
+              <Link to="/stats" className="text-gray-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300">Stats</Link>
               <Link to="/matches" className="text-gray-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300">Matches</Link>
               <Link to="/tournaments" className="text-gray-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300">Tournaments</Link>
               <Link to="/teams" className="text-gray-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300">Teams</Link>
@@ -63,6 +64,13 @@ const Navbar: React.FC = () => {
               onClick={() => setIsOpen(false)}
             >
               Home
+            </Link>
+            <Link 
+              to="/stats" 
+              className="text-gray-300 hover:bg-white/5 hover:text-white block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Stats
             </Link>
             <Link 
               to="/matches" 

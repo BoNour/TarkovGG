@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
 import Home from './pages/Home';
+import Stats from './pages/Stats';
 import PlayerDetails from './pages/PlayerDetails';
 import Players from './pages/Players';
 import Teams from './pages/Teams';
@@ -27,6 +28,7 @@ function App() {
           <main className="flex-grow pt-16">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/stats" element={<Stats />} />
               <Route path="/players" element={<Players />} />
               <Route path="/players/:id" element={<PlayerDetails />} />
               <Route path="/teams" element={<Teams />} />

@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Player, Team, Match, Tournament, News, ExPlayer } from '../types';
 import { 
-  mockPlayers, 
-  mockTeams, 
-  mockMatches, 
   mockTournaments, 
   mockNews,
   mockExPlayers 
 } from '../data/mockData';
+import { CsvService } from '../utils/csvService';
 
 interface GameDataContextType {
   players: Player[];
@@ -45,25 +43,35 @@ export const GameDataProvider = ({ children }: GameDataProviderProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // In a real app, we would fetch this data from an API
-    // For now, we'll use mock data to simulate the API response
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        setPlayers(mockPlayers);
-        setTeams(mockTeams);
-        setMatches(mockMatches);
+        setIsLoading(true);
+        
+        // Load CSV data
+        const csvService = CsvService.getInstance();
+        await csvService.loadAllData();
+        
+        // Get real data from CSV files
+        const csvPlayers = csvService.getPlayers();
+        const csvTeams = csvService.getTeams();
+        const csvMatches = csvService.getMatches();
+        
+        setPlayers(csvPlayers);
+        setTeams(csvTeams);
+        setMatches(csvMatches);
         setTournaments(mockTournaments);
         setNews(mockNews);
         setExPlayers(mockExPlayers);
+        
         setIsLoading(false);
       } catch (error) {
+        console.error('Failed to load CSV data:', error);
         setError('Failed to fetch data');
         setIsLoading(false);
       }
     };
 
-    // Simulate network request
-    setTimeout(fetchData, 1000);
+    fetchData();
   }, []);
 
   return (
