@@ -10,7 +10,9 @@ interface PlayerCardProps {
   isHovered?: boolean;
 }
 
-const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', isHovered }) => {
+const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', isHovered: externalIsHovered }) => {
+  // For backward compatibility, keep the isHovered prop but we'll use CSS hover states instead
+  const isHovered = externalIsHovered || false;
   const { teams } = useGameData();
   
   const team = teams.find(t => t.id === player.teamId);
@@ -39,28 +41,22 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
     <div className="relative" style={{ zIndex: isHovered ? -1 : 1 }}>
       {/* Card background container with proper overflow handling */}
       <div 
-        className="relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu"
+        className="group relative rounded-3xl transition-all duration-500 backdrop-blur-sm transform-gpu hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]"
         style={{ 
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
         }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)';
-        }}
       >
         
-        {/* Image area background - clipped for card shape */}
+        {/* Image area background - allows overflow for scaled image */}
         <div className="relative h-40 rounded-t-3xl overflow-visible">
           <div className="w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
           
-          {/* Sharp image for top portion */}
-          <div className="absolute inset-0 flex items-start justify-center" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 99%, 0 99%)' }}>
+          {/* Sharp image for top portion - can extend into bottom on hover */}
+          <div className="absolute inset-0 flex items-start justify-center overflow-visible">
             <img 
               src={player.image} 
               alt={player.nickname} 
-              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.3]' : 'translate-y-2 scale-[0.95]'}`}
+              className="player-card-image object-contain transition-all duration-700 transform-gpu translate-y-2 scale-[0.95] group-hover:scale-[1.4]"
               style={{ 
                 filter: 'contrast(1) brightness(1.3)',
                 height: '120%',
@@ -77,16 +73,16 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
             <img 
               src={player.image} 
               alt="" 
-              className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-2 scale-[0.95]'}`}
+              className="player-card-image-blurred object-contain transition-all duration-700 transform-gpu translate-y-2 scale-[0.95] group-hover:scale-[1.2] group-hover:opacity-70"
               style={{ 
                 filter: 'contrast(1) brightness(1.3) blur(2px)',
-                height: '120%',
+                height: '200%',
                 width: 'auto',
-                maxWidth: '120%',
+                maxWidth: '200%',
                 transformOrigin: 'center top',
-                opacity: isHovered ? 0.7 : 0.3,
-                maskImage: 'linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.8) 95%, rgba(0,0,0,0.4) 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.8) 95%, rgba(0,0,0,0.4) 100%)',
+                opacity: 0.3,
+                maskImage: 'linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.6) 85%, rgba(0,0,0,0.3) 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.6) 85%, rgba(0,0,0,0.3) 100%)',
                 transition: 'opacity 1s ease-out, transform 0.7s ease-out, filter 0.8s ease-out',
               }}
             />
@@ -94,18 +90,18 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         </div>
         
         {/* Blurred overflow image - only visible outside card bounds on hover */}
-        <div className="absolute top-0 left-0 w-full h-40 flex items-start justify-center pointer-events-none" style={{ zIndex: isHovered ? -10 : -1 }}>
-          <img 
-            src={player.image} 
-            alt="" 
-            className={`object-contain transition-all duration-700 transform-gpu ${isHovered ? 'translate-y-2 scale-[1.2]' : 'translate-y-5 scale-90'}`}
-            style={{ 
-              filter: 'contrast(1) brightness(1.3) blur(3px)',
-              height: '120%',
-              width: 'auto',
-              maxWidth: '120%',
-              transformOrigin: 'center top',
-              opacity: isHovered ? 0.8 : 0,
+        <div className="absolute top-0 left-0 w-full h-40 flex items-start justify-center pointer-events-none" style={{ zIndex: -1 }}>
+                      <img 
+              src={player.image} 
+              alt="" 
+              className="player-card-image-overflow object-contain transition-all duration-700 transform-gpu translate-y-5 scale-90 group-hover:translate-y-2 group-hover:scale-[1.2] group-hover:opacity-80"
+              style={{ 
+                filter: 'contrast(1) brightness(1.3) blur(3px)',
+                height: '120%',
+                width: 'auto',
+                maxWidth: '120%',
+                transformOrigin: 'center top',
+                opacity: 0,
               transition: 'opacity 1.2s ease-out, transform 0.7s ease-out',
             }}
           />
@@ -142,9 +138,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
         
         {variant === 'full' && (
           <div 
-            className="relative z-10 p-6 space-y-6 border rounded-b-3xl backdrop-blur-lg overflow-hidden"
+            className="relative z-20 p-6 space-y-6 border rounded-b-3xl backdrop-blur-lg overflow-hidden"
             style={{ 
-              background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.55) 0%, rgba(15, 16, 16, 0.78) 100%)',
+              background: 'linear-gradient(135deg, rgba(24, 25, 25, 0.65) 0%, rgba(15, 16, 16, 0.85) 100%)',
               borderColor: isHovered ? 'rgba(34, 211, 238, 0.35)' : 'rgba(255, 255, 255, 0.08)',
               boxShadow: isHovered ? '0 8px 32px rgba(34, 211, 238, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.06)' : '0 8px 22px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
               backdropFilter: 'blur(16px) saturate(150%)',
