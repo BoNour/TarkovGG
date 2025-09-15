@@ -67,7 +67,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, variant = 'compact', is
               }}
             />
           </div>
-          
+           
           {/* Blurred image extending into bottom section - always visible */}
           <div className="absolute top-0 left-0 w-full h-full flex items-start justify-center pointer-events-none" style={{ zIndex: 1 }}>
             <img 
