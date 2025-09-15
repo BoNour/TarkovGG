@@ -1,3 +1,3 @@
-# ArenaTV
+# TarkovGG
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/nourmad/ArenaTV)
+Platform for Tarkov esports statistcs 
